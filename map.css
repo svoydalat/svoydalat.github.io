@@ -246,6 +246,13 @@ svg { display: block; }
 .place__tip-h { margin: 0 0 4px; font: 600 1.55rem/1 var(--font-hand); color: var(--sunflower-deep); transform: rotate(-1deg); }
 .place__tip p { margin: 0; font-size: 15px; line-height: 1.55; }
 .place__approx { margin: 12px 0 0; font-size: 12.5px; color: var(--ink-soft); }
+
+/* Рельеф: цветная точка + короткая пометка, чтобы заранее знать про подъёмы */
+.place__slope { display: flex; align-items: flex-start; gap: 8px; margin: 12px 0 0; font-size: 13.5px; line-height: 1.45; color: var(--ink-soft); }
+.place__slope b { color: var(--ink); }
+.place__slope-dot { flex: none; width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; background: var(--pine-500); }
+.place__slope--hills .place__slope-dot { background: var(--sunflower); }
+.place__slope--steep .place__slope-dot { background: var(--clay); }
 .place__actions { display: grid; gap: 10px; margin-top: 20px; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
