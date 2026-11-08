@@ -119,6 +119,7 @@
 
       <nav class="hidden items-center gap-1 text-[15px] font-medium text-ink-soft lg:flex" aria-label="Основное меню">
         <a href="#dalat" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Далат</a>
+        <a href="map.html" class="inline-flex items-center gap-1.5 rounded-full bg-sunflower-soft/70 px-3.5 py-2 font-semibold text-ink transition hover:bg-sunflower-soft"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></svg>Карта</a>
         <a href="#services" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Услуги</a>
         <a href="#realty" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Жильё</a>
         <a href="#how" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Как это работает</a>
@@ -145,6 +146,7 @@
     <div id="mobile-menu" class="mx-auto mt-2 hidden max-w-6xl rounded-[1.75rem] bg-paper/95 p-2 shadow-2xl shadow-ink/10 ring-1 ring-ink/5 backdrop-blur-xl lg:hidden">
       <nav class="flex flex-col text-lg font-medium" aria-label="Мобильное меню">
         <a href="#dalat" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Далат</a>
+        <a href="map.html" class="flex items-center gap-3 rounded-2xl bg-sunflower-soft/70 px-4 py-3.5 font-semibold transition hover:bg-sunflower-soft"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></svg>Интерактивная карта Далата</a>
         <a href="#services" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Услуги</a>
         <a href="#realty" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Жильё на карте</a>
         <a href="#how" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Как это работает</a>
@@ -319,6 +321,15 @@
             <dd class="mt-1 font-serif text-5xl font-semibold leading-none text-pine-700">свитер</dd>
           </div>
         </dl>
+
+        <a href="map.html" class="reveal group mt-10 flex flex-col gap-4 rounded-[1.75rem] bg-pine-900 p-6 text-paper transition hover:bg-pine-800 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <span>
+            <span class="block font-hand text-[1.6rem] font-semibold leading-none text-sunflower-soft">карта-гид</span>
+            <span class="mt-2 block font-serif text-3xl font-semibold leading-tight sm:text-4xl">Интерактивная карта Далата</span>
+            <span class="mt-2 block max-w-xl text-paper/75">Озёра, водопады, рынки, кофейни над облаками, аэропорт и четыре района для жизни — с советами от своего.</span>
+          </span>
+          <span class="inline-flex flex-none items-center justify-center gap-2 self-start rounded-full bg-sunflower px-6 py-3.5 font-semibold text-ink transition group-hover:bg-sunflower-soft sm:self-auto">Открыть карту<svg class="h-5 w-5" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
 
         <div class="culture-grid mt-14 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           <article class="culture-card reveal">
@@ -578,7 +589,10 @@
             <p class="eyebrow"><span class="eyebrow__num">03</span>Аренда жилья</p>
             <h2 class="section-title mt-5">Квартиры, дома и комнаты <em>в&nbsp;аренду</em></h2>
           </div>
-          <p class="max-w-sm text-lg leading-relaxed text-ink-soft">Свежие варианты аренды в Далате. Понравился — оставьте заявку: проверю объект, договорюсь с хозяином и покажу его вам.</p>
+          <div class="max-w-sm">
+            <p class="text-lg leading-relaxed text-ink-soft">Свежие варианты аренды в Далате. Понравился — оставьте заявку: проверю объект, договорюсь с хозяином и покажу его вам.</p>
+            <a href="map.html" class="mt-4 inline-flex items-center gap-2 font-semibold text-pine-700 underline underline-offset-4 hover:text-pine-900">Какой район выбрать? Интерактивная карта Далата<svg class="h-4 w-4" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
         </div>
 
         <div id="realty-map-wrap" class="map-frame reveal relative isolate mt-12 overflow-hidden rounded-[2rem] bg-paper-deep">

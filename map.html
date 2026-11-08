@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Карта Далата — достопримечательности, районы и советы | Свой в Далате</title>
+  <meta name="description" content="Интерактивная карта-гид по Далату: озёра, водопады, рынки, кофейни над облаками, аэропорт и районы для жизни. К каждому месту — совет от своего и маршрут в Google Maps.">
+  <meta name="theme-color" content="#F4EFE5">
+  <link rel="canonical" href="https://razumovdimka-boop.github.io/map.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Свой в Далате">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://razumovdimka-boop.github.io/map.html">
+  <meta property="og:title" content="Карта Далата — что посмотреть и где жить">
+  <meta property="og:description" content="Озёра, водопады, рынки, кофейни над облаками и районы для жизни — с советами от своего.">
+  <meta property="og:image" content="https://razumovdimka-boop.github.io/img/hero-xuan-huong.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌲</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="map.css">
+</head>
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-tg" viewBox="4.3 5.15 14 14"><path fill="currentColor" d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></symbol>
+    <symbol id="i-pine" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M12 2.5 7.6 9h2.5l-3.6 5.4h3.1L6 20h12l-3.6-5.6h3.1L13.9 9h2.5z"/><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M12 20v2"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m6-6-6 6 6 6"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+  </svg>
+
+  <header class="mhead">
+    <div class="mhead__bar">
+      <a class="back" href="index.html" aria-label="Вернуться на главную">
+        <svg aria-hidden="true"><use href="#i-back"/></svg>
+        <span>На главную</span>
+      </a>
+      <a class="brand" href="index.html" aria-label="Свой в Далате">
+        <span class="brand__logo"><svg aria-hidden="true"><use href="#i-pine"/></svg></span>
+        <span class="brand__text">
+          <span class="brand__name">Свой в&nbsp;Далате</span>
+          <span class="brand__sub">Карта-гид · Đà Lạt</span>
+        </span>
+      </a>
+      <a class="tg-btn" id="tg-header" href="https://t.me/razumovdimka" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram">
+        <span class="tg-btn__ico"><svg aria-hidden="true"><use href="#i-tg"/></svg></span>
+        <span class="tg-btn__txt">Написать</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="app">
+    <aside id="list" class="list" aria-label="Список мест">
+      <div class="sheet-handle" data-handle="list" aria-hidden="true"></div>
+      <div class="list__head">
+        <h1 class="list__title">Далат на карте</h1>
+        <p class="list__count" id="list-count" aria-live="polite"></p>
+      </div>
+      <div class="list__body" id="list-body"></div>
+    </aside>
+
+    <main class="stage">
+      <div id="map" role="region" aria-label="Интерактивная карта Далата"></div>
+
+      <div class="filters">
+        <div class="filters__row" id="filters" role="group" aria-label="Фильтр по категориям"></div>
+      </div>
+
+      <div class="mobile-bar">
+        <button type="button" class="btn" id="open-list">
+          <svg aria-hidden="true"><use href="#i-list"/></svg>
+          Список мест
+        </button>
+      </div>
+    </main>
+
+    <article id="drawer" class="drawer" aria-live="polite" aria-label="Карточка места">
+      <div class="sheet-handle" data-handle="drawer" aria-hidden="true"></div>
+      <button type="button" class="drawer__close" id="drawer-close" aria-label="Закрыть карточку">
+        <svg aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+      <div class="drawer__scroll" id="drawer-body"></div>
+    </article>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="map.js"></script>
+</body>
+</html>
