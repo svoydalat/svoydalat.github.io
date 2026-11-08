@@ -41,6 +41,33 @@
     else window.open(httpsUrl, '_blank', 'noopener,noreferrer');
   };
 
+  /* ---------- Smart CTA: сообщение в Telegram зависит от места кнопки ---------- */
+  // Метка data-tg у ссылки: «general», «service:Название услуги» или «housing[:что ищем]»
+  const TELEGRAM_CHAT = 'https://t.me/razumovdimka';
+  const telegramMessage = (kind, detail) => {
+    if (kind === 'service') return `Привет! Интересует услуга «${detail}» в Далате. Подскажи по деталям: `;
+    if (kind === 'housing') return `Привет! Ищу жильё в Далате${detail ? ` (${detail})` : ''}. Мои даты и бюджет: `;
+    return 'Привет! Я с сайта Свой в Далате. Хочу проконсультироваться по поездке/жилью: ';
+  };
+  const telegramUrl = (kind, detail) => `${TELEGRAM_CHAT}?text=${encodeURIComponent(telegramMessage(kind, detail))}`;
+
+  // Ставит ссылке адрес с готовым текстом; на телефоне — через приложение Telegram
+  const setTelegramLink = (link, kind, detail) => {
+    link.href = telegramHref(telegramUrl(kind, detail));
+    if (isMobile) {
+      link.removeAttribute('target');
+    } else {
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    }
+  };
+
+  document.querySelectorAll('a[data-tg]').forEach((link) => {
+    const [kind, ...rest] = link.dataset.tg.split(':');
+    setTelegramLink(link, kind, rest.join(':'));
+  });
+
+  // Остальные ссылки на t.me (без метки) просто открываем приложением
   if (isMobile) {
     document.querySelectorAll('a[href^="https://t.me/"]').forEach((link) => {
       link.href = telegramHref(link.href);
@@ -129,6 +156,51 @@
   updateTime();
   setInterval(updateTime, 15000);
 
+  /* ---------- Погода в Далате (Open-Meteo, без ключа) ---------- */
+  // Нет сети или сервис не ответил — молча показываем только время
+  const weatherEls = document.querySelectorAll('[data-dalat-weather]');
+  const WEATHER_URL = 'https://api.open-meteo.com/v1/forecast?latitude=11.9404&longitude=108.4583&current_weather=true';
+  const WEATHER_TTL_MS = 15 * 60 * 1000;
+
+  const showWeather = (temp) => {
+    const rounded = Math.round(temp);
+    const label = `${rounded > 0 ? '+' : rounded < 0 ? '−' : ''}${Math.abs(rounded)}°C`;
+    weatherEls.forEach((el) => {
+      el.textContent = ` · ${label}`;
+      el.hidden = false;
+    });
+  };
+
+  const loadWeather = async () => {
+    try {
+      const cached = JSON.parse(sessionStorage.getItem('dalat-weather') || 'null');
+      if (cached && Date.now() - cached.at < WEATHER_TTL_MS) {
+        showWeather(cached.temp);
+        return;
+      }
+    } catch (err) { /* sessionStorage недоступен — идём в сеть */ }
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    try {
+      const res = await fetch(WEATHER_URL, { signal: controller.signal });
+      if (!res.ok) return;
+      const temp = Number((await res.json()).current_weather?.temperature);
+      if (!Number.isFinite(temp)) return;
+      showWeather(temp);
+      try { sessionStorage.setItem('dalat-weather', JSON.stringify({ temp, at: Date.now() })); } catch (err) { /* не критично */ }
+    } catch (err) {
+      /* без погоды сайт работает как раньше */
+    } finally {
+      clearTimeout(timer);
+    }
+  };
+
+  if (weatherEls.length) {
+    loadWeather();
+    setInterval(loadWeather, WEATHER_TTL_MS);
+  }
+
   /* ---------- Календарь цветения ---------- */
   // Месяцы цветения записаны в data-months у карточек; текущий месяц берём по времени Далата
   const MONTH_LETTERS = ['Я', 'Ф', 'М', 'А', 'М', 'И', 'И', 'А', 'С', 'О', 'Н', 'Д'];
@@ -145,17 +217,18 @@
       return `<span class="${classes}"><i></i>${letter}</span>`;
     }).join('');
 
-    if (months.includes(monthNow)) {
-      card.classList.add('is-now');
-      blooming.push(card.querySelector('.season-card__title').textContent.toLowerCase());
-    }
+    const inSeason = months.includes(monthNow);
+    const badge = card.querySelector('.season-card__badge');
+    if (badge) badge.hidden = !inSeason;
+    card.classList.toggle('is-now', inSeason);
+    if (inSeason) blooming.push(card.querySelector('.season-card__title').textContent.toLowerCase());
   });
 
   const seasonNow = document.getElementById('season-now');
   if (seasonNow && blooming.length) {
     const verb = blooming.length > 1 ? 'цветут' : 'цветёт';
     const list = blooming.length > 1 ? `${blooming.slice(0, -1).join(', ')} и ${blooming.at(-1)}` : blooming[0];
-    seasonNow.textContent = `В ${MONTHS_IN[monthNow - 1]} в Далате ${verb} ${list}`;
+    seasonNow.textContent = `Сейчас в ${MONTHS_IN[monthNow - 1]} в Далате ${verb}: ${list}`;
   }
 
   /* ---------- Подсветка карточек за курсором ---------- */
@@ -335,7 +408,7 @@
     window.scrollTo({ top: Math.max(top, 0), behavior: reduceMotion ? 'auto' : 'smooth' });
   };
 
-  window.SvoySite = { sendLead, leadTelegramUrl, telegramFallbackLink, openTelegram, scrollToElement, contactPlaceholder, reduceMotion };
+  window.SvoySite = { sendLead, leadTelegramUrl, telegramFallbackLink, openTelegram, scrollToElement, contactPlaceholder, setTelegramLink, reduceMotion };
 
   /* ---------- Текущий год в футере ---------- */
   document.getElementById('year').textContent = new Date().getFullYear();

@@ -19,6 +19,7 @@
   const maxSelect = document.getElementById('price-max');
   const roomsSelect = document.getElementById('realty-rooms');
   const sortSelect = document.getElementById('realty-sort');
+  const catalogTg = document.getElementById('realty-tg');
   const moreWrap = document.getElementById('realty-more-wrap');
   const moreBtn = document.getElementById('realty-more');
   const kindTabs = document.querySelectorAll('[data-kind]');
@@ -27,6 +28,7 @@
   // Рамка вокруг Далата: точка за её пределами — ошибка в данных, такой объект на карту не попадает
   const DALAT_BOUNDS = { south: 11.8, north: 12.1, west: 108.3, east: 108.6 };
   const KIND_RU = { apartment: 'Квартира', house: 'Дом', room: 'Комната' };
+  const KIND_PLURAL_RU = { apartment: 'квартиры', house: 'дома', room: 'комнаты' };
   const PRICE_STEPS = [0, 3e6, 5e6, 8e6, 12e6, 20e6, 40e6, 80e6];
   const PAGE_SIZE = 12; // сколько карточек показываем за раз, остальные — по кнопке «Показать ещё»
   const APPROX_RADIUS_M = 450; // точка сдвинута до 420 м — настоящий дом внутри круга
@@ -336,6 +338,8 @@
     state.list = list;
     state.limit = PAGE_SIZE;
     drawGrid();
+    // Ссылка «Напишите мне» знает, какой тип жилья выбран
+    if (catalogTg) site.setTelegramLink(catalogTg, 'housing', KIND_PLURAL_RU[state.kind] || '');
 
     map.closePopup();
     cluster.clearLayers();
@@ -397,6 +401,7 @@
   const form = document.getElementById('object-form');
   const summary = document.getElementById('object-summary');
   const statusEl = document.getElementById('object-status');
+  const objectTg = document.getElementById('object-tg');
   let leadItem = null;
   let closeTimer = 0;
 
@@ -418,6 +423,7 @@
         <p class="mt-0.5 line-clamp-1 text-xs text-ink-soft">${esc(distanceLabel(leadItem))}</p>
       </div>`;
     statusEl.className = 'hidden';
+    if (objectTg) site.setTelegramLink(objectTg, 'housing', `объект № ${leadItem.code}: ${leadItem.title}`);
     map.closePopup();
     if (typeof dialog.showModal === 'function') dialog.showModal();
     else dialog.setAttribute('open', '');
