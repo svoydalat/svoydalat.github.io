@@ -48,7 +48,7 @@ RAW_FILE = PRIVATE / 'raw_ads.json'
 PRIVATE_JSON = PRIVATE / 'realty_private.json'
 PRIVATE_HTML = PRIVATE / 'адреса-объектов.html'
 
-USER_AGENT = 'SvoyDalatSite/1.0 (+https://razumovdimka-boop.github.io)'
+USER_AGENT = 'SvoyDalatSite/1.0 (+https://svoydalat.github.io)'
 LISTING_API = 'https://gateway.chotot.com/v1/public/ad-listing'
 TRANSLATE_API = 'https://api.mymemory.translated.net/get'
 GEOCODER_API = 'https://nominatim.openstreetmap.org/search'
