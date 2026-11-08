@@ -392,3 +392,75 @@ svg { display: block; }
 }
 .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 @media (min-width: 900px) { .toast { bottom: 40px; } }
+
+/* ---------- Избранное ---------- */
+.card-row { position: relative; }
+.card-row .card { padding-right: 56px; }
+.star {
+  position: absolute; top: 50%; right: 10px; transform: translateY(-50%);
+  display: grid; place-items: center;
+  width: 40px; height: 40px; border: 0; border-radius: 50%;
+  background: transparent; color: var(--ink-soft);
+  transition: background 0.2s, color 0.2s;
+}
+.star svg { width: 22px; height: 22px; }
+.star:hover { background: rgb(227 162 26 / 0.18); color: var(--sunflower-deep); }
+.star.is-on { color: var(--sunflower); }
+.chip--fav svg { width: 15px; height: 15px; color: var(--sunflower); }
+.chip--fav[aria-pressed="true"] { background: var(--pine-900); color: var(--paper); }
+.btn--fav { min-height: 46px; background: #FBF1D5; color: var(--ink); box-shadow: inset 0 0 0 1px rgb(168 111 10 / 0.3); }
+.btn--fav:hover { background: #F6E5B4; }
+.btn--fav.is-on { background: var(--sunflower); }
+.btn--fav.is-on svg { color: var(--ink); }
+.zone-pop .fav-btn {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 4px;
+  min-height: 40px; padding: 0 16px; border: 0; border-radius: 9999px;
+  background: #FBF1D5; box-shadow: inset 0 0 0 1px rgb(168 111 10 / 0.3);
+  font-size: 14px; font-weight: 600;
+}
+.zone-pop .fav-btn svg { width: 18px; height: 18px; }
+.zone-pop .fav-btn.is-on { background: var(--sunflower); }
+
+.fav-bar {
+  position: absolute; z-index: 1060;
+  left: 12px; right: 12px; bottom: calc(76px + env(safe-area-inset-bottom));
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 8px 8px 16px;
+  border-radius: 9999px;
+  background: var(--card);
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.1), 0 16px 34px -14px rgb(19 42 34 / 0.65);
+}
+.fav-bar[hidden] { display: none; }
+.fav-bar__count { flex: none; font-size: 13px; font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
+.fav-bar__send {
+  flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 14px; border-radius: 9999px;
+  background: var(--tg); color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; text-align: center; line-height: 1.15;
+}
+.fav-bar__send:hover { background: #1B8AC0; }
+.fav-bar__send svg { width: 18px; height: 18px; flex: none; }
+.fav-bar__clear { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--paper-deep); }
+.fav-bar__clear svg { width: 16px; height: 16px; }
+@media (min-width: 900px) {
+  .fav-bar { left: 76px; right: auto; bottom: 16px; max-width: 520px; }
+  .fav-bar__send { flex: none; padding: 0 20px; }
+}
+
+/* ---------- Кнопка «Где я» и маркер пользователя ---------- */
+.locate-bar { margin-top: 8px !important; }
+.leaflet-bottom .locate-bar { margin-bottom: 8px !important; }
+.locate-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  width: auto; min-width: 44px; height: 44px; padding: 0 12px; border: 0;
+  background: var(--card); color: var(--ink); font-size: 13px; font-weight: 600;
+}
+.locate-btn:hover { background: #fff; }
+.locate-btn svg { width: 20px; height: 20px; color: #2F6FDB; }
+.locate-btn.is-loading svg { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.me-anchor { background: none; border: 0; }
+.me { position: absolute; left: -11px; top: -11px; width: 22px; height: 22px; }
+.me__dot { position: absolute; inset: 3px; border-radius: 50%; background: #2F6FDB; box-shadow: 0 0 0 3px #fff, 0 4px 10px rgb(0 0 0 / 0.35); }
+.me__pulse { position: absolute; inset: -14px; border-radius: 50%; background: rgb(47 111 219 / 0.35); animation: pulse 2s ease-out infinite; }
+@keyframes pulse { 0% { transform: scale(0.35); opacity: 1; } 100% { transform: scale(1.1); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .me__pulse, .locate-btn.is-loading svg { animation: none; } }

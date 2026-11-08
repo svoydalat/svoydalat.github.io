@@ -18,6 +18,8 @@
     culture: 'M3 10 12 4l9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18',
     coffee: 'M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5zM16 10h2a2 2 0 0 1 0 4h-2M8 3v3M12 3v3',
     activity: 'M3 12c3-5 8-6 12-3l4-3v12l-4-3c-4 3-9 2-12-3zM15 11h.01',
+    life: 'M5 8h14l-1.5 11h-11zM9 8a3 3 0 0 1 6 0',
+    star: 'M12 3.5l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L3.4 9.8l6-.8z',
     transport: 'M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z'
   };
 
@@ -26,7 +28,8 @@
     { id: 'culture', label: 'Культура и архитектура', short: 'Культура', color: '#6F6AAE' },
     { id: 'coffee', label: 'Кофе и рынки', short: 'Кофе и рынки', color: '#B5583A' },
     { id: 'activity', label: 'Активности и рыбалка', short: 'Активности', color: '#C98A0F' },
-    { id: 'transport', label: 'Транспорт', short: 'Транспорт', color: '#4F7186' }
+    { id: 'transport', label: 'Транспорт', short: 'Транспорт', color: '#4F7186' },
+    { id: 'life', label: 'Быт и инфраструктура', short: 'Быт', color: '#B8527A' }
   ];
   const CAT = Object.fromEntries(CATEGORIES.map((c) => [c.id, c]));
 
@@ -34,28 +37,28 @@
   const PLACES = [
     {
       id: 'xuan-huong', cat: 'nature', name: 'Озеро Суан Хыонг', vi: 'Hồ Xuân Hương',
-      pos: [11.9428, 108.4419], zoom: 15,
+      pos: [11.9421, 108.4442], zoom: 15,
       tags: ['Бесплатно', 'Лучше на рассвете', 'Центр города'],
       desc: 'Сердце Далата: искусственное озеро в форме полумесяца, вокруг него — ровная дорожка примерно на 5 км. Здесь бегают, гуляют, катаются на лебединых педальных лодках, а вокруг — кафе и рынок в пяти минутах пешком.',
       tip: 'Приходите к 6–7 утра: над водой туман, на дорожке почти никого, а кофе рядом уже работает. По выходным вечером вокруг озера шумно и людно — гулять лучше в будни или с утра.'
     },
     {
       id: 'night-market', cat: 'coffee', name: 'Ночной рынок Далата', vi: 'Chợ đêm Đà Lạt',
-      pos: [11.9427, 108.4368], zoom: 16,
+      pos: [11.9428, 108.4369], zoom: 16,
       tags: ['Вечером', 'Уличная еда', 'Центр города'],
       desc: 'Вечерний рынок у большого рынка Далата: уличная еда, тёплая одежда, шапки, шарфы и сувениры. Идеальное место, чтобы поужинать «с рук» и согреться горячим соевым молоком.',
       tip: 'Приходите около 18:00, пока нет давки. Обязательно попробуйте bánh tráng nướng (рисовая «пицца» на углях) и тёплое молоко из сои. На одежду торгуйтесь — первая цена обычно завышена. Телефон и кошелёк держите в переднем кармане.'
     },
     {
       id: 'dalat-station', cat: 'culture', also: ['transport'], name: 'Старый ж/д вокзал Далата', vi: 'Ga Đà Lạt',
-      pos: [11.9416, 108.4583], zoom: 16,
+      pos: [11.9416, 108.4545], zoom: 16,
       tags: ['Небольшой билет', 'Ар-деко 1930-х', '10 мин от центра'],
       desc: 'Красивый вокзал времён французской колонии в стиле ар-деко с тремя «шпилями» на крыше. Регулярного сообщения с побережьем давно нет, зато ходит туристический поезд до посёлка Чайматы (Trại Mát) — рядом с пагодой Линь Фуок.',
       tip: 'Совместите с пагодой: на поезде доезжаете до Чайматы, а обратно возвращаетесь на байке или такси. Старые паровозы во дворе лучше снимать днём, когда на платформе меньше туристов. Расписание поезда уточняйте на месте.'
     },
     {
       id: 'crazy-house', cat: 'culture', name: 'Сумасшедший дом', vi: 'Crazy House · Biệt thự Hằng Nga',
-      pos: [11.9347, 108.4307], zoom: 17,
+      pos: [11.9347, 108.4306], zoom: 17,
       tags: ['Платный вход', 'Фото', '5 мин от центра'],
       desc: 'Гостевой дом-сказка архитектора Данг Вьет Нга: сросшиеся со стволами «деревьев» лестницы, туннели, окна-соты и жирафы на крыше. Здесь можно переночевать или просто пройти по лабиринту переходов.',
       tip: 'Приходите к открытию или после 16:00 — днём туристические автобусы забивают узкие лестницы. Обувь нужна на плоской подошве: ступени неровные и скользкие после дождя.'
@@ -69,21 +72,21 @@
     },
     {
       id: 'truc-lam', cat: 'culture', name: 'Монастырь Чуклам', vi: 'Thiền viện Trúc Lâm',
-      pos: [11.9038, 108.4352], zoom: 15,
+      pos: [11.9039, 108.435], zoom: 15,
       tags: ['Бесплатно', 'Тишина', '20 мин от центра'],
       desc: 'Дзен-монастырь на холме Фунг Хоанг над озером Туен Лам, построенный в начале 1990-х. Сады, пруды с цветами лотоса и вид на сосновые склоны. До монастыря можно подняться на канатной дороге от холма Робин.',
       tip: 'Приезжайте утром в будни — в выходные на дорожках много экскурсий. Одежда закрытая, говорите тихо. Сочетайте с прогулкой к озеру Туен Лам: пирс в десяти минутах.'
     },
     {
       id: 'tuyen-lam', cat: 'activity', name: 'Озеро Туен Лам — пирс и рыбалка', vi: 'Hồ Tuyền Lâm',
-      pos: [11.8955, 108.4312], zoom: 15,
+      pos: [11.9002, 108.4342], zoom: 15,
       tags: ['Рыбалка', 'Лучше на рассвете', '20 мин от центра'],
       desc: 'Самое большое озеро вокруг Далата, окружённое сосновыми холмами и резортами. Здесь прогулки по берегу, лодки и рыбалка с берега, а по утрам — густой туман.',
       tip: 'На рыбалку — на рассвете или перед закатом, днём клёв слабее. Возьмите тёплую куртку: у воды холоднее, чем в центре. Хотите на рыбалку с местным — напишите, организую выезд.'
     },
     {
       id: 'datanla', cat: 'nature', name: 'Водопад Датанла и альпийские горки', vi: 'Thác Datanla',
-      pos: [11.9016, 108.4497], zoom: 15,
+      pos: [11.9019, 108.4496], zoom: 15,
       tags: ['Платный вход', 'Аттракцион', '20 мин от центра'],
       desc: 'Водопад в лесном ущелье у перевала Прен: к нему ведёт тропа вниз по ступеням, а на склоне работает «альпийский» горный аттракцион — тележка, которая несётся по рельсам через лес.',
       tip: 'Ехать лучше в будни с утра — очередь на аттракцион короче. На мокрых ступенях нужна обувь с протектором, шлёпанцы не подойдут. Спуск пешком быстрый, а подъём обратно — по лестнице или на горке.'
@@ -92,21 +95,19 @@
       id: 'langbiang', cat: 'activity', name: 'Гора Лангбианг — треккинг и джипы', vi: 'Núi Lang Biang',
       pos: [12.0473, 108.4406], zoom: 14,
       tags: ['Треккинг', 'Вид на плато', '40 мин от центра'],
-      desc: 'Главная вершина вокруг Далата — около 2 160 м. От подножия на вершину ведёт дорога: можно подняться пешком за полтора-два часа или доехать на местных джипах. Сверху видна долина и сам Далат.',
-      tip: 'Выезжайте к 7:00 — к полудню вершину закрывают облака, а у джипов растёт очередь. Возьмите воду и ветровку: наверху заметно холоднее и дует. Точка на карте — район подножия, парковку лучше уточнить на месте.',
-      approx: true
+      desc: 'Главная вершина вокруг Далата — около 2 160 м. На вершину можно подняться пешком за полтора-два часа или доехать на местных джипах. Сверху видна долина и сам Далат.',
+      tip: 'Выезжайте к 7:00 — к полудню вершину закрывают облака, а у джипов растёт очередь. Возьмите воду и ветровку: наверху заметно холоднее и дует. Маркер стоит на самой вершине; парковка и кассы джипов — у подножия, напишите, и я подскажу, откуда стартовать.'
     },
     {
       id: 'cau-dat', cat: 'nature', name: 'Чайные холмы Каудат', vi: 'Đồi chè Cầu Đất',
-      pos: [11.8770, 108.5710], zoom: 13,
+      pos: [11.8778, 108.5603], zoom: 13,
       tags: ['Рассвет', 'Облака', '50 мин от центра'],
       desc: 'Чайные террасы на холмах к востоку от Далата, на высоте около 1 500 м. Знаменитое место для «охоты за облаками»: на рассвете море тумана ложится прямо на чайные ряды.',
-      tip: 'Чтобы увидеть облака, выезжайте затемно, к 5:30–6:00. Тёплая куртка обязательна. Точка на карте — район холмов, а не конкретная ферма: уточняйте адрес накануне, у чайных плантаций несколько входов.',
-      approx: true
+      tip: 'Чтобы увидеть облака, выезжайте затемно, к 5:30–6:00. Тёплая куртка обязательна.'
     },
     {
       id: 'valley-of-love', cat: 'nature', name: 'Долина Любви', vi: 'Thung Lũng Tình Yêu',
-      pos: [11.9775, 108.4489], zoom: 15,
+      pos: [11.9782, 108.4499], zoom: 15,
       tags: ['Платный вход', 'Цветы', '15 мин от центра'],
       desc: 'Парк с цветочными садами, озером и холмами на севере Далата. Здесь много цветочных композиций, фигур и площадок для фото — особенно популярна у местных на выходных.',
       tip: 'Приезжайте к открытию в будни — после обеда и по выходным здесь много экскурсий. Лучше всего цветы сезона смотреть в солнечное утро. Рядом сразу много теплиц и ферм гортензий — можно заехать по пути.'
@@ -120,7 +121,7 @@
     },
     {
       id: 'linh-phuoc', cat: 'culture', name: 'Пагода Линь Фуок (Бутылочный храм)', vi: 'Chùa Linh Phước · Chùa Ve Chai',
-      pos: [11.9442, 108.4995], zoom: 16,
+      pos: [11.9442, 108.4998], zoom: 16,
       tags: ['Бесплатно', 'Мозаика', '25 мин от центра'],
       desc: 'Пагода, украшенная мозаикой из стеклянных бутылок, черепков и керамики. Особенно впечатляют дракон во дворе и башня с видом на окрестности посёлка Чайматы.',
       tip: 'Приезжайте утром — во дворе спокойно, в храме идёт служба. Одежда закрытая, обувь снимается у входа. Хорошо комбинируется с поездкой на туристическом поезде от вокзала Далата.'
@@ -141,19 +142,60 @@
     },
     {
       id: 'airport', cat: 'transport', name: 'Аэропорт Льенкхыонг (DLI)', vi: 'Sân bay Liên Khương',
-      pos: [11.7504, 108.3612], zoom: 14,
+      pos: [11.7491, 108.3683], zoom: 14,
       tags: ['Встреча', 'Трансфер', '~30 км от центра'],
       desc: 'Единственный аэропорт Далата, около 30 км от центра по горной дороге. От него до города ехать порядка 40 минут, по пути — перевал Прен и сосновые склоны.',
       tip: 'Встречаю у выхода из зала прилёта с табличкой — такси на выходе берут дороже, а ночью машин может не быть. Пишите заранее свой рейс и время прилёта, и я организую машину под ваш багаж.',
       tg: 'airport'
     },
     {
-      id: 'cloud-cafes', cat: 'coffee', name: 'Кофейни над облаками', vi: 'Quán cà phê săn mây',
-      pos: [11.9230, 108.4390], zoom: 14,
-      tags: ['Рассвет', 'Облака', 'Район Чьеу Вьет Выонг'],
-      desc: 'На склонах южных холмов — район Триеу Вьет Выонг — и ещё в посёлке Чайматы работает целая россыпь кофеен с панорамными верандами: утром туман лежит прямо под ногами.',
-      tip: 'Выезжайте к 6:00–6:30 и берите места у окна заранее. Кофе с ca phe sua da (с молоком и льдом) здесь хорош даже в холод, а ещё лучше — горячий. Точка на карте — район, а не адрес: подберу кофейню под вашу дорогу.',
-      approx: true
+      id: 'go-dalat', cat: 'life', name: 'Супермаркет GO! Đà Lạt', vi: 'GO! Đà Lạt (бывший Big C)',
+      pos: [11.9392, 108.4452], zoom: 17,
+      tags: ['Продукты', 'Тёплые вещи', 'Центр города'],
+      desc: 'Большой супермаркет на площади Лам Вьен — главное место для закупки продуктов, бытовой химии и тёплых вещей. Цены на полках фиксированные, без торга, много привычных товаров.',
+      tip: 'Приезжайте в будни до обеда — очередей на кассах почти нет. Овощи и фрукты выгоднее брать на центральном рынке, а здесь — крупы, молочное, бытовую химию и одеяла на зиму. Свой пакет с собой не помешает.'
+    },
+    {
+      id: 'central-market', cat: 'life', name: 'Центральный рынок Далата', vi: 'Chợ Đà Lạt',
+      pos: [11.9432, 108.4375], zoom: 17,
+      tags: ['Продукты', 'Артишоки и кофе', 'Центр города'],
+      desc: 'Главный рынок города: местные фрукты и овощи, артишоки, клубника, кофе, сухие чаи и варенье. Рядом ночной рынок, а напротив — кафе с видом на озеро.',
+      tip: 'Самое свежее — утром, до 8:00. Цену спрашивайте у двух-трёх прилавков и торгуйтесь мягко. Кофе и артишоковый чай берите в запечатанных пакетах — как гостинец они едут в чемодане без проблем.'
+    },
+    {
+      id: 'immigration', cat: 'life', name: 'Миграционный офис Ламдонга', vi: 'Phòng Quản lý Xuất nhập cảnh Lâm Đồng',
+      pos: [11.9445, 108.4262], zoom: 17,
+      tags: ['Визы', 'Регистрация', 'Только в будни'],
+      desc: 'Отделение миграционной службы провинции Ламдонг (Trần Bình Trọng, 10): здесь продлевают визы и решают вопросы с регистрацией иностранцев.',
+      tip: 'Берите паспорт, копии и заранее проверьте актуальный список документов — правила меняются. Приходите утром в будни. Если нужна помощь с оформлением или переводом на месте — напишите, подскажу порядок действий.'
+    },
+    {
+      id: 'lake-run', cat: 'life', name: 'Беговой круг вокруг озера Суан Хыонг', vi: 'Đường chạy quanh Hồ Xuân Hương',
+      pos: [11.9393, 108.4415], zoom: 16,
+      tags: ['Бесплатно', 'Бег и прогулки', 'Старт у Библиотеки'],
+      desc: 'Круг вокруг озера около 5 км по набережной с ровным асфальтом и почти без перепадов высоты — редкость для горного города. Старт и финиш удобно делать у Библиотеки.',
+      tip: 'Бегайте до 7:00 или после заката — днём жарко на солнце, а по выходным вечером на набережной людно. Утром на воздухе около +14…+16 °C, ветровка пригодится на разминку.'
+    },
+    {
+      id: 'bus-station', cat: 'life', also: ['transport'], name: 'Автовокзал межгорода', vi: 'Bến xe liên tỉnh Đà Lạt',
+      pos: [11.9268, 108.4463], zoom: 16,
+      tags: ['Автобусы', 'Хошимин · Нячанг · Муйне', 'Билеты на месте'],
+      desc: 'Главный автовокзал Далата (Tô Hiến Thành, 1): отсюда уходят междугородние и спальные автобусы в Хошимин, Нячанг, Муйне и другие города.',
+      tip: 'Билеты на лимузины и слипбасы можно купить на вокзале или у перевозчика, но уточните, откуда именно отправляется ваш рейс: у некоторых компаний свои посадочные точки в городе. На рейс приезжайте за 20–30 минут.'
+    },
+    {
+      id: 'hospital', cat: 'life', name: 'Больница Ламдонг', vi: 'Bệnh viện Đa khoa tỉnh Lâm Đồng',
+      pos: [11.9465, 108.4303], zoom: 16,
+      tags: ['Медицина', 'Скорая — 115', '10 мин от центра'],
+      desc: 'Главная государственная больница Далата (Phạm Ngọc Thạch). Сюда везут при серьёзных случаях; есть приёмное отделение и обычная амбулаторная помощь.',
+      tip: 'Возьмите паспорт и страховку. В экстренных случаях звоните 115 — это скорая во Вьетнаме. Если нужен переводчик или сопровождение — напишите, подскажу, куда идти и как лучше поступить.'
+    },
+    {
+      id: 'cloud-cafes', cat: 'coffee', name: 'Кофейня «San May» — охота за облаками', vi: 'San May Nhà Gõ · quán cà phê săn mây',
+      pos: [11.8935, 108.5661], zoom: 15,
+      tags: ['Рассвет', 'Облака', '50 мин от центра'],
+      desc: 'Кофейня на шоссе QL20 рядом с чайными холмами Каудат. Название буквально означает «săn mây» — «охота за облаками»: на этих склонах по утрам стоит туман, а облака ложатся ниже веранд.',
+      tip: 'Выезжайте затемно, чтобы быть на месте к 6:00–6:30, и берите тёплую куртку. Часы работы и места у окна уточните заранее. Совместите с чайными холмами Каудат — они в паре километров.'
     }
   ];
 
@@ -185,6 +227,8 @@
     }
   ];
 
+  const FAV_KEY = 'svoy-dalat-map-favs';
+
   /* ---------- Утилиты ---------- */
   const $ = (sel) => document.querySelector(sel);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -212,7 +256,9 @@
   const placeTelegramUrl = (p) => {
     const text = p.tg === 'airport'
       ? 'Привет! Нужна встреча в аэропорту Льенкхыонг (DLI) и трансфер до Далата. Мои дата, рейс и количество человек: '
-      : `Привет! Я с карты Далата. Хочу поехать: «${p.name}» (${p.vi}). Помоги с поездкой и деталями: `;
+      : p.cat === 'life'
+        ? `Привет! Я с карты Далата. Хочу уточнить про «${p.name}» (${p.vi}): `
+        : `Привет! Я с карты Далата. Хочу поехать: «${p.name}» (${p.vi}). Помоги с поездкой и деталями: `;
     return `${TELEGRAM_CHAT}?text=${encodeURIComponent(text)}`;
   };
 
@@ -245,17 +291,68 @@
   }).addTo(map);
   map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener noreferrer">Leaflet</a>');
 
-  // Кнопки зума: слева-снизу на десктопе, справа-сверху (под чипсами) на телефоне
+  // Кнопки зума и «Где я»: слева-снизу на десктопе, справа-сверху (под чипсами) на телефоне
   let zoomControl = null;
-  const placeZoom = () => {
+  let locateControl = null;
+  const placeControls = () => {
     if (zoomControl) zoomControl.remove();
-    zoomControl = L.control.zoom({
-      position: desktopMq.matches ? 'bottomleft' : 'topright',
-      zoomInTitle: 'Приблизить', zoomOutTitle: 'Отдалить'
-    }).addTo(map);
+    if (locateControl) locateControl.remove();
+    const position = desktopMq.matches ? 'bottomleft' : 'topright';
+    zoomControl = L.control.zoom({ position, zoomInTitle: 'Приблизить', zoomOutTitle: 'Отдалить' }).addTo(map);
+    locateControl = L.control({ position });
+    locateControl.onAdd = () => {
+      const box = L.DomUtil.create('div', 'leaflet-bar locate-bar');
+      box.innerHTML = '<button type="button" class="locate-btn" id="locate-btn" aria-label="Показать, где я нахожусь" title="Где я">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></svg>' +
+        '<span>Где я</span></button>';
+      L.DomEvent.disableClickPropagation(box);
+      box.querySelector('button').addEventListener('click', locateMe);
+      return box;
+    };
+    locateControl.addTo(map);
   };
-  placeZoom();
-  desktopMq.addEventListener('change', placeZoom);
+
+  // Геолокация: пульсирующая точка и приближение, если человек в районе Далата
+  let userMarker = null;
+  let userCircle = null;
+  const DALAT_RADIUS_M = 80000;
+  function locateMe() {
+    const btn = $('#locate-btn');
+    if (!navigator.geolocation) { toast('Браузер не умеет определять местоположение'); return; }
+    btn.classList.add('is-loading');
+    navigator.geolocation.getCurrentPosition((pos) => {
+      btn.classList.remove('is-loading');
+      const here = L.latLng(pos.coords.latitude, pos.coords.longitude);
+      if (here.distanceTo(L.latLng(CENTER)) > DALAT_RADIUS_M) {
+        toast('Вы сейчас далеко от Далата, но мы ждём вас в гости!');
+        map.flyTo(CENTER, 13, { duration: reduceMotion ? 0 : 0.9 });
+        return;
+      }
+      if (userMarker) userMarker.remove();
+      if (userCircle) userCircle.remove();
+      userCircle = L.circle(here, { radius: Math.min(pos.coords.accuracy || 30, 500), color: '#2F6FDB', weight: 1, fillColor: '#2F6FDB', fillOpacity: 0.12, interactive: false }).addTo(map);
+      userMarker = L.marker(here, {
+        icon: L.divIcon({ className: 'me-anchor', html: '<span class="me"><span class="me__pulse"></span><span class="me__dot"></span></span>', iconSize: [0, 0] }),
+        keyboard: false, interactive: false, zIndexOffset: 2000
+      }).addTo(map);
+      const z = Math.max(map.getZoom(), 15);
+      if (reduceMotion) map.setView(here, z, { animate: false });
+      else map.flyTo(here, z, { duration: 1 });
+    }, (err) => {
+      btn.classList.remove('is-loading');
+      toast(err && err.code === 1 ? 'Разрешите доступ к геолокации в настройках браузера' : 'Не удалось определить местоположение');
+    }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
+  }
+  placeControls();
+  desktopMq.addEventListener('change', placeControls);
+
+  // Избранное хранится в localStorage; его может не быть (приватный режим) — тогда живёт до перезагрузки
+  const favs = new Set();
+  try {
+    const saved = JSON.parse(localStorage.getItem(FAV_KEY) || '[]');
+    if (Array.isArray(saved)) saved.forEach((id) => favs.add(String(id)));
+  } catch (e) { /* пусто */ }
+  const saveFavs = () => { try { localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); } catch (e) { /* пусто */ } };
 
   /* ---------- Маркеры ---------- */
   const markers = new Map();
@@ -273,19 +370,29 @@
     markers.set(p.id, m);
   });
 
+  /* ---------- Избранное: «Мой список» ---------- */
+  const zoneKey = (z) => `zone:${z.id}`;
+  const favInner = (on) => `${svg(ICONS.star, on ? 'fill="currentColor"' : '')}${on ? 'В моём списке' : 'В мой список'}`;
+  const favItems = () => [
+    ...PLACES.filter((p) => favs.has(p.id)).map((p) => ({ key: p.id, name: p.name })),
+    ...ZONES.filter((z) => favs.has(zoneKey(z))).map((z) => ({ key: zoneKey(z), name: `район «${z.name}»` }))
+  ];
+
   /* ---------- Районы ---------- */
-  const zonesGroup = L.layerGroup();
+  const zonesGroup = L.featureGroup();
   ZONES.forEach((z) => {
     const circle = L.circle(z.center, {
       radius: z.radius, color: z.color, weight: 2, opacity: 0.8,
       fillColor: z.color, fillOpacity: 0.2, dashArray: '6 6'
     });
     circle.bindTooltip(esc(z.name), { permanent: true, direction: 'center', className: 'zone-label' });
-    circle.bindPopup(
+    circle.bindPopup(() =>
       `<div class="zone-pop"><h3>${esc(z.name)}</h3><p class="vi">${esc(z.vi)}</p>` +
-      `<p class="plus">+ ${esc(z.plus)}</p><p class="minus">− ${esc(z.minus)}</p></div>`,
-      { maxWidth: 300, autoPanPadding: [30, 120] }
+      `<p class="plus">+ ${esc(z.plus)}</p><p class="minus">− ${esc(z.minus)}</p>` +
+      `<button type="button" class="fav-btn${favs.has(zoneKey(z)) ? ' is-on' : ''}" data-fav="${zoneKey(z)}" aria-pressed="${favs.has(zoneKey(z))}">${favInner(favs.has(zoneKey(z)))}</button></div>`,
+      { maxWidth: 300, autoPanPaddingTopLeft: [30, 160], autoPanPaddingBottomRight: [30, 40] }
     );
+    circle._zone = z;
     circle.addTo(zonesGroup);
   });
 
@@ -299,9 +406,12 @@
       `<button type="button" class="chip" data-filter="${c.id}" aria-pressed="${c.id === activeFilter}">` +
       `${c.color ? `<span class="chip__dot" style="--c:${c.color}"></span>` : ''}${esc(c.label)}</button>`
     ).join('') +
+      `<button type="button" class="chip chip--fav" data-filter="fav" aria-pressed="${activeFilter === 'fav'}">` +
+      `${svg(ICONS.star, 'fill="currentColor"')}<span id="fav-chip-label"></span></button>` +
       `<button type="button" class="chip chip--zones chip--sep" id="zones-toggle" aria-pressed="${map.hasLayer(zonesGroup)}">` +
       `<span class="chip__dot" style="--c:var(--sunflower)"></span><span id="zones-label"></span></button>`;
     updateZonesLabel();
+    updateFavUi();
   };
 
   const updateZonesLabel = () => {
@@ -312,7 +422,7 @@
     if (btn) btn.setAttribute('aria-pressed', String(on));
   };
 
-  const visiblePlaces = () => PLACES.filter((p) => activeFilter === 'all' || p.cat === activeFilter || (p.also && p.also.includes(activeFilter)));
+  const visiblePlaces = () => PLACES.filter((p) => activeFilter === 'all' || (activeFilter === 'fav' ? favs.has(p.id) : p.cat === activeFilter || (p.also && p.also.includes(activeFilter))));
 
   const applyFilter = () => {
     const visible = new Set(visiblePlaces().map((p) => p.id));
@@ -343,21 +453,98 @@
   /* ---------- Список мест ---------- */
   const listBody = $('#list-body');
 
+  const starBtn = (key) => {
+    const on = favs.has(key);
+    return `<button type="button" class="star${on ? ' is-on' : ''}" data-fav="${esc(key)}" aria-pressed="${on}" aria-label="${on ? 'Убрать из моего списка' : 'Добавить в мой список'}" title="${on ? 'Убрать из моего списка' : 'В мой список'}">${svg(ICONS.star, on ? 'fill="currentColor"' : '')}</button>`;
+  };
+
   const renderList = () => {
     const items = visiblePlaces();
-    $('#list-count').textContent = `${items.length} ${items.length === 1 ? 'место' : items.length < 5 ? 'места' : 'мест'} · нажмите, чтобы открыть`;
-    listBody.innerHTML = items.length ? items.map((p) =>
-      `<button type="button" class="card${p.id === currentId ? ' is-active' : ''}" data-id="${p.id}" style="--c:${CAT[p.cat].color}">` +
+    const zoneItems = activeFilter === 'fav' ? ZONES.filter((z) => favs.has(zoneKey(z))) : [];
+    const total = items.length + zoneItems.length;
+    $('#list-count').textContent = activeFilter === 'fav'
+      ? `В вашем списке: ${total}`
+      : `${total} ${total === 1 ? 'место' : total < 5 ? 'места' : 'мест'} · нажмите, чтобы открыть`;
+    const rows = items.map((p) =>
+      `<div class="card-row"><button type="button" class="card${p.id === currentId ? ' is-active' : ''}" data-id="${p.id}" style="--c:${CAT[p.cat].color}">` +
       `<span class="card__ico">${svg(ICONS[p.cat])}</span>` +
       `<span class="card__txt"><span class="card__name">${esc(p.name)}</span>` +
       `<span class="card__vi">${esc(p.vi)}</span>` +
-      `<span class="card__meta">${esc(CAT[p.cat].short)} · ${esc(p.tags[p.tags.length - 1])}</span></span></button>`
-    ).join('') : '<p class="list__empty">В этой категории пока ничего нет.</p>';
+      `<span class="card__meta">${esc(CAT[p.cat].short)} · ${esc(p.tags[p.tags.length - 1])}</span></span></button>${starBtn(p.id)}</div>`
+    ).concat(zoneItems.map((z) =>
+      `<div class="card-row"><button type="button" class="card" data-zone="${z.id}" style="--c:${z.color}">` +
+      `<span class="card__ico">${svg('M12 3 3 8v8l9 5 9-5V8z')}</span>` +
+      `<span class="card__txt"><span class="card__name">${esc(z.name)}</span><span class="card__vi">${esc(z.vi)}</span>` +
+      `<span class="card__meta">Район для жизни</span></span></button>${starBtn(zoneKey(z))}</div>`
+    ));
+    listBody.innerHTML = rows.length ? rows.join('')
+      : `<p class="list__empty">${activeFilter === 'fav' ? 'Пока пусто: нажмите ⭐ у места или района, чтобы собрать свой список.' : 'В этой категории пока ничего нет.'}</p>`;
   };
 
   listBody.addEventListener('click', (e) => {
+    const star = e.target.closest('.star');
+    if (star) { toggleFav(star.dataset.fav); return; }
     const card = e.target.closest('.card');
-    if (card) openPlace(card.dataset.id);
+    if (!card) return;
+    if (card.dataset.zone) focusZone(card.dataset.zone);
+    else openPlace(card.dataset.id);
+  });
+
+  const focusZone = (id) => {
+    const z = ZONES.find((x) => x.id === id);
+    if (!z) return;
+    if (!map.hasLayer(zonesGroup)) { zonesGroup.addTo(map); updateZonesLabel(); }
+    listSheet.set('closed');
+    map.flyTo(z.center, 13.5, { duration: reduceMotion ? 0 : 0.9 });
+    zonesGroup.eachLayer((l) => { if (l._zone && l._zone.id === id) setTimeout(() => l.openPopup(), reduceMotion ? 0 : 950); });
+  };
+
+  /* ---------- Избранное: действия ---------- */
+  const favBar = $('#fav-bar');
+  const updateFavUi = () => {
+    const n = favItems().length;
+    const label = $('#fav-chip-label');
+    if (label) label.textContent = `Мой список (${n})`;
+    favBar.hidden = n === 0;
+    $('#fav-bar-count').textContent = `В списке: ${n}`;
+    document.querySelectorAll('[data-fav]').forEach((b) => {
+      const on = favs.has(b.dataset.fav);
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-pressed', String(on));
+      if (b.classList.contains('star')) {
+        b.innerHTML = svg(ICONS.star, on ? 'fill="currentColor"' : '');
+        b.setAttribute('aria-label', on ? 'Убрать из моего списка' : 'Добавить в мой список');
+        b.title = on ? 'Убрать из моего списка' : 'В мой список';
+      } else b.innerHTML = favInner(on);
+    });
+  };
+
+  function toggleFav(key) {
+    if (favs.has(key)) favs.delete(key); else favs.add(key);
+    saveFavs();
+    if (activeFilter === 'fav') applyFilter();
+    updateFavUi();
+  }
+
+  const favTelegramUrl = () => {
+    const names = favItems().map((i) => i.name).join('; ');
+    return `${TELEGRAM_CHAT}?text=${encodeURIComponent(`Привет! Я собрал список мест на карте Далата, хочу обсудить поездку/жильё: ${names}`)}`;
+  };
+  const favSend = $('#fav-send');
+  const refreshFavLink = () => {
+    favSend.href = telegramHref(favTelegramUrl());
+    if (isMobile) favSend.removeAttribute('target');
+  };
+  ['click', 'focus', 'pointerenter', 'touchstart'].forEach((ev) => favSend.addEventListener(ev, refreshFavLink, { passive: true }));
+  $('#fav-clear').addEventListener('click', () => {
+    favs.clear(); saveFavs();
+    if (activeFilter === 'fav') { activeFilter = 'all'; applyFilter(); }
+    updateFavUi();
+  });
+  // Кнопки «в мой список» внутри карточки места и попапа района
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('.fav-btn');
+    if (b) toggleFav(b.dataset.fav);
   });
 
   /* ---------- Шторки (bottom sheet) ---------- */
@@ -441,7 +628,7 @@
 
   const renderDrawer = (p) => {
     const c = CAT[p.cat];
-    const tgLabel = p.tg === 'airport' ? 'Заказать встречу и трансфер в ТГ' : 'Спросить / заказать поездку в ТГ';
+    const tgLabel = p.tg === 'airport' ? 'Заказать встречу и трансфер в ТГ' : p.cat === 'life' ? 'Спросить в ТГ' : 'Спросить / заказать поездку в ТГ';
     drawerBody.innerHTML =
       `<div class="place" style="--c:${c.color}">` +
       `<span class="place__cat">${svg(ICONS[p.cat])}${esc(c.label)}</span>` +
@@ -454,6 +641,7 @@
       `<div class="place__actions">` +
       `<a class="btn btn--primary" href="${googleMapsUrl(p)}" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-route"/></svg>Маршрут в Google Maps</a>` +
       `<a class="btn btn--tg" id="place-tg" href="${placeTelegramUrl(p)}" target="_blank" rel="noopener noreferrer">${tgIcon}${tgLabel}</a>` +
+      `<button type="button" class="btn btn--fav fav-btn${favs.has(p.id) ? ' is-on' : ''}" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}">${favInner(favs.has(p.id))}</button>` +
       `<button type="button" class="btn btn--ghost" id="place-copy"><svg aria-hidden="true"><use href="#i-link"/></svg>Скопировать ссылку на место</button>` +
       `</div></div>`;
 
@@ -562,5 +750,6 @@
 
   renderFilters();
   applyFilter();
+  updateFavUi();
   openFromHash();
 })();

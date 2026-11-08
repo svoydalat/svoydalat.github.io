@@ -1223,3 +1223,41 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
   .night-sky,
   .marquee-track { animation: none; }
 }
+
+/* ---------- Частые вопросы ---------- */
+.faq__item {
+  border-radius: 1.5rem;
+  background: var(--card);
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.08);
+  transition: box-shadow 0.2s;
+}
+.faq__item[open] { box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.16), 0 18px 30px -22px rgb(19 42 34 / 0.45); }
+.faq__q {
+  position: relative;
+  display: block;
+  padding: 1.15rem 3.5rem 1.15rem 1.35rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  list-style: none;
+}
+.faq__q::-webkit-details-marker { display: none; }
+.faq__q::after {
+  content: "";
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  width: 0.6rem;
+  height: 0.6rem;
+  border: solid var(--pine-700);
+  border-width: 0 2px 2px 0;
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform 0.25s;
+}
+.faq__item[open] .faq__q::after { transform: translateY(-30%) rotate(225deg); }
+.faq__a { padding: 0 1.35rem 1.35rem; color: var(--ink-soft); font-size: 1.0625rem; line-height: 1.65; }
+.faq__a p + p { margin-top: 0.75rem; }
+.faq__a strong { color: var(--ink); }
+.faq__link { font-weight: 600; color: var(--pine-700); text-decoration: underline; text-underline-offset: 3px; }
