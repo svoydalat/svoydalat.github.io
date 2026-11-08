@@ -53,9 +53,9 @@
   // 7 200 000 → «7,2 млн»
   const shortMoney = (vnd) => {
     const [value, unit] = vnd >= 1e6 ? [vnd / 1e6, 'млн'] : [vnd / 1e3, 'тыс.'];
-    return `${Number(value.toFixed(2)).toLocaleString('ru-RU')} ${unit}`;
+    return `${Number(value.toFixed(2)).toLocaleString('ru-RU')} ${unit}`;
   };
-  const priceLabel = (item) => `${shortMoney(item.price)} ₫/мес`;
+  const priceLabel = (item) => `${shortMoney(item.price)} VND/мес`;
   const distanceLabel = (item) => (item.distance ? `≈ ${item.distance.toLocaleString('ru-RU')} км от центра` : 'Далат');
 
   const ICON_PIN = '<svg class="mt-0.5 h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>';
@@ -261,8 +261,8 @@
 
   /* ---------- Фильтры и каталог ---------- */
   const fillPriceSelects = () => {
-    minSelect.innerHTML = PRICE_STEPS.map((v) => `<option value="${v}">${v ? `от ${shortMoney(v)} ₫` : 'Любая'}</option>`).join('');
-    maxSelect.innerHTML = `${PRICE_STEPS.slice(1).map((v) => `<option value="${v}">до ${shortMoney(v)} ₫</option>`).join('')}<option value="" selected>Любая</option>`;
+    minSelect.innerHTML = PRICE_STEPS.map((v) => `<option value="${v}">${v ? `от ${shortMoney(v)} VND` : 'Любая'}</option>`).join('');
+    maxSelect.innerHTML = `${PRICE_STEPS.slice(1).map((v) => `<option value="${v}">до ${shortMoney(v)} VND</option>`).join('')}<option value="" selected>Любая</option>`;
   };
 
   const updateTabCounts = () => {
@@ -302,7 +302,7 @@
           ${item.photos.length > 1 ? `<span class="photo-count">${ICON_CAMERA}${item.photos.length}</span>` : ''}
         </div>
         <div class="flex flex-1 flex-col p-5">
-          <p class="font-serif text-[1.75rem] font-bold leading-none">${esc(shortMoney(item.price))} ₫<span class="font-sans text-sm font-medium text-ink-soft">/мес</span></p>
+          <p class="font-serif text-[1.75rem] font-bold leading-none">${esc(shortMoney(item.price))} VND<span class="font-sans text-sm font-medium text-ink-soft">/мес</span></p>
           <h3 class="mt-2 line-clamp-2 font-semibold leading-snug">${esc(item.title)}</h3>
           ${item.description ? `<p class="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">${esc(item.description)}</p>` : ''}
           <p class="mt-3 flex items-start gap-1.5 text-sm text-ink-soft">${ICON_PIN}<span>${esc(distanceLabel(item))}</span></p>

@@ -1261,3 +1261,49 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
 .faq__a p + p { margin-top: 0.75rem; }
 .faq__a strong { color: var(--ink); }
 .faq__link { font-weight: 600; color: var(--pine-700); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Блок «От автора» ---------- */
+.author__card {
+  display: grid;
+  gap: 1.75rem;
+  margin: 0;
+  padding: 2rem 1.5rem;
+  border-radius: 2rem;
+  background: var(--card, #FFFDF8);
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.08), 0 30px 60px -40px rgb(19 42 34 / 0.45);
+}
+.author__who { display: flex; flex-direction: column; align-items: center; gap: 0.9rem; text-align: center; }
+/* Размер круга задан здесь: фото, добавленное внутрь, заполняет его и ничего не сдвигает */
+.author__photo {
+  position: relative;
+  flex: none;
+  width: 7.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle at 30% 25%, var(--pine-700), var(--pine-900));
+  box-shadow: 0 0 0 4px var(--paper), 0 0 0 6px var(--sunflower-soft);
+}
+.author__photo img { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; }
+.author__mono {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font: 600 2.6rem/1 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: 0.04em;
+  color: var(--sunflower-soft);
+}
+.author__caption { font-size: 0.95rem; color: var(--ink-soft); }
+.author__caption strong { color: var(--ink); font-weight: 600; }
+.author__speech blockquote { margin: 0; }
+.author__speech blockquote p { margin: 0; font-size: 1.05rem; line-height: 1.7; color: var(--ink); overflow-wrap: break-word; }
+.author__speech blockquote p + p { margin-top: 1rem; }
+.author__speech blockquote p:first-child { font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(1.3rem, 5.4vw, 1.6rem); line-height: 1.3; font-weight: 600; }
+@media (min-width: 768px) {
+  .author__card { grid-template-columns: 11rem 1fr; gap: 2.5rem; padding: 2.75rem; align-items: start; }
+  .author__photo { width: 9rem; }
+}
+
+/* Пока тайлы грузятся, под ними мягкий сосновый туман, а не белые квадраты */
+#realty-map.leaflet-container { background: #DCE6E0; }

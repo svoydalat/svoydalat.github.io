@@ -116,3 +116,14 @@ img:not([class*="leaflet-"]) {
 .privacy-dialog__close:hover { background: rgb(22 37 31 / 0.12); }
 .privacy-dialog ul { margin: 1rem 0 0; padding-left: 1.2rem; font-size: 15px; line-height: 1.6; color: #2F3B35; }
 .privacy-dialog li + li { margin-top: 0.6rem; }
+
+/* ---------- Мелочи вёрстки: длинные слова и тактильный отклик ---------- */
+body { overflow-wrap: break-word; }
+
+/* На телефоне кнопки и карточки слегка «нажимаются» */
+@media (hover: none) and (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+  button:not(:disabled):not(.leaflet-popup-close-button):active,
+  a.btn:active, a[class*="rounded-full"]:active, .card:active, .tg-btn:active, .back:active, summary:active {
+    transform: scale(0.98);
+  }
+}

@@ -232,6 +232,9 @@
   /* ---------- Утилиты ---------- */
   const $ = (sel) => document.querySelector(sel);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  // Короткие слова и тире не остаются в конце строки: «в Далате», «Далат — город»
+  const NB_RE = /(?<![\p{L}\d])(в|во|на|с|со|к|ко|по|до|и|о|об|у|а|но|за|из|от|не|ни|же|бы|для|без|при|под|над|про)\s+/giu;
+  const nb = (str) => String(str).replace(NB_RE, '$1 ').replace(/\s+—/g, ' —');
   const svg = (path, attrs = '') => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${attrs}><path d="${path}"/></svg>`;
   const iconUse = (id) => `<svg aria-hidden="true"><use href="#${id}"/></svg>`;
 
@@ -356,6 +359,12 @@
 
   /* ---------- Маркеры ---------- */
   const markers = new Map();
+  // Звёздочка на маркере: избранное видно прямо на карте
+  const syncPinFav = (id) => {
+    const el = markers.get(id) && markers.get(id).getElement();
+    const pin = el && el.querySelector('.pin');
+    if (pin) pin.classList.toggle('pin--fav', favs.has(id));
+  };
   const markerGroup = L.layerGroup().addTo(map);
 
   const makeIcon = (p) => L.divIcon({
@@ -366,7 +375,7 @@
 
   PLACES.forEach((p, i) => {
     const m = L.marker(p.pos, { icon: makeIcon(p), title: p.name, alt: p.name, riseOnHover: true, zIndexOffset: i });
-    m.on('add', () => m.getElement().setAttribute('aria-label', p.name));
+    m.on('add', () => { m.getElement().setAttribute('aria-label', p.name); syncPinFav(p.id); });
     m.on('click', (e) => { L.DomEvent.stopPropagation(e); openPlace(p.id); });
     markers.set(p.id, m);
   });
@@ -469,7 +478,7 @@
     const rows = items.map((p) =>
       `<div class="card-row"><button type="button" class="card${p.id === currentId ? ' is-active' : ''}" data-id="${p.id}" style="--c:${CAT[p.cat].color}">` +
       `<span class="card__ico">${svg(ICONS[p.cat])}</span>` +
-      `<span class="card__txt"><span class="card__name">${esc(p.name)}</span>` +
+      `<span class="card__txt"><span class="card__name">${esc(nb(p.name))}</span>` +
       `<span class="card__vi">${esc(p.vi)}</span>` +
       `<span class="card__meta">${esc(CAT[p.cat].short)} · ${esc(p.tags[p.tags.length - 1])}</span></span></button>${starBtn(p.id)}</div>`
     ).concat(zoneItems.map((z) =>
@@ -491,13 +500,30 @@
     else openPlace(card.dataset.id);
   });
 
+  const showAllZones = () => {
+    if (!map.hasLayer(zonesGroup)) { zonesGroup.addTo(map); updateZonesLabel(); }
+    map.flyToBounds(zonesGroup.getBounds(), { paddingTopLeft: [24, 120], paddingBottomRight: [24, 90], duration: reduceMotion ? 0 : 0.9 });
+  };
+
   const focusZone = (id) => {
     const z = ZONES.find((x) => x.id === id);
     if (!z) return;
     if (!map.hasLayer(zonesGroup)) { zonesGroup.addTo(map); updateZonesLabel(); }
     listSheet.set('closed');
-    map.flyTo(z.center, 13.5, { duration: reduceMotion ? 0 : 0.9 });
-    zonesGroup.eachLayer((l) => { if (l._zone && l._zone.id === id) setTimeout(() => l.openPopup(), reduceMotion ? 0 : 950); });
+    if (currentId) closePlace();
+    // На телефоне попап растёт вверх от центра круга — центр кладём ниже середины экрана, чтобы заголовок не ушёл под чипсы
+    const lift = desktopMq.matches ? 0 : Math.round(map.getSize().y * 0.12);
+    const target = map.unproject(map.project(z.center, 13.5).subtract([0, lift]), 13.5);
+    map.flyTo(target, 13.5, { duration: reduceMotion ? 0 : 0.9 });
+    // Попап открываем, когда карта доехала: иначе автосдвиг не срабатывает и заголовок прячется под чипсами
+    let opened = false;
+    const openPopup = () => {
+      if (opened) return;
+      opened = true;
+      zonesGroup.eachLayer((l) => { if (l._zone && l._zone.id === id) l.openPopup(); });
+    };
+    map.once('moveend', openPopup);
+    setTimeout(openPopup, reduceMotion ? 0 : 1500);
   };
 
   /* ---------- Избранное: действия ---------- */
@@ -508,6 +534,8 @@
     if (label) label.textContent = `Мой список (${n})`;
     favBar.hidden = n === 0;
     $('#fav-bar-count').textContent = `В списке: ${n}`;
+    markers.forEach((m, id) => syncPinFav(id));
+    refreshFavLink();
     document.querySelectorAll('[data-fav]').forEach((b) => {
       const on = favs.has(b.dataset.fav);
       b.classList.toggle('is-on', on);
@@ -634,10 +662,10 @@
       `<div class="place" style="--c:${c.color}">` +
       `<span class="place__cat">${svg(ICONS[p.cat])}${esc(c.label)}</span>` +
       `<p class="place__vi">${esc(p.vi)}</p>` +
-      `<h2 class="place__name">${esc(p.name)}</h2>` +
+      `<h2 class="place__name">${esc(nb(p.name))}</h2>` +
       `<ul class="place__tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` +
-      `<p class="place__desc">${esc(p.desc)}</p>` +
-      `<div class="place__tip"><p class="place__tip-h">Совет от своего</p><p>${esc(p.tip)}</p></div>` +
+      `<p class="place__desc">${esc(nb(p.desc))}</p>` +
+      `<div class="place__tip"><p class="place__tip-h">Совет от своего</p><p>${esc(nb(p.tip))}</p></div>` +
       (p.approx ? '<p class="place__approx">Точка на карте примерная — показывает район, а не точный адрес.</p>' : '') +
       `<div class="place__actions">` +
       `<a class="btn btn--primary" href="${googleMapsUrl(p)}" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-route"/></svg>Маршрут в Google Maps</a>` +
@@ -732,18 +760,26 @@
     else if (listSheet.state !== 'closed') listSheet.set('closed');
   });
 
+  // Закрыли попап района — убираем #district= из адреса
+  map.on('popupclose', () => {
+    if (location.hash.startsWith('#district=')) history.replaceState(null, '', location.pathname + location.search);
+  });
+
   // Маркер пересоздаётся при фильтре — подсветку возвращаем
   markerGroup.on('layeradd', () => { if (currentId) setActiveMarker(currentId); });
 
   /* ---------- Deep-ссылки ---------- */
+  // #place=<id> — карточка места, #district=<id> — район для жизни (center, trieu-viet-vuong, tuyen-lam, north)
   const readHash = () => {
-    const m = location.hash.match(/^#place=([a-z0-9-]+)/i);
-    return m ? m[1].toLowerCase() : null;
+    const m = location.hash.match(/^#(place|district)=([a-z0-9-]+)/i);
+    return m ? { kind: m[1].toLowerCase(), id: m[2].toLowerCase() } : null;
   };
   const openFromHash = () => {
-    const id = readHash();
-    if (id && PLACES.some((p) => p.id === id)) openPlace(id, { updateHash: false });
-    else if (!id && currentId) closePlace();
+    const h = readHash();
+    if (h && h.kind === 'place' && PLACES.some((p) => p.id === h.id)) openPlace(h.id, { updateHash: false });
+    else if (h && h.kind === 'district' && (h.id === 'all' || ZONES.some((z) => z.id === h.id))) {
+      if (h.id === 'all') showAllZones(); else focusZone(h.id);
+    } else if (!h && currentId) closePlace();
   };
   window.addEventListener('hashchange', openFromHash);
 
