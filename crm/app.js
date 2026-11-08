@@ -1,5 +1,5 @@
 /* =========================================================
-   Свой CRM — мини-CRM для клиентов на Фукуоке
+   Свой CRM — мини-CRM для клиентов в Далате
    - клиенты и этапы работы с ними
    - прилёты и напоминания
    - быстрое добавление: ссылка, @ник или номер → карточка
@@ -19,7 +19,7 @@
     { id: 'new',      label: 'Новый',        color: '#F26A3D' },
     { id: 'talking',  label: 'Обсуждаем',    color: '#229ED9' },
     { id: 'booked',   label: 'Подтверждено', color: '#1F8A7E' },
-    { id: 'onisland', label: 'На острове',   color: '#0B3D39' },
+    { id: 'onisland', label: 'В Далате',     color: '#0B3D39' },
     { id: 'done',     label: 'Завершено',    color: '#7C8886' },
     { id: 'lost',     label: 'Отказ',        color: '#B4534A' }
   ];
@@ -106,7 +106,7 @@
     return picked.map((word) => word[0].toUpperCase()).join('') || '?';
   };
 
-  // Даты считаем по времени острова: «сегодня» — это сегодня на Фукуоке
+  // Даты считаем по местному времени: «сегодня» — это сегодня в Далате
   const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
   const TIME_RE = /^\d{2}:\d{2}$/;
   const isDate = (value) => DATE_RE.test(value || '') && !Number.isNaN(Date.parse(value));
@@ -564,7 +564,7 @@
       <header class="px-5 pt-[calc(env(safe-area-inset-top)+22px)]">
         <div class="flex items-center justify-between gap-3">
           <span class="inline-flex shrink-0 items-center gap-2 rounded-full bg-lagoon-800 px-3 py-1.5 text-xs font-semibold text-paper">
-            <span class="live-dot"></span>На острове <span data-island-time class="tabular-nums">${islandTime()}</span>
+            <span class="live-dot"></span>В Далате <span data-island-time class="tabular-nums">${islandTime()}</span>
           </span>
           <span class="flex min-w-0 items-center gap-2">
             <span class="truncate text-sm font-medium text-ink-soft first-letter:uppercase">${fmtDate(today, { weekday: 'long', day: 'numeric', month: 'long' })}</span>
@@ -573,7 +573,7 @@
         </div>
         <h1 class="mt-7 text-[2.75rem] font-semibold leading-[0.95] tracking-tightest">
           ${greeting()}
-          <span class="mt-1 block font-serif text-[1.12em] font-medium italic tracking-[-0.02em] text-lagoon-700">на&nbsp;острове</span>
+          <span class="mt-1 block font-serif text-[1.12em] font-medium italic tracking-[-0.02em] text-lagoon-700">в&nbsp;Далате</span>
         </h1>
       </header>`;
 
@@ -949,7 +949,7 @@
           ${install}
           ${card(automationCard(), 'relative overflow-hidden bg-lagoon-900 text-paper')}
           ${quickAdd}${backup}${data}
-          <p class="pt-3 text-center text-[12px] text-ink-soft">Свой на Фукуоке · CRM 1.1</p>
+          <p class="pt-3 text-center text-[12px] text-ink-soft">Свой в Далате · CRM 1.2</p>
         </div>
       </div>`;
   };
@@ -1162,11 +1162,11 @@
     const t = isoToday();
     const now = Date.now();
     const demo = [
-      { name: 'Анна и Сергей', source: 'telegram', telegram: '@anna_example', stage: 'booked', arrival: addDays(t, 2), arrivalTime: '23:40', flight: 'VJ 975', departure: addDays(t, 12), guests: 4, services: ['airport', 'housing', 'bike'], hotel: 'Вилла, Онг Ланг', price: 'Встреча + 2 байка', nextAction: 'Отправить фото виллы', nextDate: t },
-      { name: 'Игорь', source: 'whatsapp', phone: '+79990000003', stage: 'booked', arrival: t, arrivalTime: '14:10', flight: 'VN 1233', guests: 3, services: ['airport'], hotel: 'Отель, Лонг Бич', nextAction: 'Подтвердить встречу', nextDate: addDays(t, -1) },
+      { name: 'Анна и Сергей', source: 'telegram', telegram: '@anna_example', stage: 'booked', arrival: addDays(t, 2), arrivalTime: '23:40', flight: 'VJ 975', departure: addDays(t, 12), guests: 4, services: ['airport', 'housing', 'bike'], hotel: 'Вилла, Туен Лам', price: 'Встреча + 2 байка', nextAction: 'Отправить фото виллы', nextDate: t },
+      { name: 'Игорь', source: 'whatsapp', phone: '+79990000003', stage: 'booked', arrival: t, arrivalTime: '14:10', flight: 'VN 1233', guests: 3, services: ['airport'], hotel: 'Отель у озера Суан Хыонг', nextAction: 'Подтвердить встречу', nextDate: addDays(t, -1) },
       { name: 'Дмитрий', source: 'whatsapp', phone: '+79990000001', stage: 'talking', arrival: addDays(t, 9), guests: 1, services: ['bike'], nextAction: 'Подобрать байк', nextDate: addDays(t, 1) },
-      { name: 'Екатерина', source: 'instagram', instagram: 'katya.example', stage: 'new', services: ['housing'], notes: 'Ищет апартаменты у Лонг Бич на 2 недели' },
-      { name: 'Михаил', source: 'site', phone: '+79990000002', stage: 'onisland', arrival: addDays(t, -3), departure: addDays(t, 5), guests: 2, services: ['airport', 'help'], hotel: 'Отель, Дуонгдонг' },
+      { name: 'Екатерина', source: 'instagram', instagram: 'katya.example', stage: 'new', services: ['housing'], notes: 'Ищет апартаменты в центре на 2 недели' },
+      { name: 'Михаил', source: 'site', phone: '+79990000002', stage: 'onisland', arrival: addDays(t, -3), departure: addDays(t, 5), guests: 2, services: ['airport', 'help'], hotel: 'Гестхаус, район 1' },
       { name: 'Ольга', source: 'telegram', telegram: '@olga_example', stage: 'done', arrival: addDays(t, -20), departure: addDays(t, -6), services: ['airport', 'housing'] }
     ].map((c, i) => {
       const at = new Date(now - (i + 1) * 36e5 * 7).toISOString();
@@ -1476,7 +1476,7 @@
     if (document.visibilityState === 'visible') sync.pull();
   }, 60000);
 
-  // Время на острове обновляется само
+  // Местное время обновляется само
   setInterval(() => {
     document.querySelectorAll('[data-island-time]').forEach((el) => { el.textContent = islandTime(); });
   }, 15000);
