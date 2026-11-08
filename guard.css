@@ -1,0 +1,118 @@
+/* =========================================================
+   Свой в Далате — общие стили index.html и map.html:
+   защита контента, видимый фокус, юридический блок и окно «Конфиденциальность»
+   ========================================================= */
+
+/* ---------- Защита от быстрого копирования ---------- */
+/* Выделение выключено везде, кроме полей ввода и контактов (телефон, почту нужно уметь скопировать) */
+body {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+input, textarea, select, [contenteditable="true"], .allow-select, a[href^="tel:"], a[href^="mailto:"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+/* Картинки не перетаскиваются и не открываются из меню; плитки и маркеры Leaflet не трогаем — на них держится карта */
+img:not([class*="leaflet-"]) {
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+/* Плёнка при потере фокуса окна. Не перехватывает клики, поэтому ничего не блокирует */
+.focus-shield {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  background: rgb(19 42 34 / 0.45);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s ease, visibility 0s linear 0.15s;
+}
+.focus-shield.is-on {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.05s ease;
+}
+
+/* Печать выключена: вместо страницы — короткое сообщение */
+@media print {
+  body * { display: none !important; }
+  body::before {
+    content: "Печать материалов сайта «Свой в Далате» запрещена.";
+    display: block;
+    padding: 2rem;
+    font: 16px/1.5 system-ui, sans-serif;
+  }
+}
+
+/* ---------- Видимый фокус для клавиатуры (WCAG 2.4.7, 1.4.11) ---------- */
+:focus-visible {
+  outline: 3px solid #2B4F3F;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgb(255 255 255 / 0.9);
+}
+.footer :focus-visible, .legal--dark :focus-visible {
+  outline-color: #F6DD9A;
+  box-shadow: none;
+}
+/* Поля уже выделяются рамкой, а скрытые радио и чекбоксы подсвечивают соседний элемент */
+.sr-only:focus-visible, .peer:focus-visible { outline: none; box-shadow: none; }
+
+/* ---------- Юридический блок в футере ---------- */
+.legal {
+  display: grid;
+  gap: 8px;
+  max-width: 62ch;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #4F5D55;
+}
+.legal--dark { color: rgb(244 239 229 / 0.72); }
+.legal p { margin: 0; }
+.legal__link {
+  justify-self: start;
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.legal__link:hover { color: #16251F; }
+.legal--dark .legal__link:hover { color: #fff; }
+
+/* ---------- Окно «Конфиденциальность» ---------- */
+.privacy-dialog {
+  width: min(32rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 0;
+  border: 0;
+  border-radius: 1.5rem;
+  background: #FFFDF8;
+  color: #16251F;
+  box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.6);
+  overflow: auto;
+}
+.privacy-dialog::backdrop { background: rgb(19 42 34 / 0.55); }
+.privacy-dialog__inner { padding: 1.5rem; }
+.privacy-dialog__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.privacy-dialog__title { margin: 0; font: 600 1.75rem/1.1 "Cormorant Garamond", Georgia, serif; }
+.privacy-dialog__close {
+  display: grid; place-items: center; flex: none;
+  width: 40px; height: 40px;
+  border: 0; border-radius: 50%;
+  background: rgb(22 37 31 / 0.06);
+  color: inherit; font-size: 22px; line-height: 1; cursor: pointer;
+}
+.privacy-dialog__close:hover { background: rgb(22 37 31 / 0.12); }
+.privacy-dialog ul { margin: 1rem 0 0; padding-left: 1.2rem; font-size: 15px; line-height: 1.6; color: #2F3B35; }
+.privacy-dialog li + li { margin-top: 0.6rem; }

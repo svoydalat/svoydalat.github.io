@@ -28,6 +28,7 @@
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="map.css">
+  <link rel="stylesheet" href="guard.css">
 </head>
 <body>
 
@@ -69,6 +70,13 @@
         <p class="list__count" id="list-count" aria-live="polite"></p>
       </div>
       <div class="list__body" id="list-body"></div>
+      <footer class="list__legal">
+        <div class="legal">
+        <p>© <span data-year>2026</span> Свой в Далате. Все права защищены. Любое копирование материалов сайта запрещено.</p>
+        <p>Информация на сайте носит исключительно ознакомительный характер и не является публичной офертой. Актуальные цены, часы работы сторонних локаций и условия аренды уточняются индивидуально при прямом обращении.</p>
+        <button type="button" class="legal__link" data-privacy-open aria-haspopup="dialog">Конфиденциальность</button>
+      </div>
+      </footer>
     </aside>
 
     <main class="stage">
@@ -105,9 +113,25 @@
     </article>
   </div>
 
+  <!-- Окно «Конфиденциальность»: открывается кнопкой в футере, закрывается крестиком, кликом мимо или Escape -->
+  <dialog id="privacy-dialog" class="privacy-dialog" aria-labelledby="privacy-dialog-title">
+    <div class="privacy-dialog__inner">
+      <div class="privacy-dialog__head">
+        <h2 id="privacy-dialog-title" class="privacy-dialog__title">Конфиденциальность</h2>
+        <button type="button" class="privacy-dialog__close" data-privacy-close aria-label="Закрыть окно">&times;</button>
+      </div>
+      <ul>
+        <li>Сайт не передаёт ваши личные данные третьим лицам и не продаёт их.</li>
+        <li>Все консультации ведутся добровольно в Telegram: вы сами решаете, что и когда написать. Если оставляете заявку в форме, имя и контакт приходят только мне и нужны лишь для ответа вам.</li>
+        <li>Браузерное хранилище localStorage используется исключительно для сохранения вашего списка избранных мест. Оно остаётся на вашем устройстве, и вы можете очистить его в любой момент.</li>
+      </ul>
+    </div>
+  </dialog>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="map.js"></script>
+  <script src="guard.js"></script>
 </body>
 </html>

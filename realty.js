@@ -195,6 +195,7 @@
   const createMarkers = () => {
     state.items.forEach((item) => {
       const marker = L.marker(item.pos, { icon: pinIcon(item, false), title: `№ ${item.code}: ${item.title} — ${priceLabel(item)}`, riseOnHover: true, price: item.price });
+      marker.on('add', () => marker.getElement().setAttribute('aria-label', marker.options.title));
       marker.bindPopup(popupHtml(item), {
         maxWidth: 300,
         minWidth: 260,

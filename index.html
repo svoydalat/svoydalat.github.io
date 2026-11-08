@@ -63,6 +63,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="guard.css">
 </head>
 
 <body class="bg-paper font-sans text-ink antialiased selection:bg-sunflower/30">
@@ -669,7 +670,7 @@
           <li class="reveal">
             <article class="stamp" style="--tilt: -1.6deg">
               <div class="stamp__pic">
-                <img src="img/flower-hydrangea.jpg" width="560" height="560" loading="lazy" alt="">
+                <img src="img/flower-hydrangea.jpg" width="560" height="560" loading="lazy" alt="" aria-hidden="true">
                 <span class="stamp__value">01</span>
               </div>
               <svg class="stamp__postmark" aria-hidden="true"><use href="#postmark"/></svg>
@@ -680,7 +681,7 @@
           <li class="reveal" style="--delay: 100ms">
             <article class="stamp" style="--tilt: 1.2deg">
               <div class="stamp__pic">
-                <img src="img/flower-jacaranda.jpg" width="560" height="560" loading="lazy" alt="">
+                <img src="img/flower-jacaranda.jpg" width="560" height="560" loading="lazy" alt="" aria-hidden="true">
                 <span class="stamp__value">02</span>
               </div>
               <svg class="stamp__postmark" aria-hidden="true"><use href="#postmark"/></svg>
@@ -691,7 +692,7 @@
           <li class="reveal sm:col-span-2 sm:mx-auto sm:w-1/2 lg:col-span-1 lg:mx-0 lg:w-auto" style="--delay: 200ms">
             <article class="stamp" style="--tilt: -0.8deg">
               <div class="stamp__pic">
-                <img src="img/flower-sunflower.jpg" width="560" height="560" loading="lazy" alt="">
+                <img src="img/flower-sunflower.jpg" width="560" height="560" loading="lazy" alt="" aria-hidden="true">
                 <span class="stamp__value">03</span>
               </div>
               <svg class="stamp__postmark" aria-hidden="true"><use href="#postmark"/></svg>
@@ -865,7 +866,7 @@
           </a>
         </div>
 
-        <p class="mt-12 font-serif text-2xl italic text-paper/60">Hẹn gặp bạn ở Đà Lạt! <span class="text-paper/40">— до встречи в Далате</span></p>
+        <p class="mt-12 font-serif text-2xl italic text-paper/60">Hẹn gặp bạn ở Đà Lạt! <span class="text-paper/60">— до встречи в Далате</span></p>
       </div>
 
       <!-- Заявка на поездку. data-endpoint — адрес сервера заявок (см. MyServer/Инструкция.md).
@@ -937,12 +938,12 @@
 
       <div class="grid gap-12 border-t border-white/10 py-14 md:grid-cols-[1.2fr_1fr_0.7fr]">
         <div>
-          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/50">Контакты</h3>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/65">Контакты</h3>
           <ul class="mt-6 space-y-4">
             <li>
               <a href="https://t.me/razumovdimka" data-tg="general" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3.5">
                 <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:bg-tg"><svg class="h-[18px] w-[18px]" aria-hidden="true"><use href="#i-tg"/></svg></span>
-                <span><span class="block text-xs text-paper/50">Telegram</span>@razumovdimka</span>
+                <span><span class="block text-xs text-paper/65">Telegram</span>@razumovdimka</span>
               </a>
             </li>
             <li>
@@ -950,13 +951,13 @@
                 <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:bg-pine-500">
                   <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
                 </span>
-                <span><span class="block text-xs text-paper/50">Телефон</span>+84 339 773 756 <span class="text-paper/50">(Вьетнам)</span></span>
+                <span><span class="block text-xs text-paper/65">Телефон</span>+84 339 773 756 <span class="text-paper/65">(Вьетнам)</span></span>
               </a>
             </li>
             <li>
               <a href="https://wa.me/84339773756" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3.5">
                 <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:bg-[#25D366]"><svg class="h-5 w-5" aria-hidden="true"><use href="#i-wa"/></svg></span>
-                <span><span class="block text-xs text-paper/50">WhatsApp</span>Написать в WhatsApp</span>
+                <span><span class="block text-xs text-paper/65">WhatsApp</span>Написать в WhatsApp</span>
               </a>
             </li>
             <li>
@@ -964,24 +965,24 @@
                 <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:bg-clay">
                   <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
                 </span>
-                <span><span class="block text-xs text-paper/50">Email</span>razumovdimka@gmail.com</span>
+                <span><span class="block text-xs text-paper/65">Email</span>razumovdimka@gmail.com</span>
               </a>
             </li>
           </ul>
         </div>
 
         <div>
-          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/50">Где я</h3>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/65">Где я</h3>
           <p class="mt-6 font-serif text-2xl font-semibold">Далат, Вьетнам</p>
           <p class="mt-2 flex items-center gap-2 text-paper/70">
             <span class="live-dot" aria-hidden="true"></span>
             Сейчас в Далате <span data-dalat-time class="tabular-nums text-paper">--:--</span><span data-dalat-weather class="tabular-nums text-paper" hidden></span>
           </p>
-          <p class="mt-6 max-w-xs text-sm leading-relaxed text-paper/50">Отвечаю в Telegram и WhatsApp. Если срочно — просто позвоните.</p>
+          <p class="mt-6 max-w-xs text-sm leading-relaxed text-paper/65">Отвечаю в Telegram и WhatsApp. Если срочно — просто позвоните.</p>
         </div>
 
         <div>
-          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/50">Навигация</h3>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/65">Навигация</h3>
           <ul class="mt-6 space-y-3 text-paper/80">
             <li><a href="#dalat" class="transition hover:text-white">Далат</a></li>
             <li><a href="#services" class="transition hover:text-white">Услуги</a></li>
@@ -994,9 +995,13 @@
         </div>
       </div>
 
-      <div class="flex flex-col gap-2 border-t border-white/10 py-7 text-sm text-paper/45 sm:flex-row sm:justify-between">
-        <p>© <span id="year">2026</span> Свой в Далате</p>
-        <p>Русскоязычный помощник в Далате · иллюстрации созданы в Canva</p>
+      <div class="flex flex-col gap-5 border-t border-white/10 py-7 text-sm text-paper/70 sm:flex-row sm:items-start sm:justify-between">
+        <div class="legal legal--dark">
+        <p>© <span id="year" data-year>2026</span> Свой в Далате. Все права защищены. Любое копирование материалов сайта запрещено.</p>
+        <p>Информация на сайте носит исключительно ознакомительный характер и не является публичной офертой. Актуальные цены, часы работы сторонних локаций и условия аренды уточняются индивидуально при прямом обращении.</p>
+        <button type="button" class="legal__link" data-privacy-open aria-haspopup="dialog">Конфиденциальность</button>
+      </div>
+        <p class="sm:text-right">Русскоязычный помощник в Далате · иллюстрации созданы в Canva</p>
       </div>
     </div>
     <div class="brocade" aria-hidden="true"></div>
@@ -1057,10 +1062,26 @@
     </form>
   </dialog>
 
+  <!-- Окно «Конфиденциальность»: открывается кнопкой в футере, закрывается крестиком, кликом мимо или Escape -->
+  <dialog id="privacy-dialog" class="privacy-dialog" aria-labelledby="privacy-dialog-title">
+    <div class="privacy-dialog__inner">
+      <div class="privacy-dialog__head">
+        <h2 id="privacy-dialog-title" class="privacy-dialog__title">Конфиденциальность</h2>
+        <button type="button" class="privacy-dialog__close" data-privacy-close aria-label="Закрыть окно">&times;</button>
+      </div>
+      <ul>
+        <li>Сайт не передаёт ваши личные данные третьим лицам и не продаёт их.</li>
+        <li>Все консультации ведутся добровольно в Telegram: вы сами решаете, что и когда написать. Если оставляете заявку в форме, имя и контакт приходят только мне и нужны лишь для ответа вам.</li>
+        <li>Браузерное хранилище localStorage используется исключительно для сохранения вашего списка избранных мест. Оно остаётся на вашем устройстве, и вы можете очистить его в любой момент.</li>
+      </ul>
+    </div>
+  </dialog>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <!-- Группировка близких пинов в кружки «5 · от 4,8 млн» -->
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" integrity="sha256-Hk4dIpcqOSb0hZjgyvFOP+cEmDXUKKNE/tT542ZbNQg=" crossorigin="" defer></script>
   <script src="script.js" defer></script>
+  <script src="guard.js" defer></script>
   <script src="realty.js" defer></script>
 </body>
 </html>

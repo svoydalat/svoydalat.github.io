@@ -366,6 +366,7 @@
 
   PLACES.forEach((p, i) => {
     const m = L.marker(p.pos, { icon: makeIcon(p), title: p.name, alt: p.name, riseOnHover: true, zIndexOffset: i });
+    m.on('add', () => m.getElement().setAttribute('aria-label', p.name));
     m.on('click', (e) => { L.DomEvent.stopPropagation(e); openPlace(p.id); });
     markers.set(p.id, m);
   });
@@ -725,7 +726,11 @@
 
   $('#drawer-close').addEventListener('click', closePlace);
   map.on('click', () => { if (currentId) closePlace(); if (listSheet.state !== 'closed') listSheet.set('closed'); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && currentId) closePlace(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || document.querySelector('dialog[open]')) return;
+    if (currentId) closePlace();
+    else if (listSheet.state !== 'closed') listSheet.set('closed');
+  });
 
   // Маркер пересоздаётся при фильтре — подсветку возвращаем
   markerGroup.on('layeradd', () => { if (currentId) setActiveMarker(currentId); });
