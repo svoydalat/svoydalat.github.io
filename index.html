@@ -60,9 +60,6 @@
     };
   </script>
 
-  <!-- Карта: Leaflet + OpenStreetMap -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="guard.css">
 </head>
@@ -123,7 +120,7 @@
         <a href="#dalat" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Далат</a>
         <a href="map.html" class="inline-flex items-center gap-1.5 rounded-full bg-sunflower-soft/70 px-3.5 py-2 font-semibold text-ink transition hover:bg-sunflower-soft"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></svg>Карта</a>
         <a href="#services" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Услуги</a>
-        <a href="#realty" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Жильё</a>
+        <a href="realty.html" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Жильё</a>
         <a href="#how" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Как это работает</a>
         <a href="#reviews" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Отзывы</a>
         <a href="#contacts" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Контакты</a>
@@ -150,7 +147,7 @@
         <a href="#dalat" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Далат</a>
         <a href="map.html" class="flex items-center gap-3 rounded-2xl bg-sunflower-soft/70 px-4 py-3.5 font-semibold transition hover:bg-sunflower-soft"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></svg>Интерактивная карта Далата</a>
         <a href="#services" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Услуги</a>
-        <a href="#realty" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Жильё на&nbsp;карте</a>
+        <a href="realty.html" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Жильё в&nbsp;аренду</a>
         <a href="#how" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Как это работает</a>
         <a href="#reviews" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Отзывы</a>
         <a href="#contacts" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Контакты</a>
@@ -480,8 +477,8 @@
               <li class="flex gap-2.5"><svg class="mt-0.5 h-5 w-5 shrink-0 text-pine-500" aria-hidden="true"><use href="#i-check"/></svg>Фото и&nbsp;видео с&nbsp;места</li>
               <li class="flex gap-2.5"><svg class="mt-0.5 h-5 w-5 shrink-0 text-pine-500" aria-hidden="true"><use href="#i-check"/></svg>Помощь с&nbsp;договором и&nbsp;залогом</li>
             </ul>
-            <a href="#realty" class="group/link mt-6 inline-flex items-center gap-2 font-semibold text-pine-700">
-              Смотреть аренду на&nbsp;карте
+            <a href="realty.html" class="group/link mt-6 inline-flex items-center gap-2 font-semibold text-pine-700">
+              Смотреть аренду
               <svg class="h-4 w-4 transition group-hover/link:translate-x-1" aria-hidden="true"><use href="#i-arrow"/></svg>
             </a>
           </article>
@@ -609,86 +606,13 @@
       </div>
     </section>
 
-    <!-- ================= ЖИЛЬЁ НА КАРТЕ ================= -->
-    <!-- Объекты подгружаются из dalat_realty.json — его собирает tools/collect_dalat_realty.py -->
-    <section id="realty" class="py-24 sm:py-32">
-      <div class="mx-auto max-w-6xl px-4 sm:px-6">
-        <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p class="eyebrow"><span class="eyebrow__num">03</span>Аренда жилья</p>
-            <h2 class="section-title mt-5">Квартиры, дома и&nbsp;комнаты <em>в&nbsp;аренду</em></h2>
-          </div>
-          <div class="max-w-sm">
-            <p class="text-lg leading-relaxed text-ink-soft">Свежие варианты аренды в&nbsp;Далате. Понравился&nbsp;— оставьте заявку: проверю объект, договорюсь с&nbsp;хозяином и&nbsp;покажу его вам.</p>
-            <a href="map.html#district=all" class="mt-4 inline-flex items-center gap-2 font-semibold text-pine-700 underline underline-offset-4 hover:text-pine-900">Какой район выбрать? Интерактивная карта Далата<svg class="h-4 w-4" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-          </div>
-        </div>
-
-        <div id="realty-map-wrap" class="map-frame reveal relative isolate mt-12 overflow-hidden rounded-[2rem] bg-paper-deep">
-          <div id="realty-map" class="h-[64dvh] max-h-[38rem] min-h-[22rem] w-full" role="region" aria-label="Карта аренды жилья в Далате"></div>
-          <div class="map-legend-wrap pointer-events-none absolute bottom-3 left-3 z-[500] flex flex-wrap gap-2">
-            <span class="map-legend"><span class="h-2 w-2 rounded-full bg-pine-600"></span>Цена в&nbsp;месяц · место примерное</span>
-          </div>
-          <div id="map-hint" class="map-hint" aria-hidden="true">Чтобы двигать карту, используйте два пальца</div>
-        </div>
-
-        <div class="mt-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div class="grid grid-cols-2 gap-1 self-stretch rounded-[1.5rem] bg-ink/[0.06] p-1 sm:inline-flex sm:self-start sm:rounded-full" role="group" aria-label="Тип жилья">
-            <button type="button" data-kind="all" class="deal-tab is-active" aria-pressed="true">Все</button>
-            <button type="button" data-kind="apartment" class="deal-tab" aria-pressed="false">Квартиры</button>
-            <button type="button" data-kind="house" class="deal-tab" aria-pressed="false">Дома</button>
-            <button type="button" data-kind="room" class="deal-tab" aria-pressed="false">Комнаты</button>
-          </div>
-          <div class="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-end">
-            <label class="block">
-              <span class="mb-1.5 block text-sm font-medium">Цена в&nbsp;месяц</span>
-              <select id="price-min" class="field field--light sm:w-40" aria-label="Цена от"></select>
-            </label>
-            <label class="block">
-              <span class="mb-1.5 block text-sm font-medium">&nbsp;</span>
-              <select id="price-max" class="field field--light sm:w-40" aria-label="Цена до"></select>
-            </label>
-            <label class="block">
-              <span class="mb-1.5 block text-sm font-medium">Спальни</span>
-              <select id="realty-rooms" class="field field--light sm:w-32">
-                <option value="0">Любое</option>
-                <option value="1">1 и&nbsp;больше</option>
-                <option value="2">2 и&nbsp;больше</option>
-                <option value="3">3 и&nbsp;больше</option>
-              </select>
-            </label>
-            <label class="block">
-              <span class="mb-1.5 block text-sm font-medium">Сортировка</span>
-              <select id="realty-sort" class="field field--light sm:w-44">
-                <option value="new">Сначала новые</option>
-                <option value="cheap">Сначала дешевле</option>
-                <option value="expensive">Сначала дороже</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
-        <p id="realty-count" class="mt-8 text-sm font-semibold text-ink-soft" aria-live="polite">Загружаю объявления…</p>
-        <div id="realty-grid" class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
-        <div id="realty-more-wrap" class="mt-8 hidden text-center">
-          <button id="realty-more" type="button" class="inline-flex items-center justify-center rounded-full px-7 py-3.5 font-semibold ring-1 ring-ink/15 transition hover:bg-ink/5 hover:ring-ink/25">Показать ещё</button>
-        </div>
-        <p class="mt-8 text-center text-ink-soft">Не&nbsp;нашли подходящее? <a id="realty-tg" href="https://t.me/razumovdimka" data-tg="housing" target="_blank" rel="noopener noreferrer" class="font-semibold text-pine-700 underline underline-offset-4">Напишите мне в&nbsp;Telegram</a>&nbsp;— подберу вариант не&nbsp;из&nbsp;списка.</p>
-
-        <p id="realty-source" class="mt-10 max-w-3xl text-xs leading-relaxed text-ink-soft">
-          Варианты собраны из&nbsp;открытых объявлений и&nbsp;обновляются время от&nbsp;времени. Цены указаны с&nbsp;учётом подбора, проверки и&nbsp;сопровождения.
-          Место на&nbsp;карте примерное&nbsp;— точный адрес сообщу после заявки, когда проверю объект и&nbsp;договорюсь с&nbsp;хозяином о&nbsp;показе.
-        </p>
-      </div>
-    </section>
-
     <!-- ================= КАК ЭТО РАБОТАЕТ ================= -->
     <section id="how" class="relative bg-paper-deep/70 py-24 sm:py-32">
       <div class="brocade brocade--top" aria-hidden="true"></div>
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p class="eyebrow"><span class="eyebrow__num">04</span>Как это работает</p>
+            <p class="eyebrow"><span class="eyebrow__num">03</span>Как это работает</p>
             <h2 class="section-title mt-5">Три шага <em>до&nbsp;отдыха</em></h2>
           </div>
           <p class="max-w-sm -rotate-1 font-hand text-[1.7rem] font-semibold leading-tight text-sunflower-deep">Как открытка из&nbsp;Далата&nbsp;— только с&nbsp;вами внутри</p>
@@ -738,7 +662,7 @@
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div class="reveal flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p class="eyebrow"><span class="eyebrow__num">05</span>Отзывы</p>
+            <p class="eyebrow"><span class="eyebrow__num">04</span>Отзывы</p>
             <h2 class="section-title mt-5">Гости <em>о&nbsp;поездках</em></h2>
           </div>
           <a href="#leave-review"
@@ -824,7 +748,7 @@
             <summary class="faq__q">Правда ли, что в&nbsp;квартирах Далата холодно и&nbsp;бывает плесень?</summary>
             <div class="faq__a">
               <p>Бывает, если выбрать жильё наугад. Далат стоит на&nbsp;высоте около 1500 м: сырость и&nbsp;прохлада&nbsp;— обычное дело, особенно в&nbsp;домах на&nbsp;тенистой стороне холма и&nbsp;без&nbsp;сквозного проветривания. Поэтому смотрите на&nbsp;солнечную сторону, окна в&nbsp;двух направлениях и&nbsp;вентиляцию. Хорошо дышат дома на&nbsp;холмах вроде Чьеу Вьет Выонг и&nbsp;Ан Шон&nbsp;— там суше и&nbsp;больше ветра.</p>
-              <p>Я лично проверяю каждый вариант перед заселением: смотрю углы, шкафы, потолок за&nbsp;шторами и&nbsp;ванную на&nbsp;следы сырости. <a href="#realty" class="faq__link">Варианты на&nbsp;карте жилья</a> или <a href="https://t.me/razumovdimka" data-tg="housing:вопрос про холод и плесень" target="_blank" rel="noopener noreferrer" class="faq__link">спросите меня в&nbsp;Telegram</a>.</p>
+              <p>Я лично проверяю каждый вариант перед заселением: смотрю углы, шкафы, потолок за&nbsp;шторами и&nbsp;ванную на&nbsp;следы сырости. <a href="realty.html" class="faq__link">Варианты жилья</a> или <a href="https://t.me/razumovdimka" data-tg="housing:вопрос про холод и плесень" target="_blank" rel="noopener noreferrer" class="faq__link">спросите меня в&nbsp;Telegram</a>.</p>
             </div>
           </details>
           <details class="faq__item">
@@ -874,7 +798,7 @@
     <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
       <div class="grid gap-14 pb-24 pt-16 sm:pb-32 sm:pt-20 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-16">
       <div class="reveal">
-        <p class="eyebrow eyebrow--dark"><span class="eyebrow__num">06</span>Контакты</p>
+        <p class="eyebrow eyebrow--dark"><span class="eyebrow__num">05</span>Контакты</p>
         <h2 class="mt-6 font-serif text-[clamp(3rem,7vw,5.4rem)] font-semibold leading-[0.92] tracking-[-0.02em]">
           Прилетайте.
           <em class="block font-medium text-sunflower-soft">Остальное&nbsp;— на&nbsp;мне.</em>
@@ -1014,7 +938,7 @@
           <ul class="mt-6 space-y-3 text-paper/80">
             <li><a href="#dalat" class="transition hover:text-white">Далат</a></li>
             <li><a href="#services" class="transition hover:text-white">Услуги</a></li>
-            <li><a href="#realty" class="transition hover:text-white">Жильё на&nbsp;карте</a></li>
+            <li><a href="realty.html" class="transition hover:text-white">Жильё в&nbsp;аренду</a></li>
             <li><a href="#how" class="transition hover:text-white">Как это работает</a></li>
             <li><a href="#reviews" class="transition hover:text-white">Отзывы</a></li>
             <li><a href="#leave-review" class="transition hover:text-white">Оставить отзыв</a></li>
@@ -1042,54 +966,6 @@
     <span class="fab__label">Написать в&nbsp;Telegram</span>
   </a>
 
-  <!-- Заявка по объекту из каталога: уходит в бот «Свой CRM» тем же путём, что и форма на сайте -->
-  <dialog id="object-dialog" class="object-dialog" aria-labelledby="object-dialog-title">
-    <form id="object-form">
-      <div class="flex items-start justify-between gap-4 px-5 pt-5 sm:px-6 sm:pt-6">
-        <h3 id="object-dialog-title" class="font-serif text-[1.75rem] font-semibold leading-none tracking-tight">Заявка по&nbsp;объекту</h3>
-        <button type="button" data-close-dialog class="grid h-10 w-10 shrink-0 place-items-center rounded-full ring-1 ring-ink/10 transition hover:bg-ink/5" aria-label="Закрыть">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-        </button>
-      </div>
-      <div id="object-summary" class="mx-5 mt-4 flex gap-3 rounded-2xl bg-white p-3 ring-1 ring-ink/[0.06] sm:mx-6"></div>
-
-      <div class="grid gap-4 px-5 pb-5 pt-4 sm:px-6 sm:pb-6">
-        <div class="grid gap-4 sm:grid-cols-2">
-          <label class="block">
-            <span class="mb-2 block text-sm font-medium">Имя</span>
-            <input class="field field--light" name="name" required maxlength="80" autocomplete="given-name" placeholder="Как к вам обращаться">
-          </label>
-          <label class="block">
-            <span class="mb-2 block text-sm font-medium">Где ответить</span>
-            <select class="field field--light" name="channel">
-              <option value="telegram">Telegram</option>
-              <option value="whatsapp">WhatsApp</option>
-              <option value="phone">Позвонить</option>
-            </select>
-          </label>
-        </div>
-        <label class="block">
-          <span class="mb-2 block text-sm font-medium">Ник или номер</span>
-          <input class="field field--light" name="contact" required maxlength="100" autocomplete="off" placeholder="@ник или номер">
-        </label>
-        <label class="block">
-          <span class="mb-2 block text-sm font-medium">Комментарий <span class="font-normal text-ink-soft">— по&nbsp;желанию</span></span>
-          <textarea class="field field--light resize-none" name="message" rows="2" maxlength="600" placeholder="Когда удобно посмотреть, вопросы по объекту"></textarea>
-        </label>
-
-        <!-- Ловушка для спам-ботов: поле скрыто от людей -->
-        <label class="hp" aria-hidden="true">Сайт <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
-
-        <button type="submit" class="inline-flex items-center justify-center rounded-full bg-pine-900 px-7 py-4 font-semibold text-paper transition duration-300 hover:bg-pine-700 disabled:pointer-events-none disabled:opacity-60">
-          Отправить заявку
-        </button>
-        <p id="object-status" class="hidden" role="status" aria-live="polite"></p>
-        <a id="object-tg" href="https://t.me/razumovdimka" data-tg="housing" target="_blank" rel="noopener noreferrer" class="text-center text-sm font-semibold text-pine-700 underline underline-offset-4">Или спросите в&nbsp;Telegram</a>
-        <p class="text-xs leading-relaxed text-ink-soft">Отправляя заявку, вы соглашаетесь, что я свяжусь с&nbsp;вами по&nbsp;указанным контактам.</p>
-      </div>
-    </form>
-  </dialog>
-
   <!-- Окно «Конфиденциальность»: открывается кнопкой в футере, закрывается крестиком, кликом мимо или Escape -->
   <dialog id="privacy-dialog" class="privacy-dialog" aria-labelledby="privacy-dialog-title">
     <div class="privacy-dialog__inner">
@@ -1105,11 +981,7 @@
     </div>
   </dialog>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-  <!-- Группировка близких пинов в кружки «5 · от 4,8 млн» -->
-  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" integrity="sha256-Hk4dIpcqOSb0hZjgyvFOP+cEmDXUKKNE/tT542ZbNQg=" crossorigin="" defer></script>
   <script src="script.js" defer></script>
   <script src="guard.js" defer></script>
-  <script src="realty.js" defer></script>
 </body>
 </html>

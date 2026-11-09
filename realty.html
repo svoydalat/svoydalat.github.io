@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Аренда жилья в Далате — квартиры, дома и комнаты | Свой в Далате</title>
+  <meta name="description" content="Свежие варианты аренды квартир, домов и комнат в Далате на карте: фильтры по цене и спальням, заявка по любому объекту. Проверю объект и договорюсь с хозяином.">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="theme-color" content="#F4EFE5">
+
+  <link rel="canonical" href="https://svoydalat.github.io/realty.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Свой в Далате">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://svoydalat.github.io/realty.html">
+  <meta property="og:title" content="Аренда жилья в Далате — Свой в Далате">
+  <meta property="og:description" content="Квартиры, дома и комнаты в аренду в Далате на карте — проверю объект и договорюсь с хозяином.">
+  <meta property="og:image" content="https://svoydalat.github.io/img/hero-xuan-huong.jpg">
+  <meta property="og:image:width" content="1136">
+  <meta property="og:image:height" content="1408">
+  <meta property="og:image:alt" content="Иллюстрация: рассвет над озером Суан Хыонг в Далате">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231E3B30'/%3E%3Cpath d='M32 8 22 24h6L18 38h7L15 52h34L39 38h7L36 24h6z' fill='%23F6DD9A'/%3E%3Crect x='29' y='51' width='6' height='6' rx='1' fill='%23E3A21A'/%3E%3C/svg%3E">
+
+  <!-- Включаем анимации появления, только если работает JS -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Шрифты: Cormorant Garamond (заголовки, вьетнамские названия), Onest (текст), Caveat (рукописные пометки) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS через CDN. Палитра Далата: сосна, утренний туман, дикий подсолнух, гортензия, дикая вишня, черепица -->
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper:     { DEFAULT: '#F4EFE5', deep: '#EAE2D2' },
+            ink:       { DEFAULT: '#16251F', soft: '#4F5D55' },
+            pine:      { 50: '#EFF4EF', 100: '#DFE9E0', 200: '#C2D5C5', 300: '#9DBBA3', 500: '#4E7A61', 600: '#3B6550', 700: '#2B4F3F', 800: '#1E3B30', 900: '#132A22', 950: '#0C1D17' },
+            mist:      { DEFAULT: '#DCE3E4', soft: '#ECF0EF', deep: '#B9C6CA' },
+            sunflower: { DEFAULT: '#E3A21A', soft: '#F6DD9A', deep: '#A86F0A' },
+            hydrangea: { DEFAULT: '#6F6AAE', soft: '#DEDBF0', deep: '#4E4890' },
+            blossom:   { DEFAULT: '#D9809A', soft: '#F6DCE3', deep: '#B4566F' },
+            clay:      { DEFAULT: '#B5583A', soft: '#F0D2C4' },
+            tg:        { DEFAULT: '#229ED9', dark: '#1B8AC0' }
+          },
+          fontFamily: {
+            sans:  ['Onest', 'Inter', 'system-ui', 'sans-serif'],
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            hand:  ['Caveat', 'cursive']
+          },
+          letterSpacing: { tightest: '-0.045em' }
+        }
+      }
+    };
+  </script>
+
+  <!-- Карта: Leaflet + OpenStreetMap -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="guard.css">
+</head>
+
+<body class="bg-paper font-sans text-ink antialiased selection:bg-sunflower/30">
+
+  <!-- Общие иконки и силуэты гор — используются через <use> -->
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-tg" viewBox="4.3 5.15 14 14"><path fill="currentColor" d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+    <symbol id="i-pine" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M12 2.5 7.6 9h2.5l-3.6 5.4h3.1L6 20h12l-3.6-5.6h3.1L13.9 9h2.5z"/><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M12 20v2"/></symbol>
+    <symbol id="tree" viewBox="0 0 40 100"><path d="M20 0 30 22h-5l10 22h-7l11 26H24v30h-8V70H1l11-26H5l10-22h-5z"/></symbol>
+    <!-- Три гряды гор Ламвьен и сосны на переднем плане -->
+    <symbol id="ridge" viewBox="0 0 1440 160">
+      <path fill="#B9C6CA" fill-opacity=".75" d="M0 96C110 70 210 64 320 84S540 46 690 70s240-34 390-4 240-16 360 10V160H0z"/>
+      <path fill="#4E7A61" fill-opacity=".5" d="M0 118c130-22 250-18 370-6s240-24 390-6 250-22 400-4 200-8 280 6V160H0z"/>
+      <g fill="#132A22">
+        <use href="#tree" x="24" y="94" width="22" height="56"/><use href="#tree" x="52" y="110" width="16" height="40"/>
+        <use href="#tree" x="76" y="86" width="26" height="64"/><use href="#tree" x="110" y="106" width="18" height="44"/>
+        <use href="#tree" x="136" y="116" width="14" height="34"/><use href="#tree" x="420" y="112" width="15" height="38"/>
+        <use href="#tree" x="442" y="100" width="20" height="50"/><use href="#tree" x="700" y="104" width="18" height="46"/>
+        <use href="#tree" x="724" y="90" width="24" height="60"/><use href="#tree" x="756" y="110" width="16" height="40"/>
+        <use href="#tree" x="1180" y="108" width="17" height="42"/><use href="#tree" x="1206" y="92" width="23" height="58"/>
+        <use href="#tree" x="1238" y="80" width="28" height="70"/><use href="#tree" x="1276" y="102" width="19" height="48"/>
+        <use href="#tree" x="1304" y="114" width="14" height="36"/><use href="#tree" x="1380" y="98" width="21" height="52"/>
+        <use href="#tree" x="1408" y="112" width="15" height="38"/>
+        <path d="M0 132c160-14 300-8 460 0s300-16 460-4 300-10 520 2V160H0z"/>
+      </g>
+    </symbol>
+    <!-- Почтовый штемпель для марок -->
+    <symbol id="postmark" viewBox="0 0 120 60">
+      <g fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="30" cy="30" r="24"/><circle cx="30" cy="30" r="18"/>
+        <path d="M58 16c8-5 14 5 22 0s14 5 22 0 12 4 16 1M58 30c8-5 14 5 22 0s14 5 22 0 12 4 16 1M58 44c8-5 14 5 22 0s14 5 22 0 12 4 16 1"/>
+      </g>
+      <text x="30" y="34" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="11" font-weight="700" fill="currentColor">ĐÀ LẠT</text>
+    </symbol>
+  </svg>
+
+  <!-- ================= ШАПКА ================= -->
+  <header id="site-header" class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
+    <div class="header-bar mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full px-2 sm:h-16">
+      <a href="index.html" class="flex items-center gap-2.5 rounded-full pr-3" aria-label="Свой в Далате — на главную">
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-pine-800 text-sunflower-soft sm:h-11 sm:w-11">
+          <svg class="h-5 w-5" aria-hidden="true"><use href="#i-pine"/></svg>
+        </span>
+        <span class="leading-none">
+          <span class="block font-serif text-[1.3rem] font-semibold tracking-tight">Свой в&nbsp;Далате</span>
+          <span class="mt-0.5 hidden font-serif text-[13px] italic text-ink-soft sm:block">Đà Lạt · город вечной весны</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-1 text-[15px] font-medium text-ink-soft lg:flex" aria-label="Основное меню">
+        <a href="index.html#dalat" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Далат</a>
+        <a href="map.html" class="inline-flex items-center gap-1.5 rounded-full bg-sunflower-soft/70 px-3.5 py-2 font-semibold text-ink transition hover:bg-sunflower-soft"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></svg>Карта</a>
+        <a href="index.html#services" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Услуги</a>
+        <a href="realty.html" aria-current="page" class="rounded-full bg-ink/5 px-3.5 py-2 text-ink">Жильё</a>
+        <a href="index.html#how" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Как это работает</a>
+        <a href="index.html#reviews" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Отзывы</a>
+        <a href="index.html#contacts" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Контакты</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5">
+        <a href="https://t.me/razumovdimka" data-tg="general" target="_blank" rel="noopener noreferrer"
+           class="group hidden items-center gap-2.5 rounded-full bg-pine-900 py-1.5 pl-1.5 pr-5 text-sm font-semibold text-paper transition hover:bg-pine-700 sm:inline-flex">
+          <span class="grid h-8 w-8 place-items-center rounded-full bg-tg text-white"><svg class="h-4 w-4" aria-hidden="true"><use href="#i-tg"/></svg></span>
+          Написать
+        </a>
+        <button id="menu-toggle" type="button"
+                class="grid h-11 w-11 place-items-center rounded-full transition hover:bg-ink/5 lg:hidden"
+                aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню">
+          <svg class="icon-open h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h16"/></svg>
+          <svg class="icon-close hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Мобильное меню -->
+    <div id="mobile-menu" class="mx-auto mt-2 hidden max-w-6xl rounded-[1.75rem] bg-paper/95 p-2 shadow-2xl shadow-ink/10 ring-1 ring-ink/5 backdrop-blur-xl lg:hidden">
+      <nav class="flex flex-col text-lg font-medium" aria-label="Мобильное меню">
+        <a href="index.html#dalat" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Далат</a>
+        <a href="map.html" class="flex items-center gap-3 rounded-2xl bg-sunflower-soft/70 px-4 py-3.5 font-semibold transition hover:bg-sunflower-soft"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></svg>Интерактивная карта Далата</a>
+        <a href="index.html#services" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Услуги</a>
+        <a href="realty.html" aria-current="page" class="rounded-2xl bg-ink/5 px-4 py-3.5">Жильё в&nbsp;аренду</a>
+        <a href="index.html#how" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Как это работает</a>
+        <a href="index.html#reviews" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Отзывы</a>
+        <a href="index.html#contacts" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Контакты</a>
+        <a href="https://t.me/razumovdimka" data-tg="general" target="_blank" rel="noopener noreferrer"
+           class="mt-1 inline-flex items-center justify-center gap-3 rounded-2xl bg-pine-900 px-5 py-4 text-base font-semibold text-paper">
+          <span class="grid h-8 w-8 place-items-center rounded-full bg-tg text-white"><svg class="h-4 w-4" aria-hidden="true"><use href="#i-tg"/></svg></span>
+          Написать в&nbsp;Telegram
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Вводный блок страницы; id="top" нужен скриптам сайта (шапка и плавающая кнопка) -->
+    <section id="top" class="pt-28 pb-10 sm:pt-36 sm:pb-12">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <a href="index.html" class="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-pine-700 hover:text-pine-900"><svg class="h-4 w-4 rotate-180" aria-hidden="true"><use href="#i-arrow"/></svg>На главную</a>
+        <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p class="eyebrow"><span class="eyebrow__num">⌂</span>Аренда жилья</p>
+            <h1 class="section-title mt-5">Квартиры, дома и&nbsp;комнаты <em>в&nbsp;аренду</em></h1>
+          </div>
+          <div class="max-w-sm">
+            <p class="text-lg leading-relaxed text-ink-soft">Свежие варианты аренды в&nbsp;Далате. Понравился&nbsp;— оставьте заявку: проверю объект, договорюсь с&nbsp;хозяином и&nbsp;покажу его вам.</p>
+            <a href="map.html#district=all" class="mt-4 inline-flex items-center gap-2 font-semibold text-pine-700 underline underline-offset-4 hover:text-pine-900">Какой район выбрать? Интерактивная карта Далата<svg class="h-4 w-4" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Объекты подгружаются из dalat_realty.json — его собирает tools/collect_dalat_realty.py -->
+    <section id="realty" class="pb-24 pt-4 sm:pb-32">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div id="realty-map-wrap" class="map-frame reveal relative isolate mt-0 overflow-hidden rounded-[2rem] bg-paper-deep">
+          <div id="realty-map" class="h-[64dvh] max-h-[38rem] min-h-[22rem] w-full" role="region" aria-label="Карта аренды жилья в Далате"></div>
+          <div class="map-legend-wrap pointer-events-none absolute bottom-3 left-3 z-[500] flex flex-wrap gap-2">
+            <span class="map-legend"><span class="h-2 w-2 rounded-full bg-pine-600"></span>Цена в&nbsp;месяц · место примерное</span>
+          </div>
+          <div id="map-hint" class="map-hint" aria-hidden="true">Чтобы двигать карту, используйте два пальца</div>
+        </div>
+
+        <div class="mt-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div class="grid grid-cols-2 gap-1 self-stretch rounded-[1.5rem] bg-ink/[0.06] p-1 sm:inline-flex sm:self-start sm:rounded-full" role="group" aria-label="Тип жилья">
+            <button type="button" data-kind="all" class="deal-tab is-active" aria-pressed="true">Все</button>
+            <button type="button" data-kind="apartment" class="deal-tab" aria-pressed="false">Квартиры</button>
+            <button type="button" data-kind="house" class="deal-tab" aria-pressed="false">Дома</button>
+            <button type="button" data-kind="room" class="deal-tab" aria-pressed="false">Комнаты</button>
+          </div>
+          <div class="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-end">
+            <label class="block">
+              <span class="mb-1.5 block text-sm font-medium">Цена в&nbsp;месяц</span>
+              <select id="price-min" class="field field--light sm:w-40" aria-label="Цена от"></select>
+            </label>
+            <label class="block">
+              <span class="mb-1.5 block text-sm font-medium">&nbsp;</span>
+              <select id="price-max" class="field field--light sm:w-40" aria-label="Цена до"></select>
+            </label>
+            <label class="block">
+              <span class="mb-1.5 block text-sm font-medium">Спальни</span>
+              <select id="realty-rooms" class="field field--light sm:w-32">
+                <option value="0">Любое</option>
+                <option value="1">1 и&nbsp;больше</option>
+                <option value="2">2 и&nbsp;больше</option>
+                <option value="3">3 и&nbsp;больше</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="mb-1.5 block text-sm font-medium">Сортировка</span>
+              <select id="realty-sort" class="field field--light sm:w-44">
+                <option value="new">Сначала новые</option>
+                <option value="cheap">Сначала дешевле</option>
+                <option value="expensive">Сначала дороже</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <p id="realty-count" class="mt-8 text-sm font-semibold text-ink-soft" aria-live="polite">Загружаю объявления…</p>
+        <div id="realty-grid" class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
+        <div id="realty-more-wrap" class="mt-8 hidden text-center">
+          <button id="realty-more" type="button" class="inline-flex items-center justify-center rounded-full px-7 py-3.5 font-semibold ring-1 ring-ink/15 transition hover:bg-ink/5 hover:ring-ink/25">Показать ещё</button>
+        </div>
+        <p class="mt-8 text-center text-ink-soft">Не&nbsp;нашли подходящее? <a id="realty-tg" href="https://t.me/razumovdimka" data-tg="housing" target="_blank" rel="noopener noreferrer" class="font-semibold text-pine-700 underline underline-offset-4">Напишите мне в&nbsp;Telegram</a>&nbsp;— подберу вариант не&nbsp;из&nbsp;списка.</p>
+
+        <p id="realty-source" class="mt-10 max-w-3xl text-xs leading-relaxed text-ink-soft">
+          Варианты собраны из&nbsp;открытых объявлений и&nbsp;обновляются время от&nbsp;времени. Цены указаны с&nbsp;учётом подбора, проверки и&nbsp;сопровождения.
+          Место на&nbsp;карте примерное&nbsp;— точный адрес сообщу после заявки, когда проверю объект и&nbsp;договорюсь с&nbsp;хозяином о&nbsp;показе.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= ПОДВАЛ ================= -->
+  <footer id="contacts" class="relative overflow-hidden bg-pine-900 text-paper">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p class="font-serif text-3xl font-semibold">Свой в&nbsp;Далате</p>
+          <p class="mt-2 max-w-sm text-paper/70">Помогу с&nbsp;жильём, встречей, байком и&nbsp;любым вопросом на&nbsp;месте. Отвечаю в&nbsp;Telegram и&nbsp;WhatsApp.</p>
+        </div>
+        <ul class="space-y-3 text-paper/85">
+          <li><a href="https://t.me/razumovdimka" data-tg="housing" target="_blank" rel="noopener noreferrer" class="transition hover:text-white">Telegram @razumovdimka</a></li>
+          <li><a href="index.html" class="transition hover:text-white">← На главную</a></li>
+          <li><a href="map.html" class="transition hover:text-white">Интерактивная карта Далата</a></li>
+        </ul>
+      </div>
+      <div class="mt-10 border-t border-white/10 pt-7 text-sm text-paper/70">
+        <div class="legal legal--dark">
+          <p>© <span id="year" data-year>2026</span> Свой в&nbsp;Далате. Все права защищены. Любое копирование материалов сайта запрещено.</p>
+          <p>Информация на&nbsp;сайте носит исключительно ознакомительный характер и&nbsp;не&nbsp;является публичной офертой. Актуальные цены, часы работы сторонних локаций и&nbsp;условия аренды уточняются индивидуально при прямом обращении.</p>
+          <button type="button" class="legal__link" data-privacy-open aria-haspopup="dialog">Конфиденциальность</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Плавающая кнопка Telegram: появляется после первого экрана, прячется у футера; на телефоне — с подписью -->
+  <a id="fab-telegram" href="https://t.me/razumovdimka" data-tg="general" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram"
+     class="fab fixed z-40 rounded-full bg-tg text-white shadow-xl shadow-tg/40">
+    <svg class="h-6 w-6 shrink-0" aria-hidden="true"><use href="#i-tg"/></svg>
+    <span class="fab__label">Написать в&nbsp;Telegram</span>
+  </a>
+
+  <!-- Заявка по объекту из каталога: уходит в бот «Свой CRM» тем же путём, что и форма на сайте -->
+  <dialog id="object-dialog" class="object-dialog" aria-labelledby="object-dialog-title">
+    <form id="object-form">
+      <div class="flex items-start justify-between gap-4 px-5 pt-5 sm:px-6 sm:pt-6">
+        <h3 id="object-dialog-title" class="font-serif text-[1.75rem] font-semibold leading-none tracking-tight">Заявка по&nbsp;объекту</h3>
+        <button type="button" data-close-dialog class="grid h-10 w-10 shrink-0 place-items-center rounded-full ring-1 ring-ink/10 transition hover:bg-ink/5" aria-label="Закрыть">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div id="object-summary" class="mx-5 mt-4 flex gap-3 rounded-2xl bg-white p-3 ring-1 ring-ink/[0.06] sm:mx-6"></div>
+
+      <div class="grid gap-4 px-5 pb-5 pt-4 sm:px-6 sm:pb-6">
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="block">
+            <span class="mb-2 block text-sm font-medium">Имя</span>
+            <input class="field field--light" name="name" required maxlength="80" autocomplete="given-name" placeholder="Как к вам обращаться">
+          </label>
+          <label class="block">
+            <span class="mb-2 block text-sm font-medium">Где ответить</span>
+            <select class="field field--light" name="channel">
+              <option value="telegram">Telegram</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="phone">Позвонить</option>
+            </select>
+          </label>
+        </div>
+        <label class="block">
+          <span class="mb-2 block text-sm font-medium">Ник или номер</span>
+          <input class="field field--light" name="contact" required maxlength="100" autocomplete="off" placeholder="@ник или номер">
+        </label>
+        <label class="block">
+          <span class="mb-2 block text-sm font-medium">Комментарий <span class="font-normal text-ink-soft">— по&nbsp;желанию</span></span>
+          <textarea class="field field--light resize-none" name="message" rows="2" maxlength="600" placeholder="Когда удобно посмотреть, вопросы по объекту"></textarea>
+        </label>
+
+        <!-- Ловушка для спам-ботов: поле скрыто от людей -->
+        <label class="hp" aria-hidden="true">Сайт <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+
+        <button type="submit" class="inline-flex items-center justify-center rounded-full bg-pine-900 px-7 py-4 font-semibold text-paper transition duration-300 hover:bg-pine-700 disabled:pointer-events-none disabled:opacity-60">
+          Отправить заявку
+        </button>
+        <p id="object-status" class="hidden" role="status" aria-live="polite"></p>
+        <a id="object-tg" href="https://t.me/razumovdimka" data-tg="housing" target="_blank" rel="noopener noreferrer" class="text-center text-sm font-semibold text-pine-700 underline underline-offset-4">Или спросите в&nbsp;Telegram</a>
+        <p class="text-xs leading-relaxed text-ink-soft">Отправляя заявку, вы соглашаетесь, что я свяжусь с&nbsp;вами по&nbsp;указанным контактам.</p>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Окно «Конфиденциальность»: открывается кнопкой в футере, закрывается крестиком, кликом мимо или Escape -->
+  <dialog id="privacy-dialog" class="privacy-dialog" aria-labelledby="privacy-dialog-title">
+    <div class="privacy-dialog__inner">
+      <div class="privacy-dialog__head">
+        <h2 id="privacy-dialog-title" class="privacy-dialog__title">Конфиденциальность</h2>
+        <button type="button" class="privacy-dialog__close" data-privacy-close aria-label="Закрыть окно">&times;</button>
+      </div>
+      <ul>
+        <li>Сайт не&nbsp;передаёт ваши личные данные третьим лицам и&nbsp;не&nbsp;продаёт их.</li>
+        <li>Все консультации ведутся добровольно в&nbsp;Telegram: вы сами решаете, что и&nbsp;когда написать. Если оставляете заявку в&nbsp;форме, имя и&nbsp;контакт приходят только мне и&nbsp;нужны лишь для&nbsp;ответа вам.</li>
+        <li>Браузерное хранилище localStorage используется исключительно для&nbsp;сохранения вашего списка избранных мест. Оно остаётся на&nbsp;вашем устройстве, и&nbsp;вы можете очистить его в&nbsp;любой момент.</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+  <!-- Группировка близких пинов в кружки «5 · от 4,8 млн» -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" integrity="sha256-Hk4dIpcqOSb0hZjgyvFOP+cEmDXUKKNE/tT542ZbNQg=" crossorigin="" defer></script>
+  <script src="script.js" defer></script>
+  <script src="guard.js" defer></script>
+  <script src="realty.js" defer></script>
+</body>
+</html>
