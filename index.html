@@ -583,15 +583,14 @@
     </section>
 
     <!-- ================= ОТ АВТОРА ================= -->
-    <!-- Фото: положите img/dmitry.jpg и вставьте в .author__photo перед монограммой
-         <img src="img/dmitry.jpg" width="240" height="240" alt="Дмитрий, создатель проекта">
-         Размер круга задан в CSS, поэтому вёрстка не сдвинется. -->
+    <!-- Фото — img/dmitry.jpg (640×800, кадр 4:5 с чашкой кофе). Размер рамки задан в CSS, поэтому вёрстка не сдвигается. -->
     <section id="author" class="author relative pb-4 sm:pb-8" aria-labelledby="author-title">
       <div class="mx-auto max-w-4xl px-4 sm:px-6">
         <figure class="reveal author__card">
           <div class="author__who">
-            <div class="author__photo"><span class="author__mono" aria-hidden="true">ДР</span></div>
+            <div class="author__photo"><img src="img/dmitry.jpg" width="640" height="800" loading="lazy" decoding="async" alt="Дмитрий, создатель проекта, сидит с чашкой кофе на фоне долины в утреннем тумане"></div>
             <figcaption class="author__caption"><strong>Дмитрий</strong> · Создатель проекта</figcaption>
+            <p class="author__note" aria-hidden="true">кофе и туман — мой Далат</p>
           </div>
           <div class="author__speech">
             <h2 id="author-title" class="sr-only">От&nbsp;автора</h2>
