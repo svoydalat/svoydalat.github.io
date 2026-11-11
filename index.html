@@ -32,36 +32,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS через CDN. Палитра Далата: сосна, утренний туман, дикий подсолнух, гортензия, дикая вишня, черепица -->
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            paper:     { DEFAULT: '#F4EFE5', deep: '#EAE2D2' },
-            ink:       { DEFAULT: '#16251F', soft: '#4F5D55' },
-            pine:      { 50: '#EFF4EF', 100: '#DFE9E0', 200: '#C2D5C5', 300: '#9DBBA3', 500: '#4E7A61', 600: '#3B6550', 700: '#2B4F3F', 800: '#1E3B30', 900: '#132A22', 950: '#0C1D17' },
-            mist:      { DEFAULT: '#DCE3E4', soft: '#ECF0EF', deep: '#B9C6CA' },
-            sunflower: { DEFAULT: '#E3A21A', soft: '#F6DD9A', deep: '#A86F0A' },
-            hydrangea: { DEFAULT: '#6F6AAE', soft: '#DEDBF0', deep: '#4E4890' },
-            blossom:   { DEFAULT: '#D9809A', soft: '#F6DCE3', deep: '#B4566F' },
-            clay:      { DEFAULT: '#B5583A', soft: '#F0D2C4' },
-            tg:        { DEFAULT: '#229ED9', dark: '#1B8AC0' }
-          },
-          fontFamily: {
-            sans:  ['Onest', 'Inter', 'system-ui', 'sans-serif'],
-            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-            hand:  ['Caveat', 'cursive']
-          },
-          letterSpacing: { tightest: '-0.045em' }
-        }
-      }
-    };
-  </script>
-
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="guard.css">
+  <!-- Tailwind собран заранее (tools/tailwind.config.js) и идёт последним, как раньше шёл CDN -->
+  <link rel="stylesheet" href="tw.css">
 </head>
 
 <body class="bg-paper font-sans text-ink antialiased selection:bg-sunflower/30">
@@ -167,7 +141,7 @@
       <div class="relative z-10 mx-auto grid max-w-6xl items-center gap-16 px-4 pb-36 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:pb-44">
 
         <div class="lg:col-span-7">
-          <div class="reveal flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-medium text-ink-soft">
+          <div class="rise flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-medium text-ink-soft">
             <span class="inline-flex items-center gap-2 rounded-full bg-pine-800 px-3 py-1.5 text-xs font-semibold text-paper">
               <span class="live-dot" aria-hidden="true"></span>
               В&nbsp;Далате <span data-dalat-time class="tabular-nums">--:--</span><span data-dalat-weather class="tabular-nums" hidden></span>
@@ -175,21 +149,21 @@
             <span>Русскоязычный помощник · Далат, Вьетнам</span>
           </div>
 
-          <p class="reveal mt-8 -rotate-2 font-hand text-[1.7rem] font-semibold leading-none text-sunflower-deep sm:text-[2rem]" style="--delay: 60ms">
+          <p class="rise mt-8 -rotate-2 font-hand text-[1.7rem] font-semibold leading-none text-sunflower-deep sm:text-[2rem]" style="--delay: 60ms">
             Xin chào! Добро пожаловать в&nbsp;город вечной весны
           </p>
 
-          <h1 class="reveal mt-4 font-serif text-[clamp(3.3rem,8.6vw,6.8rem)] font-semibold leading-[0.88] tracking-[-0.025em]" style="--delay: 120ms">
+          <h1 class="rise mt-4 font-serif text-[clamp(3.3rem,8.6vw,6.8rem)] font-semibold leading-[0.88] tracking-[-0.025em]" style="--delay: 120ms">
             Свой человек
             <span class="mt-1 block font-medium italic text-pine-600">в&nbsp;Далате</span>
           </h1>
 
-          <p class="reveal mt-7 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl sm:leading-relaxed" style="--delay: 180ms">
+          <p class="rise mt-7 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl sm:leading-relaxed" style="--delay: 180ms">
             Встречу у&nbsp;выхода из&nbsp;аэропорта, подберу жильё, найду надёжный байк, свожу на&nbsp;рыбалку и&nbsp;решу любой вопрос на&nbsp;месте.
             Вы гуляете среди сосен и&nbsp;пьёте кофе над&nbsp;облаками&nbsp;— всё остальное беру на&nbsp;себя.
           </p>
 
-          <div class="reveal mt-10 flex flex-col gap-3 sm:flex-row sm:items-center" style="--delay: 240ms">
+          <div class="rise mt-10 flex flex-col gap-3 sm:flex-row sm:items-center" style="--delay: 240ms">
             <a href="https://t.me/razumovdimka" data-tg="general" target="_blank" rel="noopener noreferrer"
                class="group inline-flex items-center justify-center gap-3 rounded-full bg-pine-900 py-2 pl-2 pr-7 text-base font-semibold text-paper shadow-[0_18px_40px_-18px_rgba(19,42,34,0.75)] transition duration-300 hover:-translate-y-0.5 hover:bg-pine-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pine-900">
               <span class="grid h-11 w-11 place-items-center rounded-full bg-tg text-white transition duration-300 group-hover:rotate-[-12deg]"><svg class="h-5 w-5" aria-hidden="true"><use href="#i-tg"/></svg></span>
@@ -202,7 +176,7 @@
             </a>
           </div>
 
-          <ul class="reveal mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-[15px] font-medium text-ink-soft" style="--delay: 320ms">
+          <ul class="rise mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-[15px] font-medium text-ink-soft" style="--delay: 320ms">
             <li class="flex items-center gap-2"><span class="grid h-5 w-5 place-items-center rounded-full bg-pine-500/15 text-pine-700"><svg class="h-3 w-3" aria-hidden="true"><use href="#i-check"/></svg></span>Живу в&nbsp;Далате</li>
             <li class="flex items-center gap-2"><span class="grid h-5 w-5 place-items-center rounded-full bg-pine-500/15 text-pine-700"><svg class="h-3 w-3" aria-hidden="true"><use href="#i-check"/></svg></span>Говорю по-русски</li>
             <li class="flex items-center gap-2"><span class="grid h-5 w-5 place-items-center rounded-full bg-pine-500/15 text-pine-700"><svg class="h-3 w-3" aria-hidden="true"><use href="#i-check"/></svg></span>Без&nbsp;посредников</li>
@@ -210,9 +184,9 @@
         </div>
 
         <!-- Окно-арка с видом на озеро Суан Хыонг + штамп, сообщение и «билет» встречи -->
-        <div class="reveal relative mx-auto mb-6 w-full max-w-[26rem] lg:col-span-5 lg:max-w-none" style="--delay: 200ms">
+        <div class="rise relative mx-auto mb-6 w-full max-w-[26rem] lg:col-span-5 lg:max-w-none" style="--delay: 200ms">
           <figure class="arch-window relative">
-            <img src="img/hero-xuan-huong.jpg" width="1136" height="1408" fetchpriority="high"
+            <img src="img/hero-xuan-huong.webp" srcset="img/hero-xuan-huong-640.webp 640w, img/hero-xuan-huong.webp 1136w" sizes="(min-width: 1024px) 440px, 416px" width="1136" height="1408" fetchpriority="high"
                  alt="Иллюстрация: рассвет над озером Суан Хыонг, сосны, французские виллы и дикие подсолнухи Далата">
           </figure>
 
@@ -332,37 +306,37 @@
 
         <div class="culture-grid mt-14 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           <article class="culture-card reveal">
-            <div class="culture-card__media"><img src="img/culture-pines.jpg" width="800" height="1071" loading="lazy" alt="Иллюстрация: сосновый лес на холмах Далата в утреннем тумане"></div>
+            <div class="culture-card__media"><img src="img/culture-pines.webp" width="800" height="1071" loading="lazy" alt="Иллюстрация: сосновый лес на холмах Далата в утреннем тумане"></div>
             <p class="vi mt-5">Rừng thông</p>
             <h3 class="culture-card__title">Сосны и&nbsp;туман</h3>
             <p class="culture-card__text">Утром долины тонут в&nbsp;облаках, к&nbsp;полудню солнце прогревает сосновые склоны. Лучшее время для&nbsp;прогулок&nbsp;— рассвет.</p>
           </article>
           <article class="culture-card reveal" style="--delay: 100ms">
-            <div class="culture-card__media"><img src="img/culture-station.jpg" width="800" height="1071" loading="lazy" alt="Иллюстрация: старый вокзал Далата в стиле ар-деко с паровозом и гортензиями"></div>
+            <div class="culture-card__media"><img src="img/culture-station.webp" width="800" height="1071" loading="lazy" alt="Иллюстрация: старый вокзал Далата в стиле ар-деко с паровозом и гортензиями"></div>
             <p class="vi mt-5">Ga Đà Lạt</p>
             <h3 class="culture-card__title">Маленький Париж</h3>
             <p class="culture-card__text">Французы строили Далат как курорт в&nbsp;горах: виллы с&nbsp;черепичными крышами, собор с&nbsp;петушком на&nbsp;шпиле и&nbsp;вокзал в&nbsp;стиле ар-деко.</p>
           </article>
           <article class="culture-card reveal" style="--delay: 200ms">
-            <div class="culture-card__media"><img src="img/culture-flowers.jpg" width="800" height="1071" loading="lazy" alt="Иллюстрация: гортензии, цветочные поля и теплицы на склонах Далата"></div>
+            <div class="culture-card__media"><img src="img/culture-flowers.webp" width="800" height="1071" loading="lazy" alt="Иллюстрация: гортензии, цветочные поля и теплицы на склонах Далата"></div>
             <p class="vi mt-5">Thành phố ngàn hoa</p>
             <h3 class="culture-card__title">Город тысячи цветов</h3>
             <p class="culture-card__text">Гортензии, розы, лилии и&nbsp;хризантемы растут на&nbsp;террасах и&nbsp;в&nbsp;теплицах&nbsp;— далатские цветы везут по&nbsp;всему Вьетнаму.</p>
           </article>
           <article class="culture-card reveal">
-            <div class="culture-card__media"><img src="img/culture-coffee.jpg" width="800" height="1071" loading="lazy" alt="Иллюстрация: вьетнамский кофе в фильтре-фине на балконе над туманной долиной"></div>
+            <div class="culture-card__media"><img src="img/culture-coffee.webp" width="800" height="1071" loading="lazy" alt="Иллюстрация: вьетнамский кофе в фильтре-фине на балконе над туманной долиной"></div>
             <p class="vi mt-5">Cà phê phin</p>
             <h3 class="culture-card__title">Кофе над&nbsp;облаками</h3>
             <p class="culture-card__text">Кофе через фильтр-фин, горячий чай из&nbsp;артишока и&nbsp;кафе на&nbsp;склонах с&nbsp;видом на&nbsp;сосновые долины&nbsp;— местный ритуал.</p>
           </article>
           <article class="culture-card reveal" style="--delay: 100ms">
-            <div class="culture-card__media"><img src="img/culture-market.jpg" width="800" height="1071" loading="lazy" alt="Иллюстрация: ночной рынок Далата с огоньками, рисовыми лепёшками на углях и вязаными шапками"></div>
+            <div class="culture-card__media"><img src="img/culture-market.webp" width="800" height="1071" loading="lazy" alt="Иллюстрация: ночной рынок Далата с огоньками, рисовыми лепёшками на углях и вязаными шапками"></div>
             <p class="vi mt-5">Chợ đêm</p>
             <h3 class="culture-card__title">Ночной рынок</h3>
             <p class="culture-card__text">Вечером в&nbsp;центре зажигаются огни: баньчанг-ныонг&nbsp;— «далатская пицца» на&nbsp;углях, горячее соевое молоко и&nbsp;вязаные шапки от&nbsp;ночной прохлады.</p>
           </article>
           <article class="culture-card reveal" style="--delay: 200ms">
-            <div class="culture-card__media"><img src="img/culture-langbiang.jpg" width="800" height="1071" loading="lazy" alt="Иллюстрация: гора Лангбианг, длинный дом на сваях и тканое полотно народа кхо"></div>
+            <div class="culture-card__media"><img src="img/culture-langbiang.webp" width="800" height="1071" loading="lazy" alt="Иллюстрация: гора Лангбианг, длинный дом на сваях и тканое полотно народа кхо"></div>
             <p class="vi mt-5">Núi Langbiang</p>
             <h3 class="culture-card__title">Лангбианг и&nbsp;народ кхо</h3>
             <p class="culture-card__text">Гора-легенда над&nbsp;городом и&nbsp;деревни народа кхо: ручное ткачество и&nbsp;гонги. Культура гонгов Центрального нагорья&nbsp;— наследие ЮНЕСКО.</p>
@@ -379,7 +353,7 @@
           <ol class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <li class="season-card reveal" data-months="12,1,2" style="--season: #D9809A">
               <span class="season-card__badge">Цветёт сейчас</span>
-              <img class="season-card__img" src="img/flower-cherry.jpg" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: ветка дикой вишни">
+              <img class="season-card__img" src="img/flower-cherry.webp" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: ветка дикой вишни">
               <p class="vi">Mai anh đào</p>
               <h4 class="season-card__title">Дикая вишня</h4>
               <p class="season-card__text">Розовые облака у&nbsp;озера Суан Хыонг&nbsp;— к&nbsp;Тэту, вьетнамскому Новому году.</p>
@@ -388,7 +362,7 @@
             </li>
             <li class="season-card reveal" data-months="3,4,5" style="--season: #6F6AAE; --delay: 100ms">
               <span class="season-card__badge">Цветёт сейчас</span>
-              <img class="season-card__img" src="img/flower-jacaranda.jpg" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: ветка жакаранды">
+              <img class="season-card__img" src="img/flower-jacaranda.webp" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: ветка жакаранды">
               <p class="vi">Phượng tím</p>
               <h4 class="season-card__title">Жакаранда</h4>
               <p class="season-card__text">Сиреневые кроны над&nbsp;улицами центра и&nbsp;старыми виллами.</p>
@@ -397,7 +371,7 @@
             </li>
             <li class="season-card reveal" data-months="1,2,3,4,5,6,7,8,9,10,11,12" style="--season: #5F7FB8; --delay: 200ms">
               <span class="season-card__badge">Цветёт сейчас</span>
-              <img class="season-card__img" src="img/flower-hydrangea.jpg" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: соцветие гортензии">
+              <img class="season-card__img" src="img/flower-hydrangea.webp" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: соцветие гортензии">
               <p class="vi">Cẩm tú cầu</p>
               <h4 class="season-card__title">Гортензия</h4>
               <p class="season-card__text">Голубые и&nbsp;сиреневые шары у&nbsp;домов, на&nbsp;фермах и&nbsp;в&nbsp;садах.</p>
@@ -406,7 +380,7 @@
             </li>
             <li class="season-card reveal" data-months="10,11,12" style="--season: #E3A21A; --delay: 300ms">
               <span class="season-card__badge">Цветёт сейчас</span>
-              <img class="season-card__img" src="img/flower-sunflower.jpg" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: дикий подсолнух">
+              <img class="season-card__img" src="img/flower-sunflower.webp" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: дикий подсолнух">
               <p class="vi">Dã quỳ</p>
               <h4 class="season-card__title">Дикий подсолнух</h4>
               <p class="season-card__text">Холмы вокруг города становятся золотыми&nbsp;— главный цвет далатской осени.</p>
@@ -449,7 +423,7 @@
                 </a>
               </div>
               <figure class="service-media aspect-[4/3]">
-                <img src="img/service-road.jpg" width="1100" height="822" loading="lazy" alt="Иллюстрация: горная дорога среди сосен и машина, едущая в Далат">
+                <img src="img/service-road.webp" width="1100" height="822" loading="lazy" alt="Иллюстрация: горная дорога среди сосен и машина, едущая в Далат">
                 <figcaption class="service-media__tag">DLI → в&nbsp;любую точку Далата</figcaption>
               </figure>
             </div>
@@ -464,7 +438,7 @@
             <p class="mt-3 leading-relaxed text-ink-soft">Подберу отель, апартаменты или виллу под&nbsp;ваш бюджет и&nbsp;формат отдыха. Проверяю варианты сам&nbsp;— без&nbsp;сюрпризов при&nbsp;заселении.</p>
 
             <figure class="service-media relative my-8 min-h-[15rem] flex-1">
-              <img src="img/service-villa.jpg" width="1100" height="822" loading="lazy" alt="Иллюстрация: французская вилла среди сосен с гортензиями в саду">
+              <img src="img/service-villa.webp" width="1100" height="822" loading="lazy" alt="Иллюстрация: французская вилла среди сосен с гортензиями в саду">
               <span class="absolute left-3 top-3 rounded-full bg-paper/90 px-2.5 py-1 text-[11px] font-semibold text-pine-700 shadow-sm">✓ проверено лично</span>
               <figcaption class="absolute inset-x-3 bottom-3 rounded-2xl bg-paper/90 px-3.5 py-2.5 shadow-sm backdrop-blur">
                 <b class="block text-sm font-semibold">Вилла в&nbsp;соснах</b>
@@ -487,7 +461,7 @@
           <article class="service-card spotlight reveal lg:col-span-2">
             <div class="grid gap-8 sm:grid-cols-2 sm:items-center">
               <figure class="service-media order-2 aspect-[4/3] sm:order-1">
-                <img src="img/service-bike.jpg" width="1100" height="822" loading="lazy" alt="Иллюстрация: скутер на дороге у чайных плантаций под Далатом">
+                <img src="img/service-bike.webp" width="1100" height="822" loading="lazy" alt="Иллюстрация: скутер на дороге у чайных плантаций под Далатом">
                 <figcaption class="service-media__tag">Чайные холмы Каудат</figcaption>
               </figure>
               <div class="order-1 sm:order-2">
@@ -514,7 +488,7 @@
           <article class="service-card spotlight reveal lg:col-span-3">
             <div class="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-12">
               <figure class="service-media aspect-[3/2]">
-                <img src="img/service-fishing.jpg" width="1200" height="800" loading="lazy" alt="Иллюстрация: две удочки на рогатинах у берега озера среди сосен на рассвете">
+                <img src="img/service-fishing.webp" width="1200" height="800" loading="lazy" alt="Иллюстрация: две удочки на рогатинах у берега озера среди сосен на рассвете">
                 <figcaption class="service-media__tag">Утренняя зорька на&nbsp;озере</figcaption>
               </figure>
               <div>
@@ -585,7 +559,7 @@
       <div class="mx-auto max-w-4xl px-4 sm:px-6">
         <figure class="reveal author__card">
           <div class="author__who">
-            <div class="author__photo"><img src="img/dmitry.jpg" width="640" height="800" loading="lazy" decoding="async" alt="Дмитрий, создатель проекта, сидит с чашкой кофе на фоне долины в утреннем тумане"></div>
+            <div class="author__photo"><img src="img/dmitry.webp" width="640" height="800" loading="lazy" decoding="async" alt="Дмитрий, создатель проекта, сидит с чашкой кофе на фоне долины в утреннем тумане"></div>
             <figcaption class="author__caption"><strong>Дмитрий</strong> · Создатель проекта</figcaption>
             <p class="author__note" aria-hidden="true">кофе и туман — мой Далат</p>
           </div>
@@ -622,7 +596,7 @@
           <li class="reveal">
             <article class="stamp" style="--tilt: -1.6deg">
               <div class="stamp__pic">
-                <img src="img/flower-hydrangea.jpg" width="560" height="560" loading="lazy" alt="" aria-hidden="true">
+                <img src="img/flower-hydrangea.webp" width="560" height="560" loading="lazy" alt="" aria-hidden="true">
                 <span class="stamp__value">01</span>
               </div>
               <svg class="stamp__postmark" aria-hidden="true"><use href="#postmark"/></svg>
@@ -633,7 +607,7 @@
           <li class="reveal" style="--delay: 100ms">
             <article class="stamp" style="--tilt: 1.2deg">
               <div class="stamp__pic">
-                <img src="img/flower-jacaranda.jpg" width="560" height="560" loading="lazy" alt="" aria-hidden="true">
+                <img src="img/flower-jacaranda.webp" width="560" height="560" loading="lazy" alt="" aria-hidden="true">
                 <span class="stamp__value">02</span>
               </div>
               <svg class="stamp__postmark" aria-hidden="true"><use href="#postmark"/></svg>
@@ -644,7 +618,7 @@
           <li class="reveal sm:col-span-2 sm:mx-auto sm:w-1/2 lg:col-span-1 lg:mx-0 lg:w-auto" style="--delay: 200ms">
             <article class="stamp" style="--tilt: -0.8deg">
               <div class="stamp__pic">
-                <img src="img/flower-sunflower.jpg" width="560" height="560" loading="lazy" alt="" aria-hidden="true">
+                <img src="img/flower-sunflower.webp" width="560" height="560" loading="lazy" alt="" aria-hidden="true">
                 <span class="stamp__value">03</span>
               </div>
               <svg class="stamp__postmark" aria-hidden="true"><use href="#postmark"/></svg>

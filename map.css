@@ -295,7 +295,7 @@ svg { display: block; }
   transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
 }
 .pin svg { width: 20px; height: 20px; transform: rotate(45deg); }
-.pin-anchor:hover .pin { transform: rotate(-45deg) scale(1.12); }
+@media (hover: hover) { .pin-anchor:hover .pin { transform: rotate(-45deg) scale(1.12); } }
 .pin-anchor.is-active { z-index: 900 !important; }
 .pin-anchor.is-active .pin { transform: rotate(-45deg) scale(1.22); box-shadow: 0 0 0 3px var(--card), 0 0 0 6px var(--c), 0 12px 22px -6px rgb(19 42 34 / 0.7); }
 .pin--approx { opacity: 0.88; }
@@ -491,3 +491,13 @@ svg { display: block; }
   font-size: 12px; line-height: 1;
   transform: rotate(45deg);
 }
+
+/* ---------- Отклик на касание ---------- */
+.btn, .chip, .card, .star, .fav-bar__send, .locate-btn { transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.btn:active, .chip:active, .star:active, .fav-bar__send:active, .locate-btn:active { transform: scale(0.96); transition-duration: 0.08s; }
+.card:active { transform: scale(0.99); transition-duration: 0.1s; }
+@media (prefers-reduced-motion: reduce) { .btn:active, .chip:active, .star:active, .fav-bar__send:active, .locate-btn:active, .card:active { transform: none; } }
+
+/* Переходы между страницами без белой вспышки */
+@view-transition { navigation: auto; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }

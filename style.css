@@ -374,7 +374,7 @@ body::after {
   transition: transform 1.2s var(--ease-out);
 }
 
-.culture-card:hover .culture-card__media img { transform: scale(1.06); }
+@media (hover: hover) { .culture-card:hover .culture-card__media img { transform: scale(1.06); } }
 
 .culture-card__title {
   margin-top: 0.25rem;
@@ -560,7 +560,7 @@ body::after {
   transition: transform 1.2s var(--ease-out);
 }
 
-.service-card:hover .service-media img { transform: scale(1.05); }
+@media (hover: hover) { .service-card:hover .service-media img { transform: scale(1.05); } }
 
 .service-media__tag {
   position: absolute;
@@ -632,7 +632,7 @@ body::after {
   transition: transform 0.5s var(--ease-out);
 }
 
-.stamp:hover { transform: rotate(0deg) translateY(-4px); }
+@media (hover: hover) { .stamp:hover { transform: rotate(0deg) translateY(-4px); } }
 
 .stamp__pic {
   position: relative;
@@ -808,7 +808,7 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
 .rating:hover input ~ label { color: rgb(22 37 31 / 0.15); }
 .rating:hover input + label:hover,
 .rating:hover input + label:hover ~ label { color: var(--sunflower); }
-.rating input + label:hover { transform: scale(1.12); }
+@media (hover: hover) { .rating input + label:hover { transform: scale(1.12); } }
 
 .rating input:focus-visible + label {
   outline: 2px solid var(--pine-600);
@@ -890,7 +890,7 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
   z-index: -1;
 }
 .price-pin { --pin-color: var(--pine-600); }
-.price-pin:hover { transform: translate(-50%, calc(-100% - 9px)) scale(1.06); }
+@media (hover: hover) { .price-pin:hover { transform: translate(-50%, calc(-100% - 9px)) scale(1.06); } }
 .price-pin.is-active { background: var(--pine-900); color: #fff; box-shadow: 0 0 0 2px var(--pine-900), 0 10px 22px -8px rgb(19 42 34 / 0.7); }
 .price-pin.is-active::after { background: var(--pine-900); }
 
@@ -927,7 +927,7 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
   background: rgb(255 253 248 / 0.94);
   box-shadow: 0 2px 6px -2px rgb(19 42 34 / 0.35);
 }
-.price-cluster:hover { transform: translate(-50%, -50%) scale(1.06); }
+@media (hover: hover) { .price-cluster:hover { transform: translate(-50%, -50%) scale(1.06); } }
 
 /* Анимации группировки из Leaflet.markercluster */
 .leaflet-cluster-anim .leaflet-marker-icon,
@@ -967,7 +967,7 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
   box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.06);
   transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
-.realty-card:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.06), 0 24px 44px -24px rgb(19 42 34 / 0.4); }
+@media (hover: hover) { .realty-card:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.06), 0 24px 44px -24px rgb(19 42 34 / 0.4); } }
 
 .realty-card__media {
   position: relative;
@@ -981,7 +981,7 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
   object-fit: cover;
   transition: transform 0.6s var(--ease-out);
 }
-.realty-card:hover .realty-card__media img { transform: scale(1.05); }
+@media (hover: hover) { .realty-card:hover .realty-card__media img { transform: scale(1.05); } }
 
 .deal-badge {
   position: absolute;
@@ -1156,6 +1156,14 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
   animation: reveal-up 0.9s var(--ease-out) var(--delay, 0ms) backwards;
 }
 
+/* Первый экран появляется чистым CSS, не дожидаясь скриптов; на телефоне без blur — он тормозит слабые Android */
+.rise { animation: reveal-up 0.9s var(--ease-out) var(--delay, 0ms) backwards; }
+@media (max-width: 1023.98px) {
+  @keyframes reveal-up-lite { from { opacity: 0; transform: translateY(20px); } }
+  .rise, .js .reveal.is-visible { animation-name: reveal-up-lite; }
+}
+@media (prefers-reduced-motion: reduce) { .rise { animation: none; } }
+
 /* ---------- Плавающая кнопка Telegram ---------- */
 .fab {
   right: 1.25rem;
@@ -1287,7 +1295,7 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
   transform: rotate(-1.4deg);
   transition: transform 0.4s var(--ease-out, ease);
 }
-.author__photo:hover { transform: rotate(0deg); }
+@media (hover: hover) { .author__photo:hover { transform: rotate(0deg); } }
 .author__photo img {
   display: block;
   width: 100%;
@@ -1339,3 +1347,27 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
   .realty-card { border-radius: 1.4rem; }
   .realty-card:hover { transform: none; }
 }
+
+/* ---------- Отклик на касание: кнопки и карточки чуть «вдавливаются» ---------- */
+.realty-btn, .deal-tab, .pick, .faq__q {
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s var(--ease-out);
+}
+.realty-btn:active, .deal-tab:active, .pick:active, .faq__q:active { transform: scale(0.97); transition-duration: 0.08s; }
+.realty-card:active { transform: scale(0.985); transition-duration: 0.1s; }
+@media (prefers-reduced-motion: reduce) {
+  .realty-btn:active, .deal-tab:active, .pick:active, .faq__q:active, .realty-card:active { transform: none; }
+}
+
+/* ---------- Мобильное меню: плавное появление ---------- */
+#mobile-menu {
+  transition: opacity 0.22s ease, transform 0.28s var(--ease-out), display 0.28s allow-discrete;
+}
+#mobile-menu.hidden { opacity: 0; transform: translateY(-10px) scale(0.98); transform-origin: top center; }
+@starting-style { #mobile-menu:not(.hidden) { opacity: 0; transform: translateY(-10px) scale(0.98); } }
+@media (prefers-reduced-motion: reduce) { #mobile-menu { transition: none; } }
+
+/* ---------- Переходы между страницами без белой вспышки (браузеры без поддержки просто игнорируют) ---------- */
+@view-transition { navigation: auto; }
+#site-header { view-transition-name: site-header; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.22s; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
