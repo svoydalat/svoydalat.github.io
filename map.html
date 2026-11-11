@@ -75,6 +75,14 @@
       <div class="list__head">
         <h1 class="list__title">Далат на&nbsp;карте</h1>
         <p class="list__count" id="list-count" aria-live="polite"></p>
+        <div class="list__tools">
+          <label class="search">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+            <span class="sr-only">Поиск по местам</span>
+            <input type="search" id="place-search" placeholder="Найти место: озеро, кофе, рынок…" autocomplete="off" enterkeyhint="search">
+          </label>
+          <button type="button" class="chip chip--near" id="near-toggle" aria-pressed="true" hidden>Ближайшие первыми</button>
+        </div>
       </div>
       <div class="list__body" id="list-body"></div>
       <footer class="list__legal">
@@ -95,6 +103,9 @@
 
       <div class="fav-bar" id="fav-bar" hidden>
         <span class="fav-bar__count" id="fav-bar-count"></span>
+        <a class="fav-bar__route" id="fav-route" href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">
+          <svg aria-hidden="true"><use href="#i-route"/></svg>Маршрут
+        </a>
         <a class="fav-bar__send" id="fav-send" href="https://t.me/razumovdimka" target="_blank" rel="noopener noreferrer">
           <svg aria-hidden="true"><use href="#i-tg"/></svg>Отправить мой список в&nbsp;Telegram
         </a>

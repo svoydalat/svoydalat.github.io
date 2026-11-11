@@ -501,3 +501,38 @@ svg { display: block; }
 /* Переходы между страницами без белой вспышки */
 @view-transition { navigation: auto; }
 @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+
+/* ---------- Поиск, «ближайшие», расстояния, маршрут по списку ---------- */
+.list__tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
+.search { position: relative; flex: 1 1 14rem; display: block; }
+.search svg { position: absolute; left: 14px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: var(--ink-soft); pointer-events: none; }
+.search input {
+  width: 100%; height: 44px; padding: 0 14px 0 40px; border: 0; border-radius: 9999px;
+  background: var(--card); color: var(--ink); font: 500 15px/1 var(--font-sans, inherit);
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.14);
+  -webkit-appearance: none; appearance: none;
+}
+.search input::placeholder { color: rgb(79 93 85 / 0.7); }
+.search input:focus { outline: none; box-shadow: inset 0 0 0 2px var(--pine-600); }
+.chip--near { height: 34px; font-size: 13px; }
+.chip--near[hidden] { display: none; }
+.card__dist { color: var(--pine-700); font-weight: 700; }
+.place__dist { margin: 12px 0 0; font-size: 13.5px; color: var(--ink-soft); }
+.place__dist b { color: var(--ink); }
+
+.fav-bar__route {
+  flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: 44px; padding: 0 14px; border-radius: 9999px;
+  background: var(--pine-900); color: var(--paper); font-size: 14px; font-weight: 600; text-decoration: none;
+}
+.fav-bar__route[hidden] { display: none; }
+.fav-bar__route svg { width: 18px; height: 18px; flex: none; }
+@media (hover: hover) { .fav-bar__route:hover { background: var(--pine-700); } }
+.fav-bar__route:active { transform: scale(0.96); }
+/* Телефон: в одну строку не помещается — счётчик с крестиком сверху, две кнопки под ним */
+@media (max-width: 899.98px) {
+  .fav-bar { flex-wrap: wrap; border-radius: 22px; padding: 10px; gap: 8px; }
+  .fav-bar__count { order: 1; flex: 1; padding-left: 6px; }
+  .fav-bar__clear { order: 2; }
+  .fav-bar__route, .fav-bar__send { order: 3; flex: 1 1 40%; }
+}

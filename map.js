@@ -311,6 +311,13 @@
   };
 
   const googleMapsUrl = (p) => `https://www.google.com/maps/search/?api=1&query=${p.pos[0]},${p.pos[1]}`;
+
+  // Поиск: без регистра, «ё» как «е», вьетнамские буквы без значков (Xuân → xuan)
+  const fold = (s) => String(s).toLowerCase().replace(/ё/g, 'е').replace(/đ/g, 'd').normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const searchText = (p) => fold([p.name, p.vi, CAT[p.cat].label, ...p.tags].join(' '));
+
+  // Расстояние по прямой: «850 м», «1,2 км»
+  const distLabel = (m) => (m < 1000 ? `${Math.round(m / 10) * 10} м` : `${(m / 1000).toFixed(m < 10000 ? 1 : 0).replace('.', ',')} км`);
   const placeLink = (p) => `${location.origin}${location.pathname}#place=${p.id}`;
 
   const toast = (msg) => {
@@ -363,7 +370,10 @@
   // Геолокация: пульсирующая точка и приближение, если человек в районе Далата
   let userMarker = null;
   let userCircle = null;
+  let userPos = null;      // где человек сейчас (если разрешил и он в Далате): от неё считаем расстояния
+  let sortNear = true;
   const DALAT_RADIUS_M = 80000;
+  const distFromUser = (p) => (userPos ? userPos.distanceTo(L.latLng(p.pos)) : null);
   function locateMe() {
     const btn = $('#locate-btn');
     if (!navigator.geolocation) { toast('Браузер не умеет определять местоположение'); return; }
@@ -386,6 +396,12 @@
       const z = Math.max(map.getZoom(), 15);
       if (reduceMotion) map.setView(here, z, { animate: false });
       else map.flyTo(here, z, { duration: 1 });
+      userPos = here;
+      $('#near-toggle').hidden = false;
+      renderList();
+      refreshFavLink();
+      if (currentId) renderDrawer(PLACES.find((x) => x.id === currentId));
+      toast('Показываю расстояния от вас по прямой');
     }, (err) => {
       btn.classList.remove('is-loading');
       toast(err && err.code === 1 ? 'Разрешите доступ к геолокации в настройках браузера' : 'Не удалось определить местоположение');
@@ -477,7 +493,9 @@
     if (btn) btn.setAttribute('aria-pressed', String(on));
   };
 
-  const visiblePlaces = () => PLACES.filter((p) => activeFilter === 'all' || (activeFilter === 'fav' ? favs.has(p.id) : p.cat === activeFilter || (p.also && p.also.includes(activeFilter))));
+  let query = '';
+  const matchesFilter = (p) => activeFilter === 'all' || (activeFilter === 'fav' ? favs.has(p.id) : p.cat === activeFilter || (p.also && p.also.includes(activeFilter)));
+  const visiblePlaces = () => PLACES.filter((p) => matchesFilter(p) && (!query || searchText(p).includes(query)));
 
   const applyFilter = () => {
     const visible = new Set(visiblePlaces().map((p) => p.id));
@@ -515,17 +533,18 @@
 
   const renderList = () => {
     const items = visiblePlaces();
-    const zoneItems = activeFilter === 'fav' ? ZONES.filter((z) => favs.has(zoneKey(z))) : [];
+    if (userPos && sortNear) items.sort((a, b) => distFromUser(a) - distFromUser(b));
+    const zoneItems = activeFilter === 'fav' && !query ? ZONES.filter((z) => favs.has(zoneKey(z))) : [];
     const total = items.length + zoneItems.length;
     $('#list-count').textContent = activeFilter === 'fav'
       ? `В вашем списке: ${total}`
-      : `${total} ${total === 1 ? 'место' : total < 5 ? 'места' : 'мест'} · нажмите, чтобы открыть`;
+      : `${total} ${total === 1 ? 'место' : total > 1 && total < 5 ? 'места' : 'мест'} · нажмите, чтобы открыть`;
     const rows = items.map((p) =>
       `<div class="card-row"><button type="button" class="card${p.id === currentId ? ' is-active' : ''}" data-id="${p.id}" style="--c:${CAT[p.cat].color}">` +
       `<span class="card__ico">${svg(ICONS[p.cat])}</span>` +
       `<span class="card__txt"><span class="card__name">${esc(nb(p.name))}</span>` +
       `<span class="card__vi">${esc(p.vi)}</span>` +
-      `<span class="card__meta">${esc(CAT[p.cat].short)} · ${esc(p.tags[p.tags.length - 1])}</span></span></button>${starBtn(p.id)}</div>`
+      `<span class="card__meta">${userPos ? `<b class="card__dist">${distLabel(distFromUser(p))}</b> · ` : ''}${esc(CAT[p.cat].short)} · ${esc(p.tags[p.tags.length - 1])}</span></span></button>${starBtn(p.id)}</div>`
     ).concat(zoneItems.map((z) =>
       `<div class="card-row"><button type="button" class="card" data-zone="${z.id}" style="--c:${z.color}">` +
       `<span class="card__ico">${svg('M12 3 3 8v8l9 5 9-5V8z')}</span>` +
@@ -533,8 +552,25 @@
       `<span class="card__meta">Район для жизни</span></span></button>${starBtn(zoneKey(z))}</div>`
     ));
     listBody.innerHTML = rows.length ? rows.join('')
-      : `<p class="list__empty">${activeFilter === 'fav' ? 'Пока пусто: нажмите ⭐ у места или района, чтобы собрать свой список.' : 'В этой категории пока ничего нет.'}</p>`;
+      : `<p class="list__empty">${query ? 'Ничего не нашлось. Попробуйте другое слово: «озеро», «кофе», «рынок».' : activeFilter === 'fav' ? 'Пока пусто: нажмите ⭐ у места или района, чтобы собрать свой список.' : 'В этой категории пока ничего нет.'}</p>`;
   };
+
+  // Поиск по местам: список и маркеры на карте сужаются вместе
+  $('#place-search').addEventListener('input', (e) => {
+    query = fold(e.target.value.trim());
+    applyFilter();
+    if (currentId && !visiblePlaces().some((p) => p.id === currentId)) closePlace();
+    if (query) {
+      const found = visiblePlaces();
+      if (found.length) map.flyToBounds(L.latLngBounds(found.map((p) => p.pos)), { padding: [60, 60], maxZoom: 15, duration: reduceMotion ? 0 : 0.7 });
+    }
+  });
+
+  $('#near-toggle').addEventListener('click', (e) => {
+    sortNear = !sortNear;
+    e.currentTarget.setAttribute('aria-pressed', String(sortNear));
+    renderList();
+  });
 
   listBody.addEventListener('click', (e) => {
     const star = e.target.closest('.star');
@@ -605,9 +641,34 @@
     return `${TELEGRAM_CHAT}?text=${encodeURIComponent(`Привет! Я собрал список мест на карте Далата, хочу обсудить поездку/жильё: ${names}`)}`;
   };
   const favSend = $('#fav-send');
+  const favRoute = $('#fav-route');
+  const MAX_STOPS = 10; // Google Maps принимает в ссылке не больше 9 промежуточных точек и конечную
+
+  // Маршрут по списку: места в порядке «ближайшее к предыдущему», старт — от человека (если известно) или от центра
+  const favRouteUrl = () => {
+    const left = PLACES.filter((p) => favs.has(p.id));
+    if (!left.length) return '';
+    const ordered = [];
+    let from = userPos || L.latLng(CENTER);
+    while (left.length && ordered.length < MAX_STOPS) {
+      let best = 0;
+      left.forEach((p, i) => { if (from.distanceTo(L.latLng(p.pos)) < from.distanceTo(L.latLng(left[best].pos))) best = i; });
+      const [next] = left.splice(best, 1);
+      ordered.push(next);
+      from = L.latLng(next.pos);
+    }
+    const pt = (p) => `${p.pos[0]},${p.pos[1]}`;
+    const last = ordered[ordered.length - 1];
+    const waypoints = ordered.slice(0, -1).map(pt).join('|');
+    return `https://www.google.com/maps/dir/?api=1${userPos ? `&origin=${userPos.lat.toFixed(5)},${userPos.lng.toFixed(5)}` : ''}&destination=${pt(last)}${waypoints ? `&waypoints=${encodeURIComponent(waypoints)}` : ''}&travelmode=driving`;
+  };
+
   const refreshFavLink = () => {
     favSend.href = telegramHref(favTelegramUrl());
     if (isMobile) favSend.removeAttribute('target');
+    const route = favRouteUrl();
+    favRoute.hidden = !route;
+    if (route) favRoute.href = route;
   };
   ['click', 'focus', 'pointerenter', 'touchstart'].forEach((ev) => favSend.addEventListener(ev, refreshFavLink, { passive: true }));
   $('#fav-clear').addEventListener('click', () => {
@@ -713,11 +774,12 @@
       `<p class="place__desc">${esc(nb(p.desc))}</p>` +
       `<div class="place__tip"><p class="place__tip-h">Совет от своего</p><p>${esc(nb(p.tip))}</p></div>` +
       (p.approx ? '<p class="place__approx">Точка на карте примерная — показывает район, а не точный адрес.</p>' : '') +
+      (userPos ? `<p class="place__dist">От вас по прямой: <b>${distLabel(distFromUser(p))}</b>. По дорогам дальше — откройте маршрут.</p>` : '') +
       `<div class="place__actions">` +
       `<a class="btn btn--primary" href="${googleMapsUrl(p)}" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-route"/></svg>Маршрут в Google Maps</a>` +
       `<a class="btn btn--tg" id="place-tg" href="${placeTelegramUrl(p)}" target="_blank" rel="noopener noreferrer">${tgIcon}${tgLabel}</a>` +
       `<button type="button" class="btn btn--fav fav-btn${favs.has(p.id) ? ' is-on' : ''}" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}">${favInner(favs.has(p.id))}</button>` +
-      `<button type="button" class="btn btn--ghost" id="place-copy"><svg aria-hidden="true"><use href="#i-link"/></svg>Скопировать ссылку на место</button>` +
+      `<button type="button" class="btn btn--ghost" id="place-copy"><svg aria-hidden="true"><use href="#i-link"/></svg>${navigator.share ? 'Поделиться местом' : 'Скопировать ссылку на место'}</button>` +
       `</div></div>`;
 
     const tg = $('#place-tg');
@@ -730,6 +792,15 @@
 
   const copyLink = async (p) => {
     const link = placeLink(p);
+    // На телефоне открываем системное окно «Поделиться» (Telegram, WhatsApp и т. д.)
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: `${p.name} — Далат`, text: `${p.name} (${p.vi}) на карте Далата`, url: link });
+        return;
+      } catch (err) {
+        if (err && err.name === 'AbortError') return; // человек закрыл окно — это не ошибка
+      }
+    }
     try {
       await navigator.clipboard.writeText(link);
       toast('Ссылка скопирована');
@@ -776,7 +847,7 @@
     const p = PLACES.find((x) => x.id === id);
     if (!p) return;
     // Выбранное место должно быть на карте, даже если фильтр его скрывает
-    if (!visiblePlaces().includes(p)) { activeFilter = 'all'; applyFilter(); }
+    if (!visiblePlaces().includes(p)) { activeFilter = 'all'; query = ''; $('#place-search').value = ''; applyFilter(); }
     currentId = id;
     renderDrawer(p);
     drawerSheet.set('half');

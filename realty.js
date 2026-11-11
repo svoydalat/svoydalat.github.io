@@ -33,7 +33,7 @@
   const PAGE_SIZE = 12; // сколько карточек показываем за раз, остальные — по кнопке «Показать ещё»
   const APPROX_RADIUS_M = 450; // точка сдвинута до 420 м — настоящий дом внутри круга
 
-  const state = { items: [], list: [], limit: PAGE_SIZE, kind: 'all', rooms: 0, min: 0, max: Infinity, sort: 'new' };
+  const state = { items: [], list: [], limit: PAGE_SIZE, kind: 'all', rooms: 0, min: 0, max: Infinity, sort: 'new', cur: 'vnd' };
   const markers = new Map();
 
   /* ---------- Помощники ---------- */
@@ -56,6 +56,51 @@
     return `${Number(value.toFixed(2)).toLocaleString('ru-RU')} ${unit}`;
   };
   const priceLabel = (item) => `${shortMoney(item.price)} VND/мес`;
+  /* ---------- Цена в рублях или долларах (курс ЦБ РФ) ---------- */
+  // Главная цена всегда в VND — так её называет хозяин. Рубли и доллары — справка «≈», чтобы быстрее прикинуть бюджет.
+  const CUR_KEY = 'svoy-currency';
+  const RATES_KEY = 'svoy-rates';
+  const RATES_URL = 'https://www.cbr-xml-daily.ru/daily_json.js';
+  const RATES_TTL_MS = 12 * 60 * 60 * 1000;
+  const rates = { rub: 0, usd: 0, date: '' }; // рублей за 1 VND; долларов за 1 VND
+
+  const readRates = () => {
+    try { return JSON.parse(localStorage.getItem(RATES_KEY) || 'null'); } catch (err) { return null; }
+  };
+  const applyRates = (r) => { rates.rub = r.rub; rates.usd = r.usd; rates.date = r.date; };
+
+  // Свежий курс из сети; нет сети — последний сохранённый (с датой), нет и его — false
+  const loadRates = async () => {
+    const saved = readRates();
+    if (saved && Date.now() - saved.at < RATES_TTL_MS) { applyRates(saved); return true; }
+    try {
+      const res = await fetch(RATES_URL);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const v = (await res.json()).Valute;
+      const rub = v.VND.Value / v.VND.Nominal;
+      const fresh = { rub, usd: rub / v.USD.Value, date: new Date().toISOString().slice(0, 10), at: Date.now() };
+      if (!(rub > 0) || !(fresh.usd > 0)) throw new Error('bad rate');
+      applyRates(fresh);
+      try { localStorage.setItem(RATES_KEY, JSON.stringify(fresh)); } catch (err) { /* не критично */ }
+      return true;
+    } catch (err) {
+      if (saved) { applyRates(saved); return true; }
+      return false;
+    }
+  };
+
+  const altPrice = (item) => {
+    if (state.cur === 'vnd' || !rates[state.cur]) return '';
+    const value = item.price * rates[state.cur];
+    return state.cur === 'rub'
+      ? `≈ ${(Math.round(value / 100) * 100).toLocaleString('ru-RU')} ₽/мес`
+      : `≈ $${(Math.round(value / 5) * 5).toLocaleString('ru-RU')}/мес`;
+  };
+
+  /* ---------- Ссылка на объект ---------- */
+  // Постоянный номер объекта: realty.html#obj=7 открывает карту на этом объекте
+  const itemLink = (item) => `${location.origin}${location.pathname}#obj=${item.code}`;
+
   const distanceLabel = (item) => (item.distance ? `≈ ${item.distance.toLocaleString('ru-RU')} км от центра` : 'Далат');
 
   const ICON_PIN = '<svg class="mt-0.5 h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>';
@@ -176,10 +221,12 @@
         </div>` : ''}
         <div class="realty-popup__body">
           <p class="realty-popup__price">${esc(priceLabel(item))}</p>
+          ${altPrice(item) ? `<p class="realty-popup__alt">${esc(altPrice(item))}</p>` : ''}
           <p class="realty-popup__title">${esc(item.title)}</p>
           ${item.description ? `<p class="realty-popup__desc">${esc(item.description)}</p>` : ''}
           <p class="realty-popup__line">${ICON_LOCK}<span>${esc(distanceLabel(item))} · точный адрес — после заявки</span></p>
           <button type="button" class="realty-popup__cta" data-lead="${esc(item.id)}">Оставить заявку</button>
+          <button type="button" class="realty-popup__share" data-share="${esc(item.id)}">Поделиться объектом</button>
         </div>
       </div>`;
   };
@@ -205,10 +252,12 @@
       marker.on('popupopen', () => {
         setActivePin(item.id);
         approxCircle.setLatLng(item.pos).addTo(map);
+        history.replaceState(null, '', `#obj=${item.code}`); // адрес в браузере можно сразу скопировать и отправить
       });
       marker.on('popupclose', () => {
         setActivePin(null);
         approxCircle.remove();
+        if (location.hash.startsWith('#obj=')) history.replaceState(null, '', location.pathname + location.search);
       });
       markers.set(item.id, marker);
     });
@@ -227,6 +276,11 @@
       const lead = event.target.closest('[data-lead]');
       if (lead) {
         openLead(lead.dataset.lead);
+        return;
+      }
+      const share = event.target.closest('[data-share]');
+      if (share) {
+        shareItem(share.dataset.share, share);
         return;
       }
       const step = event.target.closest('[data-gallery-step]');
@@ -303,9 +357,13 @@
         </div>
         <div class="flex flex-1 flex-col p-5">
           <p class="font-serif text-[1.75rem] font-bold leading-none">${esc(shortMoney(item.price))} VND<span class="font-sans text-sm font-medium text-ink-soft">/мес</span></p>
+          ${altPrice(item) ? `<p class="mt-1.5 text-sm font-semibold text-pine-700">${esc(altPrice(item))}</p>` : ''}
           <h3 class="mt-2 line-clamp-2 font-semibold leading-snug">${esc(item.title)}</h3>
           ${item.description ? `<p class="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">${esc(item.description)}</p>` : ''}
-          <p class="mt-3 flex items-start gap-1.5 text-sm text-ink-soft">${ICON_PIN}<span>${esc(distanceLabel(item))}</span></p>
+          <div class="mt-3 flex items-start justify-between gap-3 text-sm text-ink-soft">
+            <p class="flex items-start gap-1.5">${ICON_PIN}<span>${esc(distanceLabel(item))}</span></p>
+            <button type="button" class="share-link" data-share="${esc(item.id)}">Поделиться</button>
+          </div>
           <div class="mt-auto grid grid-cols-2 gap-2 pt-5">
             <button type="button" class="realty-btn realty-btn--ghost" data-show-on-map="${esc(item.id)}">Показать на карте</button>
             <button type="button" class="realty-btn realty-btn--primary" data-lead="${esc(item.id)}">Оставить заявку</button>
@@ -395,7 +453,69 @@
     if (showButton) showOnMap(showButton.dataset.showOnMap);
     const leadButton = e.target.closest('[data-lead]');
     if (leadButton) openLead(leadButton.dataset.lead);
+    const shareButton = e.target.closest('[data-share]');
+    if (shareButton) shareItem(shareButton.dataset.share, shareButton);
   });
+
+  // «Поделиться»: на телефоне — системное окно, на компьютере — копируем ссылку. Адреса в ссылке нет, только номер объекта
+  function shareItem(id, button) {
+    const item = state.items.find((it) => it.id === id);
+    if (!item) return;
+    const url = itemLink(item);
+    const text = `Вариант жилья в Далате, № ${item.code}: ${item.title} — ${priceLabel(item)}`;
+    const flash = (msg) => {
+      if (!button) return;
+      const before = button.dataset.label || button.textContent;
+      button.dataset.label = before;
+      button.textContent = msg;
+      clearTimeout(button._t);
+      button._t = setTimeout(() => { button.textContent = before; }, 1800);
+    };
+    const copy = async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+        flash('Ссылка скопирована');
+      } catch (err) {
+        flash('Скопируйте адрес из строки браузера');
+        history.replaceState(null, '', `#obj=${item.code}`);
+      }
+    };
+    if (navigator.share) {
+      navigator.share({ title: `Жильё в Далате № ${item.code}`, text, url }).catch((err) => { if (!err || err.name !== 'AbortError') copy(); });
+    } else {
+      copy();
+    }
+  }
+
+  /* ---------- Цена в другой валюте ---------- */
+  const currencySelect = document.getElementById('realty-currency');
+  const rateNote = document.createElement('span');
+  rateNote.id = 'rate-note';
+
+  const redrawPrices = () => {
+    if (!state.items.length) return;
+    drawGrid();
+    markers.forEach((marker, id) => {
+      const item = state.items.find((it) => it.id === id);
+      if (item) marker.setPopupContent(popupHtml(item));
+    });
+  };
+
+  const setCurrency = async (cur) => {
+    state.cur = cur;
+    rateNote.textContent = '';
+    if (cur !== 'vnd' && !(await loadRates())) {
+      state.cur = 'vnd';
+      currencySelect.value = 'vnd';
+      rateNote.textContent = ' Курс сейчас не загрузился — цены только в VND.';
+    } else if (cur !== 'vnd') {
+      const [y, m, d] = rates.date.split('-');
+      rateNote.textContent = ` Рубли и доллары — по курсу ЦБ РФ на ${d}.${m}.${y}, ориентировочно.`;
+    }
+    try { localStorage.setItem(CUR_KEY, state.cur); } catch (err) { /* не критично */ }
+    redrawPrices();
+  };
+  if (currencySelect) currencySelect.addEventListener('change', () => setCurrency(currencySelect.value));
 
   /* ---------- Заявка по объекту ---------- */
   const dialog = document.getElementById('object-dialog');
@@ -486,6 +606,14 @@
     }
   });
 
+  // #obj=7 — открыть на карте объект № 7 (если он есть в каталоге)
+  function openFromHash() {
+    const m = location.hash.match(/^#obj=(\d+)/);
+    const item = m && state.items.find((it) => Number(it.code) === Number(m[1]));
+    if (item) setTimeout(() => showOnMap(item.id), 400);
+  }
+  window.addEventListener('hashchange', openFromHash);
+
   /* ---------- Загрузка объявлений ---------- */
   fetch('dalat_realty.json', { cache: 'no-cache' })
     .then((res) => {
@@ -498,9 +626,16 @@
       if (data.generated_at) {
         sourceEl.append(` Данные на ${new Date(data.generated_at).toLocaleDateString('ru-RU')}.`);
       }
+      sourceEl.append(rateNote);
       fillPriceSelects();
       updateTabCounts();
       render();
+      // Выбранная раньше валюта и ссылка на конкретный объект (#obj=N)
+      try {
+        const saved = localStorage.getItem(CUR_KEY);
+        if (currencySelect && (saved === 'rub' || saved === 'usd')) { currencySelect.value = saved; setCurrency(saved); }
+      } catch (err) { /* не критично */ }
+      openFromHash();
     })
     .catch((err) => {
       console.error('Не удалось загрузить dalat_realty.json', err);

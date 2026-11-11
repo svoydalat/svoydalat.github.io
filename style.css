@@ -1399,3 +1399,10 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
   .fab { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .tabbar a:active { transform: none; } }
+
+/* ---------- Каталог: «Поделиться», цена в другой валюте ---------- */
+.share-link { flex: none; padding: 0.1rem 0; border: 0; background: none; font-size: 0.875rem; font-weight: 600; color: var(--pine-700); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgb(43 79 63 / 0.35); }
+@media (hover: hover) { .share-link:hover { color: var(--pine-900); text-decoration-color: currentColor; } }
+.share-link:active { opacity: 0.6; }
+.realty-popup__alt { margin: 0.1rem 0 0 !important; font-size: 13px; font-weight: 600; color: var(--pine-700); }
+.realty-popup__share { display: block; width: 100%; margin-top: 0.4rem; padding: 0.45rem; border: 0; background: none; font-size: 13px; font-weight: 600; color: var(--pine-700); text-decoration: underline; text-underline-offset: 3px; }
