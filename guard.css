@@ -127,3 +127,15 @@ body { overflow-wrap: break-word; }
     transform: scale(0.98);
   }
 }
+
+/* Плашка «Нет связи» и подсказки установки (pwa.js) */
+.net-toast {
+  position: fixed; left: 50%; bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 120;
+  max-width: min(92vw, 26rem); padding: 0.75rem 1.1rem; border-radius: 1rem;
+  background: #132A22; color: #F4EFE5; font: 500 14px/1.4 Onest, system-ui, sans-serif; text-align: center;
+  box-shadow: 0 18px 40px -18px rgb(19 42 34 / 0.7);
+  opacity: 0; transform: translate(-50%, 12px); pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.net-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+@media (max-width: 639.98px) { .net-toast { bottom: calc(5rem + env(safe-area-inset-bottom)); } }
