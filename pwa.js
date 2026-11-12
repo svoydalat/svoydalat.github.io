@@ -6,9 +6,51 @@
    ========================================================= */
 (() => {
   const secure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+  /* ---------- Плашка «Доступна новая версия» ---------- */
+  let updateAsked = false; // человек нажал «Обновить»
+  const offerUpdate = (worker) => {
+    if (document.querySelector('.update-bar')) return;
+    const box = document.createElement('div');
+    box.className = 'update-bar';
+    box.setAttribute('role', 'status');
+    box.innerHTML = '<span>Доступна новая версия сайта</span>' +
+      '<button type="button" class="update-bar__go">Обновить</button>' +
+      '<button type="button" class="update-bar__later" aria-label="Напомнить позже">×</button>';
+    box.querySelector('.update-bar__go').addEventListener('click', () => {
+      updateAsked = true;
+      box.querySelector('.update-bar__go').textContent = 'Обновляю…';
+      worker.postMessage({ type: 'SKIP_WAITING' }); // новая версия включается, страница перезагрузится сама
+    });
+    box.querySelector('.update-bar__later').addEventListener('click', () => box.remove());
+    document.body.appendChild(box);
+  };
+
   if ('serviceWorker' in navigator && secure) {
+    // Первый заход: версия ставится без вопросов и перезагрузки. Перезагружаем, только если страница уже работала под старой версией
+    const hadController = Boolean(navigator.serviceWorker.controller);
+    let reloading = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (reloading || !(hadController || updateAsked)) return;
+      reloading = true;
+      location.reload();
+    });
+
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').catch((err) => console.warn('Офлайн-режим недоступен', err));
+      navigator.serviceWorker.register('sw.js').then((reg) => {
+        if (reg.waiting && navigator.serviceWorker.controller) offerUpdate(reg.waiting);
+        reg.addEventListener('updatefound', () => {
+          const next = reg.installing;
+          if (!next) return;
+          next.addEventListener('statechange', () => {
+            if (next.state === 'installed' && navigator.serviceWorker.controller) offerUpdate(next);
+          });
+        });
+        // Браузер сам проверяет новую версию редко: спрашиваем при возвращении в приложение и раз в час
+        const check = () => reg.update().catch(() => {});
+        document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') check(); });
+        setInterval(check, 60 * 60 * 1000);
+      }).catch((err) => console.warn('Офлайн-режим недоступен', err));
     });
   }
 

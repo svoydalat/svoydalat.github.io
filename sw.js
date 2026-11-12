@@ -3,7 +3,7 @@
    После изменения файлов сайта увеличьте номер версии в VERSION.
    CRM (/crm/) живёт отдельно, у неё свой service worker — здесь она не обрабатывается.
    ========================================================= */
-const VERSION = 'svoy-dalat-v4';
+const VERSION = 'svoy-dalat-v5';
 const SHELL = `${VERSION}-shell`;
 const TILES = `${VERSION}-tiles`;
 const MAX_TILES = 400; // тайлы OpenStreetMap: храним только то, что человек сам открывал, без массовой загрузки
@@ -31,14 +31,18 @@ self.addEventListener('install', (event) => {
     caches.open(SHELL)
       // addAll падает целиком, если один файл не скачался, — поэтому по одному: сайт ставится и с частью файлов
       .then((cache) => Promise.all(PRECACHE.map((url) => cache.add(url).catch(() => {}))))
-      .then(() => self.skipWaiting())
+    // skipWaiting здесь нет: новая версия ждёт, пока человек нажмёт «Обновить» (pwa.js присылает SKIP_WAITING)
   );
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k.startsWith('svoy-dalat-') && !k.startsWith(VERSION)).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k.startsWith('svoy-dalat-') && !k.startsWith(`${VERSION}-`)).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
