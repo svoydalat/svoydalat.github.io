@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T06:08:05+00:00",
+  "generated_at": "2026-11-12T06:10:05+00:00",
   "note": "Аренда жилья в Далате. Цены — для клиента, точки на карте примерные, адреса не публикуются.",
   "city": {
     "name": "Далат",
@@ -111,41 +111,6 @@
         }
       ],
       "posted_at": "2026-11-12T04:29:17.815000+00:00",
-      "added_at": "2026-11-12"
-    },
-    {
-      "id": "dl-40",
-      "code": 40,
-      "kind": "apartment",
-      "title_ru": "Аренда квартиры, 1000 м², 11 спален",
-      "description_ru": "Квартира · 1000 м² · 11 спален",
-      "price_vnd": 162000000,
-      "area_m2": 1000.0,
-      "rooms": 11,
-      "toilets": null,
-      "furnished": null,
-      "lat": 11.9042,
-      "lng": 108.46026,
-      "distance_km": 5.0,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/1BTU2b2r_FgIPArPNbqmllQc-Ualvz_qew0brMRcirU/preset:listing/plain/c8f70347de4cb0df0e542c103c712174-3008298344439487053.jpg",
-          "full": "https://cdn.chotot.com/bh0rk4ICium9Z-HnkioUcNH371HYtzdyUVHJ0pV3yLA/preset:view/plain/c8f70347de4cb0df0e542c103c712174-3008298344439487053.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/32ixJ9RDmoe2CRBDETqtaqTalSSkMJSVYaTVzFnmslc/preset:listing/plain/0ef04567b594e97c83f5636470bdb688-3008298344634603024.jpg",
-          "full": "https://cdn.chotot.com/e0o_wH2DraEEqy-GI0qi2o45LON39KlMBUKA5uLT9ok/preset:view/plain/0ef04567b594e97c83f5636470bdb688-3008298344634603024.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/7KDmPjSUsXV0h0oZmoi52DHqdfT_c45SwzyWG-YZ_NU/preset:listing/plain/de277b25d57effa9ff1a18644880a9db-3008298344362653682.jpg",
-          "full": "https://cdn.chotot.com/-yjRttImNrHz6Ac9DgGmhyS2-C0FKZE8nmq9SmgWrrc/preset:view/plain/de277b25d57effa9ff1a18644880a9db-3008298344362653682.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/s7T5mbYU0DC_2D41YKWrwwh8ddnRNPbSjLgnDJEzSco/preset:listing/plain/d8d909e659672af84f74c9d9ae27b274-3008298345065515747.jpg",
-          "full": "https://cdn.chotot.com/fsgzpxHJLLDaXRifPsxsUBvKeiv-AswhESfEHNN1hsA/preset:view/plain/d8d909e659672af84f74c9d9ae27b274-3008298345065515747.jpg"
-        }
-      ],
-      "posted_at": "2026-11-12T03:35:27+00:00",
       "added_at": "2026-11-12"
     },
     {
@@ -492,6 +457,41 @@
         }
       ],
       "posted_at": "2026-11-08T03:28:21.862000+00:00",
+      "added_at": "2026-11-08"
+    },
+    {
+      "id": "dl-2",
+      "code": 2,
+      "kind": "apartment",
+      "title_ru": "Квартира с 2 спальнями, большим балконом и мебелью",
+      "description_ru": "Квартира · 80 м² · 2 спальни · 2 санузла · сервисные апартаменты",
+      "price_vnd": 10800000,
+      "area_m2": 80.0,
+      "rooms": 2,
+      "toilets": 2,
+      "furnished": null,
+      "lat": 11.95095,
+      "lng": 108.43052,
+      "distance_km": 1.0,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/uk8M6NB5N4OnZ31dtTsPSEYYWymNxfybP3MS78ocKVU/preset:listing/plain/e36bdfc9aeb75a1b32e4fdfddd75b071-3010011338548848360.jpg",
+          "full": "https://cdn.chotot.com/uUnPGBF0_M0FspJhMhJQLADak1c-YxpGfK1BqqyTtPg/preset:view/plain/e36bdfc9aeb75a1b32e4fdfddd75b071-3010011338548848360.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/KpocSzbJuo1PfWTi7Z1YyJeJXj822lUtpI10b_E-ops/preset:listing/plain/13fc9a3b4be1622e113d6bfaf68187e2-3010011338651990111.jpg",
+          "full": "https://cdn.chotot.com/ezFhJPmJULMlQntYAu2j7qH-KmHItI6pmN4yIEaGNu0/preset:view/plain/13fc9a3b4be1622e113d6bfaf68187e2-3010011338651990111.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/Hvz4pQT5jCx2QmnpxytqH4_R-SQdk1afMdTMCXhI8P0/preset:listing/plain/57af611deed2884a9911969ab384b23c-3010011338667324379.jpg",
+          "full": "https://cdn.chotot.com/UPhbUUEW0ETtQaClmatLPxBsPTe9kcLP2ImWcWpHknI/preset:view/plain/57af611deed2884a9911969ab384b23c-3010011338667324379.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/1zmZ_6kgXDsTTwD-Y-geGsuNTXKqKGJP_RFOyXoWLJs/preset:listing/plain/a4e616f192f493a55f29cd918a75cb0f-3010011338784189941.jpg",
+          "full": "https://cdn.chotot.com/KOzL4iJulcsSAt_X77JLQrqTjihD3NVWlLUGPtMSfjs/preset:view/plain/a4e616f192f493a55f29cd918a75cb0f-3010011338784189941.jpg"
+        }
+      ],
+      "posted_at": "2026-11-08T03:02:43.257000+00:00",
       "added_at": "2026-11-08"
     },
     {
