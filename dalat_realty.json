@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T06:10:05+00:00",
+  "generated_at": "2026-11-12T06:28:50+00:00",
   "note": "Аренда жилья в Далате. Цены — для клиента, точки на карте примерные, адреса не публикуются.",
   "city": {
     "name": "Далат",
@@ -495,6 +495,37 @@
       "added_at": "2026-11-08"
     },
     {
+      "id": "dl-68",
+      "code": 68,
+      "kind": "house",
+      "title_ru": "Аренда дома, 90 м², 6 спален",
+      "description_ru": "Дом · 90 м² · 6 спален · 6 санузлов · 3 этажа · дом с фасадом на улицу",
+      "price_vnd": 30000000,
+      "area_m2": 90.0,
+      "rooms": 6,
+      "toilets": 6,
+      "furnished": null,
+      "lat": 11.94973,
+      "lng": 108.43191,
+      "distance_km": 1.0,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/BtpGf0UdQerM7KSUpnHXhoLK6unKiudImfkVbKASXoI/preset:listing/plain/535c9afa81bb4cd77665b888f2f322db-3010476938585174540.jpg",
+          "full": "https://cdn.chotot.com/zolbEJWwqKqKLIBhtjjZzP1Xpyc5tCaGRok1xDNkF80/preset:view/plain/535c9afa81bb4cd77665b888f2f322db-3010476938585174540.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/3lgHgSYVqZxC9kx92RkWKP-7sNG4SzaqBozyxVDA5NM/preset:listing/plain/c8139bf75c5baaa7c4a6f6d756da586e-3010477282456092365.jpg",
+          "full": "https://cdn.chotot.com/yK6ulkf-l0eQlJXpRNWuThsPgyP-nqLHiucEkePKIOE/preset:view/plain/c8139bf75c5baaa7c4a6f6d756da586e-3010477282456092365.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/DhGrgASYmO_Mv-vCvsFK56NyxMJDfxLx7ItH6HIw2A4/preset:listing/plain/25dbf7af8689c55ba878e7e94b232cb9-3010477289408693491.jpg",
+          "full": "https://cdn.chotot.com/nElK4Z2ZW4JVhoNs77yfLnEaMMBBaCwOYz6cRkxO4Wk/preset:view/plain/25dbf7af8689c55ba878e7e94b232cb9-3010477289408693491.jpg"
+        }
+      ],
+      "posted_at": "2026-11-12T06:23:25.848000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
       "id": "dl-50",
       "code": 50,
       "kind": "house",
@@ -935,41 +966,6 @@
         }
       ],
       "posted_at": "2026-11-10T04:13:40.687000+00:00",
-      "added_at": "2026-11-12"
-    },
-    {
-      "id": "dl-63",
-      "code": 63,
-      "kind": "house",
-      "title_ru": "Аренда дома, 100 м², 11 спален",
-      "description_ru": "Дом · 100 м² · 11 спален · дом с фасадом на улицу",
-      "price_vnd": 48000000,
-      "area_m2": 100.0,
-      "rooms": 11,
-      "toilets": null,
-      "furnished": null,
-      "lat": 11.94927,
-      "lng": 108.46608,
-      "distance_km": 3.0,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/1_ic874gVTwXQ7iZCRc8bFBqKr40mvMnsguuAjYeZ5I/preset:listing/plain/6ced284e8801b51e3e05117e69698c10-3010294117854603064.jpg",
-          "full": "https://cdn.chotot.com/Wb-O-v-rKbv3T-7iSygl7aCyHmFOZyrATLbzuMh3U9g/preset:view/plain/6ced284e8801b51e3e05117e69698c10-3010294117854603064.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/_JRDql81A69Ci8jp3uq6dt-nn31rkWUxQfbDsxkh_Ig/preset:listing/plain/8c3cc3cdcdae63a183bc0236b1cd8ef9-3010294133725824933.jpg",
-          "full": "https://cdn.chotot.com/-dJIDL9PaOTQB4aO1Nv1aeypnrCHWvyp_PXldjz3UK0/preset:view/plain/8c3cc3cdcdae63a183bc0236b1cd8ef9-3010294133725824933.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/K__y4i9RQe5_jnOtkXiqLuxT7ZxbyV2YKn4-EbtSWZU/preset:listing/plain/c5fab27eef38596fa98cf988f1867df6-3010294134398307269.jpg",
-          "full": "https://cdn.chotot.com/SZpr9orYFbO6BiCYtQn9Z7FVbj3NnboWqdiW-JUwcf0/preset:view/plain/c5fab27eef38596fa98cf988f1867df6-3010294134398307269.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/o-mryJC73S1E4dwmFSIlQuOETAeEpg5anILZI455kDI/preset:listing/plain/ee1c90f230ffdfbf624d9ee261e6053f-3010294133793417016.jpg",
-          "full": "https://cdn.chotot.com/XY3DdyiO9ZnPhkPnMew549BW4ROmMIx9adRmU2EYXGc/preset:view/plain/ee1c90f230ffdfbf624d9ee261e6053f-3010294133793417016.jpg"
-        }
-      ],
-      "posted_at": "2026-11-10T01:50:42.172000+00:00",
       "added_at": "2026-11-12"
     },
     {
