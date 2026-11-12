@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T07:05:26+00:00",
+  "generated_at": "2026-11-12T06:08:05+00:00",
   "note": "Аренда жилья в Далате. Цены — для клиента, точки на карте примерные, адреса не публикуются.",
   "city": {
     "name": "Далат",
@@ -8,6 +8,457 @@
   },
   "count": 36,
   "items": [
+    {
+      "id": "dl-37",
+      "code": 37,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 60 м², 2 спальни",
+      "description_ru": "Квартира · 60 м² · 2 спальни · 2 санузла · сервисные апартаменты",
+      "price_vnd": 10200000,
+      "area_m2": 60.0,
+      "rooms": 2,
+      "toilets": 2,
+      "furnished": null,
+      "lat": 11.96087,
+      "lng": 108.4484,
+      "distance_km": 2.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/WRy9eNdmItJ6WsmPgjs7YQ9RyL2PLBaGLWvlb9TA_h8/preset:listing/plain/515041d78ac277e2f8c02d4d17f6de05-3010601292528439677.jpg",
+          "full": "https://cdn.chotot.com/bDm7fKYVjuQiUp4a18XX_zA9i5-8Sruaq34XrI07YCM/preset:view/plain/515041d78ac277e2f8c02d4d17f6de05-3010601292528439677.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/xJQ7GC17bMfj1xo4PnRRzHe3lDEOqzBAU1kB_ZD65Fc/preset:listing/plain/683a06d779d904a8109e425f906f19ba-3010601292232468539.jpg",
+          "full": "https://cdn.chotot.com/CvoLM3fEfdlAYdIxvfwmR73PI7KPo6W_7pG5P2XkUQk/preset:view/plain/683a06d779d904a8109e425f906f19ba-3010601292232468539.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/2LLplJKVEgWkhRd8xuSXPyUErjhvZrTRHlA4_jVqOKA/preset:listing/plain/6361bdc9c55ecd9316b37eb764c69cd3-3010601292267157459.jpg",
+          "full": "https://cdn.chotot.com/J652hteE9bjvlkkvVaj7lablmOxhjMXRCRfEMtNvM6U/preset:view/plain/6361bdc9c55ecd9316b37eb764c69cd3-3010601292267157459.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/fK7H4naSDzSWa6l2gCNvMJh_rW9enueRi5I1wKuoxDw/preset:listing/plain/d29f3878ebcc942e37d9394fcd2ed470-3010601292524200984.jpg",
+          "full": "https://cdn.chotot.com/IFYZ56OAbcljnRNX1jgKPMZIacYIghWToDQL1ZZ2SqM/preset:view/plain/d29f3878ebcc942e37d9394fcd2ed470-3010601292524200984.jpg"
+        }
+      ],
+      "posted_at": "2026-11-12T04:37:54.976000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-38",
+      "code": 38,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 50 м², 2 спальни",
+      "description_ru": "Квартира · 50 м² · 2 спальни · 1 санузел · сервисные апартаменты",
+      "price_vnd": 9600000,
+      "area_m2": 50.0,
+      "rooms": 2,
+      "toilets": 1,
+      "furnished": null,
+      "lat": 11.96171,
+      "lng": 108.44324,
+      "distance_km": 2.0,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/fgbDwGtALeKubSRZxx7CvpzrDby9uTIUWYQpHkwm22Y/preset:listing/plain/8305f010531a56a40914331ff0c50b7e-3010600846926489659.jpg",
+          "full": "https://cdn.chotot.com/JXr63_xdOJuoCKnkmGiFgCruAMRIUkZgg6KgnOXc7zc/preset:view/plain/8305f010531a56a40914331ff0c50b7e-3010600846926489659.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/50OEmMruzvbyhgYubGmXdSIbEGcQliErMt50SqY8eGs/preset:listing/plain/a6f9e903cb23a55faee1edf0e750827d-3010600845947645328.jpg",
+          "full": "https://cdn.chotot.com/knDyFj1YQlDkKXGGe637AMWIOXYZMdG83vvgZRRECq8/preset:view/plain/a6f9e903cb23a55faee1edf0e750827d-3010600845947645328.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/50X6VfXIHYyLq_SHFGFfSmuAjLgVopzYyCUNdYNOWh4/preset:listing/plain/de7cfc5fdff4e9e8b8f51e70aac7dab0-3010600845944679731.jpg",
+          "full": "https://cdn.chotot.com/t1oUYzCS4_3mqC6pZR9sJtdH3bIpCIuLMiDeTC4cPQQ/preset:view/plain/de7cfc5fdff4e9e8b8f51e70aac7dab0-3010600845944679731.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/MZHc_043GeTClutFOu5HFu53LvBuZb_1C5NqJ62SMYw/preset:listing/plain/e9e822d62d181010e6020488ee07cb10-3010600846936134013.jpg",
+          "full": "https://cdn.chotot.com/a79pEqE6x_eGoZAvvQkhlCN-Bf7BekQ24Crc0ET2DxY/preset:view/plain/e9e822d62d181010e6020488ee07cb10-3010600846936134013.jpg"
+        }
+      ],
+      "posted_at": "2026-11-12T04:33:45.725000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-39",
+      "code": 39,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 45 м², 1 спальня",
+      "description_ru": "Квартира · 45 м² · 1 спальня · 1 санузел · сервисные апартаменты",
+      "price_vnd": 9600000,
+      "area_m2": 45.0,
+      "rooms": 1,
+      "toilets": 1,
+      "furnished": null,
+      "lat": 11.95412,
+      "lng": 108.4426,
+      "distance_km": 1.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/I4EpyPNno7uvX6_Tyxr17HJKGsxy7zmlbY-GWhIyF1k/preset:listing/plain/57a4f10186548ffcbe8f073d5166db05-3010600390436085903.jpg",
+          "full": "https://cdn.chotot.com/C_FW0opOVFzfzO5CzECtWFvhk37Iy3MOfKewQkU_i6A/preset:view/plain/57a4f10186548ffcbe8f073d5166db05-3010600390436085903.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/oL9_5Lw3j0-bfcxc4bnQtUvpdSxsf8teZ575LFb7yvM/preset:listing/plain/7464f0f89814f8e704a5b04dfccdb8a0-3010600390595390864.jpg",
+          "full": "https://cdn.chotot.com/IoDU3FPlY8oChUrTDu4iHvleNTXjgSJceOTie1PVFCU/preset:view/plain/7464f0f89814f8e704a5b04dfccdb8a0-3010600390595390864.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/E5pIiAwJq3NR029Fnoel8X6RFndqyH5QtsQVwSqlBak/preset:listing/plain/26138b80281af2b5691ad5dd4e6fa7fd-3010600390902155139.jpg",
+          "full": "https://cdn.chotot.com/AeDhSxK-0FlmEBfa9G8EsD8lrqqfbe2L3Q0pNck3PVA/preset:view/plain/26138b80281af2b5691ad5dd4e6fa7fd-3010600390902155139.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/Dkd0QKzeWq8KIYSasiyBBHYe9zoMR5PuEyW7meX752Y/preset:listing/plain/1dc3a7b66553a54592e4d5b876d687ba-3010600390305804187.jpg",
+          "full": "https://cdn.chotot.com/oKr_BLyFvPj0ov5iOuwAJH__0eRqe6tRaWULsH10cRo/preset:view/plain/1dc3a7b66553a54592e4d5b876d687ba-3010600390305804187.jpg"
+        }
+      ],
+      "posted_at": "2026-11-12T04:29:17.815000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-40",
+      "code": 40,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 1000 м², 11 спален",
+      "description_ru": "Квартира · 1000 м² · 11 спален",
+      "price_vnd": 162000000,
+      "area_m2": 1000.0,
+      "rooms": 11,
+      "toilets": null,
+      "furnished": null,
+      "lat": 11.9042,
+      "lng": 108.46026,
+      "distance_km": 5.0,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/1BTU2b2r_FgIPArPNbqmllQc-Ualvz_qew0brMRcirU/preset:listing/plain/c8f70347de4cb0df0e542c103c712174-3008298344439487053.jpg",
+          "full": "https://cdn.chotot.com/bh0rk4ICium9Z-HnkioUcNH371HYtzdyUVHJ0pV3yLA/preset:view/plain/c8f70347de4cb0df0e542c103c712174-3008298344439487053.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/32ixJ9RDmoe2CRBDETqtaqTalSSkMJSVYaTVzFnmslc/preset:listing/plain/0ef04567b594e97c83f5636470bdb688-3008298344634603024.jpg",
+          "full": "https://cdn.chotot.com/e0o_wH2DraEEqy-GI0qi2o45LON39KlMBUKA5uLT9ok/preset:view/plain/0ef04567b594e97c83f5636470bdb688-3008298344634603024.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/7KDmPjSUsXV0h0oZmoi52DHqdfT_c45SwzyWG-YZ_NU/preset:listing/plain/de277b25d57effa9ff1a18644880a9db-3008298344362653682.jpg",
+          "full": "https://cdn.chotot.com/-yjRttImNrHz6Ac9DgGmhyS2-C0FKZE8nmq9SmgWrrc/preset:view/plain/de277b25d57effa9ff1a18644880a9db-3008298344362653682.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/s7T5mbYU0DC_2D41YKWrwwh8ddnRNPbSjLgnDJEzSco/preset:listing/plain/d8d909e659672af84f74c9d9ae27b274-3008298345065515747.jpg",
+          "full": "https://cdn.chotot.com/fsgzpxHJLLDaXRifPsxsUBvKeiv-AswhESfEHNN1hsA/preset:view/plain/d8d909e659672af84f74c9d9ae27b274-3008298345065515747.jpg"
+        }
+      ],
+      "posted_at": "2026-11-12T03:35:27+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-41",
+      "code": 41,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 45 м², 1 спальня",
+      "description_ru": "Квартира · 45 м² · 1 спальня · 1 санузел · двухуровневая квартира",
+      "price_vnd": 6600000,
+      "area_m2": 45.0,
+      "rooms": 1,
+      "toilets": 1,
+      "furnished": null,
+      "lat": 11.96863,
+      "lng": 108.42466,
+      "distance_km": 3.0,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/lBdAG8AIHVtlv8W-cvAvmR8ELX4rnoPa3NCYW7wQQgQ/preset:listing/plain/c7fa505944f643153fde8123febeceab-3010512357186302751.jpg",
+          "full": "https://cdn.chotot.com/bOpqE_ukxpWNWcsF_3TFuYxLaJP56TJNnQHzfAqlf5s/preset:view/plain/c7fa505944f643153fde8123febeceab-3010512357186302751.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/mwguc5gakHz2T7SaqN5UJ_enHGmngZnqKozGv5JaC8Q/preset:listing/plain/de0accb44f15b5350578cc3c1e21201b-3010512357012049341.jpg",
+          "full": "https://cdn.chotot.com/eVeglBQFnYXqWJuN5JctttWUXw6oujqzZqd4ROJp744/preset:view/plain/de0accb44f15b5350578cc3c1e21201b-3010512357012049341.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/QZS4JV-Se45thoqJW-JsY7-Rz3pJriGOVJ54Dx9lxHo/preset:listing/plain/511d804c07515648b3ae2019c12ca971-3010512357024747901.jpg",
+          "full": "https://cdn.chotot.com/1K3UZO2W0gsKZq-2NEEJaBFnefMXyyC_suuSBOwO6-E/preset:view/plain/511d804c07515648b3ae2019c12ca971-3010512357024747901.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/RR0VHmtFfjhl1N2iUrE-uuzHiMiEF1OX0FOpp3R6i_I/preset:listing/plain/6762238c6d696b8f7dfecddfb3d4a7f1-3010512357135883122.jpg",
+          "full": "https://cdn.chotot.com/IiVB9tSLy1_BVQLgmzVITA9hx4Lb-PCQTgxp8tcjRh4/preset:view/plain/6762238c6d696b8f7dfecddfb3d4a7f1-3010512357135883122.jpg"
+        }
+      ],
+      "posted_at": "2026-11-11T13:55:16.199000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-42",
+      "code": 42,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 35 м², 1 спальня",
+      "description_ru": "Квартира · 35 м² · 1 спальня · 1 санузел · двухуровневая квартира",
+      "price_vnd": 9000000,
+      "area_m2": 35.0,
+      "rooms": 1,
+      "toilets": 1,
+      "furnished": null,
+      "lat": 11.95371,
+      "lng": 108.42774,
+      "distance_km": 1.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/veMqMNSidyjt4Ewxnz5wFRJWh1ckAB0RZ1kaZldU_uY/preset:listing/plain/1307f52ed094aa25940cd301f4cf6f51-3010501399812082873.jpg",
+          "full": "https://cdn.chotot.com/UEiEho__byizACNYPDXjs43NpvjoNaBG-rfZjb9KLbo/preset:view/plain/1307f52ed094aa25940cd301f4cf6f51-3010501399812082873.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/LZPWdckJaAs64LoOVQYPNZOZF8x5VczlcWjPOsKJTJE/preset:listing/plain/f539c4b01960c18e6b647120eb8f905c-3010501399881994621.jpg",
+          "full": "https://cdn.chotot.com/Nldl_1y1r58oWAVC0b8pbf9noBHXNfQdiFZKNr6Zp8A/preset:view/plain/f539c4b01960c18e6b647120eb8f905c-3010501399881994621.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/ZiTx5g0sxwd43i_-Kd9TTkqzm_4f60A6pxjUZc07VVE/preset:listing/plain/2f8644da6bfdbca4d603f37a67b7f16c-3010501399669999790.jpg",
+          "full": "https://cdn.chotot.com/V8-DbsD8c3rencVmBuuhJWOyLWOY5I0928psRNiFIEk/preset:view/plain/2f8644da6bfdbca4d603f37a67b7f16c-3010501399669999790.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/DO6800pzM3wXcu9uVnwTqYEEsZN3DlM4PdAmjEKJq_s/preset:listing/plain/8dc9637fd13e5e70cb1bb26b3d7be471-3010501400987602365.jpg",
+          "full": "https://cdn.chotot.com/u9PX4IvH766qAlpzkHhThY1fp7_Q3OLZNQzCDQGWUR8/preset:view/plain/8dc9637fd13e5e70cb1bb26b3d7be471-3010501400987602365.jpg"
+        }
+      ],
+      "posted_at": "2026-11-11T12:05:59.338000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-43",
+      "code": 43,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 35 м², 1 спальня",
+      "description_ru": "Квартира · 35 м² · 1 спальня · сервисные апартаменты",
+      "price_vnd": 4800000,
+      "area_m2": 35.0,
+      "rooms": 1,
+      "toilets": null,
+      "furnished": null,
+      "lat": 11.94005,
+      "lng": 108.43553,
+      "distance_km": 0.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/Nw17W3wvy8iBY0jAqOs9jP7ZJkn1GqL6i_Ps5UL-qUs/preset:listing/plain/a587dd749eae93927d6c28a0a8d775e2-3003780748629710264.jpg",
+          "full": "https://cdn.chotot.com/OKiwyaA3hfdKSRqHXh0xYV3mwvFyV4UDT-Uhi6Jjj7g/preset:view/plain/a587dd749eae93927d6c28a0a8d775e2-3003780748629710264.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/t972HOU4Hy117ow78umbScdEnLfzImtECdb-kVFfy74/preset:listing/plain/39c2b8392ffe990c96698e2e596bc2b9-3003780748530232759.jpg",
+          "full": "https://cdn.chotot.com/ywMXh3Jqj7XN5GcJYS8lTdOLRIdKjrL9Uipl_k_Nv8c/preset:view/plain/39c2b8392ffe990c96698e2e596bc2b9-3003780748530232759.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/A3EDZYRS1vco5EvjxKjDX_8yD_PtndPPdOMAC1kWBPE/preset:listing/plain/5549d21887e67a2a15bf318fd6bdfcf9-3003780748582641421.jpg",
+          "full": "https://cdn.chotot.com/BRKHUf14zpkLqJ78MXoOCwUXciPWFjhTCdi12rBspgI/preset:view/plain/5549d21887e67a2a15bf318fd6bdfcf9-3003780748582641421.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/62--Er6gkiFfWKM35YBmdHWSRGADbv8qAuB5T3gSbW8/preset:listing/plain/8dc73a340c6515276be2db1e3b814f70-3003780748574254721.jpg",
+          "full": "https://cdn.chotot.com/F1z_hdppMY8tPZA8J4oothsfKPzcvHSSRRd0RCrx1xo/preset:view/plain/8dc73a340c6515276be2db1e3b814f70-3003780748574254721.jpg"
+        }
+      ],
+      "posted_at": "2026-11-11T04:36:41+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-44",
+      "code": 44,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 40 м², 2 спальни",
+      "description_ru": "Квартира · 40 м² · 2 спальни · сервисные апартаменты",
+      "price_vnd": 5400000,
+      "area_m2": 40.0,
+      "rooms": 2,
+      "toilets": null,
+      "furnished": null,
+      "lat": 11.97118,
+      "lng": 108.42507,
+      "distance_km": 3.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/_WzODy6cYB-u0SoISssmspSgfm0h7yAMb3zl56UcjIM/preset:listing/plain/6f6d0afcdab1e5c7184070790138f47e-3010305184554599271.jpg",
+          "full": "https://cdn.chotot.com/n1FcStSRSJaR5-wuEado9LvTbwgpWi9VJm1YuzMPqOA/preset:view/plain/6f6d0afcdab1e5c7184070790138f47e-3010305184554599271.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/IexiPc2YhqI2LimTdgPmCp0cIc-ZaOPunnlm31iuzf0/preset:listing/plain/40144c23eb6eb0a596aa75c2924f530d-3010305184585648037.jpg",
+          "full": "https://cdn.chotot.com/g-cZL8Qpu1BB-gtX6ahlTRa_W-2qbTMwxOHfhrdA6M0/preset:view/plain/40144c23eb6eb0a596aa75c2924f530d-3010305184585648037.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/clYbdQ8S-g082rd13bXYuSACcfjULC3WiMT11G2s8Uo/preset:listing/plain/9c797afc8fb811bf93d53d5d6a86d47e-3010305184711174338.jpg",
+          "full": "https://cdn.chotot.com/75ZvIxh-gLG5NR77xkPMJ4KiXxlTY6FmALpw5myHw5U/preset:view/plain/9c797afc8fb811bf93d53d5d6a86d47e-3010305184711174338.jpg"
+        }
+      ],
+      "posted_at": "2026-11-10T03:35:42.433000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-45",
+      "code": 45,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 80 м², 2 спальни",
+      "description_ru": "Квартира · 80 м² · 2 спальни · 2 санузла · сервисные апартаменты",
+      "price_vnd": 12000000,
+      "area_m2": 80.0,
+      "rooms": 2,
+      "toilets": 2,
+      "furnished": null,
+      "lat": 11.95532,
+      "lng": 108.42965,
+      "distance_km": 1.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/fqqj8JdAONO2UfESgpdAdGYu69xGo9krOziaIoIDOy8/preset:listing/plain/451cb33ccb56da9a15c15cb147a070ea-3010235722095348303.jpg",
+          "full": "https://cdn.chotot.com/NihWuq2Hz777XyAROjHpDXtymrO0LuoJQkcJHBb-qf0/preset:view/plain/451cb33ccb56da9a15c15cb147a070ea-3010235722095348303.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/ZqKimsYsB-emvc4Dkdjc8U-yBXG-KMdK4CvBYlFx31c/preset:listing/plain/c3ff4ac9c53eca8029c3e4d227e67f4f-3010235722201573435.jpg",
+          "full": "https://cdn.chotot.com/rD9wZ5jGo-FXhoArbbAr3RO9-Lt5_fEteISDmFsdE5s/preset:view/plain/c3ff4ac9c53eca8029c3e4d227e67f4f-3010235722201573435.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/PpRsHYIwCWF4jdpU8ABwk3fnpSx_UsnNdTAf0ucJhBc/preset:listing/plain/400ad8882814070a9d31be0c2c93cf87-3010235722318827901.jpg",
+          "full": "https://cdn.chotot.com/2fAHWiGQhsvxifbtlLiiaJ0fGI2X76FnyYFY0bOVWV0/preset:view/plain/400ad8882814070a9d31be0c2c93cf87-3010235722318827901.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/KzQaGAQplXCDcMGXYbHx0lAU3Zf3b7qOshzcmdRtstU/preset:listing/plain/92fb67183bd7c0e7c0fb6beeda978919-3010235722592119275.jpg",
+          "full": "https://cdn.chotot.com/DIqyl-1gDzexElIAS6nyvwANdNSvz33l2WjfRPyFcHI/preset:view/plain/92fb67183bd7c0e7c0fb6beeda978919-3010235722592119275.jpg"
+        }
+      ],
+      "posted_at": "2026-11-10T00:34:34.630000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-46",
+      "code": 46,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 60 м², 2 спальни",
+      "description_ru": "Квартира · 60 м² · 2 спальни · 2 санузла · сервисные апартаменты",
+      "price_vnd": 19200000,
+      "area_m2": 60.0,
+      "rooms": 2,
+      "toilets": 2,
+      "furnished": null,
+      "lat": 11.98019,
+      "lng": 108.45034,
+      "distance_km": 4.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/MJDu4ybZ_jysHkbHE0a_ZOIm4Q4g3Qoj3glRBBxAkko/preset:listing/plain/def746c9a074fd27c517d6452b1fd7c4-3010235953538550351.jpg",
+          "full": "https://cdn.chotot.com/Ln98m7MwwzCqcpBSgRcI_pidfDaXdqaRAZSPLnRS9T4/preset:view/plain/def746c9a074fd27c517d6452b1fd7c4-3010235953538550351.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/QuHJfM1C8Z2-IdY8PyHxRtDkL0P0RMTHYOiuzItWgtg/preset:listing/plain/68b100d94015f1fb0dc1fbbb025dc5ef-3010235953840080732.jpg",
+          "full": "https://cdn.chotot.com/RrzOE0qAdZP3v9DdTT_BnWKh4WgtxRCHeBh2PINNbfQ/preset:view/plain/68b100d94015f1fb0dc1fbbb025dc5ef-3010235953840080732.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/Fh0MvQGVxaXRtYKb8LVUoQbINsQV9k7K0I-7xVDVAeA/preset:listing/plain/9ce5f541284be925e222ef12abf68c80-3010235953661683771.jpg",
+          "full": "https://cdn.chotot.com/o-FtuYKyUAX9HBvxvnt61C3E0TSc7kYX1vK6-PNgb8A/preset:view/plain/9ce5f541284be925e222ef12abf68c80-3010235953661683771.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/Y4d7VzRIKkCyawyx6v_sKJgi5zcGg9vFa9QAyhy10CQ/preset:listing/plain/cf226f48f357f450052759504f89b2df-3010235953914864799.jpg",
+          "full": "https://cdn.chotot.com/q9PhhV7xVVQYGcEysoYaZ77_vT4Dx-I5FE9cjVI023Y/preset:view/plain/cf226f48f357f450052759504f89b2df-3010235953914864799.jpg"
+        }
+      ],
+      "posted_at": "2026-11-09T16:08:54.781000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-47",
+      "code": 47,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 80 м², 2 спальни",
+      "description_ru": "Квартира · 80 м² · 2 спальни · сервисные апартаменты",
+      "price_vnd": 12000000,
+      "area_m2": 80.0,
+      "rooms": 2,
+      "toilets": null,
+      "furnished": null,
+      "lat": 11.95451,
+      "lng": 108.42597,
+      "distance_km": 1.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/bs5Vepq5qgVMsP4xyp7Fx2XVyETJjdnIF2C9Y4DsQEc/preset:listing/plain/916ffd628da40e6eab24620e8b410eec-3010189882861467146.jpg",
+          "full": "https://cdn.chotot.com/bcOiQ_ufNBMeVwO8SXN4LfP9tIQF9gd2TORT2RqRjsc/preset:view/plain/916ffd628da40e6eab24620e8b410eec-3010189882861467146.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/Xn_7KhfemPNztC0joltV6tuKzSHZAbF_hQbJb2-pQow/preset:listing/plain/084058e91cc8f2b7e1b83efae5585ded-3010189882701800607.jpg",
+          "full": "https://cdn.chotot.com/_zZ0xas5D1uoBqk8QrjYNcSXCyFqEmrzhJr7LlaUsxE/preset:view/plain/084058e91cc8f2b7e1b83efae5585ded-3010189882701800607.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/OeVNztfQapHt5B6JwBrWSjTpU7ZRYk22DjlRDiP97L0/preset:listing/plain/187b4484707582b94b22fee35cc1e446-3010189883188397916.jpg",
+          "full": "https://cdn.chotot.com/FzWnz-p-Hn1iZF2qsLCYeWysdAbVMpxgnsqpJZPEI7E/preset:view/plain/187b4484707582b94b22fee35cc1e446-3010189883188397916.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/Sbbkj7BYmprYQ_ZaW8CjqCNJQ8k8MUp-cs1B-AEYv_o/preset:listing/plain/17ea9e65deea471e9e4d4e1c16973c08-3010189882953431366.jpg",
+          "full": "https://cdn.chotot.com/MD-O4V5aIytuJRBIhfWwNJphv20FjHgXkcHaB_XUPzA/preset:view/plain/17ea9e65deea471e9e4d4e1c16973c08-3010189882953431366.jpg"
+        }
+      ],
+      "posted_at": "2026-11-09T08:35:53.558000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-48",
+      "code": 48,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 40 м², 1 спальня",
+      "description_ru": "Квартира · 40 м² · 1 спальня · 1 санузел · сервисные апартаменты",
+      "price_vnd": 6600000,
+      "area_m2": 40.0,
+      "rooms": 1,
+      "toilets": 1,
+      "furnished": null,
+      "lat": 11.95279,
+      "lng": 108.46987,
+      "distance_km": 3.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/f784PFWnBXYbsIO1MaP2OS7aJ_tJPW5nlqFkwWqMdlY/preset:listing/plain/dc2cf8e8f6b4e3a13012d1cfeb998663-3010152161731926944.jpg",
+          "full": "https://cdn.chotot.com/Be2cfumLGGVYT2Gf5ZT17A9BncYYJ7aKBtn_u-9WPuE/preset:view/plain/dc2cf8e8f6b4e3a13012d1cfeb998663-3010152161731926944.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/LDHx0dJkokWHUjD3K7x4lv4WXr2VV3ueetX3chG1MFc/preset:listing/plain/2d09698c18a91d137c89d47418671f7b-3010152161405446203.jpg",
+          "full": "https://cdn.chotot.com/X3j3PGQpCV5H0k7xW1XQ2CAG9ZLTzhsfWitFaGpKVuE/preset:view/plain/2d09698c18a91d137c89d47418671f7b-3010152161405446203.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/pvRLbYfrTUCz3CxOIv0IcFe9KtAxwidxaH4RSz1RLT8/preset:listing/plain/3eba19581dfc779224aad25d79b1cf92-3010152161471325343.jpg",
+          "full": "https://cdn.chotot.com/92KIltQm0cuQ5ZLLJQCJrKf28TB482Nl-uK42FIg1R4/preset:view/plain/3eba19581dfc779224aad25d79b1cf92-3010152161471325343.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/QCpkB8C39qXJmPfSECMSZf_ab7gZUN1UiSVfD7xnltw/preset:listing/plain/b64d224bf30e830ebfac0b3ffab6509d-3010152161567416223.jpg",
+          "full": "https://cdn.chotot.com/Dh2uZKmxnnLuV370iqi_L4jqayIYUCvBD-_ZEl9JgnQ/preset:view/plain/b64d224bf30e830ebfac0b3ffab6509d-3010152161567416223.jpg"
+        }
+      ],
+      "posted_at": "2026-11-09T03:17:27.597000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-49",
+      "code": 49,
+      "kind": "apartment",
+      "title_ru": "Аренда квартиры, 30 м², 1 спальня",
+      "description_ru": "Квартира · 30 м² · 1 спальня · 1 санузел · сервисные апартаменты",
+      "price_vnd": 4200000,
+      "area_m2": 30.0,
+      "rooms": 1,
+      "toilets": 1,
+      "furnished": null,
+      "lat": 11.93031,
+      "lng": 108.41052,
+      "distance_km": 3.0,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/aKx1nUl8AVy8fIJl4ugnmTo82EsOin_8Q4SWXxFUGcs/preset:listing/plain/d71de0cca3fe28e0bf736944d772a01e-3010154268449700166.jpg",
+          "full": "https://cdn.chotot.com/Yk2Uj9Qg0WoHOuswfniZcD3Yo_80Q9BaPefeRqaOjGE/preset:view/plain/d71de0cca3fe28e0bf736944d772a01e-3010154268449700166.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/GnlCDJmhWPmmcRaE-ETTlq8WfuTu8K6u4b8iaDTC0H0/preset:listing/plain/2c8e600540bd6fbd4cd5d330d30c273b-3010154268181211195.jpg",
+          "full": "https://cdn.chotot.com/Rq-xU8hCaHTCXfVUD_vpw72dfRDXT9Y2V1uahgG7z6g/preset:view/plain/2c8e600540bd6fbd4cd5d330d30c273b-3010154268181211195.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/t4I9CKCndzcPBrx2btk6CDFQUWw7x2qknlDDmaiLI6c/preset:listing/plain/2f918ecf4dcea75a9b81634186f65ad7-3010154268383190723.jpg",
+          "full": "https://cdn.chotot.com/DD3D5r9p7bDtL5D3esYDwerRuFJ3ufwMw1eQtcnZdJg/preset:view/plain/2f918ecf4dcea75a9b81634186f65ad7-3010154268383190723.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/ycdjYXFeHAJhdJjVgf0pLSo1wr5DY9nRyOwknJbhyI8/preset:listing/plain/ca2050ccd8c956cc505df321658838a3-3010154268735978729.jpg",
+          "full": "https://cdn.chotot.com/EgmDiWlLla7q9r8RYDtl-ip-olWudPNY30hjMRzmG-s/preset:view/plain/ca2050ccd8c956cc505df321658838a3-3010154268735978729.jpg"
+        }
+      ],
+      "posted_at": "2026-11-09T02:37:56.657000+00:00",
+      "added_at": "2026-11-12"
+    },
     {
       "id": "dl-1",
       "code": 1,
@@ -40,913 +491,622 @@
           "full": "https://cdn.chotot.com/0L4ROdIuUDBjwdYgPVtrbyNXADTk0-MHfd8JTTXvPKc/preset:view/plain/40555d355afe91595e954c80982469c3-3010014380894070504.jpg"
         }
       ],
-      "posted_at": "2026-11-08T03:28:21.862000+00:00"
+      "posted_at": "2026-11-08T03:28:21.862000+00:00",
+      "added_at": "2026-11-08"
     },
     {
-      "id": "dl-2",
-      "code": 2,
-      "kind": "apartment",
-      "title_ru": "Квартира с 2 спальнями, большим балконом и мебелью",
-      "description_ru": "Квартира · 80 м² · 2 спальни · 2 санузла · сервисные апартаменты",
-      "price_vnd": 10800000,
+      "id": "dl-50",
+      "code": 50,
+      "kind": "house",
+      "title_ru": "Аренда дома, 80 м², 2 спальни",
+      "description_ru": "Дом · 80 м² · 2 спальни · дом в переулке",
+      "price_vnd": 9600000,
       "area_m2": 80.0,
       "rooms": 2,
-      "toilets": 2,
+      "toilets": null,
       "furnished": null,
-      "lat": 11.95095,
-      "lng": 108.43052,
+      "lat": 11.94124,
+      "lng": 108.43051,
       "distance_km": 1.0,
       "photos": [
         {
-          "thumb": "https://cdn.chotot.com/uk8M6NB5N4OnZ31dtTsPSEYYWymNxfybP3MS78ocKVU/preset:listing/plain/e36bdfc9aeb75a1b32e4fdfddd75b071-3010011338548848360.jpg",
-          "full": "https://cdn.chotot.com/uUnPGBF0_M0FspJhMhJQLADak1c-YxpGfK1BqqyTtPg/preset:view/plain/e36bdfc9aeb75a1b32e4fdfddd75b071-3010011338548848360.jpg"
+          "thumb": "https://cdn.chotot.com/4_c6bjm_U0l60Ab8d-rRxCHBQl7dvPEd8g_nBSXQZHY/preset:listing/plain/e63590b4b817922fca90a7c4b60921ab-3008298109750564368.jpg",
+          "full": "https://cdn.chotot.com/YXQumaAMC9tpe1h7gF4N_3A24a8duquqgOJNtJKJsJQ/preset:view/plain/e63590b4b817922fca90a7c4b60921ab-3008298109750564368.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/KpocSzbJuo1PfWTi7Z1YyJeJXj822lUtpI10b_E-ops/preset:listing/plain/13fc9a3b4be1622e113d6bfaf68187e2-3010011338651990111.jpg",
-          "full": "https://cdn.chotot.com/ezFhJPmJULMlQntYAu2j7qH-KmHItI6pmN4yIEaGNu0/preset:view/plain/13fc9a3b4be1622e113d6bfaf68187e2-3010011338651990111.jpg"
+          "thumb": "https://cdn.chotot.com/9Oi94oOhwpj8q7Y5_C8Ge-AdpH3nsiaByWuGnTeV-GA/preset:listing/plain/712497f59215a0f4ee3daabb12f00400-3008298110629401890.jpg",
+          "full": "https://cdn.chotot.com/sR7H0L97AqBBpYCmSSkJu9K3qVVFeAXCtvcF3ULQlqw/preset:view/plain/712497f59215a0f4ee3daabb12f00400-3008298110629401890.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/Hvz4pQT5jCx2QmnpxytqH4_R-SQdk1afMdTMCXhI8P0/preset:listing/plain/57af611deed2884a9911969ab384b23c-3010011338667324379.jpg",
-          "full": "https://cdn.chotot.com/UPhbUUEW0ETtQaClmatLPxBsPTe9kcLP2ImWcWpHknI/preset:view/plain/57af611deed2884a9911969ab384b23c-3010011338667324379.jpg"
+          "thumb": "https://cdn.chotot.com/Xy4BuaNLvTTeNgmGjfzJjeqf2JjwX79GeWfV74UX7xE/preset:listing/plain/44bbbb2341a879fce0f6348c06df1c76-3008298110605273819.jpg",
+          "full": "https://cdn.chotot.com/oi03bJ_n3WQn5klGOmQep4FV5wh2CRi-3ywzNq9nw1o/preset:view/plain/44bbbb2341a879fce0f6348c06df1c76-3008298110605273819.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/1zmZ_6kgXDsTTwD-Y-geGsuNTXKqKGJP_RFOyXoWLJs/preset:listing/plain/a4e616f192f493a55f29cd918a75cb0f-3010011338784189941.jpg",
-          "full": "https://cdn.chotot.com/KOzL4iJulcsSAt_X77JLQrqTjihD3NVWlLUGPtMSfjs/preset:view/plain/a4e616f192f493a55f29cd918a75cb0f-3010011338784189941.jpg"
+          "thumb": "https://cdn.chotot.com/fpAcQkKmB5ty6dib0LGAc2lEAE5FUW39SVyCboZh7Ss/preset:listing/plain/2be461085f8d489a1124090f6db0b710-3008298110823993779.jpg",
+          "full": "https://cdn.chotot.com/paRTjTTJ8YXVdDAv49V_xsxL48qPutB9N6GI7OIt8hg/preset:view/plain/2be461085f8d489a1124090f6db0b710-3008298110823993779.jpg"
         }
       ],
-      "posted_at": "2026-11-08T03:02:43.257000+00:00"
+      "posted_at": "2026-11-12T03:35:10+00:00",
+      "added_at": "2026-11-12"
     },
     {
-      "id": "dl-3",
-      "code": 3,
-      "kind": "apartment",
-      "title_ru": "Мини-квартира с садом",
-      "description_ru": "Квартира · 50 м² · 1 спальня · 1 санузел · сервисные апартаменты",
-      "price_vnd": 8400000,
-      "area_m2": 50.0,
-      "rooms": 1,
-      "toilets": 1,
+      "id": "dl-51",
+      "code": 51,
+      "kind": "house",
+      "title_ru": "Аренда дома, 60 м², 2 спальни",
+      "description_ru": "Дом · 60 м² · 2 спальни · дом в переулке",
+      "price_vnd": 6000000,
+      "area_m2": 60.0,
+      "rooms": 2,
+      "toilets": null,
       "furnished": null,
-      "lat": 11.94675,
-      "lng": 108.45735,
+      "lat": 11.95188,
+      "lng": 108.46567,
+      "distance_km": 3.0,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/APUEqlwFKg-i3WbCWa0GuRC0k7lpVcqHwly9WcpkspY/preset:listing/plain/bc31dc74257d5ab21861b02d70b11c6e-3010526874030723453.jpg",
+          "full": "https://cdn.chotot.com/AfmW2k4fCadrwexe-dRmVIyRYUqEzn7JOyEvDel_vv0/preset:view/plain/bc31dc74257d5ab21861b02d70b11c6e-3010526874030723453.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/moW2fqjeaUnvSTsyb6J_kRJH95fOVTh5ovvaoMSNemg/preset:listing/plain/d8ed70f08d8d3bdf428359e0c220052c-3010526874076194875.jpg",
+          "full": "https://cdn.chotot.com/2O8laJQOXSIufhaQniypgWLThDsDuOMS3pJxYiXpXoU/preset:view/plain/d8ed70f08d8d3bdf428359e0c220052c-3010526874076194875.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/-5jWQOV0RixL99vJlXGkBjGOTmdGtrelVc1i2sNhnpI/preset:listing/plain/adc9d1bb2adc5986d314525ef08e6ec1-3010526874192612797.jpg",
+          "full": "https://cdn.chotot.com/4fjSap78flla2iMK-2iFyfkoZXT0GUIPMZBypUb6PJY/preset:view/plain/adc9d1bb2adc5986d314525ef08e6ec1-3010526874192612797.jpg"
+        }
+      ],
+      "posted_at": "2026-11-11T16:18:05.914000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-52",
+      "code": 52,
+      "kind": "house",
+      "title_ru": "Аренда дома, 70 м², 2 спальни",
+      "description_ru": "Дом · 70 м² · 2 спальни · дом в переулке",
+      "price_vnd": 6000000,
+      "area_m2": 70.0,
+      "rooms": 2,
+      "toilets": null,
+      "furnished": null,
+      "lat": 11.94611,
+      "lng": 108.47923,
+      "distance_km": 4.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/lw4ruYwgC_wmWEuTXAFqjCuyXpR9WyJ00xWJiMxAoB8/preset:listing/plain/b4692a1fd767abe8cbf6b83fc6709a68-3010526723151843709.jpg",
+          "full": "https://cdn.chotot.com/gcmALTUErKIaMLkpy6f_RA0Pxnq2A5SJgSaZoKAp_9Y/preset:view/plain/b4692a1fd767abe8cbf6b83fc6709a68-3010526723151843709.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/ezjXT35ZVhwRyCrretoY8XLFhSKBCyocKjK6myI2yQc/preset:listing/plain/1d5762023dd8aa2e155168b9251ba546-3010526723414658493.jpg",
+          "full": "https://cdn.chotot.com/89jnOBn6GZq1hbDEFlrtntkd35RDa4EUEdwNL-ZLw84/preset:view/plain/1d5762023dd8aa2e155168b9251ba546-3010526723414658493.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/C8oZO99Mirg2llFHvOTAK4n1zJfq-CQG1jjOySjVkoY/preset:listing/plain/fbcc4881c54e01e1a0f71bf7e16a6235-3010526723532924987.jpg",
+          "full": "https://cdn.chotot.com/XLxzlCjurTwb5Kaoh_1GZVK-MoVGXxfP3ZPZDW9G5Z0/preset:view/plain/fbcc4881c54e01e1a0f71bf7e16a6235-3010526723532924987.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/2y5JyTS2ExjHBnHoE5lkzWYe6lrWAgBE-RmjmXbd-qQ/preset:listing/plain/06e889c87c674e99456cffff509e0a05-3010526723566208899.jpg",
+          "full": "https://cdn.chotot.com/3O2mWj8vQwdm-03xXzJEoD3uWetb0s4KX1m5jIZrHS8/preset:view/plain/06e889c87c674e99456cffff509e0a05-3010526723566208899.jpg"
+        }
+      ],
+      "posted_at": "2026-11-11T16:16:33.316000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-53",
+      "code": 53,
+      "kind": "house",
+      "title_ru": "Аренда дома, 70 м², 3 спальни",
+      "description_ru": "Дом · 70 м² · 3 спальни · 2 санузла · дом в переулке",
+      "price_vnd": 9600000,
+      "area_m2": 70.0,
+      "rooms": 3,
+      "toilets": 2,
+      "furnished": null,
+      "lat": 11.95132,
+      "lng": 108.43794,
+      "distance_km": 1.0,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/bi6KAApfbU5rcu6YSRbIi8huszgHVO2B-GaCUNh2HjE/preset:listing/plain/57194d5a4185f9d212180a7703d6d772-3010514139163314462.jpg",
+          "full": "https://cdn.chotot.com/dF4O8rdIukYyI1brxuOKz53gBOT2nbxrw-Hunx9CCZ0/preset:view/plain/57194d5a4185f9d212180a7703d6d772-3010514139163314462.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/LZlO8QuxojuERt0nftob4ZD0aKyYJT3v2FRN4FJKVvI/preset:listing/plain/f95701a3f013bb67efc21ca93fdb7553-3010514138700665213.jpg",
+          "full": "https://cdn.chotot.com/GQRl9m23Jj_8YwlEFwOnCu8nnrxilziPYB9i6pwoJvg/preset:view/plain/f95701a3f013bb67efc21ca93fdb7553-3010514138700665213.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/k0SdGklBABsYV7DQ929C5ajy9Xu2h55s07UmX8GHLbI/preset:listing/plain/f34b091d0d86951b41b1288da6cfd8c2-3010514139434944686.jpg",
+          "full": "https://cdn.chotot.com/XkUsExBA56jopqocHedBDF-P1qRYmO8gz8rtWFM6hW8/preset:view/plain/f34b091d0d86951b41b1288da6cfd8c2-3010514139434944686.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/wyWM_h3LfH8ktaEnEOnIKBqCQH9Xdk5WIJ52Ut9LC5w/preset:listing/plain/962dbc5a9b50129b48b83649fb916987-3010514138739281341.jpg",
+          "full": "https://cdn.chotot.com/m6UgZqcoY4M8aVhBFkmd4PeUeYoZTzfXjPAGo9JViwU/preset:view/plain/962dbc5a9b50129b48b83649fb916987-3010514138739281341.jpg"
+        }
+      ],
+      "posted_at": "2026-11-11T14:12:41.582000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-54",
+      "code": 54,
+      "kind": "house",
+      "title_ru": "Аренда дома, 200 м², 11 спален",
+      "description_ru": "Дом · 200 м² · 11 спален · 7 санузлов · 4 этажа · вилла",
+      "price_vnd": 96000000,
+      "area_m2": 200.0,
+      "rooms": 11,
+      "toilets": 7,
+      "furnished": null,
+      "lat": 11.92855,
+      "lng": 108.44988,
       "distance_km": 2.0,
       "photos": [
         {
-          "thumb": "https://cdn.chotot.com/CF98lsDBbH9WXgXpVT3uroqMXEvrRymPcVJ7ERQOeeI/preset:listing/plain/a474c65530c314a9a13681f81fc56984-3009329629441477479.jpg",
-          "full": "https://cdn.chotot.com/WaiB4gvg_3E8So6tGlDpHXnDOUsZxdWdkoTHl3N26F0/preset:view/plain/a474c65530c314a9a13681f81fc56984-3009329629441477479.jpg"
+          "thumb": "https://cdn.chotot.com/QG6uNmaPqgHsfL1oJ2q8LQZ3ybED6NSqX6ae_gUb_bM/preset:listing/plain/0a5164fafb09883a03ab123aee83e9f7-3010490835709068811.jpg",
+          "full": "https://cdn.chotot.com/pwSoGAtoy7jrZOAjKK-J_jc_U8AWcKShDYcLQYcQEck/preset:view/plain/0a5164fafb09883a03ab123aee83e9f7-3010490835709068811.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/tYj2Fd_CaIuNrCv4gz5UCA3D7S86yGTmX-ygT__A8iY/preset:listing/plain/61c1e8876e1f45595e04e561170cf009-3009329629255315102.jpg",
-          "full": "https://cdn.chotot.com/j2ugkDHuI80CniS_F7RMzFgeA4FrvL_jXzQ9Angp0fk/preset:view/plain/61c1e8876e1f45595e04e561170cf009-3009329629255315102.jpg"
+          "thumb": "https://cdn.chotot.com/gtpJHukhqZML3MtHQ_EONgZWzRecld0NXc8e7UXTq2Y/preset:listing/plain/e89eb58c5aa9eae0cd57df136d683a89-3010490844060879022.jpg",
+          "full": "https://cdn.chotot.com/laLKrzNNA_X1PFS43MtTMxwOghqgnHR4LjiJDAyTBfU/preset:view/plain/e89eb58c5aa9eae0cd57df136d683a89-3010490844060879022.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/-cczl899efXLJgGpWUfKcuBoYDATvFPODpByGQ6C4wg/preset:listing/plain/0d3624eda9ea63df2030e6763041f4c6-3009329629309009218.jpg",
-          "full": "https://cdn.chotot.com/2A4c-nsLfQaaaWR7yirKVctjcHTGPwgwhHn-IIH3B_g/preset:view/plain/0d3624eda9ea63df2030e6763041f4c6-3009329629309009218.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/pQTii6IePztq2UYDnl8IORFlSGc5mUD2pVurkbj79TM/preset:listing/plain/f77553232ff304f511274f89c6d77dfe-3009329635348872514.jpg",
-          "full": "https://cdn.chotot.com/pkMhIoNWnw21tDAh9OQqDsXYQi5yZKCVwvSGqgo1FUw/preset:view/plain/f77553232ff304f511274f89c6d77dfe-3009329635348872514.jpg"
+          "thumb": "https://cdn.chotot.com/G4cwwsEW_IRoZPpbt1Y2eYdSwrodOHxaj1mxDQkLkL4/preset:listing/plain/550d83335b533c6859bcad4c7704c460-3010490844047410699.jpg",
+          "full": "https://cdn.chotot.com/_8Yob_jx52hOxdNCeHZUQHBfN4ZCqR71My4wKcQveO8/preset:view/plain/550d83335b533c6859bcad4c7704c460-3010490844047410699.jpg"
         }
       ],
-      "posted_at": "2026-11-05T01:42:04.071000+00:00"
+      "posted_at": "2026-11-11T10:22:41.165000+00:00",
+      "added_at": "2026-11-12"
     },
     {
-      "id": "dl-4",
-      "code": 4,
-      "kind": "apartment",
-      "title_ru": "Студия с мебелью",
-      "description_ru": "Квартира · 25 м² · 1 спальня · 1 санузел · сервисные апартаменты",
-      "price_vnd": 4800000,
-      "area_m2": 25.0,
-      "rooms": 1,
-      "toilets": 1,
-      "furnished": null,
-      "lat": 11.97022,
-      "lng": 108.42514,
-      "distance_km": 3.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/LlspMLE_WewK9jpoKYsvjV6Mt_8n1zTgaje-17onkUQ/preset:listing/plain/2e4b5a9aefeddc2ddebc5662f6a27db6-3009489319948172482.jpg",
-          "full": "https://cdn.chotot.com/COdaOCWKqvldTWzoVlOzx_-rxhfmRLHIguBk9FFLFA4/preset:view/plain/2e4b5a9aefeddc2ddebc5662f6a27db6-3009489319948172482.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/yEn8I-8US0yNQINOUMwB1gHt4iw90r1poDrxbW4gSFk/preset:listing/plain/75137f5d7faf37d68547d7b49ad9f3b4-3009489319959458258.jpg",
-          "full": "https://cdn.chotot.com/2f0AVCnykq54y-eR6aHZgD3Mf3nkI_KZq4PJhvBmRXk/preset:view/plain/75137f5d7faf37d68547d7b49ad9f3b4-3009489319959458258.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/z0Qd3txyj7rLQWNCMolZkMpampLlCNF7R7BByGyoBP4/preset:listing/plain/a9813388372a2a600d310fbc9b572674-3009489319900127359.jpg",
-          "full": "https://cdn.chotot.com/wyBvs0ZHwgAoZ45y_O6T3mU_cg6Tp3kf_fysmFxSqZ0/preset:view/plain/a9813388372a2a600d310fbc9b572674-3009489319900127359.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/iljYpLz236aFRedI9mVAnZIwaeNfXsx2ze5Mt9e4mNI/preset:listing/plain/5853a4aeb963cdd3e166f94dfb7745fc-3009489319903313068.jpg",
-          "full": "https://cdn.chotot.com/7xxLRWKwPjvh_LDbt5PvUQxtm7bcVM3XXDle7yikTRM/preset:view/plain/5853a4aeb963cdd3e166f94dfb7745fc-3009489319903313068.jpg"
-        }
-      ],
-      "posted_at": "2026-11-04T12:31:22.787000+00:00"
-    },
-    {
-      "id": "dl-5",
-      "code": 5,
-      "kind": "apartment",
-      "title_ru": "Квартира с 2 спальнями, мебелью и окнами",
-      "description_ru": "Квартира · 50 м² · 2 спальни · 1 санузел · сервисные апартаменты",
-      "price_vnd": 7200000,
-      "area_m2": 50.0,
-      "rooms": 2,
-      "toilets": 1,
-      "furnished": null,
-      "lat": 11.96323,
-      "lng": 108.47478,
-      "distance_km": 4.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/oAlOYm8BDbsA4cHEeP1xK5WCTq399ZgWRjT6D8WJBE0/preset:listing/plain/b7745ac0dede0f208fd56974fc7b889b-3009487960940903746.jpg",
-          "full": "https://cdn.chotot.com/lWnLRZGAxMuIeY0S-Ykh8eJ183xEvBVnJQeP0I0neLw/preset:view/plain/b7745ac0dede0f208fd56974fc7b889b-3009487960940903746.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/6ij0eKU7TX1ozlr4o7SQJa502TC3vb5txxkjyY8jxtE/preset:listing/plain/b3076f3dbc97c218c37beb1d7411c8de-3009487961244168658.jpg",
-          "full": "https://cdn.chotot.com/I2-xHcCayV6awHjAk_UzYO2xnEHG4E4fa1kVq9KmuYI/preset:view/plain/b3076f3dbc97c218c37beb1d7411c8de-3009487961244168658.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/AUow86mxZEwg0Fg2REFWOfJd59H-HhiqxDw2k38gFkU/preset:listing/plain/d6e7f89228df4181a142026613f4af89-3009487961392072207.jpg",
-          "full": "https://cdn.chotot.com/BZcIPGVup2uJqoNdV5PSZlV_7SeHK3XbS17eG54nsxI/preset:view/plain/d6e7f89228df4181a142026613f4af89-3009487961392072207.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/BgIplcz1YE4ZtpF7fKB0crWvynul0OyuwCZ4hraWzVs/preset:listing/plain/d0cf3ba21b0b8a314b41c498a1295d82-3009487961000696181.jpg",
-          "full": "https://cdn.chotot.com/-X5wbjCw_b-x5Zr9h74K1mnKZLi0zIpWq377H-hj-FQ/preset:view/plain/d0cf3ba21b0b8a314b41c498a1295d82-3009487961000696181.jpg"
-        }
-      ],
-      "posted_at": "2026-11-04T12:18:58.423000+00:00"
-    },
-    {
-      "id": "dl-6",
-      "code": 6,
-      "kind": "apartment",
-      "title_ru": "Квартира на первом этаже в жилом комплексе",
-      "description_ru": "Квартира · 65 м² · 3 спальни · сервисные апартаменты",
+      "id": "dl-55",
+      "code": 55,
+      "kind": "house",
+      "title_ru": "Аренда дома, 70 м², 2 спальни",
+      "description_ru": "Дом · 70 м² · 2 спальни · дом в переулке",
       "price_vnd": 7800000,
-      "area_m2": 65.0,
-      "rooms": 3,
+      "area_m2": 70.0,
+      "rooms": 2,
       "toilets": null,
       "furnished": null,
-      "lat": 11.96538,
-      "lng": 108.42407,
-      "distance_km": 3.0,
+      "lat": 11.94329,
+      "lng": 108.41993,
+      "distance_km": 2.0,
       "photos": [
         {
-          "thumb": "https://cdn.chotot.com/R1lb9XuHwI0k3xrMm_2WNKi8wHxBjaJXzwqYAstoTtQ/preset:listing/plain/8b486bba3cfb5d886ff133b8476c69d6-3009190496574078274.jpg",
-          "full": "https://cdn.chotot.com/RHk1-9Hdhuce84Kbs-9J8k6YTlumw3PWuRMsw3olElw/preset:view/plain/8b486bba3cfb5d886ff133b8476c69d6-3009190496574078274.jpg"
+          "thumb": "https://cdn.chotot.com/YGk1ELaprDjc2HeWylFpth_PlBdBJkpTkpir6utXwvw/preset:listing/plain/329d3277b7ab0a56421796588552fe01-3010195790334813343.jpg",
+          "full": "https://cdn.chotot.com/dMrC7dJWgXPLC0Gok94sJSU6zF5cl40DwD0DyTPNTXw/preset:view/plain/329d3277b7ab0a56421796588552fe01-3010195790334813343.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/Pnsdi2wlUv-CLiM2UBO0EAuYPsHp6YxStp564cHULlg/preset:listing/plain/ae750a9b34568e429521fbad6d85f8d3-3009190496869455136.jpg",
-          "full": "https://cdn.chotot.com/A1Ltfm7fvdwYzdfa39mvZIj0hyX5teOgeloRBF_ixHM/preset:view/plain/ae750a9b34568e429521fbad6d85f8d3-3009190496869455136.jpg"
+          "thumb": "https://cdn.chotot.com/2UtphrcJKMEa_tVFUP7gGt7xyX03AbowTmIgtdOTVQI/preset:listing/plain/0b534a82ae854bf13f2d86bed70dadce-3010195790513842235.jpg",
+          "full": "https://cdn.chotot.com/lP4DL6uUREe_Za64xO4nVjpqC4PRz04SgO7RNjCop3Q/preset:view/plain/0b534a82ae854bf13f2d86bed70dadce-3010195790513842235.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/IEXj6ZVRZTfDA5gpYLT7NUf1JxO66J3bDdAwwlb1C0I/preset:listing/plain/b6a49ed439cd66a795b3ef9bc5e11662-3009190496859664030.jpg",
-          "full": "https://cdn.chotot.com/lZBykPe8mMmFvMW2chqW1KBhOSBYvciNfl_KoReObzA/preset:view/plain/b6a49ed439cd66a795b3ef9bc5e11662-3009190496859664030.jpg"
+          "thumb": "https://cdn.chotot.com/VAR1mYy1Cv7mCjaoSRRYeUZV1oz-seI9TSeF-UxfDok/preset:listing/plain/1c3ddc3928fbedb77b0bdc8521b13c5b-3010195790683790028.jpg",
+          "full": "https://cdn.chotot.com/qu2hChJMTDbHu-5evR8OAfptfO8RGnofFXtzcLGfIWY/preset:view/plain/1c3ddc3928fbedb77b0bdc8521b13c5b-3010195790683790028.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/1YbGtDN1rVxBDefKUDCm18rplXLhwuCvNN05Ujgr2HE/preset:listing/plain/dcd1624e91afaeb0c609e4d35c945ca7-3009190497998315582.jpg",
-          "full": "https://cdn.chotot.com/oCEoDnLdm849K7e4L1SpMr5MfiARu9NaF4-XrLOtqcc/preset:view/plain/dcd1624e91afaeb0c609e4d35c945ca7-3009190497998315582.jpg"
+          "thumb": "https://cdn.chotot.com/C_tNj2ilfCCWz7Nc-siA1Xg1fBS9p55RKlbSXhzxtc4/preset:listing/plain/4077f8dc75a010f6828172942cea28bb-3010195792158074939.jpg",
+          "full": "https://cdn.chotot.com/YEE3K6OP1AKh3c2kze85WGhlEQlqG_utRy7aGkjtuVI/preset:view/plain/4077f8dc75a010f6828172942cea28bb-3010195792158074939.jpg"
         }
       ],
-      "posted_at": "2026-11-04T05:44:04.681000+00:00"
+      "posted_at": "2026-11-11T09:34:00.222000+00:00",
+      "added_at": "2026-11-12"
     },
     {
-      "id": "dl-7",
-      "code": 7,
-      "kind": "apartment",
-      "title_ru": "Квартира с 2 спальнями и двориком",
-      "description_ru": "Квартира · 45 м² · 2 спальни · 1 санузел · сервисные апартаменты",
-      "price_vnd": 7800000,
-      "area_m2": 45.0,
-      "rooms": 2,
-      "toilets": 1,
-      "furnished": null,
-      "lat": 11.94296,
-      "lng": 108.47749,
-      "distance_km": 4.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/DXyusf_LnOoUV9_h7_YZF1_UUiiPuxU59gkWqnozeqk/preset:listing/plain/b9a2508c4d0cc5ebdda306b0a4c4ca72-3009433069649776322.jpg",
-          "full": "https://cdn.chotot.com/1VFboVUaq0QAN1tTsCvFCSrzQa2_yxQBhKMHQB3m1Ak/preset:view/plain/b9a2508c4d0cc5ebdda306b0a4c4ca72-3009433069649776322.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/0ICKOBdYrd8-MoMXah3OXN1f5T3GJeGCCGNf_62WdOM/preset:listing/plain/9631f8ea6d2399dc63d5e2c7a80bf896-3009433069659782788.jpg",
-          "full": "https://cdn.chotot.com/fsnZhWz4F_4YXWCx81p2TRhP7PqAdK1Q76ENDe3KW6w/preset:view/plain/9631f8ea6d2399dc63d5e2c7a80bf896-3009433069659782788.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/dzxnIRPUPWKkxl2oPfQNNYxDn4Uw7gYTECljXlqEtF0/preset:listing/plain/2afcf90ed2f3aba0dc7199f11c354be8-3009433069700049286.jpg",
-          "full": "https://cdn.chotot.com/4Wr9vKW25kPTlFUb846W809KdQ6tQeAKOv2Sh5KcVlI/preset:view/plain/2afcf90ed2f3aba0dc7199f11c354be8-3009433069700049286.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/NYaoyadtTw3_eK0rIccahFpTyNMnx3swRXHGCdaVMU4/preset:listing/plain/5958de21cd142eb84c9ef6d381f7718c-3009433069674599712.jpg",
-          "full": "https://cdn.chotot.com/xFImcGQzYNRwzYxKfrXq201OPlRbRlB_H7KC6J-V3Jc/preset:view/plain/5958de21cd142eb84c9ef6d381f7718c-3009433069674599712.jpg"
-        }
-      ],
-      "posted_at": "2026-11-04T03:12:40.985000+00:00"
-    },
-    {
-      "id": "dl-8",
-      "code": 8,
-      "kind": "apartment",
-      "title_ru": "Апартаменты с балконом и красивым видом, электричество включено",
-      "description_ru": "Квартира · 55 м² · 2 спальни · 1 санузел · сервисные апартаменты",
-      "price_vnd": 10800000,
-      "area_m2": 55.0,
-      "rooms": 2,
-      "toilets": 1,
-      "furnished": null,
-      "lat": 11.95418,
-      "lng": 108.46786,
-      "distance_km": 3.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/5hk2LkyVgm6pwQfC1R6OBvpF2TGvBDor2Vzw4qneuGg/preset:listing/plain/c067a743e62e54395f0d466ec37274d3-3009337219037429058.jpg",
-          "full": "https://cdn.chotot.com/M6u84i2ozIGXc5jZPovGzyqYlvNgj_Q-Oc_M3K_xthc/preset:view/plain/c067a743e62e54395f0d466ec37274d3-3009337219037429058.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/ceGBTakuMbq872fzf9xaSVBFj_xBXWcTUr6jPFJab-Q/preset:listing/plain/79e14732423cb836d2939e2c210bc0f4-3009337219037502916.jpg",
-          "full": "https://cdn.chotot.com/TyOcOd5Y0oJ31wRXy1TOh3biEkKOBusAgc5-PCLwee4/preset:view/plain/79e14732423cb836d2939e2c210bc0f4-3009337219037502916.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/f-7lEiNbYPz2o5QfkBec9mdFA1yc08aBm5IZ0TvrGeQ/preset:listing/plain/c2ceb8c0ee2031650249f80cf1a9cfa2-3009337218968967541.jpg",
-          "full": "https://cdn.chotot.com/DFMgFwkLG9D3TTocMWBbMUJsM46JRR4XRtM_BrkgCy4/preset:view/plain/c2ceb8c0ee2031650249f80cf1a9cfa2-3009337218968967541.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/wslrq7kEPkMKmdAQ-hMBYX8wdyqKh_5wniHtu1m2O_E/preset:listing/plain/5a7a3fd52c67779f0032b05c7c447e58-3009337219132271009.jpg",
-          "full": "https://cdn.chotot.com/yvJ9xh6ewc0hLMUzJ74DWJch4oOBZhvc-KTkeUmiw2A/preset:view/plain/5a7a3fd52c67779f0032b05c7c447e58-3009337219132271009.jpg"
-        }
-      ],
-      "posted_at": "2026-11-03T11:21:53.508000+00:00"
-    },
-    {
-      "id": "dl-9",
-      "code": 9,
-      "kind": "apartment",
-      "title_ru": "Двухуровневая квартира-дуплекс",
-      "description_ru": "Квартира · 30 м² · 1 спальня · 1 санузел · двухуровневая квартира",
-      "price_vnd": 5400000,
-      "area_m2": 30.0,
-      "rooms": 1,
-      "toilets": 1,
-      "furnished": null,
-      "lat": 11.93983,
-      "lng": 108.41472,
-      "distance_km": 2.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/hsa531ZL_sBIRmNVev_-TMjBdCPB7flrnDz4zPwRq0s/preset:listing/plain/bb00afd3cafe6bcaf5ac6add43da2326-3009192815326166338.jpg",
-          "full": "https://cdn.chotot.com/oWbpDjvnKDpHWeF1coFpvSIaohEspbQwdDVo-yucosw/preset:view/plain/bb00afd3cafe6bcaf5ac6add43da2326-3009192815326166338.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/bBsNgYzDXxGdr-dDxzrg_0Hjed9dCVRZYDfPGkk3UWc/preset:listing/plain/bc4436f61fb91c3f7c7718e724c81247-3009192815220331808.jpg",
-          "full": "https://cdn.chotot.com/0kVErDnUUymcf_4WqbSXpzxRVU9tlbwS_fHAmR_dx94/preset:view/plain/bc4436f61fb91c3f7c7718e724c81247-3009192815220331808.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/paur-ox8PM0FjaUjdAL45b1fKCL7Vb5xRU7jtcBK4Eo/preset:listing/plain/6b34ede12312c4f36f57b94a5ab94388-3009192815366470269.jpg",
-          "full": "https://cdn.chotot.com/XFuBbsnWjzQwDM-ZBjly_0McuwXhkxf-sshTUep38oc/preset:view/plain/6b34ede12312c4f36f57b94a5ab94388-3009192815366470269.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/zdo9F9DdPrulCHxjf_NPqAyHN8TD1ET9-kFmrB-m2Io/preset:listing/plain/be16f4829e8ae49d716d9850b841817e-3009192815275683486.jpg",
-          "full": "https://cdn.chotot.com/AfOMdjtsCvX4iiw86Hs-hoqFLuxxbFV0crs9Zs_3GLo/preset:view/plain/be16f4829e8ae49d716d9850b841817e-3009192815275683486.jpg"
-        }
-      ],
-      "posted_at": "2026-11-02T11:25:56.594000+00:00"
-    },
-    {
-      "id": "dl-10",
-      "code": 10,
-      "kind": "apartment",
-      "title_ru": "Квартира с 1 спальней и мебелью",
-      "description_ru": "Квартира · 50 м² · 1 спальня · 1 санузел · сервисные апартаменты",
-      "price_vnd": 7200000,
-      "area_m2": 50.0,
-      "rooms": 1,
-      "toilets": 1,
-      "furnished": null,
-      "lat": 11.97083,
-      "lng": 108.4299,
-      "distance_km": 3.0,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/SjeWlwD5QDYVUGScPqJLg8xIjU5p_k7aifbuoJUhTDY/preset:listing/plain/e4af64de7873c46e8680e4231c89c7f4-3009189031658504386.jpg",
-          "full": "https://cdn.chotot.com/_D6VahBOtMzlec8EfsnSRyP-ktZi5KRaof77hBZkK1w/preset:view/plain/e4af64de7873c46e8680e4231c89c7f4-3009189031658504386.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/lky__CyKHHTpqFe8w-VEsuXAZmTDXomRRk5rXKyZHAg/preset:listing/plain/18af0110987d0c6504feaa12fe765857-3009189030199915948.jpg",
-          "full": "https://cdn.chotot.com/dCMlP2K6JCV2VLyhToyuyeJ1vpOg2OyUsuj7ZOWfp9k/preset:view/plain/18af0110987d0c6504feaa12fe765857-3009189030199915948.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/-dYBOpqW8sKYk-zQCYo5vWs2P6jfMyoqVSy7_5ZVZZo/preset:listing/plain/649e80c1374d9d5b9b4abe6741074011-3009189030297107778.jpg",
-          "full": "https://cdn.chotot.com/LpGkWUyEwdBJFi8as1UqQbpfp1bfrllmjnEPz8X8D28/preset:view/plain/649e80c1374d9d5b9b4abe6741074011-3009189030297107778.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/q5VFcfYGNeNMNR7mImTzGCWhoVdUYTpusxLUJcPJi-E/preset:listing/plain/4973698b58cd3e7805ecd2a40d437ecb-3009189031002582686.jpg",
-          "full": "https://cdn.chotot.com/sWyMq5lWr-KRnMLGasIoAwcGmupe3BpezNjRx2yXkXI/preset:view/plain/4973698b58cd3e7805ecd2a40d437ecb-3009189031002582686.jpg"
-        }
-      ],
-      "posted_at": "2026-11-02T10:49:00.571000+00:00"
-    },
-    {
-      "id": "dl-11",
-      "code": 11,
-      "kind": "apartment",
-      "title_ru": "Просторная квартира с 3 спальнями",
-      "description_ru": "Квартира · 100 м² · 3 спальни · 2 санузла · сервисные апартаменты",
-      "price_vnd": 7800000,
-      "area_m2": 100.0,
+      "id": "dl-56",
+      "code": 56,
+      "kind": "house",
+      "title_ru": "Аренда дома, 160 м², 3 спальни",
+      "description_ru": "Дом · 160 м² · 3 спальни · 2 санузла · дом с фасадом на улицу",
+      "price_vnd": 19200000,
+      "area_m2": 160.0,
       "rooms": 3,
       "toilets": 2,
       "furnished": null,
-      "lat": 11.92682,
-      "lng": 108.41689,
+      "lat": 11.94916,
+      "lng": 108.46636,
       "distance_km": 3.0,
       "photos": [
         {
-          "thumb": "https://cdn.chotot.com/ZvZVAqiyZsvsgrHeE1H-QB6bhiyDMMRMloTOnCiTSnM/preset:listing/plain/a179ef2b08e258cd40b07f41ec1ba9f8-3008623045901532541.jpg",
-          "full": "https://cdn.chotot.com/vW_DKhKgePF05SWLpRoos-FlAr898hhGr20oy2aED-4/preset:view/plain/a179ef2b08e258cd40b07f41ec1ba9f8-3008623045901532541.jpg"
+          "thumb": "https://cdn.chotot.com/VMQZVn1YsflbHPFv4L0iQa4tXwR9mqi3MKN__eZ0g8g/preset:listing/plain/fea7afdf3e010f922c1b68d134abc579-2982500110076648881.jpg",
+          "full": "https://cdn.chotot.com/jJQZfuQ9U7E86bIbQYS12QR_-Rh9FzvR6J2Wi_7oapQ/preset:view/plain/fea7afdf3e010f922c1b68d134abc579-2982500110076648881.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/2pVC3CFr4E0G3FnY4M5713mUssaBY2T441SgMViT8ro/preset:listing/plain/aaa288ba478756067da818a432af5b91-3008623046654392997.jpg",
-          "full": "https://cdn.chotot.com/rIYbL9wnkL_gcA2Ay-dhpaX3CXGCMcle8sp71u8e328/preset:view/plain/aaa288ba478756067da818a432af5b91-3008623046654392997.jpg"
+          "thumb": "https://cdn.chotot.com/_7dMeDe8fudb6htLe9RULfdliD6pHGJ3hb1Ys9l1_sA/preset:listing/plain/24907168052aff5c68663b0347906b16-2982500110516375145.jpg",
+          "full": "https://cdn.chotot.com/R1JVoeMmU6tl0aFboAUg39jaPrxFesYE7AjGYkI6Ljc/preset:view/plain/24907168052aff5c68663b0347906b16-2982500110516375145.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/skKgDrrqXFD7ZKoI_KBEzCGMCT_lfru-yKisYCGLI1o/preset:listing/plain/e6b767072c0e872c12749d161aabc96a-3008623046083121448.jpg",
-          "full": "https://cdn.chotot.com/4rlTbafD0GKGrCj9tylCZhb24gB75l43EqBO3B2OgWk/preset:view/plain/e6b767072c0e872c12749d161aabc96a-3008623046083121448.jpg"
+          "thumb": "https://cdn.chotot.com/kqnPLRg7p3KBu9WnxLFeNkW1YXwvHbDJhLQL40bHoqI/preset:listing/plain/9031175875818f18a75951addd304c9b-2982500110669352505.jpg",
+          "full": "https://cdn.chotot.com/swDkwIEXUjMEbsjDVpVULLLTzOlJT1nzKA8RPfDpdgg/preset:view/plain/9031175875818f18a75951addd304c9b-2982500110669352505.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/RrgkWfFxwV8BWBkMtIN9YkrvnG9J7ZVMtpxgZTDzf-4/preset:listing/plain/499c7053d9ee8522891f33706801389c-2982500111359494638.jpg",
+          "full": "https://cdn.chotot.com/-3jqcR0djtCL-1zqY3Wp2JYz-HFiEy7sRas7lPcn46s/preset:view/plain/499c7053d9ee8522891f33706801389c-2982500111359494638.jpg"
         }
       ],
-      "posted_at": "2026-11-02T08:47:02.559000+00:00"
+      "posted_at": "2026-11-11T04:36:35+00:00",
+      "added_at": "2026-11-12"
     },
     {
-      "id": "dl-12",
-      "code": 12,
-      "kind": "apartment",
-      "title_ru": "Квартира с 2 спальнями и 2 санузлами, полностью меблирована",
-      "description_ru": "Квартира · 55 м² · 2 спальни · 2 санузла · сервисные апартаменты",
-      "price_vnd": 12000000,
-      "area_m2": 55.0,
-      "rooms": 2,
-      "toilets": 2,
+      "id": "dl-57",
+      "code": 57,
+      "kind": "house",
+      "title_ru": "Аренда дома, 205 м², 4 спальни",
+      "description_ru": "Дом · 205 м² · 4 спальни · вилла",
+      "price_vnd": 72000000,
+      "area_m2": 205.0,
+      "rooms": 4,
+      "toilets": null,
       "furnished": null,
-      "lat": 11.94892,
-      "lng": 108.49128,
+      "lat": 11.94758,
+      "lng": 108.49429,
       "distance_km": 6.0,
       "photos": [
         {
-          "thumb": "https://cdn.chotot.com/eUg52cQYBTMrj-WJmNtwhDa1_G8KL3qUE4qvckFebe4/preset:listing/plain/7fc88474f8676b7072178fec1c16b504-3009149098610428180.jpg",
-          "full": "https://cdn.chotot.com/CFYBlOlPue4xZo2nOx3zh16mwwr_4TmZS7_CxhjaJDE/preset:view/plain/7fc88474f8676b7072178fec1c16b504-3009149098610428180.jpg"
+          "thumb": "https://cdn.chotot.com/mz5ABNyH87X8OXWAH2iUGrTYx62A6yCFatp900YXT-Q/preset:listing/plain/ccf34e5439ceb72cfe510712131052e4-3002376519877901717.jpg",
+          "full": "https://cdn.chotot.com/5KMVLSU8TP0w-79f_dCz2eLUj_ecu4TUsc3QGvBodKk/preset:view/plain/ccf34e5439ceb72cfe510712131052e4-3002376519877901717.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/ynlbeBF6f7SaVX_4Dk4j1s9ltaAPgtU3NDgiAVfyP48/preset:listing/plain/fdd511b0a45452c3b26dee06c861da3e-3009149099525805006.jpg",
-          "full": "https://cdn.chotot.com/CV4vKljvDY-KVBv-ETxjB4hsQQwj5jd6Ne4kkPLAtWo/preset:view/plain/fdd511b0a45452c3b26dee06c861da3e-3009149099525805006.jpg"
+          "thumb": "https://cdn.chotot.com/sQOWrd0c8XupliExZW6RwuHmLxT9Se0jtCbVk9A6P04/preset:listing/plain/8361f575567540e590554e0abf713af1-3002376519781148209.jpg",
+          "full": "https://cdn.chotot.com/holXZKSoDNUmZcpjfvcCDUHwBsMeBgAn3oQH2_kKoTY/preset:view/plain/8361f575567540e590554e0abf713af1-3002376519781148209.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/et_s8cOblvYVLJLJn0THEfliCYjL-aYmEBjSIu5oG2U/preset:listing/plain/ea92546df98d180b8fbf25db18814cf1-3009149100341051335.jpg",
-          "full": "https://cdn.chotot.com/D_Ha3QZACbgvXeSXgCBSalRrCkRVbY1sVxtw91FbNZA/preset:view/plain/ea92546df98d180b8fbf25db18814cf1-3009149100341051335.jpg"
+          "thumb": "https://cdn.chotot.com/rXeesOksQdpMNW_kqrR4r84WjZiv1AkSygUXhYIWHzg/preset:listing/plain/02d2c4add86251a1b53b8c81356d7aae-3002376519834729415.jpg",
+          "full": "https://cdn.chotot.com/_7yCtoLm1Ecufy1AZJF1lMo7HcOJKMPeA1kTAGQXsnk/preset:view/plain/02d2c4add86251a1b53b8c81356d7aae-3002376519834729415.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/fg_2cwEXUNwaib5rMvnq-d4PHFB9r6uB8ZNm0mqxTpk/preset:listing/plain/22c38b3f12cb2f7b0f227f68e59c6039-3009149101792421937.jpg",
-          "full": "https://cdn.chotot.com/2_5DNwLOHduYr_te3sPf94i_v5nnFutUPbXof8vdPLY/preset:view/plain/22c38b3f12cb2f7b0f227f68e59c6039-3009149101792421937.jpg"
+          "thumb": "https://cdn.chotot.com/LhifdsvzF6AmRlpHmBDIe_bhpgB5fb_hJQoLQoTTZw4/preset:listing/plain/b704563d75cfcde7400de9a9bff95613-3002376519988138227.jpg",
+          "full": "https://cdn.chotot.com/vTy0WO6RYsrLqvy1if_q1h0wfW047JGrAtAhe2oQO1w/preset:view/plain/b704563d75cfcde7400de9a9bff95613-3002376519988138227.jpg"
         }
       ],
-      "posted_at": "2026-11-02T04:11:58.355000+00:00"
+      "posted_at": "2026-11-11T04:36:22+00:00",
+      "added_at": "2026-11-12"
     },
     {
-      "id": "dl-13",
-      "code": 13,
-      "kind": "apartment",
-      "title_ru": "Новый дуплекс с премиальной мебелью, балконом и окнами",
-      "description_ru": "Квартира · 40 м² · 1 спальня · 1 санузел · двухуровневая квартира",
-      "price_vnd": 9600000,
-      "area_m2": 40.0,
-      "rooms": 1,
-      "toilets": 1,
-      "furnished": null,
-      "lat": 11.95471,
-      "lng": 108.4721,
-      "distance_km": 4.0,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/GxJJX9zdCew3AiY9BmQk1h9hP1hy2qXLS5YfduFxlwM/preset:listing/plain/110be963645620d667753fa9b7c4ad4e-3009144150491827880.jpg",
-          "full": "https://cdn.chotot.com/24LgljCFZWfFn5WHEOA5tSXklRMQe6giX8JURVjIy_g/preset:view/plain/110be963645620d667753fa9b7c4ad4e-3009144150491827880.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/rPqwpkfUspSLf-dJLP2WiOXNKmaoymB7nMaRKkEakac/preset:listing/plain/7ad6d07eacd5010b338ddd9b8639a1ef-3009144149740389185.jpg",
-          "full": "https://cdn.chotot.com/9rdT71tWBsEsdCL8QGAc4-k91_eDUn-gM-PnwvZfsSA/preset:view/plain/7ad6d07eacd5010b338ddd9b8639a1ef-3009144149740389185.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/x68AKX0Vx4P_JzBmHC4qGl5KMGpyiek_X1l6UiEXQxY/preset:listing/plain/4e0d00e64858d2a070aa91764df9b16f-3009144149725770124.jpg",
-          "full": "https://cdn.chotot.com/MFY5Pl-md9TKeOZr2zRSF4pAVyArrOz6LFLymZZ6HJw/preset:view/plain/4e0d00e64858d2a070aa91764df9b16f-3009144149725770124.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/ND9xGosdVUaQc9x0a8d7sm_negJT3e3--otB04TKUCg/preset:listing/plain/df7a66749d291d24c1c873fb7f5fe2ec-3009144150262583418.jpg",
-          "full": "https://cdn.chotot.com/GrZx6K5dFVCCB2jc30HIm4cgFAaNEl6lIvBKPNkgkXM/preset:view/plain/df7a66749d291d24c1c873fb7f5fe2ec-3009144150262583418.jpg"
-        }
-      ],
-      "posted_at": "2026-11-02T03:23:21.397000+00:00"
-    },
-    {
-      "id": "dl-14",
-      "code": 14,
-      "kind": "apartment",
-      "title_ru": "Новый дуплекс с премиальной мебелью",
-      "description_ru": "Квартира · 40 м² · 1 спальня · двухуровневая квартира",
-      "price_vnd": 8400000,
-      "area_m2": 40.0,
-      "rooms": 1,
-      "toilets": null,
-      "furnished": null,
-      "lat": 11.93962,
-      "lng": 108.45424,
-      "distance_km": 2.0,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/FI2dWO8a1sjW7kk2IsJCj1jgaoGOJ0HDvpmdQGlscZc/preset:listing/plain/d1536a209489c49af755faaf718ac6a2-3009141394532231728.jpg",
-          "full": "https://cdn.chotot.com/2L83m7sDqvXyoWjvj3WmPz7731NjsQ27DbI5k4Zjmjc/preset:view/plain/d1536a209489c49af755faaf718ac6a2-3009141394532231728.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/asYt1WaNYrpQg5jRsH9_3-kIYVgBikmj5D-USoPAE7M/preset:listing/plain/70f41221dd1dcda7dfed6b65a0475e1e-3009141394015881492.jpg",
-          "full": "https://cdn.chotot.com/xy3bsoU3t1p5i1eZFjNnCkyONclulVndM62syknVLGY/preset:view/plain/70f41221dd1dcda7dfed6b65a0475e1e-3009141394015881492.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/HWpwCuJVrk8x4GdRnmQLk8IvC6YA3r8ZA_dUhBWwiFk/preset:listing/plain/27a771e744ac50512af6e29abcecbbd6-3009141394583888165.jpg",
-          "full": "https://cdn.chotot.com/dhw5PW3Ao5w-MbmkHbIBa-PMV9MeES49F5jXO7oUEPc/preset:view/plain/27a771e744ac50512af6e29abcecbbd6-3009141394583888165.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/i4lBH0ZRM0rlMC8FqF3R5pcnEi5N4GtWsaOlLQGRaPg/preset:listing/plain/52238c9ffb9265dba93608b21e7dd243-3009141394028798014.jpg",
-          "full": "https://cdn.chotot.com/T55uLsewZ0zqmk_BEFox96nwfy4wk9jPDIUK8RhPLlE/preset:view/plain/52238c9ffb9265dba93608b21e7dd243-3009141394028798014.jpg"
-        }
-      ],
-      "posted_at": "2026-11-02T02:56:03.676000+00:00"
-    },
-    {
-      "id": "dl-15",
-      "code": 15,
+      "id": "dl-58",
+      "code": 58,
       "kind": "house",
-      "title_ru": "Премиальная вилла для отдыха с потрясающим видом",
-      "description_ru": "Дом · 208 м² · 4 спальни · 4 санузла · 3 этажа · вилла",
-      "price_vnd": 72000000,
-      "area_m2": 208.0,
-      "rooms": 4,
-      "toilets": 4,
-      "furnished": null,
-      "lat": 11.94057,
-      "lng": 108.45661,
-      "distance_km": 2.0,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/qU0Tl4vV04_axx7ZimrM0cgL7KxW568xWp_5k6TOu5I/preset:listing/plain/f7daa119b097a0c3fa39a230e5b67b77-3010004912000727135.jpg",
-          "full": "https://cdn.chotot.com/Rt7ZQjfC4cK3lzqmEKsLljVb6HT_Y3sm4v9ND__UjcI/preset:view/plain/f7daa119b097a0c3fa39a230e5b67b77-3010004912000727135.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/5ea-6HbciGRM0OQ2pUHPvNcVL1_ejjW8yRVWsb1_TsU/preset:listing/plain/6da0a2117db6e2206594f12348e0b830-3010004911919723483.jpg",
-          "full": "https://cdn.chotot.com/IIBEPjLVpZxj33-VkDwbLEXVWOX4HXzz3KosNbFpNfc/preset:view/plain/6da0a2117db6e2206594f12348e0b830-3010004911919723483.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/X26jpB_2Ve49YAK9lLFqg83TUjzf86Bft7df3NWJK6Y/preset:listing/plain/d69f49c4ae618459ebe1bd0bb8d3445a-3010004914186603064.jpg",
-          "full": "https://cdn.chotot.com/EpTSL4u3dFQOgzsTTc2OR1ymH8gFcqq5crkwZnRqnbo/preset:view/plain/d69f49c4ae618459ebe1bd0bb8d3445a-3010004914186603064.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/RfeG9rwlMMFLnmBqJzR4B3c88M0uC46e1JkDaha-Fvs/preset:listing/plain/cf0f8b71e9e380ea98c6fa9f26b38ce2-3010004914503480283.jpg",
-          "full": "https://cdn.chotot.com/83ALSXhV35CXmcNeRPO063EjnizZig2oXaS0MEqTXn0/preset:view/plain/cf0f8b71e9e380ea98c6fa9f26b38ce2-3010004914503480283.jpg"
-        }
-      ],
-      "posted_at": "2026-11-08T01:55:56.710000+00:00"
-    },
-    {
-      "id": "dl-16",
-      "code": 16,
-      "kind": "house",
-      "title_ru": "Дом с 3 спальнями в тихом переулке",
-      "description_ru": "Дом · 60 м² · 3 спальни · дом в переулке",
-      "price_vnd": 10800000,
-      "area_m2": 60.0,
-      "rooms": 3,
-      "toilets": null,
-      "furnished": null,
-      "lat": 11.95478,
-      "lng": 108.43226,
-      "distance_km": 1.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/1Z_0Tgmyc8pmuto7PMWk1EvdhrEz8AuA48jxjpXjJck/preset:listing/plain/cae207c854d91899f06d65a33f29594d-3009919081919066706.jpg",
-          "full": "https://cdn.chotot.com/kVVj6Fdwr7s-sUc0XWksMnruZL0mBAIkL4LVVSQoBBM/preset:view/plain/cae207c854d91899f06d65a33f29594d-3009919081919066706.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/I2oLuMpkSWyKa88Ozy-iJiwp4K0ZaP3EdnxkXb7sYbs/preset:listing/plain/c3b1784c48decbf7b5d87fed4d692068-3009919082142364635.jpg",
-          "full": "https://cdn.chotot.com/ZowWFwGs4DPDnyhsvOj2jh5Uje1R9uiihKHB5codg1E/preset:view/plain/c3b1784c48decbf7b5d87fed4d692068-3009919082142364635.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/t1lGAA2cYV2OpXb5_HE0Z1mIGfEG80TjYZ-rivIjcQU/preset:listing/plain/58395d4f4d4aa165bdce281c90faf80e-3009919082119235995.jpg",
-          "full": "https://cdn.chotot.com/Kd0yrzbeNbphRsCAhCfrL73nFRGOi_aw8d4FKeiqme8/preset:view/plain/58395d4f4d4aa165bdce281c90faf80e-3009919082119235995.jpg"
-        }
-      ],
-      "posted_at": "2026-11-07T11:40:16.662000+00:00"
-    },
-    {
-      "id": "dl-17",
-      "code": 17,
-      "kind": "house",
-      "title_ru": "Вилла с фасадом на улицу, 5 спален",
-      "description_ru": "Дом · 300 м² · 5 спален · 5 санузлов · дом с фасадом на улицу",
-      "price_vnd": 66000000,
-      "area_m2": 300.0,
-      "rooms": 5,
-      "toilets": 5,
-      "furnished": null,
-      "lat": 11.93281,
-      "lng": 108.43349,
-      "distance_km": 1.0,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/vGyB8K-l2ZxGjTv7cCzUPGfwQj8-fUNHrCbH3StxA7g/preset:listing/plain/9cbe04d08cab60d1cc8c3047b6c213cc-3009863134812669741.jpg",
-          "full": "https://cdn.chotot.com/95fdILxYI_2_JzV1Pgf9XY0ZnCuS6KThboQLAbqDt64/preset:view/plain/9cbe04d08cab60d1cc8c3047b6c213cc-3009863134812669741.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/-i4jWGruw_HOn7zsYIQpiaJFMZPQI688htZku0-TSIs/preset:listing/plain/24486e5ebcb16f3c37b291ff9ce21dab-3009863134923650011.jpg",
-          "full": "https://cdn.chotot.com/BtmAVNXGr-egKONG3IB3oyOAJVe0M6Y7OHRGA2OAXoo/preset:view/plain/24486e5ebcb16f3c37b291ff9ce21dab-3009863134923650011.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/Jgdks_U5H8O9gS1bW-L04NZFszGU7iZV0u9t2JCEylI/preset:listing/plain/a7c2f51a3d85bba3cd8847f7c87e335c-3009863135952362137.jpg",
-          "full": "https://cdn.chotot.com/LkNZDtrULIayLAp0EX2kojWQ2f5JSk5OzZoD8pZkcq0/preset:view/plain/a7c2f51a3d85bba3cd8847f7c87e335c-3009863135952362137.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/kaZ4cJfuD0RG2qhcyV0LweaIjArB2J8KUYCEZQw_I_M/preset:listing/plain/b7d61306b54ccd4020e5cf9a9dca5296-3009863135953651501.jpg",
-          "full": "https://cdn.chotot.com/LOURlw-Ro-ikINwY7-a3Ku1rSY1pNB9E7NhKo-SK590/preset:view/plain/b7d61306b54ccd4020e5cf9a9dca5296-3009863135953651501.jpg"
-        }
-      ],
-      "posted_at": "2026-11-07T04:22:59.215000+00:00"
-    },
-    {
-      "id": "dl-18",
-      "code": 18,
-      "kind": "house",
-      "title_ru": "Новый дом целиком: 2 этажа, 3 спальни, кухня",
-      "description_ru": "Дом · 100 м² · 3 спальни · 2 санузла · 2 этажа · дом с фасадом на улицу",
+      "title_ru": "Аренда дома, 90 м², 4 спальни",
+      "description_ru": "Дом · 90 м² · 4 спальни · 2 санузла · 2 этажа · дом с фасадом на улицу",
       "price_vnd": 15600000,
-      "area_m2": 100.0,
-      "rooms": 3,
-      "toilets": 2,
-      "furnished": null,
-      "lat": 11.97672,
-      "lng": 108.44899,
-      "distance_km": 4.0,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/fJIg59dw10TERj3Harf8pU97Cb2deOLRrZoXzL_CfaA/preset:listing/plain/bed250c73ed979a1e83ba4153ae0d556-2999749316637391855.jpg",
-          "full": "https://cdn.chotot.com/5VK20fzMO18Gt8Yqdbu9T1nXfffQIN9wC6JI0oA5lkY/preset:view/plain/bed250c73ed979a1e83ba4153ae0d556-2999749316637391855.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/Hn_J4X_LgsH_yUUXogAw2gxJbOYZsBPC2XPPX6V8BHA/preset:listing/plain/6bd9592d2f88835f9d4031e5a3663fe0-2999749317159970694.jpg",
-          "full": "https://cdn.chotot.com/jmdTev3S70xNpD6Yoqt1o7aN9sLMtFfDj1F-W6TClz0/preset:view/plain/6bd9592d2f88835f9d4031e5a3663fe0-2999749317159970694.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/2eHda7ME_nmk63fVdr_UQ_VZ6386c87OaflfPrNUPQg/preset:listing/plain/fd85a0177f782acbaf94aa558cf84442-2999749317251831826.jpg",
-          "full": "https://cdn.chotot.com/yEujuMyla0Z7lerTRhZ92yJ6osC9dJpuP9f0EB2E1h8/preset:view/plain/fd85a0177f782acbaf94aa558cf84442-2999749317251831826.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/Zk2D7NFXzJR5FqmN0jp40gk5kuaw2ov7oNbCtY0mI84/preset:listing/plain/ed83625dd162e13dc454ad05b3609814-2999749317017822906.jpg",
-          "full": "https://cdn.chotot.com/DBQK-Yazr-9ctg8tkyZ9svAf7OnQjvoJv8rV1ycSCA8/preset:view/plain/ed83625dd162e13dc454ad05b3609814-2999749317017822906.jpg"
-        }
-      ],
-      "posted_at": "2026-11-07T03:45:22+00:00"
-    },
-    {
-      "id": "dl-19",
-      "code": 19,
-      "kind": "house",
-      "title_ru": "Дом целиком: 2 этажа, 3 спальни",
-      "description_ru": "Дом · 100 м² · 3 спальни · 2 санузла · 2 этажа · дом в переулке",
-      "price_vnd": 6000000,
-      "area_m2": 100.0,
-      "rooms": 3,
-      "toilets": 2,
-      "furnished": null,
-      "lat": 11.93509,
-      "lng": 108.42281,
-      "distance_km": 2.0,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/TIpixWNzrphPybInfwer5s1ad9VVKbS8doxqe_ljPbM/preset:listing/plain/3f19cf74609bb3f4d32e9bf55904faef-3009628846831543218.jpg",
-          "full": "https://cdn.chotot.com/Bl-UT_ColDA0P7PKXYuW-mvHl6iMrzYXrSWd6LLyNtY/preset:view/plain/3f19cf74609bb3f4d32e9bf55904faef-3009628846831543218.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/M7r5FdrGs-koZDX4tBFm_2LAkcxOLFzAhQIa_oOD4n4/preset:listing/plain/c61e39e683fe19b431bcd2fe94aa7749-3009628846966045613.jpg",
-          "full": "https://cdn.chotot.com/1vlaESozMHqTTM88stMiUiAhMVjM2JaRUDY1439RVKo/preset:view/plain/c61e39e683fe19b431bcd2fe94aa7749-3009628846966045613.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/XtCyQ5RY1XrUuJ4DIjgmvnHKzJaJrsCPduSkAaTUUlE/preset:listing/plain/f38ed52910473608c4d30e8070bab489-3009628846818301216.jpg",
-          "full": "https://cdn.chotot.com/lb0Rt5qh_FUP38oj-RGl9nyl_z0_e8JNgHyEJyZk5jU/preset:view/plain/f38ed52910473608c4d30e8070bab489-3009628846818301216.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/IkX9qZwo6CP2hrur60mq1nGpXB2pvt1m_g2mbotsGw0/preset:listing/plain/53e17b3e1dfe93fa1ebabd544f0edfef-3009628846913359942.jpg",
-          "full": "https://cdn.chotot.com/9vlbOPtRvJsRHfkveUHTajVOAdU2F3GCmwyv_cs_hsg/preset:view/plain/53e17b3e1dfe93fa1ebabd544f0edfef-3009628846913359942.jpg"
-        }
-      ],
-      "posted_at": "2026-11-05T11:42:03.245000+00:00"
-    },
-    {
-      "id": "dl-20",
-      "code": 20,
-      "kind": "house",
-      "title_ru": "Дом целиком с 2 спальнями и мебелью",
-      "description_ru": "Дом · 80 м² · 2 спальни · 2 санузла · дом в переулке",
-      "price_vnd": 13200000,
-      "area_m2": 80.0,
-      "rooms": 2,
-      "toilets": 2,
-      "furnished": null,
-      "lat": 11.97993,
-      "lng": 108.4515,
-      "distance_km": 4.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/0wN1wjGXJ1JNFEV6DImDK8SJa1YHZKT74dQExmYaHZ0/preset:listing/plain/b8c60c970a43729327ac90090ef6e9fb-3009604960183742664.jpg",
-          "full": "https://cdn.chotot.com/tsaud-VFTx0JUJ2ZJtpZslBdNjHy8ximcJa1OswXsDA/preset:view/plain/b8c60c970a43729327ac90090ef6e9fb-3009604960183742664.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/6xl29hzDReqESAkfZHJc6celN6WJRizmJC04nYLUzjY/preset:listing/plain/8b8d545339984325781f9fb0bab1c5f4-3009604960876334389.jpg",
-          "full": "https://cdn.chotot.com/lz3KCDvQ658T_XILgMPsuIAQ2lvzkDXq8M_mvdqi8sA/preset:view/plain/8b8d545339984325781f9fb0bab1c5f4-3009604960876334389.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/sLcphBmZUPg9oAon9B1BaQJinGkFfXudBtsx17LT8z4/preset:listing/plain/f8e8fd18f2585c76885d0795149c8a1e-3009604959826478819.jpg",
-          "full": "https://cdn.chotot.com/Z7FBh1HUkcZA6Px33DQXwO2ew0tk9gzSY3DI05oOS14/preset:view/plain/f8e8fd18f2585c76885d0795149c8a1e-3009604959826478819.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/C0jDhiYnnBDPgLl672kJuAIgI7WW50PqgKUKyTcjkFI/preset:listing/plain/fa8a0ae8f9dbbf6d399eaabb042d09b0-3009604960170780387.jpg",
-          "full": "https://cdn.chotot.com/GQF0TaQSYldX8VFti5_PxJSfdAAhDmckRj-Fa3oZkRo/preset:view/plain/fa8a0ae8f9dbbf6d399eaabb042d09b0-3009604960170780387.jpg"
-        }
-      ],
-      "posted_at": "2026-11-05T07:41:13.419000+00:00"
-    },
-    {
-      "id": "dl-21",
-      "code": 21,
-      "kind": "house",
-      "title_ru": "Вилла с 4 спальнями и большим двором",
-      "description_ru": "Дом · 200 м² · 4 спальни · 4 санузла · дом в переулке",
-      "price_vnd": 36000000,
-      "area_m2": 200.0,
+      "area_m2": 90.0,
       "rooms": 4,
-      "toilets": 4,
+      "toilets": 2,
       "furnished": null,
-      "lat": 11.97127,
-      "lng": 108.42485,
-      "distance_km": 3.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/6in-PaDlQ7rFSB4UONqqLDQUgx0O7EKtkO5uyau0RJk/preset:listing/plain/1582f96ed6da78fbf388a200c0c883a2-3009574266489562970.jpg",
-          "full": "https://cdn.chotot.com/JM54kvQ1GNFguxsTxdiSjj6ZsVq7Ls9vUJOWxGDdMl8/preset:view/plain/1582f96ed6da78fbf388a200c0c883a2-3009574266489562970.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/5dNlvlpMu41UFttgxrU-Zdu05S0Ip97_n_J-K7jXX1o/preset:listing/plain/fa5b2493eb1aa94be008bc1c0551bc9b-3009574265650257754.jpg",
-          "full": "https://cdn.chotot.com/ESi9lagHr0HduIkpqkJ9escVarUZhEi638WQzHLpMeg/preset:view/plain/fa5b2493eb1aa94be008bc1c0551bc9b-3009574265650257754.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/5MD0zP5QcHINf_8k9YxJM6sqtV8n3JmXW_VPEisOOZY/preset:listing/plain/9e20abecb150b9b267d0b117ce34528f-3009574265994804141.jpg",
-          "full": "https://cdn.chotot.com/d3TjUmASkPSxIA-cSrAc7mNjvLe8XHBJRgrm_8XA7n0/preset:view/plain/9e20abecb150b9b267d0b117ce34528f-3009574265994804141.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/POmCpK7Qp0EAjN-K8fSYrP-6PGa_iosdZXbRWo04g6s/preset:listing/plain/e80181441837814b3f9e21b4ad5b34ba-3009574266921420091.jpg",
-          "full": "https://cdn.chotot.com/HSeO9sGugKHwxsFnUhSwPuXhBrfwb9Rp1sxZVoiJ87Q/preset:view/plain/e80181441837814b3f9e21b4ad5b34ba-3009574266921420091.jpg"
-        }
-      ],
-      "posted_at": "2026-11-05T02:35:49.607000+00:00"
-    },
-    {
-      "id": "dl-22",
-      "code": 22,
-      "kind": "house",
-      "title_ru": "Трёхэтажный дом с 4 спальнями от хозяина",
-      "description_ru": "Дом · 120 м² · 4 спальни · 4 санузла · 3 этажа · таунхаус",
-      "price_vnd": 14400000,
-      "area_m2": 120.0,
-      "rooms": 4,
-      "toilets": 4,
-      "furnished": null,
-      "lat": 11.9643,
-      "lng": 108.45265,
+      "lat": 11.96245,
+      "lng": 108.42044,
       "distance_km": 3.0,
       "photos": [
         {
-          "thumb": "https://cdn.chotot.com/jz2AWaq7iHvdzIPMyu8bU4nelOarYBLZgfNQGOYiHjY/preset:listing/plain/caf19ce8acc257d35c4188a929728e1f-3006532592714954229.jpg",
-          "full": "https://cdn.chotot.com/BlqzfKXIX-9UptcWwu8ntxtlbdetFjUWIV5RuSHNz9E/preset:view/plain/caf19ce8acc257d35c4188a929728e1f-3006532592714954229.jpg"
+          "thumb": "https://cdn.chotot.com/GxhmE3qiqAuZ1V4BVzKW3kDiHh2k089NkacxbqYbzRQ/preset:listing/plain/a708b2e9607f2e773a4b430bdef4413f-3010344912771770567.jpg",
+          "full": "https://cdn.chotot.com/xVrXdp2FC65rVhGZkTk_qtON9mzyVpAr0aLVl2aKV0E/preset:view/plain/a708b2e9607f2e773a4b430bdef4413f-3010344912771770567.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/EHa53pTuqWlKeZQ_lfpwG4kqz4Yg6vQAYTUd7kS-6f4/preset:listing/plain/630b58c00627d09a16508e76d7d82992-3006532592448906920.jpg",
-          "full": "https://cdn.chotot.com/Bn8AEsvZhIshDD2NCOAy_99eXUTpovlhhshzmh-EHRA/preset:view/plain/630b58c00627d09a16508e76d7d82992-3006532592448906920.jpg"
+          "thumb": "https://cdn.chotot.com/cRWEK5z6d6vLxkRdkOELOIC2w11hsDuugnM194YSMDM/preset:listing/plain/6a2652b6804c8faa90a93b0f236fc8a6-3010344923811460639.jpg",
+          "full": "https://cdn.chotot.com/18SVQRwyVNqOGtVeGW56ZBa2OtyfQpVAM0iHcXMVdN8/preset:view/plain/6a2652b6804c8faa90a93b0f236fc8a6-3010344923811460639.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/wpFmC203S9hOYKl-8OXrZnealPzo3ABFQvii7lP1c7s/preset:listing/plain/1c069e78639ee94995ae1d3ea7d43488-3006532592661036911.jpg",
-          "full": "https://cdn.chotot.com/Rj873m9jgrLH7d2tLQPI2epnbPExjrIy4K_sfTbD_JY/preset:view/plain/1c069e78639ee94995ae1d3ea7d43488-3006532592661036911.jpg"
+          "thumb": "https://cdn.chotot.com/OpvfPNfblMkPpY2PQwTsQKXjl4AJSTyrpOjb3XCTehg/preset:listing/plain/d2bab1bd5e79bbb075e9b6273f27ca44-3010344923809282246.jpg",
+          "full": "https://cdn.chotot.com/FA4PUR0d11lhAGP0tjKArBILsFMLeseUhfSgnwS26fY/preset:view/plain/d2bab1bd5e79bbb075e9b6273f27ca44-3010344923809282246.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/PhvlAS-O1DxV8UslZKWjcKcCB3i0cHsQa0J_IkkaLsw/preset:listing/plain/27a71149a4343bd28b78bd461c4c7ffe-3006532592530854545.jpg",
-          "full": "https://cdn.chotot.com/66IsQwVTeSm0tnacW3zKUPPbLqvDpbIpd2aRuKsjWZk/preset:view/plain/27a71149a4343bd28b78bd461c4c7ffe-3006532592530854545.jpg"
+          "thumb": "https://cdn.chotot.com/nsdhlEHwWF7whdEJgwaqSkQeGdZAJZqdLle-t-CJK-g/preset:listing/plain/f12df812111efd336155df632e929ddc-3010344923779193727.jpg",
+          "full": "https://cdn.chotot.com/khtDseQlLHSivn83Ix9U_U2cQKOqK2Rp4YW0K7jj_eg/preset:view/plain/f12df812111efd336155df632e929ddc-3010344923779193727.jpg"
         }
       ],
-      "posted_at": "2026-11-05T00:59:13.343000+00:00"
+      "posted_at": "2026-11-11T02:29:09.483000+00:00",
+      "added_at": "2026-11-12"
     },
     {
-      "id": "dl-23",
-      "code": 23,
+      "id": "dl-59",
+      "code": 59,
       "kind": "house",
-      "title_ru": "Вилла с 6 спальнями и большим двором",
-      "description_ru": "Дом · 330 м² · 6 спален · 4 санузла · дом в переулке",
-      "price_vnd": 24000000,
-      "area_m2": 330.0,
+      "title_ru": "Аренда дома, 86 м², 3 спальни",
+      "description_ru": "Дом · 86 м² · 3 спальни · дом с фасадом на улицу",
+      "price_vnd": 18000000,
+      "area_m2": 86.0,
+      "rooms": 3,
+      "toilets": null,
+      "furnished": null,
+      "lat": 11.9767,
+      "lng": 108.47236,
+      "distance_km": 5.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/S3Jb4Mvh7WxwyZRrtR7gCpVLHkSdBkSbNK7M6IpwwTQ/preset:listing/plain/18c5463161cad870b1da65d5b7a780c4-3010291670641092667.jpg",
+          "full": "https://cdn.chotot.com/ZvsuuQYqxpnxXZu2bvtSdDjW6tRBg2Ri4CCj2emo1sY/preset:view/plain/18c5463161cad870b1da65d5b7a780c4-3010291670641092667.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/A9jwZ6D90tMHuYPJLoAd6g_TL2ty3GTOoPYqJuTrK1s/preset:listing/plain/fae1d778f4228fbc185b9adf216604d9-3010291682359773014.jpg",
+          "full": "https://cdn.chotot.com/JF2yJ7KiVVMYrByh52eKIO6a6nAwrL3VshnVw2CaBtQ/preset:view/plain/fae1d778f4228fbc185b9adf216604d9-3010291682359773014.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/CFv7dcuUYONmuQewd5BCsAk3qqzWNkdTXyZGqleJ7G4/preset:listing/plain/de5572d9cc798742e69e24f3f7e62a08-3010291682468350917.jpg",
+          "full": "https://cdn.chotot.com/uKxYkDdk-mysZd7hZgKGRsXXFwnF8k_XMSudf_vEOz0/preset:view/plain/de5572d9cc798742e69e24f3f7e62a08-3010291682468350917.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/1igzvztJ2H5A0fBSJ0WSrTtwyBFgFye06ulLjYIHGKA/preset:listing/plain/97bdf010274cbd4440d3741c9b061613-3010291682484963919.jpg",
+          "full": "https://cdn.chotot.com/3pUBK-7I7ByF0t0Gtv2Y1zusWPFEYZikbZpsVImNVfY/preset:view/plain/97bdf010274cbd4440d3741c9b061613-3010291682484963919.jpg"
+        }
+      ],
+      "posted_at": "2026-11-11T00:49:59.614000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-60",
+      "code": 60,
+      "kind": "house",
+      "title_ru": "Аренда дома, 435 м², 6 спален",
+      "description_ru": "Дом · 435 м² · 6 спален · 4 санузла · 2 этажа · вилла",
+      "price_vnd": 42000000,
+      "area_m2": 435.0,
       "rooms": 6,
       "toilets": 4,
       "furnished": null,
-      "lat": 11.92389,
-      "lng": 108.44166,
-      "distance_km": 2.0,
+      "lat": 11.94356,
+      "lng": 108.45828,
+      "distance_km": 2.5,
       "photos": [
         {
-          "thumb": "https://cdn.chotot.com/ePvK-xVvFj6iO_cQ7vYlrzigUsg29rQ-h-L-EoFxNPQ/preset:listing/plain/108c83ed926a85442bb5909494d61fb5-3009346049536354499.jpg",
-          "full": "https://cdn.chotot.com/QN7-XSmT77JGR1kwZAlKAoEj6w2ULDipry9T2I5rEeI/preset:view/plain/108c83ed926a85442bb5909494d61fb5-3009346049536354499.jpg"
+          "thumb": "https://cdn.chotot.com/Y4qJVHTtuLm5zjEq1x5FZ5fBvCe1uXPKzd7cDeX2fCs/preset:listing/plain/33ed0c9079c4f23b6beeec5ed33f04cc-3010336090553405821.jpg",
+          "full": "https://cdn.chotot.com/K_IODWNmpZOKcOx-yDEem0jTi40bDnf4wIJs5kEXDhs/preset:view/plain/33ed0c9079c4f23b6beeec5ed33f04cc-3010336090553405821.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/6xNP_rGvGbYfLpiONeWx-gWjcVE0TE55v0DjESUcx4Y/preset:listing/plain/9f1c256acf1665fa4428d1f0dbd2045b-3009346049175095825.jpg",
-          "full": "https://cdn.chotot.com/mIudH-bUoTJAn7yAA4hf_ATpu3R47D7pN7nsxkNosYA/preset:view/plain/9f1c256acf1665fa4428d1f0dbd2045b-3009346049175095825.jpg"
+          "thumb": "https://cdn.chotot.com/CnOFGvUccU-3Jt1mjZ7wwVyOnuJV4RK8Bsh_FplS6bw/preset:listing/plain/f46a8e0c8357222d5b36a408725cfa48-3010336154743655810.jpg",
+          "full": "https://cdn.chotot.com/VyqkfwO7QcFW9DaDFJ17faD2A2lvOl7VkUDXTbhEwG8/preset:view/plain/f46a8e0c8357222d5b36a408725cfa48-3010336154743655810.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/lq43LNPPvGze_h7u7hfE-sdyKWl7O09VuJ645cBWLmk/preset:listing/plain/e320ee30a0ce247373ac05ccbca4d355-3009346048801810849.jpg",
-          "full": "https://cdn.chotot.com/aob9OZE9V1hoHjkNZgQc5iZPXI0Ie6qoz9RsWHa0vl0/preset:view/plain/e320ee30a0ce247373ac05ccbca4d355-3009346048801810849.jpg"
+          "thumb": "https://cdn.chotot.com/srfk8HVJi-8v09HWlnZmqsrY-oJ5kWm5smMEmxjQJKg/preset:listing/plain/4f361a17d40ca0fef671df45f62c31d9-3010336154515967053.jpg",
+          "full": "https://cdn.chotot.com/dNeSnhfHNSxJSB5rqt6KB0pbEWMZb7bnmVENlQ9nw2w/preset:view/plain/4f361a17d40ca0fef671df45f62c31d9-3010336154515967053.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/V3z1MdtSKiJFwiuiM7qdxeXU3hrmt38FRlqIQKv4RjA/preset:listing/plain/7e40e83f0417a5c0466274eb62d63282-3009346049294260597.jpg",
-          "full": "https://cdn.chotot.com/kcgcu86c_V6chMUbueB71zLdeqb1ceGGy_JIM1N_w7A/preset:view/plain/7e40e83f0417a5c0466274eb62d63282-3009346049294260597.jpg"
+          "thumb": "https://cdn.chotot.com/10wedR8kuzmVbJd-jfq0TD6VBM2s8_KTz9PqubEzLAk/preset:listing/plain/c01d9d44ac2e27e5ca01d5279c5ff24f-3010336154385902527.jpg",
+          "full": "https://cdn.chotot.com/1Ig1zRESjEtuIsY2CLKoPeKdcxEdY-AsvHs6X5RPwdo/preset:view/plain/c01d9d44ac2e27e5ca01d5279c5ff24f-3010336154385902527.jpg"
         }
       ],
-      "posted_at": "2026-11-03T12:48:32.726000+00:00"
+      "posted_at": "2026-11-11T00:48:23.984000+00:00",
+      "added_at": "2026-11-12"
     },
     {
-      "id": "dl-24",
-      "code": 24,
+      "id": "dl-61",
+      "code": 61,
       "kind": "house",
-      "title_ru": "Дом целиком с 4 спальнями",
-      "description_ru": "Дом · 70 м² · 4 спальни · дом в переулке",
-      "price_vnd": 6600000,
+      "title_ru": "Аренда дома, 70 м², 3 спальни",
+      "description_ru": "Дом · 70 м² · 3 спальни · дом в переулке",
+      "price_vnd": 15600000,
       "area_m2": 70.0,
-      "rooms": 4,
+      "rooms": 3,
       "toilets": null,
       "furnished": null,
-      "lat": 11.94035,
-      "lng": 108.48041,
-      "distance_km": 4.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/9Ym9vpRtpvd3yxQEkRe-C0aqpZZ0P9AX9Lnx6UaAoEs/preset:listing/plain/3307f35350028c9391aa4643e29fdaf8-3009345062810659233.jpg",
-          "full": "https://cdn.chotot.com/TzXER2JIFAt5o27A_kPAAP9vVEd-9m6WxbI2u7oollA/preset:view/plain/3307f35350028c9391aa4643e29fdaf8-3009345062810659233.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/AzezRPjG37FPv3piJec4fIEZcMor1UdC9-evbh8ERyA/preset:listing/plain/cd7b5354ad7047963b46cf379c43fe91-3009345062581033333.jpg",
-          "full": "https://cdn.chotot.com/2-EymBgg7M024Sfic4wE-lNqwAx0_O7coXObFldMbXA/preset:view/plain/cd7b5354ad7047963b46cf379c43fe91-3009345062581033333.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/0tW4WF5rWopfYgQ13DC_M5Q03iblMRotsqvMOMATLbI/preset:listing/plain/a4e417b7748d5eb47612d5eef283eabd-3009345184970937632.jpg",
-          "full": "https://cdn.chotot.com/hIBa3--cENK103l7cGhu4mwKEYJES529eAIePBnxH0g/preset:view/plain/a4e417b7748d5eb47612d5eef283eabd-3009345184970937632.jpg"
-        }
-      ],
-      "posted_at": "2026-11-03T12:38:51.862000+00:00"
-    },
-    {
-      "id": "dl-25",
-      "code": 25,
-      "kind": "house",
-      "title_ru": "Дом целиком с балконом",
-      "description_ru": "Дом · 60 м² · 1 спальня · 1 санузел · дом в переулке",
-      "price_vnd": 4800000,
-      "area_m2": 60.0,
-      "rooms": 1,
-      "toilets": 1,
-      "furnished": null,
-      "lat": 11.96466,
-      "lng": 108.42283,
+      "lat": 11.9621,
+      "lng": 108.41604,
       "distance_km": 3.0,
       "photos": [
         {
-          "thumb": "https://cdn.chotot.com/qiX-mjYN15b2BU7-cfznQ0NoI-dcDapi5ft_NKd-j_w/preset:listing/plain/1a8a8d8c7d1cb265af8ea71fda8ed10d-3009189487424083232.jpg",
-          "full": "https://cdn.chotot.com/ii_IbQGbgBqOpaloQS3eD6R4lIpLgG2t4BfeV6wHgnQ/preset:view/plain/1a8a8d8c7d1cb265af8ea71fda8ed10d-3009189487424083232.jpg"
+          "thumb": "https://cdn.chotot.com/hvWbn2hGlSf7ghyAHKWCVm0XLsyWXr-9uKSGamEly7U/preset:listing/plain/074b30824c50fde82b8fd6b18170d5a8-3010341048738967483.jpg",
+          "full": "https://cdn.chotot.com/Ahfz2eQRFSsYTeoRjNHg9NKfpXYfeMtTHIJLfHRNha4/preset:view/plain/074b30824c50fde82b8fd6b18170d5a8-3010341048738967483.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/yrwFxUWPXNRG0V3MYU8kpNj1kTaXxlj2FLSEliIGOng/preset:listing/plain/f300ff8c308187b64daa63da469d5a1a-3009189487736157612.jpg",
-          "full": "https://cdn.chotot.com/wlzxIyK624uNM1C8cIJhSPQMn1bgdPGxzg-joyTyQEw/preset:view/plain/f300ff8c308187b64daa63da469d5a1a-3009189487736157612.jpg"
+          "thumb": "https://cdn.chotot.com/TJXzxxp7osbEFOQR0R56weVenrO6h2o7GLu_JN64Do0/preset:listing/plain/3bd18e7408961917e46d3d997f06b33e-3010341049433171079.jpg",
+          "full": "https://cdn.chotot.com/cZN7aG7kpAvhuqz_Tbd2h2ZMCcpbdaSu-j-WyoOybv0/preset:view/plain/3bd18e7408961917e46d3d997f06b33e-3010341049433171079.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/0_c0pvtfHAEnTrDGPS-v5J0rcXzeb7y6_2FpCuAtR78/preset:listing/plain/40127a3e45bfc76446c0a1d75ccd3c34-3009189487547689773.jpg",
-          "full": "https://cdn.chotot.com/RNNpI2U_8KJeTz28aIyuFVQKYniVw_hjKzaqpu2bug8/preset:view/plain/40127a3e45bfc76446c0a1d75ccd3c34-3009189487547689773.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/zQYmGZc_PbJXDgtexiROGd1vKnkqCVg3LjmHXW4p0uI/preset:listing/plain/1af9441b35ca46e498da5b670c2ae604-3009189487430761794.jpg",
-          "full": "https://cdn.chotot.com/3i0noUmN1upWa_bvLPQjHagqKwDcit13sjVJjn6tnPQ/preset:view/plain/1af9441b35ca46e498da5b670c2ae604-3009189487430761794.jpg"
+          "thumb": "https://cdn.chotot.com/-qVf41WzH_1dLO3ix0xkaHiljHrTu7yxebX3BvyKfIM/preset:listing/plain/7346b4338e892333fcf05c93680b8b87-3010341048938539067.jpg",
+          "full": "https://cdn.chotot.com/si6HJwp7HfLxoTEtF4kWQnvLkTqzf7We1AMmVEWUfAY/preset:view/plain/7346b4338e892333fcf05c93680b8b87-3010341048938539067.jpg"
         }
       ],
-      "posted_at": "2026-11-02T10:53:17.621000+00:00"
+      "posted_at": "2026-11-10T09:32:30.490000+00:00",
+      "added_at": "2026-11-12"
     },
     {
-      "id": "dl-26",
-      "code": 26,
+      "id": "dl-62",
+      "code": 62,
       "kind": "house",
-      "title_ru": "Вилла с 5 спальнями, мебелью и парковкой",
-      "description_ru": "Дом · 100 м² · 5 спален · 6 санузлов · 3 этажа · вилла",
-      "price_vnd": 30000000,
-      "area_m2": 100.0,
+      "title_ru": "Аренда дома, 208 м², 5 спален",
+      "description_ru": "Дом · 208 м² · 5 спален · вилла",
+      "price_vnd": 72000000,
+      "area_m2": 208.0,
       "rooms": 5,
-      "toilets": 6,
+      "toilets": null,
       "furnished": null,
-      "lat": 11.92564,
-      "lng": 108.41549,
+      "lat": 11.95183,
+      "lng": 108.46789,
+      "distance_km": 3.5,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/3fSVDnejeoUq4585ak_dVvtRNI86SZU0KZteQVF5NK0/preset:listing/plain/b3e5de8d5c3f53e3a6277a7f933080bc-3010308270864004155.jpg",
+          "full": "https://cdn.chotot.com/FcAlwwngxkPPbpN_y_DDdOxda_qid5G9WfY9VhzwQE0/preset:view/plain/b3e5de8d5c3f53e3a6277a7f933080bc-3010308270864004155.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/U7Qntb3nAhGwh7QikgnIhjwG17S9M46loFUgIH95CH4/preset:listing/plain/30bba6f7873d8412eeff9d7adc7e8c82-3010308270835154981.jpg",
+          "full": "https://cdn.chotot.com/JpSTR3OEVJmCAlJsMb8bM3mtXQ_1Y7xLzOexFNIV-bA/preset:view/plain/30bba6f7873d8412eeff9d7adc7e8c82-3010308270835154981.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/vuRDEoC3s6CVrg8vFJLx2TNrqc6sFBCSV__QCXGuTjE/preset:listing/plain/b168724fdd2e43a072ee34577451b5d3-3010308271994065277.jpg",
+          "full": "https://cdn.chotot.com/CtcUlu22nT0OLnzRzsxgHl07oyWZQJPCoy2WtSDTy9A/preset:view/plain/b168724fdd2e43a072ee34577451b5d3-3010308271994065277.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/lmTRPkpWtZ42ndk44snHx_SgntjkXVUpHh6UtHku0mQ/preset:listing/plain/4354277485e69e10e321aca39c4ec088-3010308272062317415.jpg",
+          "full": "https://cdn.chotot.com/2xcgiRdR2X-4K2yVUZaz5U5o9VnxDMGFZlkshbF_2yY/preset:view/plain/4354277485e69e10e321aca39c4ec088-3010308272062317415.jpg"
+        }
+      ],
+      "posted_at": "2026-11-10T04:13:40.687000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-63",
+      "code": 63,
+      "kind": "house",
+      "title_ru": "Аренда дома, 100 м², 11 спален",
+      "description_ru": "Дом · 100 м² · 11 спален · дом с фасадом на улицу",
+      "price_vnd": 48000000,
+      "area_m2": 100.0,
+      "rooms": 11,
+      "toilets": null,
+      "furnished": null,
+      "lat": 11.94927,
+      "lng": 108.46608,
       "distance_km": 3.0,
       "photos": [
         {
-          "thumb": "https://cdn.chotot.com/NunsVXYQAmIHQzRbDnJsn1h-y-3Lk1Pl-avxPCjQ5Ko/preset:listing/plain/5112696c7af1778a2b7b87d62056f558-3008722290340220273.jpg",
-          "full": "https://cdn.chotot.com/CIKEe7ZpfWv_oq5XmE_JYnduBIchblVh3yTQXVCRo_U/preset:view/plain/5112696c7af1778a2b7b87d62056f558-3008722290340220273.jpg"
+          "thumb": "https://cdn.chotot.com/1_ic874gVTwXQ7iZCRc8bFBqKr40mvMnsguuAjYeZ5I/preset:listing/plain/6ced284e8801b51e3e05117e69698c10-3010294117854603064.jpg",
+          "full": "https://cdn.chotot.com/Wb-O-v-rKbv3T-7iSygl7aCyHmFOZyrATLbzuMh3U9g/preset:view/plain/6ced284e8801b51e3e05117e69698c10-3010294117854603064.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/ok9lj0I3AJpqSfSaDrUXApg22wJZeIgxzLOPH1zTels/preset:listing/plain/7d91101b436e0229f7e2ab0c652a7b62-3008722290221269609.jpg",
-          "full": "https://cdn.chotot.com/BFUYtxgCA4Y_xZ_tIwbQtFV-cljhXJMIyEsiyJelke4/preset:view/plain/7d91101b436e0229f7e2ab0c652a7b62-3008722290221269609.jpg"
+          "thumb": "https://cdn.chotot.com/_JRDql81A69Ci8jp3uq6dt-nn31rkWUxQfbDsxkh_Ig/preset:listing/plain/8c3cc3cdcdae63a183bc0236b1cd8ef9-3010294133725824933.jpg",
+          "full": "https://cdn.chotot.com/-dJIDL9PaOTQB4aO1Nv1aeypnrCHWvyp_PXldjz3UK0/preset:view/plain/8c3cc3cdcdae63a183bc0236b1cd8ef9-3010294133725824933.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/waVdP68tPQGcSJhhpOD5daMPmfxGEDtffxe_IvSEzZ4/preset:listing/plain/ae9906b8b1f73487a4be36615b30f803-3008722289787953525.jpg",
-          "full": "https://cdn.chotot.com/SXuOzB2-JW7PJT6403wzhFLP19ep9MgETlr9iItgqdo/preset:view/plain/ae9906b8b1f73487a4be36615b30f803-3008722289787953525.jpg"
+          "thumb": "https://cdn.chotot.com/K__y4i9RQe5_jnOtkXiqLuxT7ZxbyV2YKn4-EbtSWZU/preset:listing/plain/c5fab27eef38596fa98cf988f1867df6-3010294134398307269.jpg",
+          "full": "https://cdn.chotot.com/SZpr9orYFbO6BiCYtQn9Z7FVbj3NnboWqdiW-JUwcf0/preset:view/plain/c5fab27eef38596fa98cf988f1867df6-3010294134398307269.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/YwkDoQT6Fn9FXapR-QBudQf_I5c6DPTAqVtdOfL5Q80/preset:listing/plain/b2a56f36298e7074dc0d0714f818d88a-3008722290460514922.jpg",
-          "full": "https://cdn.chotot.com/xhnCk2ckQBosVTSNGai7SKyLZokVzR9Lb4EioG11L2c/preset:view/plain/b2a56f36298e7074dc0d0714f818d88a-3008722290460514922.jpg"
+          "thumb": "https://cdn.chotot.com/o-mryJC73S1E4dwmFSIlQuOETAeEpg5anILZI455kDI/preset:listing/plain/ee1c90f230ffdfbf624d9ee261e6053f-3010294133793417016.jpg",
+          "full": "https://cdn.chotot.com/XY3DdyiO9ZnPhkPnMew549BW4ROmMIx9adRmU2EYXGc/preset:view/plain/ee1c90f230ffdfbf624d9ee261e6053f-3010294133793417016.jpg"
         }
       ],
-      "posted_at": "2026-11-01T01:22:02.625000+00:00"
+      "posted_at": "2026-11-10T01:50:42.172000+00:00",
+      "added_at": "2026-11-12"
     },
     {
-      "id": "dl-27",
-      "code": 27,
-      "kind": "house",
-      "title_ru": "Вилла с садом и видом на сосновый лес, 3 спальни",
-      "description_ru": "Дом · 3 спальни · 4 санузла · 2 этажа · вилла",
-      "price_vnd": 42000000,
-      "area_m2": 3000.0,
-      "rooms": 3,
-      "toilets": 4,
-      "furnished": null,
-      "lat": 11.93793,
-      "lng": 108.45291,
-      "distance_km": 2.0,
+      "id": "dl-64",
+      "code": 64,
+      "kind": "room",
+      "title_ru": "Аренда комнаты, 15 м²",
+      "description_ru": "Комната · 15 м² · без мебели",
+      "price_vnd": 2200000,
+      "area_m2": 15.0,
+      "rooms": null,
+      "toilets": null,
+      "furnished": false,
+      "lat": 11.94744,
+      "lng": 108.4662,
+      "distance_km": 3.0,
       "photos": [
         {
-          "thumb": "https://cdn.chotot.com/1UwSe_qkZIFcOUWho3EH2LaRRZhVauSQ_1WQ1tWR9Ms/preset:listing/plain/536de8eb9fda8bc466d30312ba0f2e47-3008716803410156914.jpg",
-          "full": "https://cdn.chotot.com/r_Q0rz8hXpMiYCmpJ4LFNvo3l7ckouXqHzX3Niy078o/preset:view/plain/536de8eb9fda8bc466d30312ba0f2e47-3008716803410156914.jpg"
+          "thumb": "https://cdn.chotot.com/vXL2PqTmk662vV3IPA5VphPU6eAzyTWZ4rtI__p2FD8/preset:listing/plain/fbd26cefae9911c079238aaf76c15ca2-3010502494072285243.jpg",
+          "full": "https://cdn.chotot.com/TIvwZPTGYTx99Sfc9gM3kD002IqhumPeCN8-K7PwdvE/preset:view/plain/fbd26cefae9911c079238aaf76c15ca2-3010502494072285243.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/WzHUO5fZfdROJrEDwups2DhxDEm09_Nm6NfvgmPRsOs/preset:listing/plain/fef5c9cea0d7c583bc3b353e1a1fd617-3008716803810877813.jpg",
-          "full": "https://cdn.chotot.com/T7GmMLrCBLgUOzUA_ShDIuzBxi-xWf8_tl137QA8BXY/preset:view/plain/fef5c9cea0d7c583bc3b353e1a1fd617-3008716803810877813.jpg"
+          "thumb": "https://cdn.chotot.com/SREtwRDbFdH2ZrZSQjWo2XA8Rt69-zRVzvyuPk_SOsQ/preset:listing/plain/4524f4fc20dc2f79cc42ad2d9d94fd07-3010502498803656763.jpg",
+          "full": "https://cdn.chotot.com/r_qBNCCSMZ1CCI2Nqif7v72S6D-sM0toBE5U6GyJ4Vo/preset:view/plain/4524f4fc20dc2f79cc42ad2d9d94fd07-3010502498803656763.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/boDdB1ffiM3nGhgVpMF46Q7A4VKnN1jKKEapDm9Vwds/preset:listing/plain/c3f3ebf57455c8cb522071ee02fd221f-3008716803466055153.jpg",
-          "full": "https://cdn.chotot.com/8e2jKBRXCu45etOCMcUiRwxkl_fXAP3nNT8qq-oHPjA/preset:view/plain/c3f3ebf57455c8cb522071ee02fd221f-3008716803466055153.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/Mnw8nssVMcg5Cdgg8sJBp94OmfswjhrrSFFCjF_a2iw/preset:listing/plain/0dcdb96fc361f5846fedbb45fea731da-3008716803468220534.jpg",
-          "full": "https://cdn.chotot.com/QyD2CW_0Tap8FMduMtSmVLxKOvNQGmA1eO5sp2dZLQ0/preset:view/plain/0dcdb96fc361f5846fedbb45fea731da-3008716803468220534.jpg"
+          "thumb": "https://cdn.chotot.com/jSPEqcaJkbuSoopT787Fwwd9duUoebdgaVX9vATdlNg/preset:listing/plain/cd66cc98eb73da12c0e6171120c6b9bf-3010502504167993839.jpg",
+          "full": "https://cdn.chotot.com/iVs5Y1jSgLp6wFdPDYeiy34xI3s4dxT2MFYEXC-Pk8U/preset:view/plain/cd66cc98eb73da12c0e6171120c6b9bf-3010502504167993839.jpg"
         }
       ],
-      "posted_at": "2026-11-01T01:07:04.212000+00:00"
+      "posted_at": "2026-11-12T01:47:02.731000+00:00",
+      "added_at": "2026-11-12"
     },
     {
-      "id": "dl-28",
-      "code": 28,
-      "kind": "house",
-      "title_ru": "Новый дом с 4 спальнями",
-      "description_ru": "Дом · 64 м² · 4 спальни · 5 санузлов · дом с фасадом на улицу",
-      "price_vnd": 30000000,
-      "area_m2": 64.0,
-      "rooms": 4,
-      "toilets": 5,
+      "id": "dl-65",
+      "code": 65,
+      "kind": "room",
+      "title_ru": "Аренда комнаты, 20 м²",
+      "description_ru": "Комната · 20 м² · полностью меблировано",
+      "price_vnd": 2400000,
+      "area_m2": 20.0,
+      "rooms": null,
+      "toilets": null,
+      "furnished": true,
+      "lat": 11.949,
+      "lng": 108.42981,
+      "distance_km": 1.0,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/r4wLDSllFIZ34LE3wHYq14brA1IssR3ur5qBbXvDyOU/preset:listing/plain/77906cdfbf048c5d3584858a6910348c-3006125989298461355.jpg",
+          "full": "https://cdn.chotot.com/EY2YxVXutsjD8WQOp3snwSvmWJHG30s4UiWZ02EGE_E/preset:view/plain/77906cdfbf048c5d3584858a6910348c-3006125989298461355.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/l_vb0aYGLNcC9PB8d1dPJQZ2uVGkZL05QcULVstu5ZI/preset:listing/plain/debc6f7fbd7448594cda6ce5757ab80e-3006125989121939777.jpg",
+          "full": "https://cdn.chotot.com/se5peEYUqdsmrvSXD85-H8jyGtGuGNJajjj14mfHMJA/preset:view/plain/debc6f7fbd7448594cda6ce5757ab80e-3006125989121939777.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/95XUemDZxoFCQGZfQ2cp3jdUznZ8C3-BbpwReEi5RmQ/preset:listing/plain/39fa1c689ecf32a6e01d938d782c8fec-3006125988766562318.jpg",
+          "full": "https://cdn.chotot.com/64GyQqpSsFvg4Q7BDHBE_C7hAzF2hESju20kZIVskuQ/preset:view/plain/39fa1c689ecf32a6e01d938d782c8fec-3006125988766562318.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/pKRs80iJxXahUDFut0WEVEah90-JREZaqAUDOAWnRzk/preset:listing/plain/cf61a4d9005b07a903c6e274dcf8c6ee-3006125988775886440.jpg",
+          "full": "https://cdn.chotot.com/Ntu2O-SaUNUulcqJ2QkMNNdpdIkUYeWQNeM86jwZ0f4/preset:view/plain/cf61a4d9005b07a903c6e274dcf8c6ee-3006125988775886440.jpg"
+        }
+      ],
+      "posted_at": "2026-11-11T07:53:09.200000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-66",
+      "code": 66,
+      "kind": "room",
+      "title_ru": "Аренда комнаты, 50 м²",
+      "description_ru": "Комната · 50 м²",
+      "price_vnd": 10700000,
+      "area_m2": 50.0,
+      "rooms": null,
+      "toilets": null,
       "furnished": null,
-      "lat": 11.93543,
-      "lng": 108.42881,
+      "lat": 11.94244,
+      "lng": 108.43012,
+      "distance_km": 1.0,
+      "photos": [
+        {
+          "thumb": "https://cdn.chotot.com/jgnDvOEv_5_zSvyNMYYYnGySDHvZCV-ZpOeUyIc-JbM/preset:listing/plain/301d5fd9045e297bff7594f7cb4e9132-3010448803498273044.jpg",
+          "full": "https://cdn.chotot.com/aN9_kp4903Lm_Aq1lkvyDB8-ofwf6GtN8EdSq2lLVxI/preset:view/plain/301d5fd9045e297bff7594f7cb4e9132-3010448803498273044.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/vmB3sI99vTXYuHlx-px9Gtzx8u9NO3uXPvb0k3YMRgA/preset:listing/plain/b69ad2727cb1978ed2ee39fbb673d191-3010448803671738233.jpg",
+          "full": "https://cdn.chotot.com/NT0QCR9mv3nnQn4oAnyF-OmD8lr5oxLJV1ogqvsk6pU/preset:view/plain/b69ad2727cb1978ed2ee39fbb673d191-3010448803671738233.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/gMbGs3mNLCyoT0pVzvV2BAjQnv4gXoczkJEDvIlFah8/preset:listing/plain/e2ebbeb146c904d5ddca209994a75ccd-3010448803249277519.jpg",
+          "full": "https://cdn.chotot.com/t6ipMbZSAuZNHW2uXQOwDSATQYXGhmRLZBdcIvs7y5I/preset:view/plain/e2ebbeb146c904d5ddca209994a75ccd-3010448803249277519.jpg"
+        },
+        {
+          "thumb": "https://cdn.chotot.com/q8AJS7OPYugFSL5Pe10WCZGJLO46YKGp3JunkNNJxeU/preset:listing/plain/a3f7823d359f4c8422c5b4fc7553f818-3010448803337589189.jpg",
+          "full": "https://cdn.chotot.com/AefzYGR2z4zckWGIYatYdhfh3ZJNTitWco52FBDh3Cw/preset:view/plain/a3f7823d359f4c8422c5b4fc7553f818-3010448803337589189.jpg"
+        }
+      ],
+      "posted_at": "2026-11-11T03:23:29.837000+00:00",
+      "added_at": "2026-11-12"
+    },
+    {
+      "id": "dl-67",
+      "code": 67,
+      "kind": "room",
+      "title_ru": "Аренда комнаты, 16 м²",
+      "description_ru": "Комната · 16 м² · полностью меблировано",
+      "price_vnd": 2200000,
+      "area_m2": 16.0,
+      "rooms": null,
+      "toilets": null,
+      "furnished": true,
+      "lat": 11.95429,
+      "lng": 108.43314,
       "distance_km": 1.5,
       "photos": [
         {
-          "thumb": "https://cdn.chotot.com/MdC31Bx4kYODTy87tTQpOkxEigvi28Z7KozngypcNqw/preset:listing/plain/6e2b0a2c0d4b6ac13dbed3bd1b6884e3-3008779295279435121.jpg",
-          "full": "https://cdn.chotot.com/m4eGmdw4CLL0dSFVam3mGzv6TLeJ-8TW0TePRzMhQ8E/preset:view/plain/6e2b0a2c0d4b6ac13dbed3bd1b6884e3-3008779295279435121.jpg"
+          "thumb": "https://cdn.chotot.com/1j2QgXUPBelM82MzXR04vZa9DFrJF9-rOemoTcWBKI8/preset:listing/plain/daaa65f03f797a444f18a6a70c562ce6-3007388928812038130.jpg",
+          "full": "https://cdn.chotot.com/2CLJMRrNYqEPGxv7lV5SY6Xyh1ELigY6of5zbn-0_6Q/preset:view/plain/daaa65f03f797a444f18a6a70c562ce6-3007388928812038130.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/yjLWO761SdMEhR92IFr8MkKmE4sLXP_uZyDFU-KbHps/preset:listing/plain/f0dbef1a5c5afb6fb974d5702a07ba2d-3008779295388202412.jpg",
-          "full": "https://cdn.chotot.com/YC0ejXwpK_likQuH0CtfIzv9OitWlVWXMNiURuru8vg/preset:view/plain/f0dbef1a5c5afb6fb974d5702a07ba2d-3008779295388202412.jpg"
+          "thumb": "https://cdn.chotot.com/48IUV2uLkbUrPalYPtNlhD6KGuETREk6F8PFHJhANKI/preset:listing/plain/68a5e898708a48554f8d367bdce4bdf3-3007388934314863456.jpg",
+          "full": "https://cdn.chotot.com/dtbh0e770PdlMRvwH2b-iDLqmg2GZNRUb0L582EcHao/preset:view/plain/68a5e898708a48554f8d367bdce4bdf3-3007388934314863456.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/w9pgY0zrmcO91cnnhYadJWFJKLL2FB9vT-ctjETKbk8/preset:listing/plain/1c69494bba2589ff6f6d02ef0d57c3bf-3008779295268309268.jpg",
-          "full": "https://cdn.chotot.com/QXGzL91Odg_6IiamaL3ljQRlMy5nUhNZHKSPrNYzBSU/preset:view/plain/1c69494bba2589ff6f6d02ef0d57c3bf-3008779295268309268.jpg"
+          "thumb": "https://cdn.chotot.com/x2UhyEaCoPByr4qCP__CldggQYdTZRiB3Fzxbb67wio/preset:listing/plain/edcec3b5982fad3817b201be5a115302-3007388931022222934.jpg",
+          "full": "https://cdn.chotot.com/Hq96jhYag3eDBR63ZPaymTPCoBo1Q1h2oJ2_P_vozw4/preset:view/plain/edcec3b5982fad3817b201be5a115302-3007388931022222934.jpg"
         },
         {
-          "thumb": "https://cdn.chotot.com/AopDe3YMl2Yd5w7rt26cZ9fP370x0DX8YVmRJlxr7uI/preset:listing/plain/abd4faaa2c065346eb05bb76f454bf51-3008779295290907318.jpg",
-          "full": "https://cdn.chotot.com/EamGg1m2_IUmN046Og1T_V55kd9TitTEG-oEoURuo2Y/preset:view/plain/abd4faaa2c065346eb05bb76f454bf51-3008779295290907318.jpg"
+          "thumb": "https://cdn.chotot.com/OD_hm1XLhCkOZLKrCm3hym0jdTHFyUifJSVZB9ajmmc/preset:listing/plain/3ee39473257e32338b2948524336f3ae-3007388934109296214.jpg",
+          "full": "https://cdn.chotot.com/d32hEfP6ORVMnKcUDPAFDZLN3kCJRETT1RYyc1b-jFs/preset:view/plain/3ee39473257e32338b2948524336f3ae-3007388934109296214.jpg"
         }
       ],
-      "posted_at": "2026-10-30T14:57:46.636000+00:00"
+      "posted_at": "2026-11-10T01:21:11+00:00",
+      "added_at": "2026-11-12"
     },
     {
       "id": "dl-29",
@@ -980,7 +1140,8 @@
           "full": "https://cdn.chotot.com/oCjnYgIGrF36jEYDD49ht-oUKjyvKLN0CBP22yU1Enw/preset:view/plain/5be6497e6d99710433d1c66dca84ebf7-3002629508610266922.jpg"
         }
       ],
-      "posted_at": "2026-11-07T03:44:42+00:00"
+      "posted_at": "2026-11-07T03:44:42+00:00",
+      "added_at": "2026-11-08"
     },
     {
       "id": "dl-30",
@@ -1014,7 +1175,8 @@
           "full": "https://cdn.chotot.com/qqkaxjUFqy26eh-JaIkBwgrN6xbM-1Q9iuqyMnxsiUQ/preset:view/plain/3060639606faf6b01d5ce6e7dcca1b82-3009765252033262455.jpg"
         }
       ],
-      "posted_at": "2026-11-06T10:12:04.622000+00:00"
+      "posted_at": "2026-11-06T10:12:04.622000+00:00",
+      "added_at": "2026-11-08"
     },
     {
       "id": "dl-31",
@@ -1048,7 +1210,8 @@
           "full": "https://cdn.chotot.com/Ek7vqgnS0tkkc3P3kTiX4_2OJLKbXW7asGIU1bb7JUI/preset:view/plain/01862f80d23fbecf06322efdc05a2393-3009139328879337534.jpg"
         }
       ],
-      "posted_at": "2026-11-06T03:55:03.335000+00:00"
+      "posted_at": "2026-11-06T03:55:03.335000+00:00",
+      "added_at": "2026-11-08"
     },
     {
       "id": "dl-32",
@@ -1082,139 +1245,8 @@
           "full": "https://cdn.chotot.com/WOdw-OkfFDSeLxFDXT7sPJZI0O14ZXZKlbDCB1ObrMY/preset:view/plain/0e32923a57e85cd778acbdd3091d6017-3009723633612627531.jpg"
         }
       ],
-      "posted_at": "2026-11-06T03:23:16.681000+00:00"
-    },
-    {
-      "id": "dl-33",
-      "code": 33,
-      "kind": "room",
-      "title_ru": "Комната на короткий и долгий срок в центре",
-      "description_ru": "Комната · 25 м²",
-      "price_vnd": 4200000,
-      "area_m2": 25.0,
-      "rooms": null,
-      "toilets": null,
-      "furnished": null,
-      "lat": 11.94195,
-      "lng": 108.4331,
-      "distance_km": 0.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/Jfh6dmpaVd5qfnlQCp2IHmuuq84wEdSbY9fKofV1DZM/preset:listing/plain/f622b8e8bdd47310c9fe5ded29123d36-3009563167075175733.jpg",
-          "full": "https://cdn.chotot.com/n6bi7vjr4730FpEdkneUwZWxbqZ823bqj-lkurNo2as/preset:view/plain/f622b8e8bdd47310c9fe5ded29123d36-3009563167075175733.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/CR6H1QTDdQoA5xLtAkj129A6Ll9ODOmP9I1yKkUqujc/preset:listing/plain/ba9f3aed1b3efd20ec7a46d2d20cf1c7-3009563166746449184.jpg",
-          "full": "https://cdn.chotot.com/ErI0DvYQBed4R47CTPHmRUB0sG-AkcJc7z6E5i77SyM/preset:view/plain/ba9f3aed1b3efd20ec7a46d2d20cf1c7-3009563166746449184.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/ym3zkP1B2i1HjTBqTOTn9xhZLDc9SvkZesWAzRqwrP4/preset:listing/plain/b3dd01034dc53a455a3b0e5c334b4fdf-3009563346559457990.jpg",
-          "full": "https://cdn.chotot.com/1eagjaIj19llrUaGoM0oK689TkeBFi14au-W2F4FLM4/preset:view/plain/b3dd01034dc53a455a3b0e5c334b4fdf-3009563346559457990.jpg"
-        }
-      ],
-      "posted_at": "2026-11-05T00:52:48.658000+00:00"
-    },
-    {
-      "id": "dl-34",
-      "code": 34,
-      "kind": "room",
-      "title_ru": "Новая мини-квартира с мебелью",
-      "description_ru": "Комната · 35 м² · полностью меблировано",
-      "price_vnd": 5400000,
-      "area_m2": 35.0,
-      "rooms": null,
-      "toilets": null,
-      "furnished": true,
-      "lat": 11.96074,
-      "lng": 108.45369,
-      "distance_km": 2.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/RvPOzSusK8MMloRq0ogHY26EK45IYkJgu1D21ebBDhg/preset:listing/plain/78cedb793cad6876c5d2f9d7d7015f01-3009461082015235394.jpg",
-          "full": "https://cdn.chotot.com/AUZOvRJ6A3Kz_WzmpnkHB3F_y2hvod_9GbRpz3fs-ws/preset:view/plain/78cedb793cad6876c5d2f9d7d7015f01-3009461082015235394.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/s_9Ad0yPIVR5mEIotzaKZfDVJhSebsUXTBomHd3S00o/preset:listing/plain/bbc5a1dc26d6e6036c087279b51b045e-3009461083179434924.jpg",
-          "full": "https://cdn.chotot.com/HqeU9qDpB8EXXNzpUyPhZmm0sbDggz8XiuhJTUC1_AE/preset:view/plain/bbc5a1dc26d6e6036c087279b51b045e-3009461083179434924.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/8BR3ccAXl9MlcMsaCecvkLjA8obkCIN0_k8EqzwIeTI/preset:listing/plain/6618aa39be400f149f0eecc347f3228f-3009461083057675610.jpg",
-          "full": "https://cdn.chotot.com/_ttDMcXXz2kDtQXFw0joMPyVdaxqJtW2oKEi3PQOftU/preset:view/plain/6618aa39be400f149f0eecc347f3228f-3009461083057675610.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/Sb6fsVuL8me5NEK_KOtdGoDxd0HNCyBYUDKpDsS_bPM/preset:listing/plain/eb7cb14a4bf6df0a282e7d577d8ed9f7-3009461082988379458.jpg",
-          "full": "https://cdn.chotot.com/b-YZR6qH8iHQtVBs0gbxmzm8GrNwDnwiBSQGMFra1BQ/preset:view/plain/eb7cb14a4bf6df0a282e7d577d8ed9f7-3009461082988379458.jpg"
-        }
-      ],
-      "posted_at": "2026-11-04T07:52:21.894000+00:00"
-    },
-    {
-      "id": "dl-35",
-      "code": 35,
-      "kind": "room",
-      "title_ru": "Целый третий этаж, 40 м²",
-      "description_ru": "Комната · 40 м² · без мебели",
-      "price_vnd": 4200000,
-      "area_m2": 60.0,
-      "rooms": null,
-      "toilets": null,
-      "furnished": false,
-      "lat": 11.95305,
-      "lng": 108.42745,
-      "distance_km": 1.5,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/3l33pgkWQpMu8hqgralAuUv6AtJ_4gTX0qsyCgeFJk4/preset:listing/plain/51f233646b8607657ed2478341dccc15-3009165239368392387.jpg",
-          "full": "https://cdn.chotot.com/RgX8H97ELAIRo-UjXxSb3k_9or7kZIQGUoVHg7OU3wY/preset:view/plain/51f233646b8607657ed2478341dccc15-3009165239368392387.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/UZ8BWs9dGem-K9uGHa1HC1QHJDqWHoioJsA40RHk5ic/preset:listing/plain/f16d457cb0a147f691d1159ac7621b7f-3009165239313010810.jpg",
-          "full": "https://cdn.chotot.com/NKXU3wvF46m7bNassnnPc-_5TMfzBAebsd9Ot-CYlOA/preset:view/plain/f16d457cb0a147f691d1159ac7621b7f-3009165239313010810.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/r2ZXnEYpP3Vq8DjWquNUJXapKfhck1jzdK8GyTl4OE4/preset:listing/plain/0dab77a11ec73d257923317b966baedd-3009165240962204262.jpg",
-          "full": "https://cdn.chotot.com/ojrGdBE4gWOuK4W2fXyq8Yj1ISDmVdZhu0E_jmdZZuM/preset:view/plain/0dab77a11ec73d257923317b966baedd-3009165240962204262.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/vtv_81d3s3eSNjozV99lLIppw-HXPLES_56a1bujBaQ/preset:listing/plain/6fad05e88fb094e089745c245b39f9e7-3009165239719012463.jpg",
-          "full": "https://cdn.chotot.com/8Z9bmU3iLsa6c1byWDCY77adU9W2a5FkthBrZuuHzkE/preset:view/plain/6fad05e88fb094e089745c245b39f9e7-3009165239719012463.jpg"
-        }
-      ],
-      "posted_at": "2026-11-04T04:45:00.739000+00:00"
-    },
-    {
-      "id": "dl-36",
-      "code": 36,
-      "kind": "room",
-      "title_ru": "Мини-квартира с балконом в центре",
-      "description_ru": "Комната · 35 м²",
-      "price_vnd": 6600000,
-      "area_m2": 35.0,
-      "rooms": null,
-      "toilets": null,
-      "furnished": null,
-      "lat": 11.93871,
-      "lng": 108.43159,
-      "distance_km": 1.0,
-      "photos": [
-        {
-          "thumb": "https://cdn.chotot.com/46Q-yyKYgZEkfaCXw9AGpWTYLC3NK1HIwoMvgl_WQ_M/preset:listing/plain/a46d8556032e9204218f4fa6a0367d25-3009435613393667450.jpg",
-          "full": "https://cdn.chotot.com/Fh7dB6SBRBtCgVM9JxsFCU4dzUhJ60BSVolinrjuMtY/preset:view/plain/a46d8556032e9204218f4fa6a0367d25-3009435613393667450.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/rZN2_NMQNCg2NFil5Gge1ipfGxcIStc2sorRQyhk4Gk/preset:listing/plain/77210ae7249266d0841bed3955d5dcf0-3009435613272592066.jpg",
-          "full": "https://cdn.chotot.com/9_YvZMo7_3sBZBx1UO5JjD4M5zD2yR6lmjjYdBBLzms/preset:view/plain/77210ae7249266d0841bed3955d5dcf0-3009435613272592066.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/V634u2ReD3vEJLLmuRNBZEFu9nQ0_LJ1KS1uuLnbOdA/preset:listing/plain/4982c00b300f438a6fad5b82a5f8590e-3009435614370650485.jpg",
-          "full": "https://cdn.chotot.com/UDgtUMBcHwznKMKS_RFNsj9MOu8Gkv784qflqt_vMNs/preset:view/plain/4982c00b300f438a6fad5b82a5f8590e-3009435614370650485.jpg"
-        },
-        {
-          "thumb": "https://cdn.chotot.com/fNHVJZeKFUEhQ8V9zbXvcLeyf0GcFBgEs59OE2CTK6Q/preset:listing/plain/44b5a32347888c553b01bcc82d2a8bdc-3009435614567445377.jpg",
-          "full": "https://cdn.chotot.com/oDaAuMer9BG1E4CHMTOFT8D7JtHYc0KNIVU65OzvHUM/preset:view/plain/44b5a32347888c553b01bcc82d2a8bdc-3009435614567445377.jpg"
-        }
-      ],
-      "posted_at": "2026-11-04T03:38:19.573000+00:00"
+      "posted_at": "2026-11-06T03:23:16.681000+00:00",
+      "added_at": "2026-11-08"
     }
   ]
 }
