@@ -110,8 +110,11 @@
       auto.push(['Место в Google Maps', `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`]);
     }
     const buttons = auto.map(([label, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`).join('');
-    const own = links.length
-      ? `<ul class="adm-list">${links.map((link) => `
+    // Ссылки Google Maps из листа, которые сайт и так показывает кнопками выше, второй раз не выводим
+    const autoUrls = new Set(auto.map(([, url]) => url));
+    const mine = links.filter((link) => !autoUrls.has(link.url) && !/^Google Maps:/i.test(link.type || ''));
+    const own = mine.length
+      ? `<ul class="adm-list">${mine.map((link) => `
           <li><a href="${esc(link.url)}" target="_blank" rel="noopener noreferrer">${esc(link.type || 'Ссылка')}</a>${link.note ? `<span>${esc(link.note)}</span>` : ''}</li>`).join('')}</ul>`
       : '';
     return `<div class="adm-box adm-box--place"><p class="adm-title">Для админа</p><p class="adm-links">${buttons}</p>${own}</div>`;
