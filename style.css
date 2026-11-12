@@ -825,15 +825,9 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
 
 /* Тайлы OpenStreetMap приглушены под винтажную карту */
 /* Раньше тайлы красил CSS-фильтр (sepia + saturate…): на телефоне он пересчитывается при каждом сдвиге карты и даёт лаги.
-   Теперь — лёгкая тёплая «вуаль» поверх карты: выглядит похоже, но почти ничего не стоит */
-#realty-map::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 450;
-  background: rgb(236 228 210 / 0.3);
-  pointer-events: none;
-}
+   Теперь тёплый фон под полупрозрачными тайлами: выглядит похоже, почти ничего не стоит и ничего не перекрывает */
+#realty-map { background: #EADFC8; }
+#realty-map .leaflet-tile-pane { opacity: 0.78; }
 
 .map-legend {
   display: inline-flex;
@@ -1430,3 +1424,6 @@ body.map-is-full { overflow: hidden; }
 .share-link:active { opacity: 0.6; }
 .realty-popup__alt { margin: 0.1rem 0 0 !important; font-size: 13px; font-weight: 600; color: var(--pine-700); }
 .realty-popup__share { display: block; width: 100%; margin-top: 0.4rem; padding: 0.45rem; border: 0; background: none; font-size: 13px; font-weight: 600; color: var(--pine-700); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Пока открыто окно объекта, кнопка «На весь экран» его не перекрывает */
+.has-popup .map-full-btn { opacity: 0; pointer-events: none; }

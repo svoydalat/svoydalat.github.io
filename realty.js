@@ -296,6 +296,10 @@
         className: 'realty-leaflet-popup',
         autoPanPadding: [12, 12]
       });
+      // Leaflet по второму «клику» по той же метке закрывает окно. На телефоне один тап иногда приходит двумя кликами —
+      // окно открывалось и сразу закрывалось, и казалось, что метка не нажимается. Теперь тап по метке только открывает окно
+      marker.off('click', marker._openPopup, marker);
+      marker.on('click', () => { if (!marker.isPopupOpen()) marker.openPopup(); });
       marker.on('popupopen', () => {
         setActivePin(item.id);
         if (!showReal(item)) approxCircle.setLatLng(item.pos).addTo(map);
