@@ -3,7 +3,7 @@
    После изменения файлов сайта увеличьте номер версии в VERSION.
    CRM (/crm/) живёт отдельно, у неё свой service worker — здесь она не обрабатывается.
    ========================================================= */
-const VERSION = 'svoy-dalat-v3';
+const VERSION = 'svoy-dalat-v4';
 const SHELL = `${VERSION}-shell`;
 const TILES = `${VERSION}-tiles`;
 const MAX_TILES = 400; // тайлы OpenStreetMap: храним только то, что человек сам открывал, без массовой загрузки
