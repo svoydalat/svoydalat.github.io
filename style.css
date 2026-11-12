@@ -824,8 +824,15 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
 }
 
 /* Тайлы OpenStreetMap приглушены под винтажную карту */
-#realty-map .leaflet-tile-pane {
-  filter: saturate(0.55) sepia(0.16) hue-rotate(-6deg) brightness(1.03) contrast(0.95);
+/* Раньше тайлы красил CSS-фильтр (sepia + saturate…): на телефоне он пересчитывается при каждом сдвиге карты и даёт лаги.
+   Теперь — лёгкая тёплая «вуаль» поверх карты: выглядит похоже, но почти ничего не стоит */
+#realty-map::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 450;
+  background: rgb(236 228 210 / 0.3);
+  pointer-events: none;
 }
 
 .map-legend {
@@ -841,23 +848,40 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
   color: var(--ink);
 }
 
-/* Подсказка на телефоне: одним пальцем прокручивается страница, двумя — карта */
-.map-hint {
+/* Телефон: карта в ленте не трогает прокрутку страницы; на весь экран она открывается кнопкой и двигается одним пальцем */
+.map-full-btn {
   position: absolute;
-  inset: 0;
-  z-index: 600;
-  display: grid;
-  place-items: center;
-  padding: 1.5rem;
-  background: rgb(19 42 34 / 0.5);
-  color: #fff;
-  font-weight: 600;
-  text-align: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 700;
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--card);
+  box-shadow: 0 6px 16px -6px rgb(19 42 34 / 0.5);
+  font: 700 13px/1 Onest, system-ui, sans-serif;
+  color: var(--ink);
 }
-.map-hint.is-visible { opacity: 1; }
+.map-full-btn svg { width: 18px; height: 18px; }
+.map-full-btn:active { transform: scale(0.96); }
+@media (hover: none) and (pointer: coarse) { .map-full-btn { display: inline-flex; } }
+
+/* Полноэкранная карта */
+body.map-is-full { overflow: hidden; }
+#realty-map-wrap.is-full {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+#realty-map-wrap.is-full #realty-map { height: 100dvh; max-height: none; }
+#realty-map-wrap.is-full .map-full-btn { top: max(0.75rem, env(safe-area-inset-top)); }
 
 /* Пин с ценой: «капля» над точкой объекта */
 .price-pin-anchor { background: none; border: 0; }

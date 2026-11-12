@@ -150,7 +150,8 @@
     zoom: 13,
     maxZoom: 16,
     scrollWheelZoom: false,
-    dragging: !L.Browser.mobile
+    dragging: !L.Browser.mobile,
+    tapTolerance: 15 // чуть мягче к дрожанию пальца: тап по метке не превращается в «сдвиг»
   });
 
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -163,21 +164,31 @@
   map.on('click', () => map.scrollWheelZoom.enable());
   mapEl.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
 
-  // На телефоне одним пальцем прокручивается страница, двумя — двигается карта
+  // Телефон: в ленте карта не мешает прокрутке страницы; кнопка открывает её на весь экран, где она двигается одним пальцем
+  const mapWrap = document.getElementById('realty-map-wrap');
   if (L.Browser.mobile) {
-    const hint = document.getElementById('map-hint');
-    let hintTimer;
-    if (hint) mapEl.addEventListener('touchmove', (e) => {
-      if (e.touches.length !== 1) return;
-      hint.classList.add('is-visible');
-      clearTimeout(hintTimer);
-      hintTimer = setTimeout(() => hint.classList.remove('is-visible'), 1300);
-    }, { passive: true });
+    const fullBtn = document.createElement('button');
+    fullBtn.type = 'button';
+    fullBtn.className = 'map-full-btn';
+    const ICON_EXPAND = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+    const ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+    const setFull = (on) => {
+      mapWrap.classList.toggle('is-full', on);
+      document.body.classList.toggle('map-is-full', on);
+      fullBtn.innerHTML = on ? `${ICON_CLOSE}Закрыть` : `${ICON_EXPAND}На весь экран`;
+      fullBtn.setAttribute('aria-pressed', String(on));
+      if (on) map.dragging.enable(); else map.dragging.disable();
+      setTimeout(() => map.invalidateSize(), 50);
+    };
+    fullBtn.addEventListener('click', () => setFull(!mapWrap.classList.contains('is-full')));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mapWrap.classList.contains('is-full')) setFull(false); });
+    mapWrap.appendChild(fullBtn);
+    setFull(false);
   }
 
   // После анимации появления блока пересчитываем размер карты
-  const mapWrap = document.getElementById('realty-map-wrap');
-  mapWrap.addEventListener('animationend', () => map.invalidateSize());
+  // (только анимация самого блока: раньше пересчёт запускался от любой анимации внутри карты, например от каждого открытого окна объекта)
+  mapWrap.addEventListener('animationend', (e) => { if (e.target === mapWrap) map.invalidateSize(); });
 
   // Круг «где-то здесь» вокруг открытого объекта
   const approxCircle = L.circle(DALAT, {
@@ -205,6 +216,8 @@
   // Близкие объекты собираются в кружок «5 · от 4,8 млн»; с 15-го масштаба видны все цены
   const cluster = L.markerClusterGroup({
     maxClusterRadius: 56,
+    animate: !L.Browser.mobile, // на телефоне анимация «разъезда» меток лишняя нагрузка
+    chunkedLoading: true,
     showCoverageOnHover: false,
     disableClusteringAtZoom: 15,
     spiderfyOnMaxZoom: false,
@@ -237,7 +250,7 @@
     return `
       <div class="realty-popup" data-id="${esc(item.id)}" data-index="0">
         ${photo ? `<div class="realty-popup__media">
-          <img src="${esc(photo.full)}" alt="${esc(item.title)}" loading="lazy" referrerpolicy="no-referrer" data-gallery-img>
+          <img src="${esc(photo.full)}" alt="${esc(item.title)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-gallery-img>
           <span class="deal-badge">${KIND_RU[item.kind]} · № ${item.code}</span>
           ${gallery}
         </div>` : ''}
@@ -254,18 +267,28 @@
       </div>`;
   };
 
+  // Подсветка выбранной метки: переключаем класс на уже существующих элементах. Раньше у всех меток пересоздавался значок
+  // при каждом открытии и закрытии окна: это и тормозило, и на телефоне мог «ломаться» тап по метке
+  let activePinId = null;
+  const paintPin = (marker, on) => {
+    const el = marker.getElement && marker.getElement();
+    const pin = el && el.querySelector('.price-pin');
+    if (pin) pin.classList.toggle('is-active', on);
+    marker.setZIndexOffset(on ? 1000 : 0);
+  };
   const setActivePin = (id) => {
-    markers.forEach((marker, markerId) => {
-      const item = state.items.find((it) => it.id === markerId);
-      marker.setIcon(pinIcon(item, markerId === id));
-      marker.setZIndexOffset(markerId === id ? 1000 : 0);
-    });
+    if (activePinId && markers.get(activePinId)) paintPin(markers.get(activePinId), false);
+    activePinId = id;
+    if (id && markers.get(id)) paintPin(markers.get(id), true);
   };
 
   const createMarkers = () => {
     state.items.forEach((item) => {
       const marker = L.marker(item.pos, { icon: pinIcon(item, false), title: `№ ${item.code}: ${item.title} — ${priceLabel(item)}`, riseOnHover: true, price: item.price });
-      marker.on('add', () => marker.getElement().setAttribute('aria-label', marker.options.title));
+      marker.on('add', () => {
+        marker.getElement().setAttribute('aria-label', marker.options.title);
+        if (item.id === activePinId) paintPin(marker, true); // метка вернулась на карту (кластер раскрылся) — подсветка на месте
+      });
       marker.bindPopup(popupHtml(item), {
         maxWidth: 300,
         minWidth: 260,

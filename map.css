@@ -302,8 +302,8 @@ svg { display: block; }
 
 /* ---------- Leaflet под стиль сайта ---------- */
 .leaflet-container { font-family: var(--font-sans); background: var(--fog); }
-/* Тёплый оттенок тайлов под бумажный фон сайта */
-.leaflet-tile-pane { filter: sepia(0.22) saturate(0.88) brightness(1.03); }
+/* Тёплый оттенок под бумажный фон сайта: лёгкая вуаль вместо CSS-фильтра на тайлах (фильтр тормозит телефон) */
+#map::after { content: ""; position: absolute; inset: 0; z-index: 450; background: rgb(236 228 210 / 0.26); pointer-events: none; }
 .leaflet-bar { border: 0 !important; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 22px -10px rgb(19 42 34 / 0.6) !important; }
 .leaflet-bar a { width: 44px !important; height: 44px !important; line-height: 44px !important; font-size: 20px; background: var(--card); color: var(--ink); border-color: rgb(22 37 31 / 0.1) !important; }
 .leaflet-bar a:hover { background: #fff; }
