@@ -160,16 +160,13 @@
   /* ---------- Погода в Далате (Open-Meteo, без ключа) ---------- */
   // Нет сети или сервис не ответил — молча показываем только время
   const weatherEls = document.querySelectorAll('[data-dalat-weather]');
-  const WEATHER_URL = 'https://api.open-meteo.com/v1/forecast?latitude=11.9404&longitude=108.4583&current_weather=true&daily=precipitation_probability_max&forecast_days=2&timezone=Asia%2FHo_Chi_Minh';
-  const RAIN_MIN = 40; // от скольких процентов вероятности пишем про дождь
+  // Только температура: прогноз дождя от сервиса часто не совпадал с реальностью, поэтому его на сайте нет
+  const WEATHER_URL = 'https://api.open-meteo.com/v1/forecast?latitude=11.9404&longitude=108.4583&current_weather=true';
   const WEATHER_TTL_MS = 15 * 60 * 1000;
 
-  // rain — вероятность дождя сегодня и завтра в процентах; про дождь пишем, только если он вероятен
-  const showWeather = (temp, rain) => {
+  const showWeather = (temp) => {
     const rounded = Math.round(temp);
-    let label = `${rounded > 0 ? '+' : rounded < 0 ? '−' : ''}${Math.abs(rounded)}°C`;
-    if (rain && rain[0] >= RAIN_MIN) label += ` · дождь ${rain[0]} %`;
-    else if (rain && rain[1] >= RAIN_MIN) label += ` · завтра дождь ${rain[1]} %`;
+    const label = `${rounded > 0 ? '+' : rounded < 0 ? '−' : ''}${Math.abs(rounded)}°C`;
     weatherEls.forEach((el) => {
       el.textContent = ` · ${label}`;
       el.hidden = false;
@@ -179,8 +176,8 @@
   const loadWeather = async () => {
     try {
       const cached = JSON.parse(sessionStorage.getItem('dalat-weather') || 'null');
-      if (cached && cached.rain && Date.now() - cached.at < WEATHER_TTL_MS) {
-        showWeather(cached.temp, cached.rain);
+      if (cached && Date.now() - cached.at < WEATHER_TTL_MS) {
+        showWeather(cached.temp);
         return;
       }
     } catch (err) { /* sessionStorage недоступен — идём в сеть */ }
@@ -190,12 +187,10 @@
     try {
       const res = await fetch(WEATHER_URL, { signal: controller.signal });
       if (!res.ok) return;
-      const data = await res.json();
-      const temp = Number(data.current_weather?.temperature);
+      const temp = Number((await res.json()).current_weather?.temperature);
       if (!Number.isFinite(temp)) return;
-      const rain = (data.daily?.precipitation_probability_max || []).slice(0, 2).map(Number).map((n) => (Number.isFinite(n) ? n : 0));
-      showWeather(temp, rain);
-      try { sessionStorage.setItem('dalat-weather', JSON.stringify({ temp, rain, at: Date.now() })); } catch (err) { /* не критично */ }
+      showWeather(temp);
+      try { sessionStorage.setItem('dalat-weather', JSON.stringify({ temp, at: Date.now() })); } catch (err) { /* не критично */ }
     } catch (err) {
       /* без погоды сайт работает как раньше */
     } finally {

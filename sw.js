@@ -3,7 +3,7 @@
    После изменения файлов сайта увеличьте номер версии в VERSION.
    CRM (/crm/) живёт отдельно, у неё свой service worker — здесь она не обрабатывается.
    ========================================================= */
-const VERSION = 'svoy-dalat-v5';
+const VERSION = 'svoy-dalat-v6';
 const SHELL = `${VERSION}-shell`;
 const TILES = `${VERSION}-tiles`;
 const MAX_TILES = 400; // тайлы OpenStreetMap: храним только то, что человек сам открывал, без массовой загрузки
@@ -12,7 +12,7 @@ const MAX_TILES = 400; // тайлы OpenStreetMap: храним только т
 const PRECACHE = [
   './', 'index.html', 'map.html', 'realty.html', 'offline.html',
   'style.css', 'tw.css', 'map.css', 'guard.css', 'fonts.css',
-  'script.js', 'map.js', 'realty.js', 'guard.js', 'pwa.js',
+  'script.js', 'map.js', 'realty.js', 'guard.js', 'pwa.js', 'admin.js', 'admin.css',
   'dalat_realty.json', 'manifest.webmanifest',
   'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css',
   'vendor/leaflet/images/layers.png', 'vendor/leaflet/images/layers-2x.png',

@@ -43,6 +43,7 @@
 
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="guard.css">
+  <link rel="stylesheet" href="admin.css">
   <!-- Tailwind собран заранее (tools/tailwind.config.js) и идёт последним, как раньше шёл CDN -->
   <link rel="stylesheet" href="tw.css">
 </head>
@@ -172,6 +173,9 @@
     <!-- Объекты подгружаются из dalat_realty.json — его собирает tools/collect_dalat_realty.py -->
     <section id="realty" class="pb-24 pt-4 sm:pb-32">
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <!-- Панель администратора: заполняется admin.js, у посетителей пуста -->
+        <div id="admin-slot" hidden></div>
+
         <div id="realty-map-wrap" class="map-frame reveal relative isolate mt-0 overflow-hidden rounded-[2rem] bg-paper-deep">
           <div id="realty-map" class="h-[64dvh] max-h-[38rem] min-h-[22rem] w-full" role="region" aria-label="Карта аренды жилья в Далате"></div>
           <div class="map-legend-wrap pointer-events-none absolute bottom-3 left-3 z-[500] flex flex-wrap gap-2">
@@ -347,6 +351,7 @@
   <script src="vendor/markercluster/leaflet.markercluster.js" defer></script>
   <script src="script.js" defer></script>
   <script src="pwa.js" defer></script>
+  <script src="admin.js" defer></script>
   <script src="guard.js" defer></script>
   <script src="realty.js" defer></script>
 </body>

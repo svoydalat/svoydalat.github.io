@@ -797,6 +797,7 @@
       (p.slope ? `<p class="place__slope place__slope--${p.slope.kind}"><span class="place__slope-dot" aria-hidden="true"></span><b>Рельеф: ${SLOPE_LABEL[p.slope.kind]}.</b> ${esc(nb(p.slope.note))}</p>` : '') +
       `<p class="place__desc">${esc(nb(p.desc))}</p>` +
       `<div class="place__tip"><p class="place__tip-h">Совет от своего</p><p>${esc(nb(p.tip))}</p></div>` +
+      (window.SvoyAdmin ? window.SvoyAdmin.placeHtml(p.id) : '') +
       (p.approx ? '<p class="place__approx">Точка на карте примерная — показывает район, а не точный адрес.</p>' : '') +
       (userPos ? `<p class="place__dist">От вас по прямой: <b>${distLabel(distFromUser(p))}</b>. По дорогам дальше — откройте маршрут.</p>` : '') +
       `<div class="place__actions">` +
@@ -813,6 +814,12 @@
     $('#place-copy').addEventListener('click', () => copyLink(p));
     drawerBody.scrollTop = 0;
   };
+
+  // Режим администратора (admin.js) включился или выключился: открытую карточку перерисовываем
+  window.addEventListener('svoy-admin', () => {
+    const place = currentId && PLACES.find((x) => x.id === currentId);
+    if (place) renderDrawer(place);
+  });
 
   const copyLink = async (p) => {
     const link = placeLink(p);

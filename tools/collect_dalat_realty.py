@@ -349,13 +349,21 @@ def code_for(list_id, codes):
     return codes[key]
 
 
-def build(ad, kind, overrides, codes, salt):
+def build(ad, kind, overrides, codes, salt, seen, neutral_titles=False):
     list_id = ad['list_id']
     title_vi = nfc(ad.get('subject'))
     area = round(float(ad['size']), 1) if ad.get('size') else None
     rooms = ad.get('rooms')
     manual = overrides.get(str(list_id))
-    title_ru = manual or translate_ru(clean_title_vi(title_vi)) or fallback_title(kind, area, rooms)
+    # В облаке (--cloud) автоперевод не используем: в переводе объявления могут остаться улица или телефон.
+    # Новый объект получает нейтральный заголовок «Аренда квартиры, 35 м², 2 спальни», пока вы не зададите свой.
+    if manual:
+        title_ru = manual
+    elif neutral_titles:
+        title_ru = fallback_title(kind, area, rooms)
+    else:
+        title_ru = translate_ru(clean_title_vi(title_vi)) or fallback_title(kind, area, rooms)
+    added_at = seen.setdefault(str(list_id), datetime.now(timezone.utc).date().isoformat())
     lat, lng, geo = locate(ad)
     pub_lat, pub_lng = public_point(lat, lng, list_id, salt)
     address_vi, address_ru = address_parts(ad)
@@ -382,6 +390,7 @@ def build(ad, kind, overrides, codes, salt):
         'distance_km': max(0.5, round(distance_km((pub_lat, pub_lng), DALAT_MARKET) * 2) / 2),
         'photos': photos_of(ad),
         'posted_at': posted_at,
+        'added_at': added_at,
     }
     private = {
         'code': code,
@@ -401,6 +410,7 @@ def build(ad, kind, overrides, codes, salt):
         'source_url': f'https://www.chotot.com/{list_id}.htm',
         'list_id': list_id,
         'posted_at': posted_at,
+        'added_at': added_at,
         'photo': public['photos'][0]['thumb'] if public['photos'] else '',
     }
     return public, private
@@ -465,17 +475,65 @@ def private_page(rows, generated):
 '''
 
 
-def main():
-    reuse = '--reuse' in sys.argv
-    PRIVATE.mkdir(exist_ok=True)
-    overrides = read_json(TITLE_OVERRIDES, {})
-    codes = read_json(CODES_FILE, {})
-    if not SALT_FILE.exists():
-        SALT_FILE.write_text(secrets.token_hex(16), encoding='utf-8')
-    salt = SALT_FILE.read_text(encoding='utf-8').strip()
+def arg_value(name, default=None):
+    """Значение параметра командной строки: --state папка."""
+    if name in sys.argv:
+        index = sys.argv.index(name)
+        if index + 1 < len(sys.argv):
+            return sys.argv[index + 1]
+    return default
 
-    raw = read_json(RAW_FILE, {}) if reuse else {}
-    public_items, private_rows, seen_ids, seen_titles = [], [], set(), set()
+
+def seed_seen(seen, previous, codes):
+    """Объекты, которые уже были на сайте до появления seen.json, считаем добавленными в день прошлого обновления,
+    иначе при первом запуске все они получили бы пометку «Новое»."""
+    inverse = {str(code): list_id for list_id, code in codes.items()}
+    day = str(previous.get('generated_at') or '')[:10] or datetime.now(timezone.utc).date().isoformat()
+    for item in previous.get('items', []):
+        list_id = inverse.get(str(item.get('code')))
+        if list_id:
+            seen.setdefault(list_id, item.get('added_at') or day)
+
+
+def main():
+    """Параметры:
+      --reuse            пересобрать из сохранённых объявлений, без интернета
+      --cloud            режим задания в GitHub: без автоперевода заголовков, без личной страницы и сохранения объявлений
+      --state ПАПКА      где лежат codes.json, salt.txt, titles_ru.json, seen.json (по умолчанию private/)
+      --out ФАЙЛ         куда записать публичный каталог (по умолчанию dalat_realty.json рядом с сайтом)
+      --titles ФАЙЛ      дополнительные заголовки {"<list_id>": "текст"} — из листа «Заголовки» в таблице
+      --private-out ФАЙЛ куда записать закрытый список объектов (по умолчанию private/realty_private.json)
+      --result ФАЙЛ      итог для задания: что добавилось, что снято, у каких заголовок не проверен
+    Если объектов стало подозрительно мало (сбой источника), каталог НЕ перезаписывается, код выхода 2."""
+    reuse = '--reuse' in sys.argv
+    cloud = '--cloud' in sys.argv
+    state_dir = Path(arg_value('--state', str(PRIVATE)))
+    out_file = Path(arg_value('--out', str(OUT_FILE)))
+    private_out = Path(arg_value('--private-out', str(PRIVATE_JSON)))
+    result_out = arg_value('--result')
+    titles_extra = arg_value('--titles')
+
+    state_dir.mkdir(parents=True, exist_ok=True)
+    overrides = read_json(state_dir / 'titles_ru.json', {})
+    if titles_extra:
+        overrides.update(read_json(Path(titles_extra), {}))
+    codes = read_json(state_dir / 'codes.json', {})
+    salt_file = state_dir / 'salt.txt'
+    if not salt_file.exists():
+        salt_file.write_text(secrets.token_hex(16), encoding='utf-8')
+    salt = salt_file.read_text(encoding='utf-8').strip()
+    previous = read_json(out_file, {})
+    seen = read_json(state_dir / 'seen.json', {})
+    if not seen:
+        seed_seen(seen, previous, codes)
+
+    prev_by_kind = {}
+    for item in previous.get('items', []):
+        prev_by_kind[item.get('kind')] = prev_by_kind.get(item.get('kind'), 0) + 1
+
+    raw_file = state_dir / 'raw_ads.json'
+    raw = read_json(raw_file, {}) if reuse else {}
+    public_items, private_rows, seen_ids, seen_titles, short = [], [], set(), set(), []
     for category, kind, want in PLAN:
         log(f'— {KIND_RU[kind]}, аренда: нужно {want}')
         ads = raw.get(kind, []) if reuse else fetch_group(category, want)
@@ -489,29 +547,52 @@ def main():
                 continue
             seen_ids.add(ad['list_id'])
             seen_titles.add(title_key)
-            public, private = build(ad, kind, overrides, codes, salt)
+            public, private = build(ad, kind, overrides, codes, salt, seen, neutral_titles=cloud)
             public_items.append(public)
             private_rows.append(private)
             taken += 1
             mark = '' if private['title_checked'] else '  ← проверить заголовок'
             log(f'  № {public["code"]:>3} {format_price(public["price_vnd"]):>16} | {public["title_ru"][:55]} | {private["geo"]}{mark}')
+        # Тип жилья «просел» вдвое против прошлого каталога — похоже на сбой источника, а не на реальные перемены
+        was = prev_by_kind.get(kind, 0)
+        if was >= 4 and taken < was * 0.5:
+            short.append(f'{KIND_RU[kind]}: нашлось {taken}, было {was}')
         if not reuse:
             time.sleep(1)
 
+    # Защита от сбоя источника: пустой или резко похудевший каталог не публикуем, прежний остаётся на сайте
+    previous_total = len(previous.get('items', []))
+    if len(public_items) < 20 or (previous_total and len(public_items) < previous_total * 0.6) or short:
+        log(f'ОШИБКА: подозрительно мало объектов ({len(public_items)}, было {previous_total}). {"; ".join(short)}. Каталог не обновлён.')
+        return 2
+
     generated = datetime.now(timezone.utc).isoformat(timespec='seconds')
-    write_json(OUT_FILE, {
+    write_json(out_file, {
         'generated_at': generated,
         'note': 'Аренда жилья в Далате. Цены — для клиента, точки на карте примерные, адреса не публикуются.',
         'city': {'name': 'Далат', 'lat': DALAT_CENTER[0], 'lng': DALAT_CENTER[1]},
         'count': len(public_items),
         'items': public_items,
     })
-    write_json(CODES_FILE, codes)
-    write_json(RAW_FILE, raw)
-    write_json(PRIVATE_JSON, {'generated_at': generated, 'markup': MARKUP, 'items': private_rows})
-    PRIVATE_HTML.write_text(private_page(private_rows, generated), encoding='utf-8')
-    log(f'Готово: {len(public_items)} объектов → {OUT_FILE.name}; личный список → {PRIVATE_HTML}')
-    return 0 if len(public_items) >= 20 else 1
+    write_json(state_dir / 'codes.json', codes)
+    write_json(state_dir / 'seen.json', seen)
+    write_json(private_out, {'generated_at': generated, 'markup': MARKUP, 'items': private_rows})
+    if not cloud:
+        write_json(raw_file, raw)
+        PRIVATE_HTML.write_text(private_page(private_rows, generated), encoding='utf-8')
+
+    old_codes = {item.get('code') for item in previous.get('items', [])}
+    new_codes = {item['code'] for item in public_items}
+    if result_out:
+        write_json(Path(result_out), {
+            'generated_at': generated,
+            'total': len(public_items),
+            'added': sorted(new_codes - old_codes),
+            'removed': sorted(old_codes - new_codes),
+            'unchecked': sorted(row['code'] for row in private_rows if not row['title_checked']),
+        })
+    log(f'Готово: {len(public_items)} объектов → {out_file.name}; новых {len(new_codes - old_codes)}, снято {len(old_codes - new_codes)}')
+    return 0
 
 
 if __name__ == '__main__':

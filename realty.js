@@ -97,6 +97,15 @@
       : `≈ $${(Math.round(value / 5) * 5).toLocaleString('ru-RU')}/мес`;
   };
 
+  /* ---------- «Новое» и режим администратора ---------- */
+  const NEW_DAYS = 7; // сколько дней после появления на сайте объект помечен «Новое»
+  const isNew = (item) => {
+    const added = Date.parse(item.added);
+    return Number.isFinite(added) && Date.now() - added < NEW_DAYS * 864e5;
+  };
+  // Закрытый блок для админа (admin.js): у посетителей без ключа пустая строка
+  const adminHtml = (item, mode) => (window.SvoyAdmin ? window.SvoyAdmin.objectHtml(item, mode) : '');
+
   /* ---------- Ссылка на объект ---------- */
   // Постоянный номер объекта: realty.html#obj=7 открывает карту на этом объекте
   const itemLink = (item) => `${location.origin}${location.pathname}#obj=${item.code}`;
@@ -127,6 +136,7 @@
       rooms: Number(raw.rooms) || 0,
       distance: Number(raw.distance_km) || 0,
       posted: Date.parse(raw.posted_at) || 0,
+      added: raw.added_at || '',
       pos: [lat, lng],
       price,
       photos
@@ -180,6 +190,18 @@
     interactive: false
   });
 
+  // Режим администратора: вместо круга «где-то здесь» — настоящая точка и линия до публичной метки
+  const realLayer = L.layerGroup();
+  const showReal = (item) => {
+    realLayer.clearLayers();
+    const real = window.SvoyAdmin && window.SvoyAdmin.realPos(item.code);
+    if (!real) return false;
+    L.polyline([item.pos, real], { color: '#B5583A', weight: 2, dashArray: '4 6', interactive: false }).addTo(realLayer);
+    L.marker(real, { icon: L.divIcon({ className: '', html: '<span class="adm-real"></span>', iconSize: [0, 0] }), interactive: false, keyboard: false }).addTo(realLayer);
+    realLayer.addTo(map);
+    return true;
+  };
+
   // Близкие объекты собираются в кружок «5 · от 4,8 млн»; с 15-го масштаба видны все цены
   const cluster = L.markerClusterGroup({
     maxClusterRadius: 56,
@@ -225,6 +247,7 @@
           <p class="realty-popup__title">${esc(item.title)}</p>
           ${item.description ? `<p class="realty-popup__desc">${esc(item.description)}</p>` : ''}
           <p class="realty-popup__line">${ICON_LOCK}<span>${esc(distanceLabel(item))} · точный адрес — после заявки</span></p>
+          ${adminHtml(item, 'popup')}
           <button type="button" class="realty-popup__cta" data-lead="${esc(item.id)}">Оставить заявку</button>
           <button type="button" class="realty-popup__share" data-share="${esc(item.id)}">Поделиться объектом</button>
         </div>
@@ -251,12 +274,14 @@
       });
       marker.on('popupopen', () => {
         setActivePin(item.id);
-        approxCircle.setLatLng(item.pos).addTo(map);
+        if (!showReal(item)) approxCircle.setLatLng(item.pos).addTo(map);
         history.replaceState(null, '', `#obj=${item.code}`); // адрес в браузере можно сразу скопировать и отправить
       });
       marker.on('popupclose', () => {
         setActivePin(null);
         approxCircle.remove();
+        realLayer.clearLayers();
+        realLayer.remove();
         if (location.hash.startsWith('#obj=')) history.replaceState(null, '', location.pathname + location.search);
       });
       markers.set(item.id, marker);
@@ -352,6 +377,7 @@
         <div class="realty-card__media">
           ${photo ? `<img src="${esc(photo.thumb)}" alt="${esc(item.title)}" loading="lazy" referrerpolicy="no-referrer">` : ''}
           <span class="deal-badge">${KIND_RU[item.kind]}</span>
+          ${isNew(item) ? '<span class="new-badge card-new">Новое</span>' : ''}
           <span class="code-chip">№ ${item.code}</span>
           ${item.photos.length > 1 ? `<span class="photo-count">${ICON_CAMERA}${item.photos.length}</span>` : ''}
         </div>
@@ -364,6 +390,7 @@
             <p class="flex items-start gap-1.5">${ICON_PIN}<span>${esc(distanceLabel(item))}</span></p>
             <button type="button" class="share-link" data-share="${esc(item.id)}">Поделиться</button>
           </div>
+          ${adminHtml(item, 'card')}
           <div class="mt-auto grid grid-cols-2 gap-2 pt-5">
             <button type="button" class="realty-btn realty-btn--ghost" data-show-on-map="${esc(item.id)}">Показать на карте</button>
             <button type="button" class="realty-btn realty-btn--primary" data-lead="${esc(item.id)}">Оставить заявку</button>
@@ -516,6 +543,8 @@
     redrawPrices();
   };
   if (currencySelect) currencySelect.addEventListener('change', () => setCurrency(currencySelect.value));
+  // Админ-режим включился или выключился: карточки и окна на карте перерисовываем с закрытыми данными (или без них)
+  window.addEventListener('svoy-admin', redrawPrices);
 
   /* ---------- Заявка по объекту ---------- */
   const dialog = document.getElementById('object-dialog');
