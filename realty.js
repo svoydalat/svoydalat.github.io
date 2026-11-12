@@ -217,6 +217,7 @@
   const cluster = L.markerClusterGroup({
     maxClusterRadius: 56,
     animate: !L.Browser.mobile, // на телефоне анимация «разъезда» меток лишняя нагрузка
+    removeOutsideVisibleBounds: false, // иначе при сдвиге карты окном объекта метка уходила за край, исчезала вместе с окном
     chunkedLoading: true,
     showCoverageOnHover: false,
     disableClusteringAtZoom: 15,
@@ -342,18 +343,26 @@
     });
   });
 
+  // Автоматический «подлёт» к объекту (кнопка «Показать на карте», ссылка #obj=N) идёт с задержками. Если человек успел сам
+  // коснуться экрана, подлёт отменяется: раньше он закрывал только что открытое окно объекта и уносил карту в другое место
+  let showSeq = 0;
+  let userActed = false;
+  document.addEventListener('pointerdown', () => { showSeq += 1; userActed = true; }, { capture: true, passive: true });
+
   const showOnMap = (id) => {
     const marker = markers.get(id);
     if (!marker || !cluster.hasLayer(marker)) return;
+    const seq = ++showSeq;
     site.scrollToElement(mapWrap);
     setTimeout(() => {
+      if (seq !== showSeq) return;
       map.closePopup();
       // Подлетаем к объекту; на 15-м масштабе группы распадаются, и пин можно открыть
       let opened = false;
       const open = () => {
-        if (opened) return;
+        if (opened || seq !== showSeq) return;
         opened = true;
-        cluster.zoomToShowLayer(marker, () => marker.openPopup());
+        cluster.zoomToShowLayer(marker, () => { if (seq === showSeq) marker.openPopup(); });
       };
       map.once('moveend', open);
       map.flyTo(marker.getLatLng(), 15, { duration: site.reduceMotion ? 0 : 0.9 });
@@ -662,7 +671,7 @@
   function openFromHash() {
     const m = location.hash.match(/^#obj=(\d+)/);
     const item = m && state.items.find((it) => Number(it.code) === Number(m[1]));
-    if (item) setTimeout(() => showOnMap(item.id), 400);
+    if (item) setTimeout(() => { if (!userActed) showOnMap(item.id); }, 400);
   }
   window.addEventListener('hashchange', openFromHash);
 
