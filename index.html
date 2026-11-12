@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Свой в Далате — русскоязычный помощник: встреча, жильё, байк, рыбалка</title>
-  <meta name="description" content="Русскоязычный помощник в Далате: встреча у выхода из аэропорта, аренда жилья с картой вариантов, аренда байка, рыбалка с берега и помощь в любых ситуациях на месте.">
+  <meta name="description" content="Русскоязычный помощник в Далате: встреча по приезду и подсказки, как добраться, аренда жилья с картой вариантов, аренда байка, рыбалка с берега и помощь в любых ситуациях на месте.">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
   <meta name="theme-color" content="#F4EFE5">
   <link rel="manifest" href="manifest.webmanifest">
@@ -21,7 +21,7 @@
   <meta property="og:locale" content="ru_RU">
   <meta property="og:url" content="https://svoydalat.github.io/">
   <meta property="og:title" content="Свой в Далате — русскоязычный помощник">
-  <meta property="og:description" content="Встречу у выхода из аэропорта, подберу жильё в аренду, найду байк, свожу на рыбалку с берега и решу любой вопрос на месте.">
+  <meta property="og:description" content="Встречу по приезду, подскажу, как добраться, подберу жильё в аренду, найду байк, свожу на рыбалку с берега и решу любой вопрос на месте.">
   <meta property="og:image" content="https://svoydalat.github.io/img/hero-xuan-huong.jpg">
   <meta property="og:image:width" content="1136">
   <meta property="og:image:height" content="1408">
@@ -96,9 +96,10 @@
         </span>
       </a>
 
-      <nav class="hidden items-center gap-1 text-[15px] font-medium text-ink-soft lg:flex" aria-label="Основное меню">
+      <nav class="hidden items-center gap-1 whitespace-nowrap text-[15px] font-medium text-ink-soft xl:flex" aria-label="Основное меню">
         <a href="#dalat" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Далат</a>
         <a href="map.html" class="inline-flex items-center gap-1.5 rounded-full bg-sunflower-soft/70 px-3.5 py-2 font-semibold text-ink transition hover:bg-sunflower-soft"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></svg>Карта</a>
+        <a href="#road" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Дорога</a>
         <a href="#services" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Услуги</a>
         <a href="realty.html" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Жильё</a>
         <a href="#how" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Как это работает</a>
@@ -113,7 +114,7 @@
           Написать
         </a>
         <button id="menu-toggle" type="button"
-                class="grid h-11 w-11 place-items-center rounded-full transition hover:bg-ink/5 lg:hidden"
+                class="grid h-11 w-11 place-items-center rounded-full transition hover:bg-ink/5 xl:hidden"
                 aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню">
           <svg class="icon-open h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h16"/></svg>
           <svg class="icon-close hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
@@ -122,10 +123,11 @@
     </div>
 
     <!-- Мобильное меню -->
-    <div id="mobile-menu" class="mx-auto mt-2 hidden max-w-6xl rounded-[1.75rem] bg-paper/95 p-2 shadow-2xl shadow-ink/10 ring-1 ring-ink/5 backdrop-blur-xl lg:hidden">
+    <div id="mobile-menu" class="mx-auto mt-2 hidden max-w-6xl rounded-[1.75rem] bg-paper/95 p-2 shadow-2xl shadow-ink/10 ring-1 ring-ink/5 backdrop-blur-xl xl:hidden">
       <nav class="flex flex-col text-lg font-medium" aria-label="Мобильное меню">
         <a href="#dalat" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Далат</a>
         <a href="map.html" class="flex items-center gap-3 rounded-2xl bg-sunflower-soft/70 px-4 py-3.5 font-semibold transition hover:bg-sunflower-soft"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></svg>Интерактивная карта Далата</a>
+        <a href="#road" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Дорога</a>
         <a href="#services" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Услуги</a>
         <a href="realty.html" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Жильё в&nbsp;аренду</a>
         <a href="#how" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Как это работает</a>
@@ -169,7 +171,7 @@
           </h1>
 
           <p class="rise mt-7 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl sm:leading-relaxed" style="--delay: 180ms">
-            Встречу у&nbsp;выхода из&nbsp;аэропорта, подберу жильё, найду надёжный байк, свожу на&nbsp;рыбалку и&nbsp;решу любой вопрос на&nbsp;месте.
+            Встречу по&nbsp;приезду, подскажу, как добраться, подберу жильё, найду надёжный байк, свожу на&nbsp;рыбалку и&nbsp;решу любой вопрос на&nbsp;месте.
             Вы гуляете среди сосен и&nbsp;пьёте кофе над&nbsp;облаками&nbsp;— всё остальное беру на&nbsp;себя.
           </p>
 
@@ -223,7 +225,7 @@
                 <span class="text-[11px] text-pine-500">в&nbsp;сети</span>
               </span>
             </div>
-            <p class="mt-2.5 text-[14px] leading-snug text-ink">Буду ждать вас у&nbsp;выхода из&nbsp;аэропорта 👋 Возьмите кофту&nbsp;— вечером в&nbsp;горах свежо.</p>
+            <p class="mt-2.5 text-[14px] leading-snug text-ink">Буду ждать вас, когда приедете 👋 Возьмите кофту&nbsp;— вечером в&nbsp;горах свежо.</p>
           </div>
 
           <!-- «Билет» встречи -->
@@ -234,8 +236,8 @@
             </div>
             <div class="flex items-end gap-3 px-4 pb-3.5 pt-1.5">
               <div>
-                <p class="font-serif text-[2rem] font-semibold leading-none">DLI</p>
-                <p class="mt-1 text-[11px] text-ink-soft">Аэропорт</p>
+                <p class="font-serif text-[2rem] font-semibold leading-none">Дорога</p>
+                <p class="mt-1 text-[11px] text-ink-soft">любая</p>
               </div>
               <div class="relative mb-5 flex-1 border-t-2 border-dashed border-ink/20">
                 <svg class="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-paper text-clay" aria-hidden="true"><use href="#i-plane"/></svg>
@@ -246,8 +248,8 @@
               </div>
             </div>
             <div class="grid grid-cols-3 gap-2 border-t border-dashed border-ink/20 px-4 py-3 text-[11px] leading-tight">
-              <span><span class="block text-ink-soft">Где</span><b class="font-semibold">у&nbsp;выхода</b></span>
-              <span><span class="block text-ink-soft">Рейс</span><b class="font-semibold">любой</b></span>
+              <span><span class="block text-ink-soft">Где</span><b class="font-semibold">где удобно</b></span>
+              <span><span class="block text-ink-soft">Как</span><b class="font-semibold">любым</b></span>
               <span><span class="block text-ink-soft">Пассажир</span><b class="font-semibold">Вы</b></span>
             </div>
           </div>
@@ -402,12 +404,94 @@
       </div>
     </section>
 
+    <!-- ================= ДОРОГА В ДАЛАТ ================= -->
+    <section id="road" class="relative py-24 sm:py-32">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p class="eyebrow"><span class="eyebrow__num">02</span>Дорога</p>
+            <h2 class="section-title mt-5">Как добраться <em>до&nbsp;Далата</em></h2>
+          </div>
+          <p class="max-w-md text-lg leading-relaxed text-ink-soft">Прямых рейсов из&nbsp;России нет&nbsp;— одни прилетают во&nbsp;Вьетнам и&nbsp;едут дальше, другие добираются на&nbsp;такси или автобусе. Подскажу, как лучше именно вам.</p>
+        </div>
+
+        <div class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <article class="service-card spotlight reveal flex flex-col" style="--delay: 0ms">
+            <span class="icon-chip bg-clay/10 text-clay"><svg class="h-6 w-6" aria-hidden="true"><use href="#i-plane"/></svg></span>
+            <h3 class="service-card__title">Самолёт: аэропорт Льенкхыонг</h3>
+            <dl class="mt-4 grid gap-3 text-[15px]">
+              <div><dt class="text-ink-soft">В&nbsp;пути</dt><dd class="mt-0.5 font-semibold">40–50&nbsp;минут от&nbsp;аэропорта до&nbsp;центра (около 30 км)</dd></div>
+              <div><dt class="text-ink-soft">Ориентир по&nbsp;цене</dt><dd class="mt-0.5 font-semibold">такси 250–450&nbsp;тыс.&nbsp;₫</dd></div>
+            </dl>
+            <p class="mt-4 flex-1 leading-relaxed text-ink-soft">Аэропорт открылся после ремонта в&nbsp;августе 2026. Летают рейсы из&nbsp;Ханоя, Хошимина, Дананга и&nbsp;других городов Вьетнама; из-за границы пока Куала-Лумпур. Из&nbsp;России прямых рейсов нет&nbsp;— сначала Хошимин или Ханой, дальше внутренним рейсом. Такси лучше заказать заранее: приложения у&nbsp;терминала работают не&nbsp;всегда.</p>
+            <a href="https://t.me/razumovdimka" data-tg="road:аэропорт Льенкхыонг" target="_blank" rel="noopener noreferrer" class="group/link mt-6 inline-flex items-center gap-2 font-semibold text-pine-700">
+              Спросить, как лучше
+              <svg class="h-4 w-4 transition group-hover/link:translate-x-1" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+          </article>
+          <article class="service-card spotlight reveal flex flex-col" style="--delay: 80ms">
+            <span class="icon-chip bg-pine-500/10 text-pine-700"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17h16v-4l-2-6H6l-2 6zM4 13h16M7 17v2M17 17v2M7.5 15h.01M16.5 15h.01"/></svg></span>
+            <h3 class="service-card__title">Из&nbsp;Камрани или Нячанга</h3>
+            <dl class="mt-4 grid gap-3 text-[15px]">
+              <div><dt class="text-ink-soft">В&nbsp;пути</dt><dd class="mt-0.5 font-semibold">3–4&nbsp;часа, 130–160&nbsp;км</dd></div>
+              <div><dt class="text-ink-soft">Ориентир по&nbsp;цене</dt><dd class="mt-0.5 font-semibold">минивэн или автобус 180–350&nbsp;тыс.&nbsp;₫ с&nbsp;человека; машина целиком 1,2–2&nbsp;млн&nbsp;₫</dd></div>
+            </dl>
+            <p class="mt-4 flex-1 leading-relaxed text-ink-soft">Самый частый путь для тех, кто прилетел в&nbsp;Камрань. Дорога идёт через перевал Кханьле (Хонзяо): около 33&nbsp;км серпантина с&nbsp;подъёмом до&nbsp;1500&nbsp;м. Выезжайте с&nbsp;утра, а&nbsp;перед выездом согласуйте цену заранее.</p>
+            <a href="https://t.me/razumovdimka" data-tg="road:Камрань или Нячанг" target="_blank" rel="noopener noreferrer" class="group/link mt-6 inline-flex items-center gap-2 font-semibold text-pine-700">
+              Спросить, как лучше
+              <svg class="h-4 w-4 transition group-hover/link:translate-x-1" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+          </article>
+          <article class="service-card spotlight reveal flex flex-col" style="--delay: 160ms">
+            <span class="icon-chip bg-hydrangea/15 text-hydrangea-deep"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14V8a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2zM5 12h14M8 20v-3M16 20v-3M8.5 15h.01M15.5 15h.01"/></svg></span>
+            <h3 class="service-card__title">Из&nbsp;Хошимина</h3>
+            <dl class="mt-4 grid gap-3 text-[15px]">
+              <div><dt class="text-ink-soft">В&nbsp;пути</dt><dd class="mt-0.5 font-semibold">7–8&nbsp;часов, иногда до&nbsp;9</dd></div>
+              <div><dt class="text-ink-soft">Ориентир по&nbsp;цене</dt><dd class="mt-0.5 font-semibold">спальный автобус 280–400&nbsp;тыс.&nbsp;₫</dd></div>
+            </dl>
+            <p class="mt-4 flex-1 leading-relaxed text-ink-soft">Рейсы Phuong Trang (Futa) идут с&nbsp;автовокзала Миен Тай до&nbsp;автовокзала Далата. Билеты лучше купить онлайн заранее: на&nbsp;вокзале касса может быть закрыта. Любите спать в&nbsp;дороге&nbsp;— берите ночной или вечерний рейс.</p>
+            <a href="https://t.me/razumovdimka" data-tg="road:Хошимин" target="_blank" rel="noopener noreferrer" class="group/link mt-6 inline-flex items-center gap-2 font-semibold text-pine-700">
+              Спросить, как лучше
+              <svg class="h-4 w-4 transition group-hover/link:translate-x-1" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+          </article>
+          <article class="service-card spotlight reveal flex flex-col" style="--delay: 240ms">
+            <span class="icon-chip bg-sunflower-soft text-sunflower-deep"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14V8a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2zM5 12h14M8 20v-3M16 20v-3M8.5 15h.01M15.5 15h.01"/></svg></span>
+            <h3 class="service-card__title">Из&nbsp;Муйне и&nbsp;Фантьета</h3>
+            <dl class="mt-4 grid gap-3 text-[15px]">
+              <div><dt class="text-ink-soft">В&nbsp;пути</dt><dd class="mt-0.5 font-semibold">4–6&nbsp;часов на&nbsp;автобусе, 2–3 на&nbsp;машине (около 160&nbsp;км)</dd></div>
+              <div><dt class="text-ink-soft">Ориентир по&nbsp;цене</dt><dd class="mt-0.5 font-semibold">автобус от&nbsp;220&nbsp;тыс.&nbsp;₫</dd></div>
+            </dl>
+            <p class="mt-4 flex-1 leading-relaxed text-ink-soft">Берите прямой рейс: через агентства бывают пересадки, и&nbsp;дорога растягивается до&nbsp;6–8 часов. Если едете вдвоём-втроём, машина с&nbsp;водителем часто выходит удобнее.</p>
+            <a href="https://t.me/razumovdimka" data-tg="road:Муйне" target="_blank" rel="noopener noreferrer" class="group/link mt-6 inline-flex items-center gap-2 font-semibold text-pine-700">
+              Спросить, как лучше
+              <svg class="h-4 w-4 transition group-hover/link:translate-x-1" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+          </article>
+          <article class="service-card spotlight reveal flex flex-col" style="--delay: 320ms">
+            <span class="icon-chip bg-blossom-soft text-blossom-deep"><svg class="h-6 w-6" aria-hidden="true"><use href="#i-pine"/></svg></span>
+            <h3 class="service-card__title">Своя машина или байк</h3>
+            <dl class="mt-4 grid gap-3 text-[15px]">
+              <div><dt class="text-ink-soft">В&nbsp;пути</dt><dd class="mt-0.5 font-semibold">Нячанг&nbsp;— Далат около 140&nbsp;км по&nbsp;трассе QL27C, 2–3&nbsp;часа без&nbsp;остановок</dd></div>
+            </dl>
+            <p class="mt-4 flex-1 leading-relaxed text-ink-soft">Подъём в&nbsp;горы, туман, быстрые автобусы и&nbsp;грузовики на&nbsp;спусках: не&nbsp;обгоняйте на&nbsp;поворотах, на&nbsp;спуске тормозите двигателем, заправьтесь заранее и&nbsp;проверьте погоду. На&nbsp;байке тем более выезжайте днём.</p>
+            <a href="https://t.me/razumovdimka" data-tg="road:на своей машине или байке" target="_blank" rel="noopener noreferrer" class="group/link mt-6 inline-flex items-center gap-2 font-semibold text-pine-700">
+              Спросить, как лучше
+              <svg class="h-4 w-4 transition group-hover/link:translate-x-1" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+          </article>
+        </div>
+
+        <p class="reveal mt-8 max-w-3xl text-sm leading-relaxed text-ink-soft">Время и&nbsp;цены&nbsp;— ориентиры по&nbsp;открытым источникам на&nbsp;ноябрь 2026, а&nbsp;не&nbsp;мои тарифы: на&nbsp;деле всё зависит от&nbsp;сезона, дня недели и&nbsp;водителя. Перед поездкой подскажу, как лучше, и&nbsp;помогу не&nbsp;переплатить. Автовокзал Далата и&nbsp;аэропорт есть на&nbsp;<a href="map.html#place=bus-station" class="font-semibold text-pine-700 underline decoration-pine-700/30 underline-offset-4 hover:decoration-pine-700">карте</a>.</p>
+      </div>
+    </section>
+
     <!-- ================= УСЛУГИ ================= -->
     <section id="services" class="services relative py-24 sm:py-32">
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p class="eyebrow"><span class="eyebrow__num">02</span>Услуги</p>
+            <p class="eyebrow"><span class="eyebrow__num">03</span>Услуги</p>
             <h2 class="section-title mt-5">Всё, что нужно <em>в&nbsp;Далате</em></h2>
           </div>
           <p class="max-w-sm text-lg leading-relaxed text-ink-soft">Выберите то, что нужно,&nbsp;— или доверьте мне всю организацию поездки.</p>
@@ -415,26 +499,27 @@
 
         <div class="mt-14 grid gap-5 lg:grid-cols-3">
 
-          <!-- Встреча в аэропорту -->
+          <!-- Встреча и дорога -->
           <article class="service-card spotlight reveal lg:col-span-2">
             <div class="grid gap-8 sm:grid-cols-2 sm:items-center">
               <div>
                 <span class="icon-chip bg-clay/10 text-clay"><svg class="h-6 w-6" aria-hidden="true"><use href="#i-plane"/></svg></span>
-                <h3 class="service-card__title">Встреча в&nbsp;аэропорту</h3>
-                <p class="mt-3 leading-relaxed text-ink-soft">Буду ждать вас у&nbsp;выхода из&nbsp;аэропорта&nbsp;— даже если рейс ночной. Довезу до&nbsp;отеля и&nbsp;помогу освоиться в&nbsp;первый день.</p>
+                <h3 class="service-card__title">Встреча и&nbsp;дорога</h3>
+                <p class="mt-3 leading-relaxed text-ink-soft">Подскажу, как лучше добраться в&nbsp;Далат, и&nbsp;встречу вас по&nbsp;приезду&nbsp;— в&nbsp;аэропорту или на&nbsp;месте, даже если вы приедете ночью. Помогу освоиться в&nbsp;первый день.</p>
                 <ul class="mt-6 flex flex-wrap gap-2 text-sm font-medium">
-                  <li class="chip">Трансфер до&nbsp;отеля или виллы</li>
+                  <li class="chip">Подскажу маршрут и&nbsp;время в&nbsp;пути</li>
+                  <li class="chip">Встреча и&nbsp;заселение</li>
                   <li class="chip">SIM-карта с&nbsp;интернетом</li>
                   <li class="chip">Обмен денег по&nbsp;хорошему курсу</li>
                 </ul>
-                <a href="https://t.me/razumovdimka" data-tg="service:Встреча в аэропорту" target="_blank" rel="noopener noreferrer" class="group/link mt-6 inline-flex items-center gap-2 font-semibold text-pine-700">
+                <a href="https://t.me/razumovdimka" data-tg="service:Встреча и дорога" target="_blank" rel="noopener noreferrer" class="group/link mt-6 inline-flex items-center gap-2 font-semibold text-pine-700">
                   Заказать встречу
                   <svg class="h-4 w-4 transition group-hover/link:translate-x-1" aria-hidden="true"><use href="#i-arrow"/></svg>
                 </a>
               </div>
               <figure class="service-media aspect-[4/3]">
                 <img src="img/service-road.webp" width="1100" height="822" loading="lazy" alt="Иллюстрация: горная дорога среди сосен и машина, едущая в Далат">
-                <figcaption class="service-media__tag">DLI → в&nbsp;любую точку Далата</figcaption>
+                <figcaption class="service-media__tag">из&nbsp;любой точки — в&nbsp;любую точку Далата</figcaption>
               </figure>
             </div>
           </article>
@@ -596,7 +681,7 @@
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p class="eyebrow"><span class="eyebrow__num">03</span>Как это работает</p>
+            <p class="eyebrow"><span class="eyebrow__num">04</span>Как это работает</p>
             <h2 class="section-title mt-5">Три шага <em>до&nbsp;отдыха</em></h2>
           </div>
           <p class="max-w-sm -rotate-1 font-hand text-[1.7rem] font-semibold leading-tight text-sunflower-deep">Как открытка из&nbsp;Далата&nbsp;— только с&nbsp;вами внутри</p>
@@ -632,8 +717,8 @@
                 <span class="stamp__value">03</span>
               </div>
               <svg class="stamp__postmark" aria-hidden="true"><use href="#postmark"/></svg>
-              <h3 class="stamp__title">Прилетайте</h3>
-              <p class="stamp__text">Буду ждать вас у&nbsp;выхода из&nbsp;аэропорта. Дальше&nbsp;— сосны, озёра, кофе и&nbsp;отдых.</p>
+              <h3 class="stamp__title">Приезжайте</h3>
+              <p class="stamp__text">Подскажу дорогу и&nbsp;встречу, когда приедете. Дальше&nbsp;— сосны, озёра, кофе и&nbsp;отдых.</p>
             </article>
           </li>
         </ol>
@@ -646,7 +731,7 @@
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div class="reveal flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p class="eyebrow"><span class="eyebrow__num">04</span>Отзывы</p>
+            <p class="eyebrow"><span class="eyebrow__num">05</span>Отзывы</p>
             <h2 class="section-title mt-5">Гости <em>о&nbsp;поездках</em></h2>
           </div>
           <a href="#leave-review"
@@ -736,10 +821,10 @@
             </div>
           </details>
           <details class="faq__item">
-            <summary class="faq__q">Как удобнее добраться в&nbsp;Далат из&nbsp;Нячанга, Муйне или Хошимина?</summary>
+            <summary class="faq__q">Как добраться в&nbsp;Далат, если нет прямого рейса?</summary>
             <div class="faq__a">
-              <p>Быстрее всего&nbsp;— самолётом до&nbsp;аэропорта Льенкхыонг (DLI), около 30 км от&nbsp;города. Из&nbsp;Нячанга, Муйне и&nbsp;Хошимина ходят комфортные лимузин-басы с&nbsp;откидными креслами&nbsp;— подойдут, если нет спешки; дорога занимает несколько часов, по&nbsp;серпантину укачивает.</p>
-              <p>Хотите без&nbsp;пересадок и&nbsp;с&nbsp;багажом&nbsp;— закажите индивидуальный трансфер по&nbsp;серпантину. <a href="https://t.me/razumovdimka" data-tg="service:Встреча в аэропорту" target="_blank" rel="noopener noreferrer" class="faq__link">Напишите откуда и&nbsp;когда выезжаете</a>, организую машину или встречу в&nbsp;аэропорту.</p>
+              <p>Из&nbsp;России прямых рейсов в&nbsp;Далат нет, поэтому большинство добирается так: прилетают в&nbsp;Хошимин, Камрань (Нячанг) или Ханой и&nbsp;едут дальше. Из&nbsp;Камрани или Нячанга на&nbsp;такси или минивэне&nbsp;— примерно 3–4 часа, из&nbsp;Хошимина на&nbsp;спальном автобусе&nbsp;— 7–8 часов. Можно долететь из&nbsp;другого города Вьетнама до&nbsp;аэропорта Льенкхыонг (DLI), около 30 км от&nbsp;города. <a href="#road" class="faq__link">Время и&nbsp;ориентиры по&nbsp;цене&nbsp;— в&nbsp;разделе «Дорога»</a>.</p>
+              <p>Дорога идёт по&nbsp;серпантину, в&nbsp;автобусе и&nbsp;машине может укачивать. <a href="https://t.me/razumovdimka" data-tg="road:Далат" target="_blank" rel="noopener noreferrer" class="faq__link">Напишите, откуда и&nbsp;когда выезжаете</a>&nbsp;— подскажу, как лучше добраться, и&nbsp;встречу вас в&nbsp;Далате.</p>
             </div>
           </details>
           <details class="faq__item">
@@ -782,7 +867,7 @@
     <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
       <div class="grid gap-14 pb-24 pt-16 sm:pb-32 sm:pt-20 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-16">
       <div class="reveal">
-        <p class="eyebrow eyebrow--dark"><span class="eyebrow__num">05</span>Контакты</p>
+        <p class="eyebrow eyebrow--dark"><span class="eyebrow__num">06</span>Контакты</p>
         <h2 class="mt-6 font-serif text-[clamp(3rem,7vw,5.4rem)] font-semibold leading-[0.92] tracking-[-0.02em]">
           Прилетайте.
           <em class="block font-medium text-sunflower-soft">Остальное&nbsp;— на&nbsp;мне.</em>
@@ -835,7 +920,7 @@
 
           <div class="grid grid-cols-2 gap-4">
             <label class="block">
-              <span class="mb-2 block text-sm font-medium">Дата прилёта</span>
+              <span class="mb-2 block text-sm font-medium">Дата приезда</span>
               <input class="field field--light" type="date" name="arrival">
             </label>
             <label class="block">
@@ -844,10 +929,21 @@
             </label>
           </div>
 
+          <label class="block">
+            <span class="mb-2 block text-sm font-medium">Как едете <span class="font-normal text-ink-soft">— по&nbsp;желанию</span></span>
+            <select class="field field--light" name="route">
+              <option value="">Пока не решили</option>
+              <option>Самолёт</option>
+              <option>Такси или трансфер</option>
+              <option>Автобус</option>
+              <option>Своя машина или байк</option>
+            </select>
+          </label>
+
           <fieldset>
             <legend class="mb-2 text-sm font-medium">Что нужно</legend>
             <div class="flex flex-wrap gap-2">
-              <label><input type="checkbox" name="services" value="airport" class="peer sr-only"><span class="pick">Встреча в&nbsp;аэропорту</span></label>
+              <label><input type="checkbox" name="services" value="airport" class="peer sr-only"><span class="pick">Встреча по&nbsp;приезду</span></label>
               <label><input type="checkbox" name="services" value="housing" class="peer sr-only"><span class="pick">Жильё</span></label>
               <label><input type="checkbox" name="services" value="bike" class="peer sr-only"><span class="pick">Байк</span></label>
               <label><input type="checkbox" name="services" value="fishing" class="peer sr-only"><span class="pick">Рыбалка</span></label>
@@ -921,7 +1017,8 @@
           <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/65">Навигация</h3>
           <ul class="mt-6 space-y-3 text-paper/80">
             <li><a href="#dalat" class="transition hover:text-white">Далат</a></li>
-            <li><a href="#services" class="transition hover:text-white">Услуги</a></li>
+            <li><a href="#road" class="transition hover:text-white">Дорога</a></li>
+        <li><a href="#services" class="transition hover:text-white">Услуги</a></li>
             <li><a href="realty.html" class="transition hover:text-white">Жильё в&nbsp;аренду</a></li>
             <li><a href="#how" class="transition hover:text-white">Как это работает</a></li>
             <li><a href="#reviews" class="transition hover:text-white">Отзывы</a></li>

@@ -42,10 +42,11 @@
   };
 
   /* ---------- Smart CTA: сообщение в Telegram зависит от места кнопки ---------- */
-  // Метка data-tg у ссылки: «general», «service:Название услуги» или «housing[:что ищем]»
+  // Метка data-tg у ссылки: «general», «service:Название услуги», «road:откуда или как едет» или «housing[:что ищем]»
   const TELEGRAM_CHAT = 'https://t.me/razumovdimka';
   const telegramMessage = (kind, detail) => {
     if (kind === 'service') return `Привет! Интересует услуга «${detail}» в Далате. Подскажи по деталям: `;
+    if (kind === 'road') return `Привет! Еду в Далат (${detail}). Подскажи, как лучше добраться и что учесть в дороге: `;
     if (kind === 'housing') return `Привет! Ищу жильё в Далате${detail ? ` (${detail})` : ''}. Мои даты и бюджет: `;
     return 'Привет! Я с сайта Свой в Далате. Хочу проконсультироваться по поездке/жилью: ';
   };
@@ -88,7 +89,7 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') setMenu(false);
   });
-  window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
+  window.matchMedia('(min-width: 1280px)').addEventListener('change', (e) => {
     if (e.matches) setMenu(false);
   });
 
@@ -303,7 +304,7 @@
   // Пометка в начале текста: бот и таблица сразу показывают, что заявка из Далата
   const CITY_MARK = '📍 Далат · заявка с сайта';
   const pageShownAt = Date.now();
-  const servicesRu = { airport: 'встреча в аэропорту', housing: 'жильё', bike: 'байк', help: 'помощь на месте' };
+  const servicesRu = { airport: 'встреча по приезду', housing: 'жильё', bike: 'байк', help: 'помощь на месте' };
   const channelsRu = { telegram: 'Telegram', whatsapp: 'WhatsApp', phone: 'звонок' };
   const contactPlaceholder = (channel) => (channel === 'telegram' ? '@ник или номер' : '+7 900 000-00-00');
 
@@ -375,7 +376,11 @@
         arrival: data.get('arrival'),
         guests: data.get('guests'),
         services: services.filter((s) => s !== 'fishing'),
-        message: [services.includes('fishing') && 'Хочу на рыбалку с берега', String(data.get('message') || '').trim()].filter(Boolean).join('\n'),
+        message: [
+          services.includes('fishing') && 'Хочу на рыбалку с берега',
+          data.get('route') && `Как еду в Далат: ${String(data.get('route')).trim()}`,
+          String(data.get('message') || '').trim()
+        ].filter(Boolean).join('\n'),
         website: data.get('website')
       };
 
