@@ -845,7 +845,7 @@ input:focus-visible + .pick { box-shadow: 0 0 0 2px var(--pine-500); }
 /* Телефон: карта в ленте не трогает прокрутку страницы; на весь экран она открывается кнопкой и двигается одним пальцем */
 .map-full-btn {
   position: absolute;
-  top: 0.75rem;
+  bottom: 2.4rem; /* внизу справа: сверху справа у окна объекта крестик «закрыть» */
   right: 0.75rem;
   z-index: 700;
   display: none;
@@ -875,7 +875,7 @@ body.map-is-full { overflow: hidden; }
   box-shadow: none;
 }
 #realty-map-wrap.is-full #realty-map { height: 100dvh; max-height: none; }
-#realty-map-wrap.is-full .map-full-btn { top: max(0.75rem, env(safe-area-inset-top)); }
+#realty-map-wrap.is-full .map-full-btn { bottom: max(2.4rem, calc(env(safe-area-inset-bottom) + 1.6rem)); }
 
 /* Пин с ценой: «капля» над точкой объекта */
 .price-pin-anchor { background: none; border: 0; }
@@ -1427,3 +1427,7 @@ body.map-is-full { overflow: hidden; }
 
 /* Пока открыто окно объекта, кнопка «На весь экран» его не перекрывает */
 .has-popup .map-full-btn { opacity: 0; pointer-events: none; }
+
+/* Окно объекта прокручивается внутри, если не помещается на карте */
+.realty-leaflet-popup .leaflet-popup-content { max-height: none; }
+.realty-leaflet-popup .leaflet-popup-scrolled { overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; }

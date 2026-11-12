@@ -283,6 +283,14 @@
     if (id && markers.get(id)) paintPin(markers.get(id), true);
   };
 
+  // Окно объекта на маленькой карте (особенно на телефоне) не должно быть выше самой карты: ограничиваем высоту,
+  // тогда остаток текста и кнопки прокручиваются внутри окна
+  const openItemPopup = (marker) => {
+    const popup = marker.getPopup();
+    if (popup) popup.options.maxHeight = Math.max(200, map.getSize().y - 100);
+    marker.openPopup();
+  };
+
   const createMarkers = () => {
     state.items.forEach((item) => {
       const marker = L.marker(item.pos, { icon: pinIcon(item, false), title: `№ ${item.code}: ${item.title} — ${priceLabel(item)}`, riseOnHover: true, price: item.price });
@@ -299,7 +307,7 @@
       // Leaflet по второму «клику» по той же метке закрывает окно. На телефоне один тап иногда приходит двумя кликами —
       // окно открывалось и сразу закрывалось, и казалось, что метка не нажимается. Теперь тап по метке только открывает окно
       marker.off('click', marker._openPopup, marker);
-      marker.on('click', () => { if (!marker.isPopupOpen()) marker.openPopup(); });
+      marker.on('click', () => { if (!marker.isPopupOpen()) openItemPopup(marker); });
       marker.on('popupopen', () => {
         setActivePin(item.id);
         if (!showReal(item)) approxCircle.setLatLng(item.pos).addTo(map);
@@ -366,7 +374,7 @@
       const open = () => {
         if (opened || seq !== showSeq) return;
         opened = true;
-        cluster.zoomToShowLayer(marker, () => { if (seq === showSeq) marker.openPopup(); });
+        cluster.zoomToShowLayer(marker, () => { if (seq === showSeq) openItemPopup(marker); });
       };
       map.once('moveend', open);
       map.flyTo(marker.getLatLng(), 15, { duration: site.reduceMotion ? 0 : 0.9 });
