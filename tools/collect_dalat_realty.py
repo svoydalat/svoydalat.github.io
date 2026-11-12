@@ -336,9 +336,15 @@ def fetch_group(category, want):
     return ads
 
 
-def suitable(ad):
+# Предельная площадь по типу жилья: больше — почти наверняка опечатка в объявлении («квартира 1000 м²»)
+MAX_AREA_M2 = {'apartment': 300, 'room': 100, 'house': 1500}
+
+
+def suitable(ad, kind=None):
     price = ad.get('price') or 0
-    return bool(ad.get('subject')) and bool(photos_of(ad)) and RENT_MIN <= price <= RENT_MAX
+    area = ad.get('size') or 0
+    too_big = bool(kind and area and area > MAX_AREA_M2.get(kind, 1500))
+    return bool(ad.get('subject')) and bool(photos_of(ad)) and RENT_MIN <= price <= RENT_MAX and not too_big
 
 
 def code_for(list_id, codes):
@@ -543,7 +549,7 @@ def main():
             if taken >= want:
                 break
             title_key = re.sub(r'\W+', '', nfc(ad.get('subject')).lower())
-            if ad.get('list_id') in seen_ids or title_key in seen_titles or not suitable(ad):
+            if ad.get('list_id') in seen_ids or title_key in seen_titles or not suitable(ad, kind):
                 continue
             seen_ids.add(ad['list_id'])
             seen_titles.add(title_key)
