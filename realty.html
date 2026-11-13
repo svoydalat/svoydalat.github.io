@@ -162,7 +162,7 @@
             <h1 class="section-title mt-5">Квартиры, дома и&nbsp;комнаты <em>в&nbsp;аренду</em></h1>
           </div>
           <div class="max-w-sm">
-            <p class="text-lg leading-relaxed text-ink-soft">Свежие варианты аренды в&nbsp;Далате. Понравился&nbsp;— оставьте заявку: проверю объект, договорюсь с&nbsp;хозяином и&nbsp;покажу его вам.</p>
+            <p class="text-lg leading-relaxed text-ink-soft">Свежие варианты аренды в&nbsp;Далате. Понравился&nbsp;— оставьте заявку: посмотрю жильё сам, договорюсь с&nbsp;хозяином и&nbsp;покажу вам.</p>
             <a href="map.html#district=all" class="mt-4 inline-flex items-center gap-2 font-semibold text-pine-700 underline underline-offset-4 hover:text-pine-900">Какой район выбрать? Интерактивная карта Далата<svg class="h-4 w-4" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
         </div>
@@ -197,24 +197,24 @@
               <select id="price-min" class="field field--light sm:w-40" aria-label="Цена от"></select>
             </label>
             <label class="block">
-              <span class="mb-1.5 block text-sm font-medium">&nbsp;</span>
+              <span class="mb-1.5 block text-sm font-medium">до</span>
               <select id="price-max" class="field field--light sm:w-40" aria-label="Цена до"></select>
             </label>
             <label class="block">
               <span class="mb-1.5 block text-sm font-medium">Спальни</span>
               <select id="realty-rooms" class="field field--light sm:w-32">
-                <option value="0">Любое</option>
+                <option value="0">Не важно</option>
                 <option value="1">1 и&nbsp;больше</option>
                 <option value="2">2 и&nbsp;больше</option>
                 <option value="3">3 и&nbsp;больше</option>
               </select>
             </label>
             <label class="block">
-              <span class="mb-1.5 block text-sm font-medium">Показать цену также в</span>
+              <span class="mb-1.5 block text-sm font-medium">Валюта</span>
               <select id="realty-currency" class="field field--light sm:w-40">
                 <option value="vnd">Только VND</option>
-                <option value="rub">Рублях ≈ ₽</option>
-                <option value="usd">Долларах ≈ $</option>
+                <option value="rub">VND и&nbsp;рубли ≈ ₽</option>
+                <option value="usd">VND и&nbsp;доллары ≈ $</option>
               </select>
             </label>
             <label class="block">
@@ -236,8 +236,8 @@
         <p class="mt-8 text-center text-ink-soft">Не&nbsp;нашли подходящее? <a id="realty-tg" href="https://t.me/razumovdimka" data-tg="housing" target="_blank" rel="noopener noreferrer" class="font-semibold text-pine-700 underline underline-offset-4">Напишите мне в&nbsp;Telegram</a>&nbsp;— подберу вариант не&nbsp;из&nbsp;списка.</p>
 
         <p id="realty-source" class="mt-10 max-w-3xl text-xs leading-relaxed text-ink-soft">
-          Варианты собраны из&nbsp;открытых объявлений и&nbsp;обновляются время от&nbsp;времени. Цены указаны с&nbsp;учётом подбора, проверки и&nbsp;сопровождения.
-          Место на&nbsp;карте примерное&nbsp;— точный адрес сообщу после заявки, когда проверю объект и&nbsp;договорюсь с&nbsp;хозяином о&nbsp;показе.
+          Варианты взяты из&nbsp;открытых объявлений и&nbsp;обновляются время от&nbsp;времени. Перед показом смотрю каждое жильё сам. Цены указаны с&nbsp;учётом подбора, проверки и&nbsp;сопровождения.
+          Место на&nbsp;карте примерное&nbsp;— точный адрес сообщу после заявки, когда договорюсь с&nbsp;хозяином о&nbsp;показе.
         </p>
       </div>
     </section>
@@ -260,8 +260,8 @@
       </div>
       <div class="mt-10 border-t border-white/10 pt-7 text-sm text-paper/70">
         <div class="legal legal--dark">
-          <p>© <span id="year" data-year>2026</span> Свой в&nbsp;Далате. Все права защищены. Любое копирование материалов сайта запрещено.</p>
-          <p>Информация на&nbsp;сайте носит исключительно ознакомительный характер и&nbsp;не&nbsp;является публичной офертой. Актуальные цены, часы работы сторонних локаций и&nbsp;условия аренды уточняются индивидуально при прямом обращении.</p>
+          <p>© <span id="year" data-year>2026</span> Свой в&nbsp;Далате. Тексты авторские.</p>
+          <p>Цены на&nbsp;сайте&nbsp;— ориентир, точные условия и&nbsp;часы работы уточняю лично.</p>
           <button type="button" class="legal__link" data-privacy-open aria-haspopup="dialog">Конфиденциальность</button>
         </div>
       </div>
@@ -279,7 +279,7 @@
   <dialog id="object-dialog" class="object-dialog" aria-labelledby="object-dialog-title">
     <form id="object-form">
       <div class="flex items-start justify-between gap-4 px-5 pt-5 sm:px-6 sm:pt-6">
-        <h3 id="object-dialog-title" class="font-serif text-[1.75rem] font-semibold leading-none tracking-tight">Заявка по&nbsp;объекту</h3>
+        <h3 id="object-dialog-title" class="font-serif text-[1.75rem] font-semibold leading-none tracking-tight">Заявка на&nbsp;просмотр</h3>
         <button type="button" data-close-dialog class="grid h-10 w-10 shrink-0 place-items-center rounded-full ring-1 ring-ink/10 transition hover:bg-ink/5" aria-label="Закрыть">
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
         </button>
@@ -318,7 +318,7 @@
         </button>
         <p id="object-status" class="hidden" role="status" aria-live="polite"></p>
         <a id="object-tg" href="https://t.me/razumovdimka" data-tg="housing" target="_blank" rel="noopener noreferrer" class="text-center text-sm font-semibold text-pine-700 underline underline-offset-4">Или спросите в&nbsp;Telegram</a>
-        <p class="text-xs leading-relaxed text-ink-soft">Отправляя заявку, вы соглашаетесь, что я свяжусь с&nbsp;вами по&nbsp;указанным контактам.</p>
+        <p class="text-xs leading-relaxed text-ink-soft">Отправляя заявку, вы соглашаетесь, что я свяжусь с&nbsp;вами по&nbsp;указанным контактам и&nbsp;обработаю данные, как описано в&nbsp;<button type="button" class="faq__link" data-privacy-open aria-haspopup="dialog">«Конфиденциальности»</button>.</p>
       </div>
     </form>
   </dialog>
@@ -339,9 +339,9 @@
         <button type="button" class="privacy-dialog__close" data-privacy-close aria-label="Закрыть окно">&times;</button>
       </div>
       <ul>
-        <li>Заявка из формы уходит мне через сервис Google (Google Apps Script) и&nbsp;приходит в&nbsp;Telegram: имя, контакт, даты и&nbsp;пожелания. Нужны только для&nbsp;ответа вам; я не&nbsp;продаю их и&nbsp;не&nbsp;передаю другим людям.</li>
-        <li>Если вы пишете мне в&nbsp;Telegram напрямую, переписка идёт по&nbsp;правилам Telegram. Консультации добровольны: вы сами решаете, что и&nbsp;когда написать.</li>
-        <li>Для&nbsp;работы сайта запрашиваются погода и&nbsp;курсы валют у&nbsp;внешних сервисов; фото и&nbsp;карта подгружаются с&nbsp;их&nbsp;серверов, поэтому эти сервисы видят ваш IP-адрес.</li>
+        <li>Заявка из формы уходит мне через сервис Google (Google Apps Script) и&nbsp;сохраняется в&nbsp;моей таблице и&nbsp;приходит в&nbsp;Telegram: имя, контакт, даты и&nbsp;пожелания. Эти данные нужны, чтобы ответить вам и&nbsp;организовать поездку; я не&nbsp;продаю их и&nbsp;не&nbsp;передаю другим людям.</li>
+        <li>Отзыв из&nbsp;формы уходит только после нажатия кнопки, через Telegram или WhatsApp; на&nbsp;сайте он не&nbsp;сохраняется. Если вы пишете мне напрямую, переписка идёт по&nbsp;правилам этих мессенджеров.</li>
+        <li>Сайт берёт погоду и&nbsp;курсы валют у&nbsp;внешних сервисов; фото и&nbsp;карта подгружаются с&nbsp;их&nbsp;серверов, поэтому эти сервисы видят ваш IP-адрес.</li>
         <li>В&nbsp;браузере (localStorage) сохраняются: избранные места, выбранная валюта и&nbsp;последние курсы. Данные остаются на&nbsp;вашем устройстве, их можно очистить в&nbsp;настройках браузера.</li>
       </ul>
     </div>

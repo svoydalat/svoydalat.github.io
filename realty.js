@@ -458,7 +458,7 @@
     const shown = list.slice(0, state.limit);
 
     countEl.textContent = list.length
-      ? `${list.length} ${plural(list.length, 'объект', 'объекта', 'объектов')} в аренду${shown.length < list.length ? ` · показано ${shown.length}` : ''}`
+      ? `${list.length} ${plural(list.length, 'вариант', 'варианта', 'вариантов')} в аренду${shown.length < list.length ? ` · показано ${shown.length}` : ''}`
       : 'Ничего не нашлось';
     grid.innerHTML = list.length
       ? shown.map(cardHtml).join('')
@@ -673,7 +673,7 @@
       if (await site.sendLead(lead)) {
         form.reset();
         form.elements.contact.placeholder = site.contactPlaceholder('telegram');
-        showStatus('Спасибо! Заявка по объекту отправлена — скоро свяжусь с вами.', true);
+        showStatus('Спасибо! Заявка на просмотр отправлена — скоро свяжусь с вами.', true);
         closeTimer = setTimeout(closeDialog, 2500);
       } else {
         site.openTelegram(site.leadTelegramUrl(lead));
