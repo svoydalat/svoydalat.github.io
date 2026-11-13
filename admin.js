@@ -103,8 +103,6 @@
     const auto = [];
     if (info && Array.isArray(info.pos)) {
       const [lat, lng] = info.pos;
-      // Маршрут от вашего места до точки: откроется сразу с построенной дорогой
-      auto.push(['Маршрут в Google Maps', `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`]);
       // Карточка самого места (отзывы, часы работы): ищем по названию рядом с точкой
       const query = [info.vi || info.name, 'Đà Lạt'].filter(Boolean).join(', ');
       auto.push(['Место в Google Maps', `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`]);
