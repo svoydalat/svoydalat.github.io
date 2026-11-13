@@ -1,54 +1,14 @@
 /* =========================================================
    Свой в Далате — общие стили index.html и map.html:
-   защита контента, видимый фокус, юридический блок и окно «Конфиденциальность»
+   видимый фокус, юридический блок и окно «Конфиденциальность»
    ========================================================= */
 
-/* ---------- Защита от быстрого копирования ---------- */
-/* Выделение выключено везде, кроме полей ввода и контактов (телефон, почту нужно уметь скопировать) */
-body {
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-touch-callout: none;
-}
-input, textarea, select, [contenteditable="true"], .allow-select, a[href^="tel:"], a[href^="mailto:"] {
-  -webkit-user-select: text;
-  user-select: text;
-}
+/* ---------- Картинки ---------- */
 /* Картинки не перетаскиваются и не открываются из меню; плитки и маркеры Leaflet не трогаем — на них держится карта */
 img:not([class*="leaflet-"]) {
   pointer-events: none;
   -webkit-user-drag: none;
   user-drag: none;
-}
-
-/* Плёнка при потере фокуса окна. Не перехватывает клики, поэтому ничего не блокирует */
-.focus-shield {
-  position: fixed;
-  inset: 0;
-  z-index: 2147483000;
-  background: rgb(19 42 34 / 0.45);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.15s ease, visibility 0s linear 0.15s;
-}
-.focus-shield.is-on {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.05s ease;
-}
-
-/* Печать выключена: вместо страницы — короткое сообщение */
-@media print {
-  body * { display: none !important; }
-  body::before {
-    content: "Печать материалов сайта «Свой в Далате» запрещена.";
-    display: block;
-    padding: 2rem;
-    font: 16px/1.5 system-ui, sans-serif;
-  }
 }
 
 /* ---------- Видимый фокус для клавиатуры (WCAG 2.4.7, 1.4.11) ---------- */
@@ -155,3 +115,27 @@ body { overflow-wrap: break-word; }
 .update-bar__later { flex: none; width: 36px; height: 36px; border: 0; border-radius: 50%; background: rgb(255 255 255 / 0.12); color: #F4EFE5; font-size: 20px; line-height: 1; }
 @media (max-width: 639.98px) { .update-bar { bottom: calc(5rem + env(safe-area-inset-bottom)); } }
 @media (prefers-reduced-motion: reduce) { .update-bar { animation: none; } }
+
+/* ---------- Тап-зоны: не меньше 44×44 px (WCAG 2.5.8, Apple HIG) ----------
+   Блок стоит в конце общего файла и перебивает размеры из style.css и map.css */
+a.group\/link, .share-link, .legal__link, .realty-popup__share, .footer ul a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.footer ul.space-y-3 > li + li { margin-top: 0; }
+/* Ссылки внутри предложения не ломают строку: увеличивается только область нажатия */
+.faq__link { position: relative; }
+.faq__link::after { content: ""; position: absolute; inset: -12px -4px; }
+.chip:is(button, a, [role="button"]), .chip--near { height: 44px; min-height: 44px; }
+.deal-tab, .realty-btn, .back, .tg-btn { min-height: 44px; }
+.back, .tg-btn { height: 44px; }
+.rating label svg { width: 2.75rem; height: 2.75rem; }
+.rating { gap: 0; }
+.star { width: 44px; height: 44px; }
+.privacy-dialog__close { width: 44px; height: 44px; }
+.update-bar__go { min-height: 44px; }
+.update-bar__later { width: 44px; height: 44px; }
+.leaflet-touch .leaflet-bar a, .leaflet-bar a {
+  width: 44px; height: 44px; line-height: 44px;
+}
