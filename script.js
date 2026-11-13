@@ -388,7 +388,7 @@
           applyChannel(leadForm.elements.contact, 'telegram');
           showLeadStatus('Спасибо! Заявка отправлена — скоро свяжусь с вами.', true);
         } else {
-          // Сервер ещё не подключён — открываем Telegram с готовым текстом
+          // Адрес сервера не указан — открываем Telegram с готовым текстом
           openTelegram(leadTelegramUrl(lead));
           showLeadStatus('Открываю Telegram с готовой заявкой — осталось нажать «Отправить».', true);
         }
@@ -410,6 +410,5 @@
 
   window.SvoySite = { sendLead, leadTelegramUrl, telegramFallbackLink, openTelegram, scrollToElement, contactPlaceholder, setTelegramLink, reduceMotion };
 
-  /* ---------- Текущий год в футере ---------- */
-  document.getElementById('year').textContent = new Date().getFullYear();
+  // Год в футере ставит guard.js
 })();
