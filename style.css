@@ -1476,3 +1476,21 @@ body.map-is-full { overflow: hidden; }
   .month-bar, .season-card__when { grid-column: 1 / -1; }
   .season-card__badge { top: 0.6rem; right: 0.6rem; }
 }
+
+/* ---------- Мобильная версия: hero, «Услуги», «Как это работает» (до 640 px) ---------- */
+@media (max-width: 639.98px) {
+  .hero h1 { font-size: clamp(2.25rem, 10vw, 2.75rem); }
+  .hero .ticket { display: none; }
+  .hero p.max-w-xl { font-size: 1.0625rem; line-height: 1.55; }
+
+  /* Картинки услуг — невысокие полосы */
+  .service-media.service-media { aspect-ratio: auto; height: 140px; min-height: 0; flex: none; }
+
+  /* Шаги — нумерованный список без картинок */
+  .stamp { --r: 0px; padding: 0; background: none; filter: none; transform: none; }
+  .stamp__pic { aspect-ratio: auto; background: none; box-shadow: none; overflow: visible; }
+  .stamp__pic img, .stamp__postmark { display: none; }
+  .stamp__value { position: static; display: block; font-size: 2.4rem; color: var(--clay); }
+  .stamp__title { margin-top: 0.25rem; font-size: 1.7rem; }
+  #how ol { margin-top: 2.5rem; gap: 1.75rem; }
+}
