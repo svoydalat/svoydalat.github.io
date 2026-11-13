@@ -576,7 +576,7 @@ svg { display: block; }
   .toast { bottom: calc(var(--tabbar-h) + 80px); }
   .leaflet-bottom { margin-bottom: var(--tabbar-h); }
   /* Шторка места не уходит под нижнюю панель: высота по экрану, а кнопки в конце поднимаются над ней */
-  .drawer.is-half { height: 64dvh; }
+  .drawer.is-half { height: 64dvh; transform: translateY(var(--drag, 0px)); }
   .drawer__scroll { padding-bottom: calc(var(--tabbar-h) + 20px); }
 }
 @media (prefers-reduced-motion: reduce) { .tabbar a:active { transform: none; } }
