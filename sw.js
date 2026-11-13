@@ -3,10 +3,12 @@
    После изменения файлов сайта увеличьте номер версии в VERSION.
    CRM (/crm/) живёт отдельно, у неё свой service worker — здесь она не обрабатывается.
    ========================================================= */
-const VERSION = 'svoy-dalat-v16';
+const VERSION = 'svoy-dalat-v17';
 const SHELL = `${VERSION}-shell`;
 const TILES = `${VERSION}-tiles`;
+const PHOTOS = `${VERSION}-photos`;
 const NETWORK_TIMEOUT_MS = 3000; // дольше ждать сеть не стоим: на слабом интернете открываем сохранённую копию
+const MAX_PHOTOS = 150; // фото каталога: храним недавно открытые, снятые с публикации объекты не копятся
 const MAX_TILES = 400; // тайлы OpenStreetMap: храним только то, что человек сам открывал, без массовой загрузки
 
 // Всё, без чего страницы не откроются
@@ -30,8 +32,9 @@ const PRECACHE = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(SHELL)
-      // addAll падает целиком, если один файл не скачался, — поэтому по одному: сайт ставится и с частью файлов
-      .then((cache) => Promise.all(PRECACHE.map((url) => cache.add(url).catch(() => {}))))
+      // addAll падает целиком, если один файл не скачался, — поэтому по одному: сайт ставится и с частью файлов.
+      // cache: 'reload' — берём файлы с сервера, а не из HTTP-кэша браузера, чтобы не сохранить устаревшие
+      .then((cache) => Promise.all(PRECACHE.map((url) => cache.add(new Request(url, { cache: 'reload' })).catch(() => {}))))
     // skipWaiting здесь нет: новая версия ждёт, пока человек нажмёт «Обновить» (pwa.js присылает SKIP_WAITING)
   );
 });
@@ -66,7 +69,9 @@ const networkFirst = async (request, fallbackUrl) => {
   const timer = new Promise((resolve) => setTimeout(() => resolve(null), NETWORK_TIMEOUT_MS));
   try {
     const response = await Promise.race([network, timer]);
-    if (response) return response;
+    if (response && response.ok) return response;
+    // Сервер ответил ошибкой (5xx, 404) — лучше сохранённая копия, чем страница ошибки
+    if (response) return (await saved()) || response;
   } catch (err) { /* сети нет — берём копию */ }
   return (await saved()) || network.catch(() => Response.error());
 };
@@ -79,6 +84,17 @@ const staleWhileRevalidate = async (request, cacheName) => {
     if (response && (response.ok || response.type === 'opaque')) cache.put(request, response.clone());
     return response;
   }).catch(() => cached);
+  return cached || network;
+};
+
+// Фото каталога: из кэша сразу, свежее подтягиваем в фоне; в кэше держим только последние MAX_PHOTOS
+const photoCache = async (request) => {
+  const cache = await caches.open(PHOTOS);
+  const cached = await cache.match(request);
+  const network = fetch(request).then((response) => {
+    if (response && response.ok) cache.put(request, response.clone()).then(() => trimCache(PHOTOS, MAX_PHOTOS));
+    return response;
+  }).catch(() => cached || Response.error());
   return cached || network;
 };
 
@@ -104,7 +120,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(cacheFirstTile(request).catch(() => Response.error()));
     return;
   }
-  if (url.origin !== self.location.origin) return; // погода, фото объектов и прочее — как обычно, через сеть
+  if (url.origin !== self.location.origin) return; // погода, курсы валют и прочее — как обычно, через сеть
   if (url.pathname.includes('/crm/')) return;       // у CRM свой service worker
 
   // Страницы: свежие при наличии интернета, без него — сохранённые
@@ -117,5 +133,16 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(networkFirst(request));
     return;
   }
+  // Фото объектов лежат на сайте: отдельный кэш с лимитом
+  if (url.pathname.includes('/img/realty/')) {
+    event.respondWith(photoCache(request));
+    return;
+  }
+  // Стили и скрипты — сеть первой, иначе после обновления новая страница откроется со старым оформлением
+  if (/\.(css|js)$/.test(url.pathname) || url.pathname.endsWith('.webmanifest')) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+  // Шрифты, картинки сайта: сразу из кэша, в фоне обновляем
   event.respondWith(staleWhileRevalidate(request, SHELL));
 });
