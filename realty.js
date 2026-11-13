@@ -364,51 +364,63 @@
     box.querySelector('[data-gallery-count]').textContent = `${index + 1} / ${item.photos.length}`;
   }
 
+  // Просмотр на весь экран: лента фото с нативной прокруткой и прилипанием — листается пальцем без рывков,
+  // кнопки и стрелки на клавиатуре просто прокручивают ленту на один кадр
   const viewer = document.createElement('dialog');
   viewer.className = 'photo-viewer';
   viewer.setAttribute('aria-label', 'Фотографии объекта');
   viewer.innerHTML = `
+    <div class="photo-viewer__track"></div>
     <button type="button" class="photo-viewer__close" data-pv-close aria-label="Закрыть">&times;</button>
-    <div class="photo-viewer__stage"><img alt="" decoding="async" referrerpolicy="no-referrer"></div>
     <button type="button" class="photo-viewer__nav photo-viewer__nav--prev" data-pv-step="-1" aria-label="Предыдущее фото">‹</button>
     <button type="button" class="photo-viewer__nav photo-viewer__nav--next" data-pv-step="1" aria-label="Следующее фото">›</button>
     <p class="photo-viewer__count" aria-live="polite"></p>`;
   document.body.appendChild(viewer);
-  const viewerImg = viewer.querySelector('img');
+  const track = viewer.querySelector('.photo-viewer__track');
   const viewerCount = viewer.querySelector('.photo-viewer__count');
-  const viewerState = { item: null, index: 0 };
+  let viewerTotal = 0;
 
-  const showViewerPhoto = (index) => {
-    const { item } = viewerState;
-    const n = item.photos.length;
-    viewerState.index = (index + n) % n;
-    viewerImg.src = item.photos[viewerState.index].full;
-    viewerImg.alt = item.title;
-    viewerCount.textContent = `${viewerState.index + 1} / ${n}`;
-    // Соседнее фото подгружаем заранее, чтобы листалось без паузы
-    if (n > 1) new Image().src = item.photos[(viewerState.index + 1) % n].full;
+  const viewerIndex = () => Math.round(track.scrollLeft / (track.clientWidth || 1));
+  const updateCount = () => {
+    const i = Math.min(viewerIndex(), viewerTotal - 1);
+    viewerCount.textContent = `${i + 1} / ${viewerTotal}`;
+    viewer.querySelector('[data-pv-step="-1"]').disabled = i <= 0;
+    viewer.querySelector('[data-pv-step="1"]').disabled = i >= viewerTotal - 1;
+  };
+  const goTo = (i, smooth = true) => {
+    track.scrollTo({ left: i * track.clientWidth, behavior: smooth && !site.reduceMotion ? 'smooth' : 'auto' });
   };
 
   function openViewer(id, index = 0) {
     const item = state.items.find((it) => it.id === id);
     if (!item || !item.photos.length) return;
-    viewerState.item = item;
-    viewer.classList.toggle('is-single', item.photos.length < 2);
-    showViewerPhoto(index);
+    viewerTotal = item.photos.length;
+    // Первое фото грузим сразу, остальные — по мере приближения (loading="lazy" внутри горизонтальной ленты)
+    track.innerHTML = item.photos.map((p, i) => `
+      <div class="photo-viewer__slide"><img src="${esc(p.full)}" alt="${esc(item.title)}, фото ${i + 1}" decoding="async"${Math.abs(i - index) > 1 ? ' loading="lazy"' : ''} referrerpolicy="no-referrer"></div>`).join('');
+    viewer.classList.toggle('is-single', viewerTotal < 2);
     if (!viewer.open) viewer.showModal();
+    goTo(index, false);
+    updateCount();
   }
 
+  let countRaf = 0;
+  track.addEventListener('scroll', () => {
+    cancelAnimationFrame(countRaf);
+    countRaf = requestAnimationFrame(updateCount);
+  }, { passive: true });
   viewer.addEventListener('click', (e) => {
     const step = e.target.closest('[data-pv-step]');
-    if (step) { showViewerPhoto(viewerState.index + Number(step.dataset.pvStep)); return; }
-    // Крестик или тап по тёмному полю закрывает окно
-    if (e.target.closest('[data-pv-close]') || e.target === viewer || e.target.classList.contains('photo-viewer__stage')) viewer.close();
+    if (step) { goTo(viewerIndex() + Number(step.dataset.pvStep)); return; }
+    if (e.target.closest('[data-pv-close]') || e.target === viewer) viewer.close();
   });
   viewer.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') showViewerPhoto(viewerState.index - 1);
-    if (e.key === 'ArrowRight') showViewerPhoto(viewerState.index + 1);
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(viewerIndex() - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(viewerIndex() + 1); }
   });
-  onSwipe(viewer.querySelector('.photo-viewer__stage'), (dir) => showViewerPhoto(viewerState.index + dir));
+  // После поворота экрана ширина кадра меняется — остаёмся на том же фото
+  window.addEventListener('resize', () => { if (viewer.open) goTo(Number(viewerCount.textContent.split(' / ')[0]) - 1, false); });
+  viewer.addEventListener('close', () => { track.innerHTML = ''; });
 
   // Клики внутри попапа: Leaflet не пускает их дальше по странице, поэтому слушаем сам попап
   map.on('popupopen', (e) => {
