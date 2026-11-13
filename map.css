@@ -537,3 +537,43 @@ svg { display: block; }
   .fav-bar__clear { order: 2; }
   .fav-bar__route, .fav-bar__send { order: 3; flex: 1 1 40%; }
 }
+
+/* ---------- Кластер меток: число мест в кружке ---------- */
+.pin-cluster {
+  position: absolute; left: 0; top: 0;
+  display: grid; place-items: center;
+  width: 2.5rem; height: 2.5rem; border-radius: 9999px;
+  transform: translate(-50%, -50%);
+  background: var(--pine-900); color: var(--sunflower-soft);
+  font: 700 14px/1 Onest, system-ui, sans-serif;
+  box-shadow: 0 0 0 4px rgb(78 122 97 / 0.35), 0 10px 22px -8px rgb(19 42 34 / 0.7);
+  cursor: pointer;
+}
+
+/* ---------- Нижняя панель на телефоне (как на главной и в жилье) ---------- */
+.tabbar { display: none; }
+@media (max-width: 639.98px) {
+  :root { --tabbar-h: calc(4.25rem + env(safe-area-inset-bottom)); }
+  .tabbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 1040;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    padding: 0.35rem 0.5rem calc(0.35rem + env(safe-area-inset-bottom));
+    background: var(--paper);
+    box-shadow: 0 -1px 0 rgb(22 37 31 / 0.08), 0 -12px 30px -18px rgb(19 42 34 / 0.35);
+  }
+  .tabbar a {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem;
+    min-height: 3.2rem; border-radius: 1rem;
+    font-size: 12px; font-weight: 600; color: var(--ink-soft); text-decoration: none;
+  }
+  .tabbar svg { width: 1.4rem; height: 1.4rem; }
+  .tabbar a[aria-current="page"] { color: var(--pine-800); background: rgb(30 59 48 / 0.09); }
+  .tabbar a:active { transform: scale(0.94); }
+  .tabbar__tg { color: #1B8AC0 !important; }
+  /* Всё, что стояло у нижнего края, поднимается над панелью */
+  .mobile-bar { bottom: calc(var(--tabbar-h) + 10px); }
+  .fav-bar { bottom: calc(var(--tabbar-h) + 68px); }
+  .toast { bottom: calc(var(--tabbar-h) + 80px); }
+  .leaflet-bottom { margin-bottom: var(--tabbar-h); }
+}
+@media (prefers-reduced-motion: reduce) { .tabbar a:active { transform: none; } }

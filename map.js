@@ -450,7 +450,21 @@
     const pin = el && el.querySelector('.pin');
     if (pin) pin.classList.toggle('pin--fav', favs.has(id));
   };
-  const markerGroup = L.layerGroup().addTo(map);
+  // Близкие места собираются в кружок с числом; с 15-го масштаба видны все метки
+  const markerGroup = L.markerClusterGroup({
+    maxClusterRadius: 48,
+    animate: !L.Browser.mobile,
+    removeOutsideVisibleBounds: false,
+    chunkedLoading: true,
+    showCoverageOnHover: false,
+    disableClusteringAtZoom: 15,
+    spiderfyOnMaxZoom: false,
+    iconCreateFunction: (group) => L.divIcon({
+      className: 'pin-anchor',
+      html: `<span class="pin-cluster">${group.getChildCount()}</span>`,
+      iconSize: [0, 0]
+    })
+  }).addTo(map);
 
   const makeIcon = (p) => L.divIcon({
     className: 'pin-anchor',

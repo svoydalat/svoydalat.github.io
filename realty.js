@@ -51,6 +51,14 @@
   };
 
   // 7 200 000 → «7,2 млн»
+  // Описание начинается с тех же слов, что и заголовок («Квартира · 60 м² · 2 спальни») — повторы убираем
+  const dropRepeats = (description, title) => {
+    const t = title.toLowerCase();
+    return description.split(' · ')
+      .filter((part) => !t.includes(part.toLowerCase().slice(0, Math.max(3, part.length - 2))))
+      .join(' · ');
+  };
+
   const shortMoney = (vnd) => {
     const [value, unit] = vnd >= 1e6 ? [vnd / 1e6, 'млн'] : [vnd / 1e3, 'тыс.'];
     return `${Number(value.toFixed(2)).toLocaleString('ru-RU')} ${unit}`;
@@ -132,7 +140,7 @@
       code: Number(raw.code) || 0,
       kind: raw.kind,
       title: raw.title_ru || 'Жильё в аренду',
-      description: raw.description_ru || '',
+      description: dropRepeats(raw.description_ru || '', raw.title_ru || ''),
       rooms: Number(raw.rooms) || 0,
       distance: Number(raw.distance_km) || 0,
       posted: Date.parse(raw.posted_at) || 0,
@@ -175,7 +183,7 @@
     const setFull = (on) => {
       mapWrap.classList.toggle('is-full', on);
       document.body.classList.toggle('map-is-full', on);
-      fullBtn.innerHTML = on ? `${ICON_CLOSE}Закрыть` : `${ICON_EXPAND}На весь экран`;
+      fullBtn.innerHTML = on ? `${ICON_CLOSE}Закрыть` : `${ICON_EXPAND}Развернуть`;
       fullBtn.setAttribute('aria-pressed', String(on));
       if (on) map.dragging.enable(); else map.dragging.disable();
       setTimeout(() => map.invalidateSize(), 50);
@@ -714,4 +722,14 @@
       console.error('Не удалось загрузить dalat_realty.json', err);
       countEl.textContent = 'Не удалось загрузить объявления — обновите страницу.';
     });
+
+  // «Фильтры» на телефоне: селекты свёрнуты, пока посетитель их не откроет
+  const filtersToggle = document.getElementById('filters-toggle');
+  const filtersBox = document.getElementById('realty-filters');
+  if (filtersToggle && filtersBox) {
+    filtersToggle.addEventListener('click', () => {
+      const open = filtersBox.classList.toggle('is-open');
+      filtersToggle.setAttribute('aria-expanded', String(open));
+    });
+  }
 })();

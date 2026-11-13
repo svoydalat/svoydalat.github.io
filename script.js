@@ -79,6 +79,8 @@
   /* ---------- Мобильное меню ---------- */
   const setMenu = (open) => {
     menu.classList.toggle('hidden', !open);
+    // Пока меню открыто, страница под ним не прокручивается
+    document.documentElement.style.overflow = open ? 'hidden' : '';
     menuToggle.setAttribute('aria-expanded', String(open));
     menuToggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
     menuToggle.querySelector('.icon-open').classList.toggle('hidden', open);
@@ -299,9 +301,16 @@
   // Пометка в начале текста: бот и таблица сразу показывают, что заявка из Далата
   const CITY_MARK = '📍 Далат · заявка с сайта';
   const pageShownAt = Date.now();
-  const servicesRu = { airport: 'встреча по приезду', housing: 'жильё', bike: 'байк', help: 'помощь на месте' };
+  const servicesRu = { airport: 'встреча по приезде', housing: 'жильё', bike: 'байк', help: 'помощь на месте' };
   const channelsRu = { telegram: 'Telegram', whatsapp: 'WhatsApp', phone: 'звонок' };
   const contactPlaceholder = (channel) => (channel === 'telegram' ? '@ник или номер' : '+7 900 000-00-00');
+  // Для звонка и WhatsApp поле становится телефонным: на телефоне открывается цифровая клавиатура
+  const applyChannel = (field, channel) => {
+    const isPhone = channel !== 'telegram';
+    field.type = isPhone ? 'tel' : 'text';
+    field.inputMode = isPhone ? 'tel' : 'text';
+    field.placeholder = contactPlaceholder(channel);
+  };
 
   const leadTelegramUrl = (lead) => {
     const text = [
@@ -352,8 +361,14 @@
       leadStatus.className = `rounded-2xl px-4 py-3 text-sm ${ok ? 'bg-pine-50 text-pine-700' : 'bg-clay/10 text-ink'}`;
     };
 
+    // Прошедшую дату приезда выбрать нельзя
+    if (leadForm.elements.arrival) {
+      const now = new Date();
+      leadForm.elements.arrival.min = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    }
+
     leadForm.elements.channel.addEventListener('change', (e) => {
-      leadForm.elements.contact.placeholder = contactPlaceholder(e.target.value);
+      applyChannel(leadForm.elements.contact, e.target.value);
     });
 
     leadForm.addEventListener('submit', async (e) => {
@@ -391,7 +406,7 @@
       try {
         if (await sendLead(lead)) {
           leadForm.reset();
-          leadForm.elements.contact.placeholder = contactPlaceholder('telegram');
+          applyChannel(leadForm.elements.contact, 'telegram');
           showLeadStatus('Спасибо! Заявка отправлена — скоро свяжусь с вами.', true);
         } else {
           // Сервер ещё не подключён — открываем Telegram с готовым текстом

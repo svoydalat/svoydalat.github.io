@@ -3,9 +3,10 @@
    После изменения файлов сайта увеличьте номер версии в VERSION.
    CRM (/crm/) живёт отдельно, у неё свой service worker — здесь она не обрабатывается.
    ========================================================= */
-const VERSION = 'svoy-dalat-v12';
+const VERSION = 'svoy-dalat-v13';
 const SHELL = `${VERSION}-shell`;
 const TILES = `${VERSION}-tiles`;
+const NETWORK_TIMEOUT_MS = 3000; // дольше ждать сеть не стоим: на слабом интернете открываем сохранённую копию
 const MAX_TILES = 400; // тайлы OpenStreetMap: храним только то, что человек сам открывал, без массовой загрузки
 
 // Всё, без чего страницы не откроются
@@ -23,7 +24,7 @@ const PRECACHE = [
   'fonts/cormorant-garamond-latin.woff2', 'fonts/cormorant-garamond-latin-i.woff2',
   'fonts/cormorant-garamond-vietnamese.woff2', 'fonts/caveat-cyrillic.woff2', 'fonts/caveat-latin.woff2',
   'img/hero-xuan-huong.webp', 'img/hero-xuan-huong-640.webp',
-  'icons/icon-192.png', 'icons/icon-512.png'
+  'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -53,16 +54,21 @@ const trimCache = async (name, max) => {
   if (keys.length > max) await Promise.all(keys.slice(0, keys.length - max).map((k) => cache.delete(k)));
 };
 
-// Сначала сеть, а без интернета — сохранённая копия
+// Сначала сеть, но не дольше 3 секунд: потом — сохранённая копия (она же без интернета)
 const networkFirst = async (request, fallbackUrl) => {
   const cache = await caches.open(SHELL);
-  try {
-    const response = await fetch(request);
+  const saved = async () => (await cache.match(request, { ignoreSearch: true })) || (fallbackUrl && await cache.match(fallbackUrl)) || null;
+  const network = fetch(request).then((response) => {
     if (response && response.ok) cache.put(request, response.clone());
     return response;
-  } catch (err) {
-    return (await cache.match(request, { ignoreSearch: true })) || (fallbackUrl && await cache.match(fallbackUrl)) || Response.error();
-  }
+  });
+  network.catch(() => {}); // если сеть ответит с ошибкой после таймера, это уже никому не нужно
+  const timer = new Promise((resolve) => setTimeout(() => resolve(null), NETWORK_TIMEOUT_MS));
+  try {
+    const response = await Promise.race([network, timer]);
+    if (response) return response;
+  } catch (err) { /* сети нет — берём копию */ }
+  return (await saved()) || network.catch(() => Response.error());
 };
 
 // Сразу из кэша, в фоне обновляем: следующий заход уже со свежей версией
