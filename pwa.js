@@ -72,7 +72,9 @@
 
   /* ---------- Установка ---------- */
   const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-  const isIos = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  // Во встроенных браузерах мессенджеров и соцсетей «На экран Домой» нет — подсказку там не показываем
+  const inApp = /FBAN|FBAV|Instagram|Line\/|MicroMessenger|Telegram|VK|YaSearchBrowser/i.test(navigator.userAgent);
+  const isIos = !inApp && (/iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
   const buttons = document.querySelectorAll('[data-install]');
   let deferred = null;
 
