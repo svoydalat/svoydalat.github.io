@@ -353,37 +353,6 @@
             <p class="culture-card__text">Гора-легенда над&nbsp;городом и&nbsp;деревни народа кхо: ручное ткачество и&nbsp;гонги. Культура гонгов Центрального нагорья&nbsp;— наследие ЮНЕСКО.</p>
           </article>
         </div>
-
-        <!-- Календарь цветения: компактная строка на цветок; подсветку «цветёт сейчас» ставит script.js -->
-        <div id="seasons" class="seasons">
-          <div class="reveal flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-            <h3 class="seasons__title">Что цветёт <em class="font-medium text-hydrangea">и&nbsp;когда</em></h3>
-            <p id="season-now" class="font-hand text-[1.3rem] font-semibold leading-tight text-sunflower-deep" aria-live="polite"></p>
-          </div>
-
-          <ol class="seasons__list reveal">
-            <li class="season-card" data-months="12,1,2" style="--season: #D9809A">
-              <img class="season-card__img" src="img/flower-cherry.webp" width="560" height="560" loading="lazy" alt="">
-              <h4 class="season-card__title">Дикая вишня</h4>
-              <p class="season-card__when">дек&nbsp;— фев</p>
-            </li>
-            <li class="season-card" data-months="3,4,5" style="--season: #6F6AAE">
-              <img class="season-card__img" src="img/flower-jacaranda.webp" width="560" height="560" loading="lazy" alt="">
-              <h4 class="season-card__title">Жакаранда</h4>
-              <p class="season-card__when">мар&nbsp;— май</p>
-            </li>
-            <li class="season-card" data-months="1,2,3,4,5,6,7,8,9,10,11,12" style="--season: #5F7FB8">
-              <img class="season-card__img" src="img/flower-hydrangea.webp" width="560" height="560" loading="lazy" alt="">
-              <h4 class="season-card__title">Гортензия</h4>
-              <p class="season-card__when">круглый год</p>
-            </li>
-            <li class="season-card" data-months="10,11,12" style="--season: #E3A21A">
-              <img class="season-card__img" src="img/flower-sunflower.webp" width="560" height="560" loading="lazy" alt="">
-              <h4 class="season-card__title">Дикий подсолнух</h4>
-              <p class="season-card__when">окт&nbsp;— дек</p>
-            </li>
-          </ol>
-        </div>
       </div>
     </section>
 
@@ -399,7 +368,7 @@
         </div>
 
         <div class="mt-14 grid max-w-3xl gap-3">
-          <details class="faq__item road-item reveal" open>
+          <details class="faq__item road-item reveal">
             <summary class="faq__q road-item__q">
               <span class="icon-chip road-item__icon bg-clay/10 text-clay"><svg class="h-6 w-6" aria-hidden="true"><use href="#i-plane"/></svg></span>
               <span class="road-item__head"><span class="road-item__title">Самолёт: аэропорт Льенкхыонг</span><span class="road-item__meta">40–50&nbsp;минут · такси 250–450&nbsp;тыс.&nbsp;VND</span></span>
@@ -456,7 +425,7 @@
           <svg class="h-4 w-4 transition group-hover/link:translate-x-1" aria-hidden="true"><use href="#i-arrow"/></svg>
         </a>
 
-        <p class="reveal mt-8 max-w-3xl text-sm leading-relaxed text-ink-soft">Время и&nbsp;цены&nbsp;— ориентиры по&nbsp;открытым источникам на&nbsp;ноябрь 2026, а&nbsp;не&nbsp;мои тарифы: на&nbsp;деле всё зависит от&nbsp;сезона, дня недели и&nbsp;водителя. Перед поездкой подскажу, как лучше, и&nbsp;помогу не&nbsp;переплатить. Автовокзал Далата и&nbsp;аэропорт есть на&nbsp;<a href="map.html#place=bus-station" class="font-semibold text-pine-700 underline decoration-pine-700/30 underline-offset-4 hover:decoration-pine-700">карте</a>.</p>
+        <p class="reveal mt-8 max-w-3xl text-sm leading-relaxed text-ink-soft">Время и&nbsp;цены&nbsp;— ориентиры на&nbsp;ноябрь 2026, а&nbsp;не&nbsp;мои тарифы. Перед поездкой подскажу, как лучше. Автовокзал и&nbsp;аэропорт есть на&nbsp;<a href="map.html#place=bus-station" class="font-semibold text-pine-700 underline decoration-pine-700/30 underline-offset-4 hover:decoration-pine-700">карте</a>.</p>
       </div>
     </section>
 
@@ -636,8 +605,12 @@
             <h2 id="author-title" class="sr-only">От&nbsp;автора</h2>
             <blockquote>
               <p>Привет! Меня зовут Дмитрий. Я живу в&nbsp;Далате и&nbsp;помогаю тем, кто приезжает сюда отдохнуть, перезимовать или пожить среди сосен и&nbsp;гор.</p>
-              <p>Работаю просто: что обещал&nbsp;— делаю, без&nbsp;скрытых доплат: моя работа уже в&nbsp;цене. Жильё смотрю сам: сырость, напор воды, подъезд к&nbsp;дому. Если встречаю вас в&nbsp;аэропорту&nbsp;— буду вовремя и&nbsp;помогу сориентироваться с&nbsp;первых минут.</p>
-              <p>Моя задача&nbsp;— сделать так, чтобы вы не&nbsp;набивали шишки в&nbsp;быту и&nbsp;с&nbsp;первого дня чувствовали себя в&nbsp;Далате спокойно и&nbsp;уверенно.</p>
+              <!-- На телефоне продолжение свёрнуто; на широком экране его раскрывает script.js -->
+              <details class="author__more" data-open-wide>
+                <summary class="faq__link">Читать дальше</summary>
+                <p>Работаю просто: что обещал&nbsp;— делаю, без&nbsp;скрытых доплат: моя работа уже в&nbsp;цене. Жильё смотрю сам: сырость, напор воды, подъезд к&nbsp;дому. Если встречаю вас в&nbsp;аэропорту&nbsp;— буду вовремя и&nbsp;помогу сориентироваться с&nbsp;первых минут.</p>
+                <p>Моя задача&nbsp;— сделать так, чтобы вы не&nbsp;набивали шишки в&nbsp;быту и&nbsp;с&nbsp;первого дня чувствовали себя в&nbsp;Далате спокойно и&nbsp;уверенно.</p>
+              </details>
             </blockquote>
             <a href="https://t.me/razumovdimka?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%B4%D0%B0%D1%82%D1%8C%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%94%D0%B0%D0%BB%D0%B0%D1%82%D1%83:" target="_blank" rel="noopener noreferrer"
                class="group mt-7 inline-flex items-center justify-center gap-3 rounded-full bg-pine-900 py-2 pl-2 pr-7 text-base font-semibold text-paper transition duration-300 hover:-translate-y-0.5 hover:bg-pine-800">
@@ -840,7 +813,7 @@
     <div class="moon" aria-hidden="true"></div>
 
     <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="grid gap-14 pb-24 pt-16 sm:pb-32 sm:pt-20 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-16">
+      <div class="footer__top grid gap-14 pb-24 pt-16 sm:pb-32 sm:pt-20 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-16">
       <div class="reveal">
         <p class="eyebrow eyebrow--dark"><span class="eyebrow__num">06</span>Контакты</p>
         <h2 class="mt-6 font-serif text-[clamp(3rem,7vw,5.4rem)] font-semibold leading-[0.92] tracking-[-0.02em]">
@@ -893,6 +866,21 @@
             <input class="field field--light" name="contact" required maxlength="100" autocomplete="off" placeholder="@ник или номер">
           </label>
 
+          <fieldset>
+            <legend class="mb-2 text-sm font-medium">Что нужно</legend>
+            <div class="flex flex-wrap gap-2">
+              <label><input type="checkbox" name="services" value="airport" class="peer sr-only"><span class="pick">Встреча по&nbsp;приезде</span></label>
+              <label><input type="checkbox" name="services" value="housing" class="peer sr-only"><span class="pick">Жильё</span></label>
+              <label><input type="checkbox" name="services" value="bike" class="peer sr-only"><span class="pick">Байк</span></label>
+              <label><input type="checkbox" name="services" value="fishing" class="peer sr-only"><span class="pick">Рыбалка</span></label>
+              <label><input type="checkbox" name="services" value="help" class="peer sr-only"><span class="pick">Помощь на&nbsp;месте</span></label>
+            </div>
+          </fieldset>
+
+          <!-- Необязательные поля: на телефоне свёрнуты; на широком экране их раскрывает script.js -->
+          <details class="lead-more" data-open-wide>
+          <summary class="faq__link">Уточнить детали: дата, сколько вас, комментарий</summary>
+          <div class="mt-4 grid gap-4">
           <div class="grid grid-cols-2 gap-4">
             <label class="block">
               <span class="mb-2 block text-sm font-medium">Дата приезда</span>
@@ -915,21 +903,12 @@
             </select>
           </label>
 
-          <fieldset>
-            <legend class="mb-2 text-sm font-medium">Что нужно</legend>
-            <div class="flex flex-wrap gap-2">
-              <label><input type="checkbox" name="services" value="airport" class="peer sr-only"><span class="pick">Встреча по&nbsp;приезде</span></label>
-              <label><input type="checkbox" name="services" value="housing" class="peer sr-only"><span class="pick">Жильё</span></label>
-              <label><input type="checkbox" name="services" value="bike" class="peer sr-only"><span class="pick">Байк</span></label>
-              <label><input type="checkbox" name="services" value="fishing" class="peer sr-only"><span class="pick">Рыбалка</span></label>
-              <label><input type="checkbox" name="services" value="help" class="peer sr-only"><span class="pick">Помощь на&nbsp;месте</span></label>
-            </div>
-          </fieldset>
-
           <label class="block">
             <span class="mb-2 block text-sm font-medium">Комментарий <span class="font-normal text-ink-soft">— по&nbsp;желанию</span></span>
             <textarea class="field field--light resize-none" name="message" rows="3" maxlength="900" placeholder="Пожелания и вопросы"></textarea>
           </label>
+          </div>
+          </details>
 
           <!-- Ловушка для спам-ботов: поле скрыто от людей -->
           <label class="hp" aria-hidden="true">Сайт <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
@@ -943,7 +922,7 @@
       </form>
       </div>
 
-      <div class="grid gap-12 border-t border-white/10 py-14 md:grid-cols-[1.2fr_1fr_0.7fr]">
+      <div class="footer__cols grid gap-12 border-t border-white/10 py-14 md:grid-cols-[1.2fr_1fr_0.7fr]">
         <div>
           <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/65">Контакты</h3>
           <ul class="mt-6 space-y-4">
@@ -988,7 +967,7 @@
           <p class="mt-6 max-w-xs text-sm leading-relaxed text-paper/65">Отвечаю в&nbsp;Telegram и&nbsp;WhatsApp. Если срочно&nbsp;— просто позвоните.</p>
         </div>
 
-        <div>
+        <div class="footer__nav">
           <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/65">Навигация</h3>
           <ul class="mt-6 space-y-3 text-paper/80">
             <li><a href="#dalat" class="transition hover:text-white">Далат</a></li>

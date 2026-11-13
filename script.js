@@ -5,7 +5,6 @@
    - шапка и плавающая кнопка Telegram при прокрутке
    - появление блоков при скролле
    - местное время в Далате
-   - календарь цветения: что цветёт в этом месяце
    - подсветка карточек за курсором
    ========================================================= */
 (() => {
@@ -95,6 +94,15 @@
     if (e.matches) setMenu(false);
   });
 
+  /* ---------- Свёрнутые блоки ---------- */
+  // Форма отзыва скрыта, пока не нажали «Оставить отзыв» (или не пришли по ссылке #leave-review)
+  const reviewBox = document.getElementById('leave-review');
+  if (reviewBox && location.hash !== '#leave-review') reviewBox.hidden = true;
+  // На широком экране места хватает — «Читать дальше» и «Уточнить детали» сразу раскрыты
+  if (window.matchMedia('(min-width: 640px)').matches) {
+    document.querySelectorAll('details[data-open-wide]').forEach((d) => { d.open = true; });
+  }
+
   /* ---------- Плавный скролл к якорям ---------- */
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a[href^="#"]');
@@ -105,6 +113,7 @@
     if (!target) return;
 
     e.preventDefault();
+    if (target === reviewBox) reviewBox.hidden = false;
     setMenu(false); // закрываем меню до расчёта, чтобы высота шапки была верной
 
     const top = target.getBoundingClientRect().top + window.scrollY - header.offsetHeight;
@@ -203,38 +212,6 @@
   if (weatherEls.length) {
     loadWeather();
     setInterval(loadWeather, WEATHER_TTL_MS);
-  }
-
-  /* ---------- Календарь цветения ---------- */
-  // Месяцы цветения записаны в data-months у карточек; текущий месяц берём по времени Далата
-  const MONTH_LETTERS = ['Я', 'Ф', 'М', 'А', 'М', 'И', 'И', 'А', 'С', 'О', 'Н', 'Д'];
-  const MONTHS_IN = ['январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре'];
-  const monthNow = Number(new Intl.DateTimeFormat('en-US', { month: 'numeric', timeZone: 'Asia/Ho_Chi_Minh' }).format(new Date()));
-  const blooming = [];
-
-  document.querySelectorAll('.season-card').forEach((card) => {
-    const months = card.dataset.months.split(',').map(Number);
-    const bar = card.querySelector('[data-month-bar]');
-    if (bar) {
-      bar.setAttribute('aria-hidden', 'true');
-      bar.innerHTML = MONTH_LETTERS.map((letter, i) => {
-        const classes = [months.includes(i + 1) && 'is-on', i + 1 === monthNow && 'is-now'].filter(Boolean).join(' ');
-        return `<span class="${classes}"><i></i>${letter}</span>`;
-      }).join('');
-    }
-
-    const inSeason = months.includes(monthNow);
-    const badge = card.querySelector('.season-card__badge');
-    if (badge) badge.hidden = !inSeason;
-    card.classList.toggle('is-now', inSeason);
-    if (inSeason) blooming.push(card.querySelector('.season-card__title').textContent.toLowerCase());
-  });
-
-  const seasonNow = document.getElementById('season-now');
-  if (seasonNow && blooming.length) {
-    const verb = blooming.length > 1 ? 'цветут' : 'цветёт';
-    const list = blooming.length > 1 ? `${blooming.slice(0, -1).join(', ')} и ${blooming.at(-1)}` : blooming[0];
-    seasonNow.textContent = `Сейчас в ${MONTHS_IN[monthNow - 1]} в Далате ${verb}: ${list}`;
   }
 
   /* ---------- Подсветка карточек за курсором ---------- */
