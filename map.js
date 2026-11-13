@@ -334,8 +334,6 @@
     return `${TELEGRAM_CHAT}?text=${encodeURIComponent(text)}`;
   };
 
-  const googleMapsUrl = (p) => `https://www.google.com/maps/search/?api=1&query=${p.pos[0]},${p.pos[1]}`;
-
   // Поиск: без регистра, «ё» как «е», вьетнамские буквы без значков (Xuân → xuan)
   const fold = (s) => String(s).toLowerCase().replace(/ё/g, 'е').replace(/đ/g, 'd').normalize('NFD').replace(/[̀-ͯ]/g, '');
   const searchText = (p) => fold([p.name, p.vi, CAT[p.cat].label, ...p.tags].join(' '));
@@ -679,34 +677,10 @@
     return `${TELEGRAM_CHAT}?text=${encodeURIComponent(`Здравствуйте! Я собрал список мест на карте Далата, хочу обсудить поездку: ${names}`)}`;
   };
   const favSend = $('#fav-send');
-  const favRoute = $('#fav-route');
-  const MAX_STOPS = 10; // Google Maps принимает в ссылке не больше 9 промежуточных точек и конечную
-
-  // Маршрут по списку: места в порядке «ближайшее к предыдущему», старт — от человека (если известно) или от центра
-  const favRouteUrl = () => {
-    const left = PLACES.filter((p) => favs.has(p.id));
-    if (!left.length) return '';
-    const ordered = [];
-    let from = userPos || L.latLng(CENTER);
-    while (left.length && ordered.length < MAX_STOPS) {
-      let best = 0;
-      left.forEach((p, i) => { if (from.distanceTo(L.latLng(p.pos)) < from.distanceTo(L.latLng(left[best].pos))) best = i; });
-      const [next] = left.splice(best, 1);
-      ordered.push(next);
-      from = L.latLng(next.pos);
-    }
-    const pt = (p) => `${p.pos[0]},${p.pos[1]}`;
-    const last = ordered[ordered.length - 1];
-    const waypoints = ordered.slice(0, -1).map(pt).join('|');
-    return `https://www.google.com/maps/dir/?api=1${userPos ? `&origin=${userPos.lat.toFixed(5)},${userPos.lng.toFixed(5)}` : ''}&destination=${pt(last)}${waypoints ? `&waypoints=${encodeURIComponent(waypoints)}` : ''}&travelmode=driving`;
-  };
 
   const refreshFavLink = () => {
     favSend.href = telegramHref(favTelegramUrl());
     if (isMobile) favSend.removeAttribute('target');
-    const route = favRouteUrl();
-    favRoute.hidden = !route;
-    if (route) favRoute.href = route;
   };
   ['click', 'focus', 'pointerenter', 'touchstart'].forEach((ev) => favSend.addEventListener(ev, refreshFavLink, { passive: true }));
   $('#fav-clear').addEventListener('click', () => {
@@ -815,7 +789,6 @@
       (p.approx ? '<p class="place__approx">Точка на карте примерная — показывает район, а не точный адрес.</p>' : '') +
       (userPos ? `<p class="place__dist">От вас по прямой: <b>${distLabel(distFromUser(p))}</b>. По дорогам дальше — откройте маршрут.</p>` : '') +
       `<div class="place__actions">` +
-      `<a class="btn btn--primary" href="${googleMapsUrl(p)}" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-route"/></svg>Маршрут в Google Maps</a>` +
       `<a class="btn btn--tg" id="place-tg" href="${placeTelegramUrl(p)}" target="_blank" rel="noopener noreferrer">${tgIcon}${tgLabel}</a>` +
       `<button type="button" class="btn btn--fav fav-btn${favs.has(p.id) ? ' is-on' : ''}" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}">${favInner(favs.has(p.id))}</button>` +
       `<button type="button" class="btn btn--ghost" id="place-copy"><svg aria-hidden="true"><use href="#i-link"/></svg>${navigator.share ? 'Поделиться местом' : 'Скопировать ссылку на место'}</button>` +
