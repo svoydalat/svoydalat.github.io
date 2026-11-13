@@ -114,6 +114,9 @@ body { overflow-wrap: break-word; }
 .update-bar__go:active { transform: scale(0.96); }
 .update-bar__later { flex: none; width: 36px; height: 36px; border: 0; border-radius: 50%; background: rgb(255 255 255 / 0.12); color: #F4EFE5; font-size: 20px; line-height: 1; }
 @media (max-width: 639.98px) { .update-bar { bottom: calc(5rem + env(safe-area-inset-bottom)); } }
+/* Обе плашки сразу: «Нет связи» поднимается над «Доступна новая версия», чтобы не перекрывать её кнопки */
+body:has(.update-bar) .net-toast { bottom: calc(5rem + env(safe-area-inset-bottom)); }
+@media (max-width: 639.98px) { body:has(.update-bar) .net-toast { bottom: calc(9rem + env(safe-area-inset-bottom)); } }
 @media (prefers-reduced-motion: reduce) { .update-bar { animation: none; } }
 
 /* ---------- Тап-зоны: не меньше 44×44 px (WCAG 2.5.8, Apple HIG) ----------
