@@ -418,7 +418,8 @@
   });
   // После поворота экрана ширина кадра меняется — остаёмся на том же фото
   window.addEventListener('resize', () => { if (viewer.open) goTo(Number(viewerCount.textContent.split(' / ')[0]) - 1); });
-  viewer.addEventListener('close', () => { track.innerHTML = ''; });
+  // Событие close приходит с задержкой: если окно уже открыли снова, ленту не трогаем
+  viewer.addEventListener('close', () => { if (!viewer.open) track.innerHTML = ''; });
 
   // Клики внутри попапа: Leaflet не пускает их дальше по странице, поэтому слушаем сам попап
   map.on('popupopen', (e) => {
