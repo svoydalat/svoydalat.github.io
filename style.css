@@ -1258,23 +1258,9 @@ body.map-is-full { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) { .author__photo { transition: none; } }
 
-/* Телефон: в списке аренды без фото — лента короче. Плашки «Квартира» и «№ N» остаются; фото открываются на карте */
+/* Телефон: фото в списке остаются, но кадр ниже (16:9), чтобы лента не растягивалась */
 @media (max-width: 639.98px) {
-  .realty-card__media {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-    aspect-ratio: auto;
-    overflow: visible;
-    padding: 1.1rem 1.25rem 0;
-    background: none;
-  }
-  .realty-card__media img,
-  .realty-card__media .photo-count { display: none; }
-  .realty-card__media .deal-badge,
-  .realty-card__media .code-chip { position: static; }
-  .realty-card__media .code-chip { background: var(--paper-deep); }
+  .realty-card__media { aspect-ratio: 16 / 9; }
   .realty-card { border-radius: 1.4rem; }
   .realty-card:hover { transform: none; }
 }
