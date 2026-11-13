@@ -40,7 +40,8 @@
   const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (ch) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]
   ));
-  const safeUrl = (url) => (/^https:\/\/[^\s"'<>]+$/.test(url || '') ? url : '');
+  // Фото лежат на самом сайте (img/realty/...); внешние адреса допускаем только по https
+  const safeUrl = (url) => (/^(https:\/\/|img\/realty\/)[^\s"'<>]+$/.test(url || '') && !url.includes('..') ? url : '');
 
   const plural = (n, one, few, many) => {
     const m10 = n % 10;
