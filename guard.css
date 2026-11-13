@@ -142,3 +142,10 @@ a.group\/link, .share-link, .legal__link, .realty-popup__share, .footer ul a {
 .leaflet-touch .leaflet-bar a, .leaflet-bar a {
   width: 44px; height: 44px; line-height: 44px;
 }
+
+/* Тап-зоны, шаг 4: отдельные ссылки и кнопки, которые были ниже 44 px */
+a.tap { display: inline-flex; align-items: center; min-height: 44px; }
+.tap-inline { position: relative; }
+.tap-inline::after { content: ""; position: absolute; inset: -12px -4px; }
+.pick { align-items: center; min-height: 44px; padding-inline: 1rem; }
+.drawer__close, .fav-bar__clear { width: 44px; height: 44px; }

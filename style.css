@@ -1451,3 +1451,19 @@ section.py-24 { padding-block: 3.5rem; }
 
 /* Ссылка-кнопка внутри текста (открывает окно «Конфиденциальность») */
 button.faq__link { padding: 0; border: 0; background: none; font: inherit; font-weight: 600; cursor: pointer; }
+
+/* ---------- Мобильная версия, шаг 4: крупные элементы компактнее (до 640 px) ---------- */
+@media (max-width: 639.98px) {
+  /* Hero: после скрытого «билета» оставались большие пустоты */
+  .hero > .relative.z-10 { gap: 2.5rem; padding-bottom: 6rem; }
+  /* Три факта о Далате — в один ряд вместо столбика */
+  #dalat dl { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #dalat dl > div { padding: 1rem 0.75rem; }
+  #dalat dl dt { font-size: 12px; line-height: 1.3; }
+  #dalat dl dd { font-size: 1.6rem; }
+  /* Крупные заголовки */
+  #contacts h2 { font-size: clamp(2.25rem, 11vw, 2.75rem); }
+  #leave-review h3 { font-size: 2rem; }
+  #dalat a[href="map.html"] .font-serif { font-size: 1.625rem; }
+  #reviews { padding-block: 2.5rem; }
+}
