@@ -387,8 +387,10 @@
     viewer.querySelector('[data-pv-step="-1"]').disabled = i <= 0;
     viewer.querySelector('[data-pv-step="1"]').disabled = i >= viewerTotal - 1;
   };
-  const goTo = (i, smooth = true) => {
-    track.scrollTo({ left: i * track.clientWidth, behavior: smooth && !site.reduceMotion ? 'smooth' : 'auto' });
+  // Кнопки переключают кадр сразу, без анимации: плавная прокрутка вместе с прилипанием на части телефонов «застревала»
+  const goTo = (i) => {
+    track.scrollLeft = Math.max(0, Math.min(i, viewerTotal - 1)) * track.clientWidth;
+    updateCount();
   };
 
   function openViewer(id, index = 0) {
@@ -400,15 +402,11 @@
       <div class="photo-viewer__slide"><img src="${esc(p.full)}" alt="${esc(item.title)}, фото ${i + 1}" decoding="async"${Math.abs(i - index) > 1 ? ' loading="lazy"' : ''} referrerpolicy="no-referrer"></div>`).join('');
     viewer.classList.toggle('is-single', viewerTotal < 2);
     if (!viewer.open) viewer.showModal();
-    goTo(index, false);
+    goTo(index);
     updateCount();
   }
 
-  let countRaf = 0;
-  track.addEventListener('scroll', () => {
-    cancelAnimationFrame(countRaf);
-    countRaf = requestAnimationFrame(updateCount);
-  }, { passive: true });
+  track.addEventListener('scroll', updateCount, { passive: true });
   viewer.addEventListener('click', (e) => {
     const step = e.target.closest('[data-pv-step]');
     if (step) { goTo(viewerIndex() + Number(step.dataset.pvStep)); return; }
@@ -419,7 +417,7 @@
     if (e.key === 'ArrowRight') { e.preventDefault(); goTo(viewerIndex() + 1); }
   });
   // После поворота экрана ширина кадра меняется — остаёмся на том же фото
-  window.addEventListener('resize', () => { if (viewer.open) goTo(Number(viewerCount.textContent.split(' / ')[0]) - 1, false); });
+  window.addEventListener('resize', () => { if (viewer.open) goTo(Number(viewerCount.textContent.split(' / ')[0]) - 1); });
   viewer.addEventListener('close', () => { track.innerHTML = ''; });
 
   // Клики внутри попапа: Leaflet не пускает их дальше по странице, поэтому слушаем сам попап
