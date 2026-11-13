@@ -3,7 +3,7 @@
    После изменения файлов сайта увеличьте номер версии в VERSION.
    CRM (/crm/) живёт отдельно, у неё свой service worker — здесь она не обрабатывается.
    ========================================================= */
-const VERSION = 'svoy-dalat-v13';
+const VERSION = 'svoy-dalat-v14';
 const SHELL = `${VERSION}-shell`;
 const TILES = `${VERSION}-tiles`;
 const NETWORK_TIMEOUT_MS = 3000; // дольше ждать сеть не стоим: на слабом интернете открываем сохранённую копию
