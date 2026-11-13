@@ -337,6 +337,79 @@
   map.on('popupopen', () => mapWrap.classList.add('has-popup'));
   map.on('popupclose', () => mapWrap.classList.remove('has-popup'));
 
+  /* ---------- Фото: листание в окне объекта и просмотр на весь экран ---------- */
+  // Свайп влево/вправо: dir = 1 — следующее фото, -1 — предыдущее. Вертикальные жесты не трогаем
+  function onSwipe(el, cb, target) {
+    let x0 = 0;
+    let y0 = 0;
+    let box = null;
+    el.addEventListener('touchstart', (e) => {
+      x0 = e.touches[0].clientX;
+      y0 = e.touches[0].clientY;
+      box = target ? e.target.closest(target) : el;
+    }, { passive: true });
+    el.addEventListener('touchend', (e) => {
+      const t = e.changedTouches[0];
+      const dx = t.clientX - x0;
+      if (box && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(t.clientY - y0) * 1.5) cb(dx < 0 ? 1 : -1, box);
+    }, { passive: true });
+  }
+
+  function stepPopup(box, delta) {
+    const item = state.items.find((it) => it.id === box.dataset.id);
+    if (!item || item.photos.length < 2) return;
+    const index = (Number(box.dataset.index) + delta + item.photos.length) % item.photos.length;
+    box.dataset.index = index;
+    box.querySelector('[data-gallery-img]').src = item.photos[index].full;
+    box.querySelector('[data-gallery-count]').textContent = `${index + 1} / ${item.photos.length}`;
+  }
+
+  const viewer = document.createElement('dialog');
+  viewer.className = 'photo-viewer';
+  viewer.setAttribute('aria-label', 'Фотографии объекта');
+  viewer.innerHTML = `
+    <button type="button" class="photo-viewer__close" data-pv-close aria-label="Закрыть">&times;</button>
+    <div class="photo-viewer__stage"><img alt="" decoding="async" referrerpolicy="no-referrer"></div>
+    <button type="button" class="photo-viewer__nav photo-viewer__nav--prev" data-pv-step="-1" aria-label="Предыдущее фото">‹</button>
+    <button type="button" class="photo-viewer__nav photo-viewer__nav--next" data-pv-step="1" aria-label="Следующее фото">›</button>
+    <p class="photo-viewer__count" aria-live="polite"></p>`;
+  document.body.appendChild(viewer);
+  const viewerImg = viewer.querySelector('img');
+  const viewerCount = viewer.querySelector('.photo-viewer__count');
+  const viewerState = { item: null, index: 0 };
+
+  const showViewerPhoto = (index) => {
+    const { item } = viewerState;
+    const n = item.photos.length;
+    viewerState.index = (index + n) % n;
+    viewerImg.src = item.photos[viewerState.index].full;
+    viewerImg.alt = item.title;
+    viewerCount.textContent = `${viewerState.index + 1} / ${n}`;
+    // Соседнее фото подгружаем заранее, чтобы листалось без паузы
+    if (n > 1) new Image().src = item.photos[(viewerState.index + 1) % n].full;
+  };
+
+  function openViewer(id, index = 0) {
+    const item = state.items.find((it) => it.id === id);
+    if (!item || !item.photos.length) return;
+    viewerState.item = item;
+    viewer.classList.toggle('is-single', item.photos.length < 2);
+    showViewerPhoto(index);
+    if (!viewer.open) viewer.showModal();
+  }
+
+  viewer.addEventListener('click', (e) => {
+    const step = e.target.closest('[data-pv-step]');
+    if (step) { showViewerPhoto(viewerState.index + Number(step.dataset.pvStep)); return; }
+    // Крестик или тап по тёмному полю закрывает окно
+    if (e.target.closest('[data-pv-close]') || e.target === viewer || e.target.classList.contains('photo-viewer__stage')) viewer.close();
+  });
+  viewer.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') showViewerPhoto(viewerState.index - 1);
+    if (e.key === 'ArrowRight') showViewerPhoto(viewerState.index + 1);
+  });
+  onSwipe(viewer.querySelector('.photo-viewer__stage'), (dir) => showViewerPhoto(viewerState.index + dir));
+
   // Клики внутри попапа: Leaflet не пускает их дальше по странице, поэтому слушаем сам попап
   map.on('popupopen', (e) => {
     const root = e.popup.getElement();
@@ -354,14 +427,18 @@
         return;
       }
       const step = event.target.closest('[data-gallery-step]');
-      if (!step) return;
-      const box = step.closest('.realty-popup');
-      const item = state.items.find((it) => it.id === box.dataset.id);
-      const index = (Number(box.dataset.index) + Number(step.dataset.galleryStep) + item.photos.length) % item.photos.length;
-      box.dataset.index = index;
-      box.querySelector('[data-gallery-img]').src = item.photos[index].full;
-      box.querySelector('[data-gallery-count]').textContent = `${index + 1} / ${item.photos.length}`;
+      if (step) {
+        stepPopup(step.closest('.realty-popup'), Number(step.dataset.galleryStep));
+        return;
+      }
+      // Тап по самому фото — открыть на весь экран
+      const media = event.target.closest('.realty-popup__media');
+      if (media) {
+        const box = media.closest('.realty-popup');
+        openViewer(box.dataset.id, Number(box.dataset.index));
+      }
     });
+    onSwipe(root, (dir, media) => stepPopup(media.closest('.realty-popup'), dir), '.realty-popup__media');
   });
 
   // Автоматический «подлёт» к объекту (кнопка «Показать на карте», ссылка #obj=N) идёт с задержками. Если человек успел сам
@@ -529,6 +606,9 @@
   });
 
   grid.addEventListener('click', (e) => {
+    // Фото в карточке — открыть галерею на весь экран
+    const media = e.target.closest('.realty-card__media');
+    if (media) openViewer(media.closest('.realty-card').dataset.id);
     const showButton = e.target.closest('[data-show-on-map]');
     if (showButton) showOnMap(showButton.dataset.showOnMap);
     const leadButton = e.target.closest('[data-lead]');
