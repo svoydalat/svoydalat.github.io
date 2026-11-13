@@ -44,10 +44,10 @@
   // Метка data-tg у ссылки: «general», «service:Название услуги», «road:откуда или как едет» или «housing[:что ищем]»
   const TELEGRAM_CHAT = 'https://t.me/razumovdimka';
   const telegramMessage = (kind, detail) => {
-    if (kind === 'service') return `Привет! Интересует услуга «${detail}» в Далате. Подскажи по деталям: `;
-    if (kind === 'road') return `Привет! Еду в Далат (${detail}). Подскажи, как лучше добраться и что учесть в дороге: `;
-    if (kind === 'housing') return `Привет! Ищу жильё в Далате${detail ? ` (${detail})` : ''}. Мои даты и бюджет: `;
-    return 'Привет! Я с сайта Свой в Далате. Хочу проконсультироваться по поездке/жилью: ';
+    if (kind === 'service') return `Здравствуйте! Интересует услуга «${detail}» в Далате. Подскажите детали: `;
+    if (kind === 'road') return `Здравствуйте! Еду в Далат (${detail}). Подскажите, как лучше добраться и что учесть в дороге: `;
+    if (kind === 'housing') return `Здравствуйте! Ищу жильё в Далате${detail ? ` (${detail})` : ''}. Мои даты и бюджет: `;
+    return 'Здравствуйте! Я с сайта «Свой в Далате». Хочу спросить про поездку в Далат: ';
   };
   const telegramUrl = (kind, detail) => `${TELEGRAM_CHAT}?text=${encodeURIComponent(telegramMessage(kind, detail))}`;
 
@@ -296,7 +296,7 @@
       'Заявка на поездку в Далат',
       `Имя: ${lead.name}`,
       `Связь: ${lead.contact} (${channelsRu[lead.channel] || lead.channel})`,
-      lead.arrival && `Прилёт: ${lead.arrival.split('-').reverse().join('.')}`,
+      lead.arrival && `Приезд: ${lead.arrival.split('-').reverse().join('.')}`,
       lead.guests && `Гостей: ${lead.guests}`,
       lead.services && lead.services.length && `Нужно: ${lead.services.map((s) => servicesRu[s] || s).join(', ')}`,
       lead.message
