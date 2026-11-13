@@ -3,7 +3,7 @@
    После изменения файлов сайта увеличьте номер версии в VERSION.
    CRM (/crm/) живёт отдельно, у неё свой service worker — здесь она не обрабатывается.
    ========================================================= */
-const VERSION = 'svoy-dalat-v25';
+const VERSION = 'svoy-dalat-v26';
 const SHELL = `${VERSION}-shell`;
 const TILES = `${VERSION}-tiles`;
 const PHOTOS = `${VERSION}-photos`;
@@ -62,7 +62,8 @@ const networkFirst = async (request, fallbackUrl) => {
   const cache = await caches.open(SHELL);
   const saved = async () => (await cache.match(request, { ignoreSearch: true })) || (fallbackUrl && await cache.match(fallbackUrl)) || null;
   // no-cache: сверяемся с сервером (по ETag), иначе браузер до 10 минут отдаёт старый файл из своего HTTP-кэша
-  const network = fetch(request, { cache: 'no-cache' }).then((response) => {
+  // Запрос навигации нельзя пересобрать с параметрами — для страниц берём её адрес
+  const network = fetch(request.mode === 'navigate' ? request.url : request, { cache: 'no-cache' }).then((response) => {
     if (response && response.ok) cache.put(request, response.clone());
     return response;
   });
