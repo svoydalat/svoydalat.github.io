@@ -950,6 +950,12 @@
   const hdrTg = $('#tg-header');
   hdrTg.href = telegramHref(`${TELEGRAM_CHAT}?text=${encodeURIComponent('Привет! Я с карты Далата на сайте Свой в Далате. Хочу проконсультироваться: ')}`);
   if (isMobile) hdrTg.removeAttribute('target');
+  // Кнопка «Написать» в нижней панели — тем же путём, иначе на телефоне откроется заблокированный t.me
+  const tabTg = $('.tabbar__tg');
+  if (tabTg) {
+    tabTg.href = hdrTg.href;
+    if (isMobile) tabTg.removeAttribute('target');
+  }
 
   renderFilters();
   applyFilter();
