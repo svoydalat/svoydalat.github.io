@@ -354,49 +354,33 @@
           </article>
         </div>
 
-        <!-- Календарь цветения: полоски месяцев и отметку «цветёт сейчас» рисует script.js -->
-        <div id="seasons" class="mt-24 sm:mt-32">
-          <div class="reveal flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <h3 class="font-serif text-[clamp(2.2rem,4.6vw,3.4rem)] font-semibold leading-none tracking-[-0.02em]">Что цветёт <em class="font-medium text-hydrangea">и&nbsp;когда</em></h3>
-            <p id="season-now" class="-rotate-1 font-hand text-[1.6rem] font-semibold leading-tight text-sunflower-deep" aria-live="polite"></p>
+        <!-- Календарь цветения: компактная строка на цветок; подсветку «цветёт сейчас» ставит script.js -->
+        <div id="seasons" class="seasons">
+          <div class="reveal flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+            <h3 class="seasons__title">Что цветёт <em class="font-medium text-hydrangea">и&nbsp;когда</em></h3>
+            <p id="season-now" class="font-hand text-[1.3rem] font-semibold leading-tight text-sunflower-deep" aria-live="polite"></p>
           </div>
 
-          <ol class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            <li class="season-card reveal" data-months="12,1,2" style="--season: #D9809A">
-              <span class="season-card__badge">Цветёт сейчас</span>
-              <img class="season-card__img" src="img/flower-cherry.webp" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: ветка дикой вишни">
-              <p class="vi">Mai anh đào</p>
+          <ol class="seasons__list reveal">
+            <li class="season-card" data-months="12,1,2" style="--season: #D9809A">
+              <img class="season-card__img" src="img/flower-cherry.webp" width="560" height="560" loading="lazy" alt="">
               <h4 class="season-card__title">Дикая вишня</h4>
-              <p class="season-card__text">Розовые облака у&nbsp;озера Суан Хыонг&nbsp;— к&nbsp;Тэту, вьетнамскому Новому году.</p>
-              <div class="month-bar" data-month-bar></div>
-              <p class="season-card__when">декабрь&nbsp;— февраль</p>
+              <p class="season-card__when">дек&nbsp;— фев</p>
             </li>
-            <li class="season-card reveal" data-months="3,4,5" style="--season: #6F6AAE; --delay: 100ms">
-              <span class="season-card__badge">Цветёт сейчас</span>
-              <img class="season-card__img" src="img/flower-jacaranda.webp" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: ветка жакаранды">
-              <p class="vi">Phượng tím</p>
+            <li class="season-card" data-months="3,4,5" style="--season: #6F6AAE">
+              <img class="season-card__img" src="img/flower-jacaranda.webp" width="560" height="560" loading="lazy" alt="">
               <h4 class="season-card__title">Жакаранда</h4>
-              <p class="season-card__text">Сиреневые кроны над&nbsp;улицами центра и&nbsp;старыми виллами.</p>
-              <div class="month-bar" data-month-bar></div>
-              <p class="season-card__when">март&nbsp;— май</p>
+              <p class="season-card__when">мар&nbsp;— май</p>
             </li>
-            <li class="season-card reveal" data-months="1,2,3,4,5,6,7,8,9,10,11,12" style="--season: #5F7FB8; --delay: 200ms">
-              <span class="season-card__badge">Цветёт сейчас</span>
-              <img class="season-card__img" src="img/flower-hydrangea.webp" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: соцветие гортензии">
-              <p class="vi">Cẩm tú cầu</p>
+            <li class="season-card" data-months="1,2,3,4,5,6,7,8,9,10,11,12" style="--season: #5F7FB8">
+              <img class="season-card__img" src="img/flower-hydrangea.webp" width="560" height="560" loading="lazy" alt="">
               <h4 class="season-card__title">Гортензия</h4>
-              <p class="season-card__text">Голубые и&nbsp;сиреневые шары у&nbsp;домов, на&nbsp;фермах и&nbsp;в&nbsp;садах.</p>
-              <div class="month-bar" data-month-bar></div>
-              <p class="season-card__when">почти круглый год</p>
+              <p class="season-card__when">круглый год</p>
             </li>
-            <li class="season-card reveal" data-months="10,11,12" style="--season: #E3A21A; --delay: 300ms">
-              <span class="season-card__badge">Цветёт сейчас</span>
-              <img class="season-card__img" src="img/flower-sunflower.webp" width="560" height="560" loading="lazy" alt="Ботаническая иллюстрация: дикий подсолнух">
-              <p class="vi">Dã quỳ</p>
+            <li class="season-card" data-months="10,11,12" style="--season: #E3A21A">
+              <img class="season-card__img" src="img/flower-sunflower.webp" width="560" height="560" loading="lazy" alt="">
               <h4 class="season-card__title">Дикий подсолнух</h4>
-              <p class="season-card__text">Холмы вокруг города становятся золотыми&nbsp;— главный цвет далатской осени.</p>
-              <div class="month-bar" data-month-bar></div>
-              <p class="season-card__when">октябрь&nbsp;— декабрь</p>
+              <p class="season-card__when">окт&nbsp;— дек</p>
             </li>
           </ol>
         </div>

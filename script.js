@@ -215,11 +215,13 @@
   document.querySelectorAll('.season-card').forEach((card) => {
     const months = card.dataset.months.split(',').map(Number);
     const bar = card.querySelector('[data-month-bar]');
-    bar.setAttribute('aria-hidden', 'true');
-    bar.innerHTML = MONTH_LETTERS.map((letter, i) => {
-      const classes = [months.includes(i + 1) && 'is-on', i + 1 === monthNow && 'is-now'].filter(Boolean).join(' ');
-      return `<span class="${classes}"><i></i>${letter}</span>`;
-    }).join('');
+    if (bar) {
+      bar.setAttribute('aria-hidden', 'true');
+      bar.innerHTML = MONTH_LETTERS.map((letter, i) => {
+        const classes = [months.includes(i + 1) && 'is-on', i + 1 === monthNow && 'is-now'].filter(Boolean).join(' ');
+        return `<span class="${classes}"><i></i>${letter}</span>`;
+      }).join('');
+    }
 
     const inSeason = months.includes(monthNow);
     const badge = card.querySelector('.season-card__badge');
