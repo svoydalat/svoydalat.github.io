@@ -75,6 +75,26 @@
     });
   }
 
+  /* ---------- Экран загрузки (установленное приложение) ---------- */
+  const splash = document.getElementById('splash');
+  if (splash) {
+    if (!document.documentElement.classList.contains('has-splash')) {
+      splash.remove();
+    } else {
+      try { sessionStorage.setItem('splash-shown', '1'); } catch (err) { /* без памяти покажется ещё раз — не страшно */ }
+      let hidden = false;
+      const hideSplash = () => {
+        if (hidden) return;
+        hidden = true;
+        splash.classList.add('is-out');
+        setTimeout(() => { splash.remove(); document.documentElement.classList.remove('has-splash'); }, 600);
+      };
+      const afterLoad = () => setTimeout(hideSplash, Math.max(0, 900 - performance.now())); // не мелькает, но и не держит дольше нужного
+      if (document.readyState === 'complete') afterLoad(); else window.addEventListener('load', afterLoad);
+      setTimeout(hideSplash, 4000); // на медленной сети всё равно открываем сайт
+    }
+  }
+
   /* ---------- Мобильное меню ---------- */
   const setMenu = (open) => {
     menu.classList.toggle('hidden', !open);

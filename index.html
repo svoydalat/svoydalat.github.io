@@ -13,6 +13,18 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Свой в Далате">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-startup-image" href="icons/splash-1320x2868.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash-1206x2622.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
 
   <link rel="canonical" href="https://svoydalat.github.io/">
 
@@ -32,6 +44,16 @@
 
   <!-- Включаем анимации появления, только если работает JS -->
   <script>document.documentElement.classList.add('js');</script>
+  <!-- Экран загрузки: только в установленном приложении и только при первом открытии за сеанс (прячет script.js) -->
+  <script>try{if((matchMedia('(display-mode: standalone)').matches||navigator.standalone===true)&&!sessionStorage.getItem('splash-shown'))document.documentElement.classList.add('has-splash')}catch(e){}</script>
+  <style>
+    #splash{position:fixed;inset:0;z-index:2147483000;display:none;flex-direction:column;align-items:center;padding:calc(13vh + env(safe-area-inset-top)) 1.5rem 0;text-align:center;color:#1E3B30;background:#E08468 url(img/splash.webp) center bottom/cover no-repeat;transition:opacity .5s ease,visibility 0s linear .5s}
+    html.has-splash #splash{display:flex}
+    #splash.is-out{opacity:0;visibility:hidden}
+    .splash__title{margin:0;font:600 clamp(2.6rem,13vw,4.2rem)/1 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em}
+    .splash__sub{margin:.7rem 0 0;font:italic 500 1.2rem/1.2 "Cormorant Garamond",Georgia,serif;opacity:.85}
+    @media (prefers-reduced-motion:reduce){#splash{transition:none}}
+  </style>
 
   <!-- Шрифты: Cormorant Garamond (заголовки, вьетнамские названия), Onest (текст), Caveat (рукописные пометки) -->
   <link rel="preload" href="fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
@@ -45,6 +67,7 @@
 </head>
 
 <body class="bg-paper font-sans text-ink antialiased selection:bg-sunflower/30">
+  <div id="splash" aria-hidden="true"><p class="splash__title">Свой в&nbsp;Далате</p><p class="splash__sub">Đà Lạt · город вечной весны</p></div>
 
   <!-- Общие иконки и силуэты гор — используются через <use> -->
   <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

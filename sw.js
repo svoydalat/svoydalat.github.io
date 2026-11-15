@@ -3,7 +3,7 @@
    После изменения файлов сайта увеличьте номер версии в VERSION.
    CRM (/crm/) живёт отдельно, у неё свой service worker — здесь она не обрабатывается.
    ========================================================= */
-const VERSION = 'svoy-dalat-v34';
+const VERSION = 'svoy-dalat-v35';
 const SHELL = `${VERSION}-shell`;
 const TILES = `${VERSION}-tiles`;
 const PHOTOS = `${VERSION}-photos`;
@@ -25,7 +25,7 @@ const PRECACHE = [
   'fonts/cormorant-garamond-cyrillic.woff2', 'fonts/cormorant-garamond-cyrillic-i.woff2',
   'fonts/cormorant-garamond-latin.woff2', 'fonts/cormorant-garamond-latin-i.woff2',
   'fonts/cormorant-garamond-vietnamese.woff2', 'fonts/caveat-cyrillic.woff2', 'fonts/caveat-latin.woff2',
-  'img/hero-xuan-huong.webp', 'img/hero-xuan-huong-640.webp',
+  'img/hero-xuan-huong.webp', 'img/hero-xuan-huong-640.webp', 'img/splash.webp',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png'
 ];
 
