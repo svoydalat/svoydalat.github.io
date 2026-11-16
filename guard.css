@@ -149,3 +149,20 @@ a.tap { display: inline-flex; align-items: center; min-height: 44px; }
 .tap-inline::after { content: ""; position: absolute; inset: -12px -4px; }
 .pick { align-items: center; min-height: 44px; padding-inline: 1rem; }
 .drawer__close, .fav-bar__clear { width: 44px; height: 44px; }
+
+/* ---------- Окно установки на iPhone (pwa.js) ---------- */
+.install-dialog__lead { margin: 0.9rem 0 0; font-size: 15px; line-height: 1.55; color: #2F3B35; }
+.install-dialog__art { display: block; width: 100%; max-width: 20rem; height: auto; margin: 1rem auto 0; color: #16251F; font-family: Onest, system-ui, sans-serif; }
+.install-dialog__steps { margin: 1rem 0 0; padding-left: 1.3rem; font-size: 15px; line-height: 1.55; color: #2F3B35; }
+.install-dialog__steps li + li { margin-top: 0.55rem; }
+.install-dialog__url {
+  display: block; width: 100%; margin-top: 1rem; padding: 0 0.9rem; min-height: 44px;
+  border: 0; border-radius: 0.9rem; background: rgb(22 37 31 / 0.06); color: #16251F; font: 500 14px Onest, system-ui, sans-serif;
+}
+.install-dialog__btn {
+  display: flex; align-items: center; justify-content: center; width: 100%; min-height: 48px; margin-top: 0.8rem;
+  border: 0; border-radius: 9999px; background: #132A22; color: #F4EFE5; font: 600 15px Onest, system-ui, sans-serif; cursor: pointer;
+}
+.install-dialog__btn:active { transform: scale(0.98); }
+.install-dialog__ok { margin: 0.7rem 0 0; font-size: 14px; line-height: 1.5; color: #1E3B30; font-weight: 600; }
+.install-dialog__ok[hidden] { display: none; }
