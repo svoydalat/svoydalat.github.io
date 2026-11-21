@@ -16,6 +16,6 @@
   ],
   "shortcuts": [
     { "name": "Карта Далата", "url": "map.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }] },
-    { "name": "Жильё в аренду", "url": "realty.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }] }
+    { "name": "Подбор жилья", "url": "podbor.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }] }
   ]
 }

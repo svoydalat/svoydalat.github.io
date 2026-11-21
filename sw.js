@@ -3,7 +3,7 @@
    После изменения файлов сайта увеличьте номер версии в VERSION.
    CRM (/crm/) живёт отдельно, у неё свой service worker — здесь она не обрабатывается.
    ========================================================= */
-const VERSION = 'svoy-dalat-v40';
+const VERSION = 'svoy-dalat-v41';
 const SHELL = `${VERSION}-shell`;
 const TILES = `${VERSION}-tiles`;
 const PHOTOS = `${VERSION}-photos`;
@@ -13,10 +13,10 @@ const MAX_TILES = 400; // тайлы OpenStreetMap: храним только т
 
 // Всё, без чего страницы не откроются
 const PRECACHE = [
-  './', 'index.html', 'map.html', 'realty.html', 'offline.html',
+  './', 'index.html', 'map.html', 'podbor.html', 'realty.html', 'offline.html',
   'style.css', 'tw.css', 'map.css', 'guard.css', 'fonts.css',
-  'script.js', 'places.js', 'routes.js', 'map.js', 'realty.js', 'guard.js', 'pwa.js', 'admin.js', 'admin.css',
-  'dalat_realty.json', 'manifest.webmanifest',
+  'script.js', 'places.js', 'routes.js', 'map.js', 'podbor.js', 'podbor.css', 'guard.js', 'pwa.js', 'admin.js', 'admin.css',
+  'manifest.webmanifest',
   'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css',
   'vendor/leaflet/images/layers.png', 'vendor/leaflet/images/layers-2x.png',
   'vendor/leaflet/images/marker-icon.png', 'vendor/leaflet/images/marker-icon-2x.png', 'vendor/leaflet/images/marker-shadow.png',
@@ -128,16 +128,6 @@ self.addEventListener('fetch', (event) => {
   // Страницы: свежие при наличии интернета, без него — сохранённые
   if (request.mode === 'navigate') {
     event.respondWith(networkFirst(request, 'offline.html'));
-    return;
-  }
-  // Каталог жилья обновляется часто — берём свежий, если есть сеть
-  if (url.pathname.endsWith('/dalat_realty.json')) {
-    event.respondWith(networkFirst(request));
-    return;
-  }
-  // Фото объектов лежат на сайте: отдельный кэш с лимитом
-  if (url.pathname.includes('/img/realty/')) {
-    event.respondWith(photoCache(request));
     return;
   }
   // Стили и скрипты — сеть первой, иначе после обновления новая страница откроется со старым оформлением
