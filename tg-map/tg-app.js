@@ -9,7 +9,7 @@
 (() => {
   'use strict';
 
-  const BOT_APP = '';
+  const BOT_APP = 'dima_vacancy_bot/map';
   const BG = '#F4EFE5';
 
   const tg = window.Telegram && window.Telegram.WebApp;
