@@ -103,9 +103,11 @@
     const auto = [];
     if (info && Array.isArray(info.pos)) {
       const [lat, lng] = info.pos;
-      // Карточка самого места (отзывы, часы работы): ищем по названию рядом с точкой
+      // Точно та точка, что на нашей карте
+      auto.push(['Точка в Google Maps', mapsLink(lat, lng)]);
+      // Карточка самого места (отзывы, часы работы): по Place ID — ровно это место, без него — поиск по названию
       const query = [info.vi || info.name, 'Đà Lạt'].filter(Boolean).join(', ');
-      auto.push(['Место в Google Maps', `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`]);
+      auto.push(['Карточка в Google Maps', `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}${info.placeId ? `&query_place_id=${encodeURIComponent(info.placeId)}` : ''}`]);
     }
     const buttons = auto.map(([label, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`).join('');
     // Ссылки Google Maps из листа, которые сайт и так показывает кнопками выше, второй раз не выводим
