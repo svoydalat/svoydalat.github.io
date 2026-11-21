@@ -1373,7 +1373,8 @@
     const stamp = housing.loadedAt ? `обновлено ${new Date(housing.loadedAt).toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}` : '';
     return `
       <div>
-        <header class="sticky top-0 z-20 bg-paper/85 px-5 pb-3 pt-[calc(env(safe-area-inset-top)+18px)] backdrop-blur-xl">
+        <header class="sticky top-0 z-20 bg-paper/85 px-5 pb-3 pt-[calc(env(safe-area-inset-top)+14px)] backdrop-blur-xl">
+          ${homeSwitch('housing')}
           <div class="flex items-end justify-between">
             <h1 class="text-[2.1rem] font-semibold leading-none tracking-tightest">Жильё</h1>
             <div class="flex gap-2"><button type="button" data-action="housing-add" class="press inline-flex min-h-[44px] items-center gap-1.5 rounded-full bg-ink px-4 text-[14px] font-semibold text-paper">${icon('plus', 'h-4 w-4')}Добавить</button>
@@ -1476,9 +1477,10 @@
   const pickOpenChat = async () => {
     const text = document.getElementById('pick-text').value;
     const client = store.get(document.getElementById('pick-client').value);
-    const copied = await copyText(text);
+    const copying = copyText(text);
     const link = client && contactLinks(client).find((l) => l.label === 'Telegram' || l.label === 'WhatsApp');
     if (link) window.open(link.href, link.local ? '_self' : '_blank', 'noopener');
+    const copied = await copying;
     toast(link ? (copied ? 'Текст скопирован: вставьте в чат' : 'Скопируйте текст вручную и вставьте в чат') : 'У клиента нет Telegram или номера: текст скопирован');
   };
 
@@ -1579,6 +1581,517 @@
     }
   };
 
+  /* ---------- Партнёры: отели, homestay и апартаменты (лист «Партнёры (CRM)») ---------- */
+  const PARTNERS_KEY = 'svoy-crm:partners';
+  const TEMPLATES_KEY = 'svoy-crm:templates';
+  const ME_KEY = 'svoy-crm:myname';
+  const SEGMENTS = { hotel: 'Отели и homestay', apartments: 'Апартаменты' };
+  const PARTNER_STATUS = ['новый', 'написал', 'договорились', 'отказ'];
+  const STATUS_STYLE = { новый: 'bg-ink/[0.06] text-ink-soft', написал: 'bg-sunset/15 text-sunset', договорились: 'bg-lagoon-500/15 text-lagoon-700', отказ: 'bg-ink/10 text-ink-soft line-through' };
+  const QUEUE_LIMIT = 30;                          // сообщений за одну очередь
+  const REPEAT_DAYS = 7;                           // не писать тому же партнёру чаще
+  const LANG_LABEL = { vi: 'Вьетнамский', en: 'Английский', ru: 'Русский' };
+  const partners = { items: [], loadedAt: 0, loading: false, error: '', selected: new Set() };
+  const templates = { list: [] };
+  const pf = { segment: 'hotel', status: '', zaloOnly: false, rating: 0, search: '' };
+  const queue = { codes: [], i: 0, templateId: '', dates: '', guests: '', sent: 0, skipped: 0 };
+
+  // Примеры на вьетнамском: проверьте и поправьте под себя
+  const STARTER_TEMPLATES = [
+    { title: 'Знакомство и комиссия', lang: 'vi', text: 'Chào anh/chị, em là {my_name}. Em đưa khách nước ngoài đến Đà Lạt ở dài hạn (từ 1 tháng). Em muốn hợp tác với {name}: em giới thiệu khách và nhận hoa hồng {commission}% cho mỗi lượt đặt. Anh/chị có quan tâm không ạ? Em cảm ơn!' },
+    { title: 'Есть гость на долгий срок', lang: 'vi', text: 'Chào anh/chị, em có khách {guests} người, ở {dates} tại Đà Lạt. {name} còn phòng không ạ? Giá thuê theo tháng là bao nhiêu ạ? Em cảm ơn!' },
+    { title: 'Напоминание', lang: 'vi', text: 'Chào anh/chị, em là {my_name}. Em nhắn lại về đề xuất hợp tác đưa khách ở dài hạn cho {name}. Anh/chị cho em xin ý kiến nhé. Em cảm ơn ạ!' }
+  ];
+
+  const cacheLoad = (key, apply) => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(key));
+      if (saved) apply(saved);
+    } catch {
+      // кэш повреждён — данные загрузятся заново
+    }
+  };
+  const cacheSave = (key, value) => {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // без кэша данные не откроются офлайн — не страшно
+    }
+  };
+  const partnersCacheLoad = () => {
+    cacheLoad(PARTNERS_KEY, (s) => { if (Array.isArray(s.items)) Object.assign(partners, { items: s.items, loadedAt: s.loadedAt || 0 }); });
+    cacheLoad(TEMPLATES_KEY, (s) => { if (Array.isArray(s.list)) templates.list = s.list; });
+  };
+  const partnersStore = () => cacheSave(PARTNERS_KEY, { items: partners.items, loadedAt: partners.loadedAt });
+  const templatesStore = () => cacheSave(TEMPLATES_KEY, { list: templates.list });
+
+  const partnersLoad = async ({ silent = true } = {}) => {
+    if (!sync.connected || partners.loading) return;
+    partners.loading = true;
+    partners.error = '';
+    if (!silent) render();
+    try {
+      const [data, tpl] = await Promise.all([sync.call({ action: 'partners_data' }), sync.call({ action: 'templates_data' })]);
+      partners.items = Array.isArray(data.items) ? data.items : [];
+      partners.loadedAt = Date.now();
+      templates.list = Array.isArray(tpl.templates) ? tpl.templates : [];
+      partnersStore();
+      templatesStore();
+    } catch {
+      partners.error = 'Не удалось обновить список. Показаны прошлые данные.';
+    } finally {
+      partners.loading = false;
+      if (parseRoute().name === 'partners') renderIfIdle();
+    }
+  };
+
+  const partnerApply = (item) => {
+    const i = partners.items.findIndex((p) => p.code === item.code);
+    if (i >= 0) partners.items[i] = item;
+    else partners.items.push(item);
+    partners.items.sort((a, b) => a.code - b.code);
+    partnersStore();
+  };
+
+  const partnerHasZalo = (p) => p.zalo === 'да' && String(p.phone || '').replace(/\D/g, '').length === 10;
+  const sentAgo = (p) => (p.lastSent ? daysBetween(p.lastSent, isoToday()) : null);
+
+  const partnersSorted = () => {
+    const q = pf.search.trim().toLowerCase();
+    return partners.items.filter((p) => {
+      if (p.segment !== pf.segment) return false;
+      if (pf.status && p.status !== pf.status) return false;
+      if (pf.zaloOnly && !partnerHasZalo(p)) return false;
+      if (pf.rating && !((p.rating || 0) >= pf.rating)) return false;
+      if (q && ![p.name, ...(p.names || []), p.address, p.phone].join(' ').toLowerCase().includes(q)) return false;
+      return true;
+    }).sort((a, b) => (partnerHasZalo(b) - partnerHasZalo(a)) || (b.rating || 0) - (a.rating || 0)
+      || (b.reviews || 0) - (a.reviews || 0) || String(a.name).localeCompare(String(b.name)));
+  };
+
+  const partnerCard = (p) => {
+    const digits = String(p.phone || '').replace(/\D/g, '');
+    const hasZalo = partnerHasZalo(p);
+    const btn = 'press inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-full px-4 text-[14px] font-semibold';
+    const site = safeUrl(p.website);
+    const maps = safeUrl(p.mapsUrl) || (p.lat && p.lng ? `https://www.google.com/maps?q=${p.lat},${p.lng}` : '');
+    const ago = sentAgo(p);
+    const rating = p.rating ? `★${NBSP}${p.rating}${p.reviews ? `${NBSP}(${p.reviews})` : ''}` : '';
+    const statusOptions = PARTNER_STATUS.map((s) => `<option value="${s}"${p.status === s ? ' selected' : ''}>${s}</option>`).join('');
+    return `
+      <article class="rounded-[1.5rem] bg-white p-3.5 ring-1 ${partners.selected.has(p.code) ? 'ring-2 ring-lagoon-500' : 'ring-ink/[0.06]'}">
+        <div class="flex items-start justify-between gap-2">
+          <div class="min-w-0">
+            <p class="text-[12px] font-semibold text-ink-soft">P${NBSP}${esc(p.code)}${rating ? ` · ${rating}` : ''}${p.manual === 'да' ? ' · вручную' : ''}</p>
+            <h3 class="mt-0.5 text-[16px] font-semibold leading-snug">${esc(p.name)}</h3>
+          </div>
+          <label class="inline-flex min-h-[44px] min-w-[44px] shrink-0 cursor-pointer items-center justify-end gap-1.5 text-[13px] font-semibold">
+            <input type="checkbox" data-ppick="${esc(p.code)}" class="h-5 w-5 accent-[#1F8A7E]"${partners.selected.has(p.code) ? ' checked' : ''}>Выбрать
+          </label>
+        </div>
+        ${p.address ? `<p class="mt-1 text-[13px] text-ink-soft">${esc(p.address)}</p>` : ''}
+        <p class="mt-0.5 text-[13px] text-ink-soft">${p.phone ? `${esc(phoneText(p.phone))} · ${hasZalo ? 'Zalo не проверен' : 'городской или неполный номер'}` : 'номера нет'}${p.commission !== null && p.commission !== undefined && p.commission !== '' ? ` · комиссия ${esc(p.commission)}${NBSP}%` : ''}</p>
+        ${ago !== null ? `<p class="mt-0.5 text-[12px] ${ago < REPEAT_DAYS ? 'text-sunset' : 'text-ink-soft'}">Писали ${ago === 0 ? 'сегодня' : `${ago}${NBSP}дн. назад`}${p.lastTemplate ? ` · ${esc((templates.list.find((t) => t.id === p.lastTemplate) || {}).title || '')}` : ''}</p>` : ''}
+        ${p.note ? `<p class="mt-1 text-[13px]">${esc(p.note)}</p>` : ''}
+        <div class="mt-2.5 flex flex-wrap items-center gap-2">
+          <select data-pstatus="${esc(p.code)}" aria-label="Статус" class="min-h-[44px] rounded-full px-3 text-[14px] font-semibold outline-none ${STATUS_STYLE[p.status] || STATUS_STYLE['новый']}">${statusOptions}</select>
+          ${hasZalo ? `<a href="https://zalo.me/${digits}" target="_blank" rel="noopener" class="${btn} bg-[#0068FF] text-white">Написать в Zalo</a>` : ''}
+          ${digits ? `<a href="tel:+${digits.replace(/^0/, '84')}" class="${btn} bg-ink text-paper">${icon('phone', 'h-4 w-4')}Позвонить</a>` : ''}
+          ${site ? `<a href="${esc(site)}" target="_blank" rel="noopener" class="${btn} bg-white text-ink ring-1 ring-ink/10">Сайт</a>` : ''}
+          ${maps ? `<a href="${esc(maps)}" target="_blank" rel="noopener" class="${btn} bg-white text-ink ring-1 ring-ink/10">На карте</a>` : ''}
+          <button type="button" data-action="partner-edit" data-code="${esc(p.code)}" class="${btn} text-ink-soft">Править</button>
+        </div>
+      </article>`;
+  };
+
+  const partnerListHTML = () => {
+    const list = partnersSorted();
+    if (!sync.connected && !partners.items.length) {
+      return `<div class="mt-10 text-center"><p class="font-semibold">Список партнёров недоступен</p>
+        <p class="mx-auto mt-1 max-w-xs text-[15px] text-ink-soft">Подключите сервер заявок в разделе «Ещё» (код из бота: /connect).</p></div>`;
+    }
+    if (!partners.items.length) {
+      return `<div class="mt-10 text-center"><p class="font-semibold">${partners.loading ? 'Загружаю…' : 'Партнёров пока нет'}</p>
+        <p class="mx-auto mt-1 max-w-xs text-[15px] text-ink-soft">${partners.loading ? '' : 'Запустите задание «Обновить партнёров» в GitHub (Actions) или добавьте партнёра вручную.'}</p></div>`;
+    }
+    if (!list.length) return '<div class="mt-10 text-center"><p class="font-semibold">Ничего не найдено</p><p class="mt-1 text-[15px] text-ink-soft">Ослабьте фильтры.</p></div>';
+    return `<div class="mt-4 space-y-3">${list.map(partnerCard).join('')}</div>`;
+  };
+
+  // Переключатель «Жильё / Партнёры» — общий для обоих экранов, обе вкладки живут под значком «Жильё»
+  const homeSwitch = (active) => `
+    <div class="mb-3 flex rounded-full bg-ink/[0.06] p-1">
+      ${[['housing', 'Жильё'], ['partners', 'Партнёры']].map(([id, label]) => `
+        <a href="#/${id}" class="flex min-h-[44px] flex-1 items-center justify-center rounded-full text-[13px] font-semibold transition ${active === id ? 'bg-white text-ink shadow-sm' : 'text-ink-soft'}">${label}</a>`).join('')}
+    </div>`;
+
+  const viewPartners = () => {
+    const list = partnersSorted();
+    const total = partners.items.filter((p) => p.segment === pf.segment).length;
+    const sel = 'min-h-[44px] w-full rounded-full bg-white px-3 text-[16px] ring-1 ring-ink/[0.08] outline-none focus:ring-2 focus:ring-lagoon-500';
+    const opt = (value, label, current) => `<option value="${esc(value)}"${String(current) === String(value) ? ' selected' : ''}>${label}</option>`;
+    const seg = (id) => `
+      <button type="button" data-action="partner-segment" data-segment="${id}"
+              class="min-h-[44px] shrink-0 rounded-full px-3.5 text-[13px] font-semibold transition ${pf.segment === id ? 'bg-ink text-paper' : 'bg-white text-ink-soft ring-1 ring-ink/[0.08]'}">
+        ${SEGMENTS[id]}<span class="ml-1.5 opacity-60">${partners.items.filter((p) => p.segment === id).length}</span>
+      </button>`;
+    const chosen = partners.selected.size;
+    const stamp = partners.loadedAt ? `обновлено ${new Date(partners.loadedAt).toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}` : '';
+    return `
+      <div>
+        <header class="sticky top-0 z-20 bg-paper/85 px-5 pb-3 pt-[calc(env(safe-area-inset-top)+14px)] backdrop-blur-xl">
+          ${homeSwitch('partners')}
+          <div class="flex items-end justify-between">
+            <h1 class="text-[2.1rem] font-semibold leading-none tracking-tightest">Партнёры</h1>
+            <div class="flex gap-2">
+              <button type="button" data-action="partner-add" class="press inline-flex min-h-[44px] items-center gap-1.5 rounded-full bg-ink px-4 text-[14px] font-semibold text-paper">${icon('plus', 'h-4 w-4')}Добавить</button>
+              <button type="button" data-action="partners-refresh" aria-label="Обновить список" class="press grid h-11 w-11 place-items-center rounded-full bg-white ring-1 ring-ink/[0.08]">${icon('refresh', `h-5 w-5${partners.loading ? ' animate-spin' : ''}`)}</button>
+            </div>
+          </div>
+          <div class="no-scrollbar -mx-5 mt-3 flex gap-2 overflow-x-auto px-5">${seg('hotel')}${seg('apartments')}</div>
+          <p class="mt-2 text-[13px] text-ink-soft">${list.length} из ${total}${stamp ? ` · ${stamp}` : ''}</p>
+          <label class="mt-2 flex items-center gap-2.5 rounded-full bg-white px-4 ring-1 ring-ink/[0.08] focus-within:ring-2 focus-within:ring-lagoon-500">
+            ${icon('search', 'h-5 w-5 shrink-0 text-ink-soft')}
+            <input id="partner-search" type="search" value="${esc(pf.search)}" placeholder="Название, адрес, номер" autocomplete="off" class="w-full bg-transparent py-3 text-[16px] outline-none placeholder:text-ink-soft/60">
+          </label>
+          <div class="mt-2 grid grid-cols-2 gap-2">
+            <select data-pf="status" aria-label="Статус" class="${sel}">${opt('', 'Любой статус', pf.status)}${PARTNER_STATUS.map((s) => opt(s, s, pf.status)).join('')}</select>
+            <select data-pf="rating" aria-label="Рейтинг" class="${sel}">${opt(0, 'Любой рейтинг', pf.rating)}${opt(4, 'от 4,0', pf.rating)}${opt(4.5, 'от 4,5', pf.rating)}</select>
+            <label class="col-span-2 flex min-h-[44px] items-center gap-2.5 px-1 text-[15px] font-medium">
+              <input type="checkbox" data-pf="zaloOnly" class="h-5 w-5 accent-[#1F8A7E]"${pf.zaloOnly ? ' checked' : ''}> Только с номером для Zalo
+            </label>
+          </div>
+          <div class="mt-1 flex flex-wrap gap-2">
+            <button type="button" data-action="partner-select-all" class="press min-h-[44px] rounded-full bg-white px-4 text-[14px] font-semibold ring-1 ring-ink/10">Выбрать всех (${list.length})</button>
+            <button type="button" data-action="templates-open" class="press min-h-[44px] rounded-full bg-white px-4 text-[14px] font-semibold ring-1 ring-ink/10">Шаблоны (${templates.list.length})</button>
+          </div>
+        </header>
+        <div class="px-5">
+          ${partners.error ? `<p class="mt-3 rounded-2xl bg-sunset/10 px-4 py-3 text-[14px] text-sunset">${esc(partners.error)}</p>` : ''}
+          <div id="partner-list">${partnerListHTML()}</div>
+        </div>
+        ${chosen ? `
+        <div class="fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+92px)] z-30 px-3">
+          <div class="mx-auto flex max-w-md items-center gap-2 rounded-full bg-ink px-3 py-1.5 text-paper shadow-lg">
+            <span class="pl-2 text-[14px] font-semibold">Выбрано: ${chosen}</span>
+            <button type="button" data-action="queue-setup" class="press ml-auto min-h-[44px] rounded-full bg-paper px-4 text-[14px] font-semibold text-ink">Написать</button>
+            <button type="button" data-action="partner-clear" aria-label="Сбросить выбор" class="min-h-[44px] min-w-[44px] text-[18px]">×</button>
+          </div>
+        </div>` : ''}
+      </div>`;
+  };
+
+  /* --- Подстановки в шаблон --- */
+  const myName = () => {
+    let name = '';
+    try {
+      name = localStorage.getItem(ME_KEY) || '';
+    } catch {
+      // имя просто спросим ещё раз
+    }
+    return name;
+  };
+  const fillTemplate = (text, p) => String(text || '')
+    .replace(/\{name\}/g, p.name || '')
+    .replace(/\{contact\}/g, p.contact || '')
+    .replace(/\{commission\}/g, p.commission === null || p.commission === undefined || p.commission === '' ? '' : String(p.commission))
+    .replace(/\{dates\}/g, queue.dates)
+    .replace(/\{guests\}/g, queue.guests)
+    .replace(/\{my_name\}/g, myName());
+
+  const sheetHeader = (title, left = 'Закрыть') => `
+    <div class="flex items-center justify-between px-5 pb-2 pt-2">
+      <button type="button" data-action="close-sheet" class="min-h-[44px] text-[15px] font-medium text-ink-soft">${left}</button>
+      <h2 class="text-[15px] font-semibold">${title}</h2>
+      <span class="w-14"></span>
+    </div>`;
+  const sheetBody = (html) => `<div class="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-5 pb-[calc(env(safe-area-inset-bottom)+28px)] pt-2">${html}</div>`;
+  const bigBtn = (action, label, style = 'bg-ink text-paper', extra = '') => `<button type="button" data-action="${action}" ${extra} class="press min-h-[44px] rounded-full px-5 text-[15px] font-semibold ${style}">${label}</button>`;
+
+  /* --- Очередь «написать выбранным» --- */
+  const queueTemplate = () => templates.list.find((t) => t.id === queue.templateId) || null;
+
+  const queueSetupSheet = () => {
+    const chosen = partners.items.filter((p) => partners.selected.has(p.code));
+    const ready = chosen.filter(partnerHasZalo);
+    const recent = ready.filter((p) => sentAgo(p) !== null && sentAgo(p) < REPEAT_DAYS);
+    const options = templates.list.map((t) => `<option value="${esc(t.id)}"${t.id === queue.templateId ? ' selected' : ''}>${esc(t.title)}</option>`).join('');
+    sheet.open(`
+      <div class="flex min-h-0 flex-1 flex-col">
+        ${sheetHeader('Написать партнёрам')}
+        ${sheetBody(`
+          <p class="text-[15px]">Выбрано: <b>${chosen.length}</b>. Можно написать в Zalo: <b>${ready.length}</b>${chosen.length > ready.length ? ` (у ${chosen.length - ready.length} нет номера для Zalo, их пропущу)` : ''}.</p>
+          ${ready.length > QUEUE_LIMIT ? `<p class="rounded-2xl bg-sunset/10 px-4 py-3 text-[14px] text-sunset">За один раз — не больше ${QUEUE_LIMIT}: частые одинаковые сообщения Zalo может счесть спамом. Остальные останутся выбранными.</p>` : ''}
+          ${recent.length ? `<p class="rounded-2xl bg-sunset/10 px-4 py-3 text-[14px] text-sunset">${recent.length} уже получили сообщение меньше ${REPEAT_DAYS} дней назад: перед отправкой я спрошу ещё раз.</p>` : ''}
+          ${templates.list.length ? `
+          <label class="block"><span class="field-legend">Шаблон</span>
+            <select id="queue-template" class="min-h-[44px] w-full rounded-full bg-white px-3 text-[16px] ring-1 ring-ink/[0.08] outline-none">${options}</select></label>
+          <div class="group-list">
+            ${row('Даты', `<input class="row-input" id="queue-dates" value="${esc(queue.dates)}" placeholder="с 1 по 31 декабря" autocomplete="off" maxlength="80">`)}
+            ${row('Гостей', `<input class="row-input" id="queue-guests" value="${esc(queue.guests)}" placeholder="2" inputmode="numeric" autocomplete="off" maxlength="20">`)}
+          </div>
+          <p class="text-[13px] text-ink-soft">Подставятся: {name}, {contact}, {commission}, {dates}, {guests}, {my_name}.</p>
+          ${bigBtn('queue-start', 'Начать', 'bg-ink text-paper', ready.length ? '' : 'disabled')}`
+    : `<p class="text-[15px]">Шаблонов пока нет.</p>${bigBtn('templates-open', 'Открыть шаблоны', 'bg-ink text-paper')}`}
+        `)}
+      </div>`);
+  };
+
+  const queueStepSheet = () => {
+    const p = partners.items.find((x) => x.code === queue.codes[queue.i]);
+    const t = queueTemplate();
+    if (!p || !t) { sheet.close(); render(); return; }
+    const ago = sentAgo(p);
+    sheet.open(`
+      <div class="flex min-h-0 flex-1 flex-col">
+        ${sheetHeader(`${queue.i + 1} из ${queue.codes.length}`, 'Закончить')}
+        ${sheetBody(`
+          <div>
+            <p class="text-[12px] font-semibold text-ink-soft">P${NBSP}${esc(p.code)}${p.rating ? ` · ★${NBSP}${esc(p.rating)}` : ''}</p>
+            <h3 class="text-[18px] font-semibold">${esc(p.name)}</h3>
+            <p class="text-[13px] text-ink-soft">${esc(phoneText(p.phone))} · Zalo не проверен</p>
+            ${ago !== null && ago < REPEAT_DAYS ? `<p class="mt-1 text-[14px] font-semibold text-sunset">Писали ${ago === 0 ? 'сегодня' : `${ago} дн. назад`}. Точно отправить ещё раз?</p>` : ''}
+          </div>
+          <textarea id="queue-text" rows="9" class="block w-full rounded-[1.25rem] bg-white px-4 py-3.5 text-[16px] outline-none ring-1 ring-ink/[0.06] focus:ring-2 focus:ring-lagoon-500">${esc(fillTemplate(t.text, p))}</textarea>
+          <p class="text-[13px] text-ink-soft">Нажмите первую кнопку: текст скопируется и откроется чат Zalo. Вставьте текст и отправьте, потом вернитесь и нажмите «Отправлено».</p>
+          <div class="flex flex-wrap gap-2">
+            ${bigBtn('queue-open', 'Скопировать и открыть Zalo', 'bg-[#0068FF] text-white')}
+            ${bigBtn('queue-sent', 'Отправлено', 'bg-ink text-paper')}
+            ${bigBtn('queue-skip', 'Пропустить', 'bg-white text-ink ring-1 ring-ink/10')}
+          </div>
+        `)}
+      </div>`);
+  };
+
+  const queueDone = () => {
+    sheet.open(`
+      <div class="flex min-h-0 flex-1 flex-col">
+        ${sheetHeader('Готово')}
+        ${sheetBody(`<p class="text-[17px] font-semibold">Отправлено: ${queue.sent}, пропущено: ${queue.skipped}.</p>
+          <p class="text-[14px] text-ink-soft">Кому написали, у тех статус «написал» и дата в карточке.</p>${bigBtn('close-sheet', 'Закрыть')}`)}
+      </div>`);
+    partners.selected.clear();
+    render();
+  };
+
+  const queueAdvance = () => {
+    queue.i += 1;
+    if (queue.i >= queue.codes.length) queueDone();
+    else queueStepSheet();
+  };
+
+  const queueStart = () => {
+    const select = document.getElementById('queue-template');
+    queue.templateId = select ? select.value : '';
+    queue.dates = (document.getElementById('queue-dates') || {}).value || '';
+    queue.guests = (document.getElementById('queue-guests') || {}).value || '';
+    if (!queue.templateId) return;
+    if (!myName() && /\{my_name\}/.test(queueTemplate().text)) {
+      const name = (prompt('Как вас представлять партнёрам? (подставится в {my_name})') || '').trim();
+      if (name) {
+        try {
+          localStorage.setItem(ME_KEY, name);
+        } catch {
+          // имя придётся ввести заново
+        }
+      }
+    }
+    queue.codes = partners.items.filter((p) => partners.selected.has(p.code) && partnerHasZalo(p)).map((p) => p.code).slice(0, QUEUE_LIMIT);
+    Object.assign(queue, { i: 0, sent: 0, skipped: 0 });
+    if (queue.codes.length) queueStepSheet();
+  };
+
+  const queueOpenZalo = () => {
+    const p = partners.items.find((x) => x.code === queue.codes[queue.i]);
+    if (!p) return;
+    // Окно открываем сразу, без ожидания буфера: иначе браузер блокирует его как всплывающее
+    const copied = copyText(document.getElementById('queue-text').value);
+    window.open(`https://zalo.me/${String(p.phone).replace(/\D/g, '')}`, '_blank', 'noopener');
+    copied.then((ok) => toast(ok ? 'Текст скопирован: вставьте в чат Zalo' : 'Скопируйте текст вручную'));
+  };
+
+  const queueMarkSent = async () => {
+    const p = partners.items.find((x) => x.code === queue.codes[queue.i]);
+    if (!p) return;
+    try {
+      const data = await sync.call({ action: 'partners_update', code: p.code, fields: { sent: true, template: queue.templateId } });
+      partnerApply(data.item);
+      queue.sent += 1;
+      queueAdvance();
+    } catch {
+      toast('Не удалось сохранить отметку. Повторите');
+    }
+  };
+
+  const partnerStatusChange = async (code, status) => {
+    try {
+      const data = await sync.call({ action: 'partners_update', code: Number(code), fields: { status } });
+      partnerApply(data.item);
+    } catch {
+      toast('Не удалось сменить статус');
+    }
+    render();
+  };
+
+  /* --- Правка партнёра --- */
+  const openPartnerForm = (code) => {
+    const p = code ? partners.items.find((x) => x.code === Number(code)) : null;
+    const manual = !p || p.manual === 'да';
+    const input = (label, name, value, attrs = '') => row(label, `<input class="row-input" name="${name}" value="${esc(value ?? '')}" ${attrs}>`);
+    sheet.open(`
+      <form id="partner-form" class="flex min-h-0 flex-1 flex-col" data-code="${p ? p.code : ''}" data-manual="${manual ? '1' : ''}" novalidate>
+        <div class="flex items-center justify-between px-5 pb-2 pt-2">
+          <button type="button" data-action="close-sheet" class="min-h-[44px] text-[15px] font-medium text-ink-soft">Отмена</button>
+          <h2 class="text-[15px] font-semibold">${p ? 'Партнёр' : 'Новый партнёр'}</h2>
+          <button type="submit" class="min-h-[44px] text-[15px] font-semibold text-lagoon-700">Готово</button>
+        </div>
+        ${sheetBody(`
+          ${p ? `<p class="text-[16px] font-semibold">${esc(p.name)}</p>` : ''}
+          ${manual ? `<div class="group-list">
+            ${input('Название', 'name', p && p.name, 'maxlength="200" autocomplete="off" required')}
+            <label class="row"><span class="row-label">Сегмент</span><select class="row-input" name="segment">${Object.entries(SEGMENTS).map(([k, v]) => `<option value="${k}"${(p ? p.segment : pf.segment) === k ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
+            ${input('Адрес', 'address', p && p.address, 'maxlength="300" autocomplete="off"')}
+            ${input('Сайт', 'website', p && p.website, 'type="url" autocomplete="off"')}
+          </div>` : ''}
+          <div class="group-list">
+            ${input('Телефон', 'phone', p && p.phone, 'type="tel" placeholder="0912345678" maxlength="20" autocomplete="off"')}
+            <label class="row"><span class="row-label">Статус</span><select class="row-input" name="status">${PARTNER_STATUS.map((s) => `<option value="${s}"${(p ? p.status : 'новый') === s ? ' selected' : ''}>${s}</option>`).join('')}</select></label>
+            ${input('Комиссия, %', 'commission', p && p.commission, 'type="number" inputmode="decimal" min="0" max="100" step="0.5"')}
+            ${input('Контакт', 'contact', p && p.contact, 'maxlength="120" autocomplete="off" placeholder="Имя менеджера"')}
+          </div>
+          <div><p class="field-legend">Заметка</p>
+            <textarea name="note" rows="3" maxlength="2000" class="block w-full rounded-[1.25rem] bg-white px-4 py-3.5 text-[16px] outline-none ring-1 ring-ink/[0.06] focus:ring-2 focus:ring-lagoon-500">${esc(p && p.note)}</textarea></div>
+          ${p && manual ? '<button type="button" data-action="partner-delete" class="min-h-[44px] w-full rounded-full text-[15px] font-semibold text-sunset">Удалить партнёра</button>' : ''}
+        `)}
+      </form>`);
+  };
+
+  const savePartnerForm = async (form) => {
+    if (!sync.connected) { toast('Подключите сервер заявок в разделе «Ещё»'); return; }
+    const f = form.elements;
+    let code = Number(form.dataset.code) || 0;
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = true;
+    try {
+      if (form.dataset.manual) {
+        if (!f.name.value.trim()) { toast('Укажите название'); button.disabled = false; return; }
+        const saved = await sync.call({ action: 'partners_manual_upsert', item: {
+          ...(code ? { code } : {}), name: f.name.value.trim(), segment: f.segment.value, address: f.address.value.trim(),
+          website: f.website.value.trim(), phone: f.phone.value.trim()
+        } });
+        code = saved.item.code;
+        partnerApply(saved.item);
+      }
+      const fields = { status: f.status.value, commission: f.commission.value, contact: f.contact.value.trim(), note: f.note.value.trim() };
+      if (!form.dataset.manual) fields.phone = f.phone.value.trim();
+      const data = await sync.call({ action: 'partners_update', code, fields });
+      partnerApply(data.item);
+      sheet.close();
+      toast('Сохранено');
+      render();
+    } catch {
+      button.disabled = false;
+      toast('Не удалось сохранить. Проверьте связь и повторите');
+    }
+  };
+
+  const deletePartner = async (form) => {
+    const code = Number(form.dataset.code);
+    if (!code || !confirm(`Удалить партнёра P${code}? Это нельзя отменить.`)) return;
+    try {
+      await sync.call({ action: 'partners_manual_delete', code });
+      partners.items = partners.items.filter((p) => p.code !== code);
+      partners.selected.delete(code);
+      partnersStore();
+      sheet.close();
+      toast('Удалено');
+      render();
+    } catch {
+      toast('Не удалось удалить');
+    }
+  };
+
+  /* --- Шаблоны сообщений --- */
+  const openTemplates = () => {
+    const items = templates.list.map((t) => `
+      <button type="button" data-action="template-edit" data-id="${esc(t.id)}" class="press block w-full rounded-[1.25rem] bg-white p-3.5 text-left ring-1 ring-ink/[0.06]">
+        <span class="flex items-center justify-between gap-2"><span class="font-semibold">${esc(t.title)}</span><span class="text-[12px] text-ink-soft">${esc(LANG_LABEL[t.lang] || t.lang)}</span></span>
+        <span class="mt-1 line-clamp-2 block text-[13px] text-ink-soft">${esc(t.text)}</span>
+      </button>`).join('');
+    sheet.open(`
+      <div class="flex min-h-0 flex-1 flex-col">
+        ${sheetHeader('Шаблоны сообщений')}
+        ${sheetBody(`
+          ${items || '<p class="text-[15px] text-ink-soft">Шаблонов пока нет.</p>'}
+          ${bigBtn('template-new', 'Новый шаблон')}
+          ${templates.list.length ? '' : bigBtn('template-starters', 'Создать примеры (вьетнамский)', 'bg-white text-ink ring-1 ring-ink/10')}
+        `)}
+      </div>`);
+  };
+
+  const openTemplateForm = (id) => {
+    const t = id ? templates.list.find((x) => x.id === id) : null;
+    sheet.open(`
+      <form id="template-form" class="flex min-h-0 flex-1 flex-col" data-id="${t ? esc(t.id) : ''}" novalidate>
+        <div class="flex items-center justify-between px-5 pb-2 pt-2">
+          <button type="button" data-action="templates-open" class="min-h-[44px] text-[15px] font-medium text-ink-soft">Назад</button>
+          <h2 class="text-[15px] font-semibold">${t ? 'Шаблон' : 'Новый шаблон'}</h2>
+          <button type="submit" class="min-h-[44px] text-[15px] font-semibold text-lagoon-700">Готово</button>
+        </div>
+        ${sheetBody(`
+          <div class="group-list">
+            ${row('Название', `<input class="row-input" name="title" value="${esc(t && t.title)}" maxlength="80" autocomplete="off" required>`)}
+            <label class="row"><span class="row-label">Язык</span><select class="row-input" name="lang">${Object.entries(LANG_LABEL).map(([k, v]) => `<option value="${k}"${(t ? t.lang : 'vi') === k ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
+          </div>
+          <textarea name="text" rows="9" maxlength="3000" required class="block w-full rounded-[1.25rem] bg-white px-4 py-3.5 text-[16px] outline-none ring-1 ring-ink/[0.06] focus:ring-2 focus:ring-lagoon-500">${esc(t && t.text)}</textarea>
+          <p class="text-[13px] text-ink-soft">Подстановки: {name} — название, {contact} — контакт, {commission} — комиссия %, {dates} и {guests} — спросим перед рассылкой, {my_name} — ваше имя.</p>
+          ${t ? '<button type="button" data-action="template-delete" class="min-h-[44px] w-full rounded-full text-[15px] font-semibold text-sunset">Удалить шаблон</button>' : ''}
+        `)}
+      </form>`);
+  };
+
+  const saveTemplateForm = async (form) => {
+    if (!sync.connected) { toast('Подключите сервер заявок в разделе «Ещё»'); return; }
+    const f = form.elements;
+    if (!f.title.value.trim() || !f.text.value.trim()) { toast('Заполните название и текст'); return; }
+    try {
+      const data = await sync.call({ action: 'templates_save', template: { id: form.dataset.id || undefined, title: f.title.value, lang: f.lang.value, text: f.text.value } });
+      const i = templates.list.findIndex((t) => t.id === data.template.id);
+      if (i >= 0) templates.list[i] = data.template;
+      else templates.list.push(data.template);
+      templatesStore();
+      openTemplates();
+    } catch {
+      toast('Не удалось сохранить шаблон');
+    }
+  };
+
+  const deleteTemplate = async (form) => {
+    const id = form.dataset.id;
+    if (!id || !confirm('Удалить шаблон? Это нельзя отменить.')) return;
+    try {
+      await sync.call({ action: 'templates_delete', id });
+      templates.list = templates.list.filter((t) => t.id !== id);
+      templatesStore();
+      openTemplates();
+    } catch {
+      toast('Не удалось удалить шаблон');
+    }
+  };
+
+  const createStarters = async () => {
+    try {
+      for (const t of STARTER_TEMPLATES) {
+        const data = await sync.call({ action: 'templates_save', template: t });
+        templates.list.push(data.template);
+      }
+      templatesStore();
+      openTemplates();
+    } catch {
+      toast('Не удалось создать примеры');
+    }
+  };
+
   /* ---------- Уведомление ---------- */
   function toast(message) {
     const el = document.getElementById('toast');
@@ -1597,16 +2110,17 @@
 
   function render() {
     const { name, param, query } = parseRoute();
-    const views = { today: viewToday, clients: viewClients, housing: viewHousing, arrivals: viewArrivals, more: viewMore };
+    const views = { today: viewToday, clients: viewClients, housing: viewHousing, partners: viewPartners, arrivals: viewArrivals, more: viewMore };
 
     if (name === 'clients' && query.has('stage')) ui.stage = query.get('stage');
     if (name !== 'client') ui.listRoute = location.hash || '#/today';
     if (name === 'housing' && Date.now() - housing.loadedAt > 5 * 60 * 1000) housingLoad();
+    if (name === 'partners' && Date.now() - partners.loadedAt > 5 * 60 * 1000) partnersLoad();
 
     document.getElementById('view').innerHTML = name === 'client' ? viewClient(param) : (views[name] || viewToday)();
 
     document.querySelectorAll('[data-tab]').forEach((tab) => {
-      const active = tab.dataset.tab === (name === 'client' ? 'clients' : name);
+      const active = tab.dataset.tab === (name === 'client' ? 'clients' : name === 'partners' ? 'housing' : name);
       tab.classList.toggle('is-active', active);
       if (active) tab.setAttribute('aria-current', 'page');
       else tab.removeAttribute('aria-current');
@@ -1711,6 +2225,61 @@
       case 'housing-refresh':
         housingLoad({ silent: false });
         break;
+      case 'partners-refresh':
+        partnersLoad({ silent: false });
+        break;
+      case 'partner-segment':
+        pf.segment = el.dataset.segment;
+        render();
+        break;
+      case 'partner-add':
+        openPartnerForm('');
+        break;
+      case 'partner-edit':
+        openPartnerForm(el.dataset.code);
+        break;
+      case 'partner-delete':
+        deletePartner(document.getElementById('partner-form'));
+        break;
+      case 'partner-select-all':
+        partnersSorted().forEach((p) => partners.selected.add(p.code));
+        render();
+        break;
+      case 'partner-clear':
+        partners.selected.clear();
+        render();
+        break;
+      case 'templates-open':
+        openTemplates();
+        break;
+      case 'template-new':
+        openTemplateForm('');
+        break;
+      case 'template-edit':
+        openTemplateForm(el.dataset.id);
+        break;
+      case 'template-delete':
+        deleteTemplate(document.getElementById('template-form'));
+        break;
+      case 'template-starters':
+        createStarters();
+        break;
+      case 'queue-setup':
+        queueSetupSheet();
+        break;
+      case 'queue-start':
+        queueStart();
+        break;
+      case 'queue-open':
+        queueOpenZalo();
+        break;
+      case 'queue-sent':
+        queueMarkSent();
+        break;
+      case 'queue-skip':
+        queue.skipped += 1;
+        queueAdvance();
+        break;
       case 'housing-add':
         openHousingForm('');
         break;
@@ -1786,6 +2355,14 @@
       e.preventDefault();
       saveEditor(form);
     }
+    if (form.id === 'partner-form') {
+      e.preventDefault();
+      savePartnerForm(form);
+    }
+    if (form.id === 'template-form') {
+      e.preventDefault();
+      saveTemplateForm(form);
+    }
     if (form.id === 'housing-form') {
       e.preventDefault();
       saveHousingForm(form);
@@ -1820,6 +2397,10 @@
 
   document.addEventListener('input', (e) => {
     if (e.target.id === 'quick') applyQuick(e.target.value);
+    if (e.target.id === 'partner-search') {
+      pf.search = e.target.value;
+      document.getElementById('partner-list').innerHTML = partnerListHTML();
+    }
     if (e.target.id === 'search') {
       ui.search = e.target.value;
       document.getElementById('client-list').innerHTML = clientListHTML();
@@ -1889,6 +2470,7 @@
   store.load();
   sync.load();
   housingCacheLoad();
+  partnersCacheLoad();
 
   // «Поделиться» из других приложений (Android): текст приходит в адресе страницы
   const params = new URLSearchParams(location.search);
@@ -1898,6 +2480,23 @@
   document.addEventListener('change', (e) => {
     if (e.target.id === 'pick-client') {
       document.getElementById('pick-text').value = pickText(store.get(e.target.value));
+      return;
+    }
+    if (e.target.dataset && e.target.dataset.ppick) {
+      const code = Number(e.target.dataset.ppick);
+      if (e.target.checked) partners.selected.add(code);
+      else partners.selected.delete(code);
+      render();
+      return;
+    }
+    if (e.target.dataset && e.target.dataset.pstatus) {
+      partnerStatusChange(e.target.dataset.pstatus, e.target.value);
+      return;
+    }
+    if (e.target.dataset && e.target.dataset.pf) {
+      const key = e.target.dataset.pf;
+      pf[key] = e.target.type === 'checkbox' ? e.target.checked : (key === 'rating' ? Number(e.target.value) : e.target.value);
+      render();
       return;
     }
     if (e.target.dataset && e.target.dataset.pick) {
