@@ -291,16 +291,11 @@
     });
   }
 
-  /* ---------- Заявки: на сервер (бот «Свой CRM»), а если он недоступен — в Telegram ---------- */
+  /* ---------- Заявка: ничего не хранится, по кнопке открывается Telegram с готовым текстом ---------- */
   const leadForm = document.getElementById('lead-form');
   const leadStatus = document.getElementById('lead-status');
-  const LEAD_ENDPOINT = leadForm ? leadForm.dataset.endpoint : '';
   const TELEGRAM_USER = (leadForm && leadForm.dataset.telegram) || 'razumovdimka';
-  const SEND_TIMEOUT_MS = 20000;
-  // Пометка в начале текста: бот и таблица сразу показывают, что заявка из Далата
-  const CITY_MARK = '📍 Далат · заявка с сайта';
-  const pageShownAt = Date.now();
-  const servicesRu = { airport: 'встреча по приезде', housing: 'жильё', bike: 'байк', help: 'помощь на месте' };
+  const servicesRu = { consult: 'консультация', housing: 'подбор жилья', turnkey: 'переезд под ключ', question: 'вопрос' };
   const channelsRu = { telegram: 'Telegram', whatsapp: 'WhatsApp', phone: 'звонок' };
   const contactPlaceholder = (channel) => (channel === 'telegram' ? '@ник или номер' : '+7 900 000-00-00');
   // Для звонка и WhatsApp поле становится телефонным: на телефоне открывается цифровая клавиатура
@@ -313,7 +308,7 @@
 
   const leadTelegramUrl = (lead) => {
     const text = [
-      'Заявка на поездку в Далат',
+      'Заявка с сайта (Далат)',
       `Имя: ${lead.name}`,
       `Связь: ${lead.contact} (${channelsRu[lead.channel] || lead.channel})`,
       lead.arrival && `Приезд: ${lead.arrival.split('-').reverse().join('.')}`,
@@ -323,36 +318,6 @@
     ].filter(Boolean).join('\n');
     return `https://t.me/${TELEGRAM_USER}?text=${encodeURIComponent(text)}`;
   };
-
-  // true — сервер принял заявку; false — сервер не указан; ошибка — сервер не ответил
-  const sendLead = async (lead) => {
-    if (!LEAD_ENDPOINT) return false;
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), SEND_TIMEOUT_MS);
-    try {
-      // text/plain — чтобы Google Apps Script принял запрос без предварительной CORS-проверки
-      const res = await fetch(LEAD_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          action: 'lead',
-          elapsed: Date.now() - pageShownAt,
-          ...lead,
-          message: [CITY_MARK, lead.message].filter(Boolean).join('\n')
-        }),
-        signal: controller.signal
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const result = await res.json();
-      if (!result.ok) throw new Error(result.error);
-      return true;
-    } finally {
-      clearTimeout(timer);
-    }
-  };
-
-  const telegramFallbackLink = (lead) =>
-    `<a class="font-semibold underline" href="${telegramHref(leadTelegramUrl(lead))}"${isMobile ? '' : ' target="_blank" rel="noopener noreferrer"'}>Отправьте её в Telegram</a>`;
 
   if (leadForm && leadStatus) {
     const showLeadStatus = (html, ok) => {
@@ -370,27 +335,22 @@
       applyChannel(leadForm.elements.contact, e.target.value);
     });
 
-    leadForm.addEventListener('submit', async (e) => {
+    leadForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (leadForm.dataset.sending) return; // защита от двойной отправки
+      if (leadForm.elements.website && leadForm.elements.website.value) return; // ловушка для спам-ботов
 
       const data = new FormData(leadForm);
-      // Сервер заявок знает четыре услуги, поэтому рыбалку передаём строкой в тексте заявки —
-      // так она доходит до бота без обновления сервера
-      const services = data.getAll('services');
       const lead = {
         name: String(data.get('name') || '').trim(),
         channel: data.get('channel'),
         contact: String(data.get('contact') || '').trim(),
         arrival: data.get('arrival'),
         guests: data.get('guests'),
-        services: services.filter((s) => s !== 'fishing'),
+        services: data.getAll('services'),
         message: [
-          services.includes('fishing') && 'Хочу на рыбалку с берега',
           data.get('route') && `Как еду в Далат: ${String(data.get('route')).trim()}`,
           String(data.get('message') || '').trim()
-        ].filter(Boolean).join('\n'),
-        website: data.get('website')
+        ].filter(Boolean).join('\n')
       };
 
       // required пропускает строку из одних пробелов — проверяем после обрезки
@@ -398,27 +358,13 @@
         showLeadStatus('Укажите имя и контакт — иначе я не смогу вам ответить.', false);
         return;
       }
-
-      const button = leadForm.querySelector('button[type="submit"]');
-      leadForm.dataset.sending = '1';
-      button.disabled = true;
-      try {
-        if (await sendLead(lead)) {
-          leadForm.reset();
-          applyChannel(leadForm.elements.contact, 'telegram');
-          showLeadStatus('Спасибо! Заявка отправлена — скоро свяжусь с вами.', true);
-        } else {
-          // Адрес сервера не указан — открываем Telegram с готовым текстом
-          openTelegram(leadTelegramUrl(lead));
-          showLeadStatus('Открываю Telegram с готовой заявкой — осталось нажать «Отправить».', true);
-        }
-      } catch (err) {
-        console.error('Не удалось отправить заявку', err);
-        showLeadStatus(`Не получилось отправить заявку. ${telegramFallbackLink(lead)} — текст уже готов.`, false);
-      } finally {
-        delete leadForm.dataset.sending;
-        button.disabled = false;
+      if (!data.get('consent')) {
+        showLeadStatus('Отметьте согласие на обработку данных — без него заявку не открыть.', false);
+        return;
       }
+
+      openTelegram(leadTelegramUrl(lead));
+      showLeadStatus('Открываю Telegram с готовой заявкой — осталось нажать «Отправить».', true);
     });
   }
 
@@ -428,7 +374,7 @@
     window.scrollTo({ top: Math.max(top, 0), behavior: reduceMotion ? 'auto' : 'smooth' });
   };
 
-  window.SvoySite = { sendLead, leadTelegramUrl, telegramFallbackLink, openTelegram, scrollToElement, contactPlaceholder, setTelegramLink, reduceMotion };
+  window.SvoySite = { leadTelegramUrl, openTelegram, scrollToElement, contactPlaceholder, setTelegramLink, reduceMotion };
 
   // Год в футере ставит guard.js
 })();

@@ -162,7 +162,7 @@
 
   const placeTelegramUrl = (p) => {
     const text = p.tg === 'airport'
-      ? 'Здравствуйте! Нужна встреча в аэропорту Льенкхыонг (DLI) и трансфер до Далата. Моя дата, рейс и количество человек: '
+      ? 'Здравствуйте! Подскажите, как добраться из аэропорта Льенкхыонг (DLI) в Далат и как заказать трансфер у партнёра. Моя дата, рейс и количество человек: '
       : p.cat === 'life' || p.cat === 'food'
         ? `Здравствуйте! Я с карты Далата. Хочу уточнить про «${p.name}» (${p.vi}): `
         : `Здравствуйте! Я с карты Далата. Хочу поехать: «${p.name}» (${p.vi}). Помогите с поездкой и деталями: `;
@@ -674,7 +674,7 @@
 
   const renderDrawer = (p) => {
     const c = CAT[p.cat];
-    const tgLabel = p.tg === 'airport' ? 'Заказать встречу в Telegram' : p.cat === 'life' || p.cat === 'food' ? 'Спросить в Telegram' : 'Спросить про поездку в Telegram';
+    const tgLabel = p.tg === 'airport' ? 'Спросить про трансфер в Telegram' : p.cat === 'life' || p.cat === 'food' ? 'Спросить в Telegram' : 'Спросить про поездку в Telegram';
     drawerBody.innerHTML =
       `<div class="place" style="--c:${c.color}">` +
       `<span class="place__cat">${svg(ICONS[p.cat])}${esc(c.label)}</span>` +
