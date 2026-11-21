@@ -1,0 +1,109 @@
+/* Страница «Подбор жилья»: шаги и анкета. Цвета и шрифты — из style.css */
+.podbor-steps {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+@media (min-width: 720px) {
+  .podbor-steps { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+}
+.podbor-steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 1.1rem 1.25rem 1.1rem 4rem;
+  border-radius: 1.5rem;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.07);
+}
+.podbor-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 1.1rem;
+  top: 1.1rem;
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--pine-800);
+  color: var(--sunflower-soft);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.podbor-steps b { display: block; font-size: 1.05rem; }
+.podbor-steps span { display: block; margin-top: 0.2rem; color: var(--ink-soft); line-height: 1.5; }
+
+.podbor-form {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 1.75rem;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.07), 0 24px 50px -30px rgb(22 37 31 / 0.35);
+}
+@media (min-width: 720px) {
+  .podbor-form { grid-template-columns: 1fr 1fr; padding: 1.75rem; gap: 1.1rem 1.25rem; }
+  .podbor-form .podbor-wide { grid-column: 1 / -1; }
+}
+.podbor-field { display: grid; gap: 0.35rem; }
+.podbor-field > span { font-size: 0.9rem; font-weight: 600; }
+.podbor-field small { color: var(--ink-soft); font-weight: 400; }
+.podbor-field select,
+.podbor-field input,
+.podbor-field textarea {
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.7rem 0.95rem;
+  border: 0;
+  border-radius: 1rem;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.12);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;            /* меньше 16 px — iPhone приближает страницу при вводе */
+}
+.podbor-field textarea { min-height: 6.5rem; resize: vertical; }
+.podbor-field select:focus-visible,
+.podbor-field input:focus-visible,
+.podbor-field textarea:focus-visible {
+  outline: 2px solid var(--pine-600);
+  outline-offset: 1px;
+}
+
+.podbor-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.podbor-send,
+.podbor-copy {
+  display: inline-flex;
+  min-height: 3.1rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0 1.5rem;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.podbor-send { background: var(--pine-900); color: var(--paper); }
+.podbor-send svg { width: 1.2rem; height: 1.2rem; }
+.podbor-copy { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.2); }
+.podbor-send:focus-visible,
+.podbor-copy:focus-visible { outline: 2px solid var(--pine-600); outline-offset: 2px; }
+.podbor-note { margin: 0; font-size: 0.9rem; color: var(--ink-soft); line-height: 1.55; }
+.podbor-status { min-height: 1.3rem; margin: 0; font-size: 0.9rem; color: var(--pine-700); }
+.podbor-preview summary { cursor: pointer; font-size: 0.9rem; font-weight: 600; min-height: 2.75rem; display: flex; align-items: center; }
+.podbor-preview pre {
+  margin: 0.25rem 0 0;
+  padding: 0.9rem 1rem;
+  border-radius: 1rem;
+  background: var(--paper);
+  font: inherit;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
