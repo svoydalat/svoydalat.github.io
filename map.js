@@ -315,7 +315,8 @@
 
   // Как на главной: на телефоне Telegram открываем приложением, минуя заблокированный t.me
   const telegramHref = (httpsUrl) => {
-    if (!isMobile) return httpsUrl;
+    // В Mini App Telegram ссылку открывает сам tg-app.js — приложение уже запущено
+    if (!isMobile || window.SvoyMiniApp) return httpsUrl;
     const url = new URL(httpsUrl);
     const domain = url.pathname.split('/')[1];
     const text = url.searchParams.get('text');
@@ -340,7 +341,8 @@
 
   // Расстояние по прямой: «850 м», «1,2 км»
   const distLabel = (m) => (m < 1000 ? `${Math.round(m / 10) * 10} м` : `${(m / 1000).toFixed(m < 10000 ? 1 : 0).replace('.', ',')} км`);
-  const placeLink = (p) => `${location.origin}${location.pathname}#place=${p.id}`;
+  // В Mini App Telegram (tg-map/tg-app.js) ссылка ведёт обратно в приложение, а не на страницу
+  const placeLink = (p) => (window.SvoyShareLink ? window.SvoyShareLink(p.id) : `${location.origin}${location.pathname}#place=${p.id}`);
 
   const toast = (msg) => {
     const el = $('#toast');

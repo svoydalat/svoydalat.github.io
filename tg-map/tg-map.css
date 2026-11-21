@@ -1,0 +1,3 @@
+/* Карта как Telegram Mini App: нижней панели сайта нет, поэтому всё, что поднималось над ней, садится к краю экрана */
+:root { --tabbar-h: env(safe-area-inset-bottom, 0px); }
+.tabbar { display: none !important; }
