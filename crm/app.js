@@ -1226,7 +1226,7 @@
   const HOUSING_KEY = 'svoy-crm:housing';
   const KIND_LABEL = { apartment: 'Квартира', house: 'Дом', room: 'Комната' };
   const housing = { items: [], loadedAt: 0, loading: false, error: '' };
-  const hfilter = { price: 0, rooms: 0, district: '', kind: '', phoneOnly: false };
+  const hfilter = { price: 0, rooms: 0, district: '', kind: '', phoneOnly: false, open: false };
   const NBSP = ' ';
 
   const housingCacheLoad = () => {
@@ -1334,6 +1334,13 @@
       </article>`;
   };
 
+  // Фильтры сворачиваются: на телефоне панель не должна закрывать список
+  const filterToggle = (scope, active, open) => `
+    <button type="button" data-action="toggle-filters" data-scope="${scope}" aria-expanded="${open}"
+            class="press mt-2 inline-flex min-h-[44px] items-center gap-1.5 rounded-full bg-white px-4 text-[14px] font-semibold ring-1 ring-ink/10">
+      Фильтры${active ? ` · ${active}` : ''}<span class="text-[11px] opacity-60">${open ? '▲' : '▼'}</span>
+    </button>`;
+
   const viewHousing = () => {
     const list = housingSorted();
     const districts = [...new Set(housing.items.map((h) => h.district).filter(Boolean))].sort();
@@ -1374,7 +1381,7 @@
     const stamp = housing.loadedAt ? `обновлено ${new Date(housing.loadedAt).toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}` : '';
     return `
       <div>
-        <header class="sticky top-0 z-20 bg-paper/85 px-5 pb-3 pt-[calc(env(safe-area-inset-top)+14px)] backdrop-blur-xl">
+        <header class="px-5 pb-2 pt-[calc(env(safe-area-inset-top)+14px)]">
           ${homeSwitch('housing')}
           <div class="flex items-end justify-between">
             <h1 class="text-[2.1rem] font-semibold leading-none tracking-tightest">Жильё</h1>
@@ -1385,7 +1392,8 @@
             </button></div>
           </div>
           <p class="mt-2 text-[13px] text-ink-soft">${list.length} из ${housing.items.length}${stamp ? ` · ${stamp}` : ''}</p>
-          ${filters}
+          ${filterToggle('housing', [hfilter.price, hfilter.rooms, hfilter.kind, hfilter.district, hfilter.phoneOnly].filter(Boolean).length, hfilter.open)}
+          ${hfilter.open ? filters : ''}
         </header>
         <div class="px-5">
           ${housing.error ? `<p class="mt-3 rounded-2xl bg-sunset/10 px-4 py-3 text-[14px] text-sunset">${esc(housing.error)}</p>` : ''}
@@ -1594,7 +1602,7 @@
   const LANG_LABEL = { vi: 'Вьетнамский', en: 'Английский', ru: 'Русский' };
   const partners = { items: [], loadedAt: 0, loading: false, error: '', selected: new Set() };
   const templates = { list: [] };
-  const pf = { segment: 'hotel', status: '', zalo: '', sort: 'zalo', starOnly: false, rating: 0, search: '' };
+  const pf = { segment: 'hotel', status: '', sort: 'zalo', starOnly: false, rating: 0, search: '', open: false };
   const queue = { codes: [], i: 0, templateId: '', dates: '', guests: '', sent: 0, skipped: 0 };
 
   // Примеры на вьетнамском: проверьте и поправьте под себя
@@ -1670,7 +1678,6 @@
     return partners.items.filter((p) => {
       if (p.segment !== pf.segment) return false;
       if (pf.status && p.status !== pf.status) return false;
-      if (pf.zalo && zaloState(p) !== pf.zalo) return false;
       if (pf.starOnly && p.starred !== 'да') return false;
       if (pf.rating && !((p.rating || 0) >= pf.rating)) return false;
       if (q && ![p.name, ...(p.names || []), p.address, p.phone].join(' ').toLowerCase().includes(q)) return false;
@@ -1711,10 +1718,6 @@
         <p class="mt-0.5 text-[13px] text-ink-soft">${p.phone ? `${esc(phoneText(p.phone))} · ${ZALO_LABEL[zaloState(p)]}` : 'номера нет'}${p.commission !== null && p.commission !== undefined && p.commission !== '' ? ` · комиссия ${esc(p.commission)}${NBSP}%` : ''}</p>
         ${ago !== null ? `<p class="mt-0.5 text-[12px] ${ago < REPEAT_DAYS ? 'text-sunset' : 'text-ink-soft'}">Писали ${ago === 0 ? 'сегодня' : `${ago}${NBSP}дн. назад`}${p.lastTemplate ? ` · ${esc((templates.list.find((t) => t.id === p.lastTemplate) || {}).title || '')}` : ''}</p>` : ''}
         ${p.note ? `<p class="mt-1 text-[13px]">${esc(p.note)}</p>` : ''}
-        ${zaloState(p) === 'todo' ? `<div class="mt-2 flex flex-wrap items-center gap-2"><span class="text-[13px] text-ink-soft">Открыли в Zalo?</span>
-          <button type="button" data-action="partner-zalo" data-code="${esc(p.code)}" data-check="есть" class="${btn} bg-lagoon-500/15 text-lagoon-700">Аккаунт есть</button>
-          <button type="button" data-action="partner-zalo" data-code="${esc(p.code)}" data-check="нет" class="${btn} bg-sunset/15 text-sunset">Аккаунта нет</button></div>` : ''}
-        ${zaloState(p) === 'yes' || zaloState(p) === 'no' ? `<p class="mt-1"><button type="button" data-action="partner-zalo" data-code="${esc(p.code)}" data-check="" class="min-h-[44px] text-[13px] text-ink-soft underline">Сбросить отметку Zalo</button></p>` : ''}
         <div class="mt-2.5 flex flex-wrap items-center gap-2">
           <select data-pstatus="${esc(p.code)}" aria-label="Статус" class="min-h-[44px] rounded-full px-3 text-[14px] font-semibold outline-none ${STATUS_STYLE[p.status] || STATUS_STYLE['новый']}">${statusOptions}</select>
           ${hasZalo ? `<a href="https://zalo.me/${digits}" target="_blank" rel="noopener" class="${btn} bg-[#0068FF] text-white">Написать в Zalo</a>` : ''}
@@ -1761,7 +1764,7 @@
     const stamp = partners.loadedAt ? `обновлено ${new Date(partners.loadedAt).toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}` : '';
     return `
       <div>
-        <header class="sticky top-0 z-20 bg-paper/85 px-5 pb-3 pt-[calc(env(safe-area-inset-top)+14px)] backdrop-blur-xl">
+        <header class="px-5 pb-2 pt-[calc(env(safe-area-inset-top)+14px)]">
           ${homeSwitch('partners')}
           <div class="flex items-end justify-between">
             <h1 class="text-[2.1rem] font-semibold leading-none tracking-tightest">Партнёры</h1>
@@ -1776,19 +1779,19 @@
             ${icon('search', 'h-5 w-5 shrink-0 text-ink-soft')}
             <input id="partner-search" type="search" value="${esc(pf.search)}" placeholder="Название, адрес, номер" autocomplete="off" class="w-full bg-transparent py-3 text-[16px] outline-none placeholder:text-ink-soft/60">
           </label>
-          <div class="mt-2 grid grid-cols-2 gap-2">
+          <div class="flex flex-wrap items-center gap-x-2">
+            ${filterToggle('partners', [pf.status, pf.rating, pf.starOnly, pf.sort !== 'zalo'].filter(Boolean).length, pf.open)}
+            <button type="button" data-action="partner-select-all" class="press mt-2 min-h-[44px] rounded-full bg-white px-4 text-[14px] font-semibold ring-1 ring-ink/10">Выбрать всех (${list.length})</button>
+            <button type="button" data-action="templates-open" class="press mt-2 min-h-[44px] rounded-full bg-white px-4 text-[14px] font-semibold ring-1 ring-ink/10">Шаблоны (${templates.list.length})</button>
+          </div>
+          ${pf.open ? `<div class="mt-2 grid grid-cols-2 gap-2">
             <select data-pf="status" aria-label="Статус" class="${sel}">${opt('', 'Любой статус', pf.status)}${PARTNER_STATUS.map((s) => opt(s, s, pf.status)).join('')}</select>
             <select data-pf="rating" aria-label="Рейтинг" class="${sel}">${opt(0, 'Любой рейтинг', pf.rating)}${opt(4, 'от 4,0', pf.rating)}${opt(4.5, 'от 4,5', pf.rating)}</select>
-            <select data-pf="zalo" aria-label="Zalo" class="${sel}">${opt('', 'Любой Zalo', pf.zalo)}${opt('todo', 'Можно проверить', pf.zalo)}${opt('yes', 'Аккаунт есть', pf.zalo)}${opt('no', 'Аккаунта нет', pf.zalo)}${opt('none', 'Не мобильный / без номера', pf.zalo)}</select>
             <label class="col-span-2 flex min-h-[44px] items-center gap-2.5 px-1 text-[15px] font-medium">
               <input type="checkbox" data-pf="starOnly" class="h-5 w-5 accent-[#1F8A7E]"${pf.starOnly ? ' checked' : ''}> Только проверенные ★
             </label>
             <select data-pf="sort" aria-label="Сортировка" class="${sel}">${opt('zalo', 'Сначала с Zalo', pf.sort)}${opt('fresh', 'Сначала свежие', pf.sort)}${opt('rating', 'По рейтингу', pf.sort)}${opt('name', 'По названию', pf.sort)}</select>
-          </div>
-          <div class="mt-1 flex flex-wrap gap-2">
-            <button type="button" data-action="partner-select-all" class="press min-h-[44px] rounded-full bg-white px-4 text-[14px] font-semibold ring-1 ring-ink/10">Выбрать всех (${list.length})</button>
-            <button type="button" data-action="templates-open" class="press min-h-[44px] rounded-full bg-white px-4 text-[14px] font-semibold ring-1 ring-ink/10">Шаблоны (${templates.list.length})</button>
-          </div>
+          </div>` : ''}
         </header>
         <div class="px-5">
           ${partners.error ? `<p class="mt-3 rounded-2xl bg-sunset/10 px-4 py-3 text-[14px] text-sunset">${esc(partners.error)}</p>` : ''}
@@ -1945,16 +1948,6 @@
     } catch {
       toast('Не удалось сохранить отметку. Повторите');
     }
-  };
-
-  const partnerZaloCheck = async (code, zaloCheck) => {
-    try {
-      const data = await sync.call({ action: 'partners_update', code: Number(code), fields: { zaloCheck } });
-      partnerApply(data.item);
-    } catch {
-      toast('Не удалось сохранить отметку');
-    }
-    render();
   };
 
   const partnerStar = async (code) => {
@@ -2284,11 +2277,13 @@
       case 'partner-edit':
         openPartnerForm(el.dataset.code);
         break;
+      case 'toggle-filters':
+        if (el.dataset.scope === 'housing') hfilter.open = !hfilter.open;
+        else pf.open = !pf.open;
+        render();
+        break;
       case 'partner-star':
         partnerStar(el.dataset.code);
-        break;
-      case 'partner-zalo':
-        partnerZaloCheck(el.dataset.code, el.dataset.check);
         break;
       case 'partner-delete':
         deletePartner(document.getElementById('partner-form'));
