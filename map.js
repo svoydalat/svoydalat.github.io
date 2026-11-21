@@ -52,7 +52,7 @@
     { id: 'culture', label: 'Культура и архитектура', short: 'Культура', color: '#6F6AAE' },
     { id: 'food', label: 'Где поесть', short: 'Еда', color: '#9A5B1E' },
     { id: 'coffee', label: 'Кофе и рынки', short: 'Кофе и рынки', color: '#B5583A' },
-    { id: 'activity', label: 'Активности и рыбалка', short: 'Активности', color: '#C98A0F' },
+    { id: 'activity', label: 'Активности и рыбалка', short: 'Активности', color: '#A8700A' },
     { id: 'transport', label: 'Транспорт', short: 'Транспорт', color: '#4F7186' },
     { id: 'life', label: 'Быт и инфраструктура', short: 'Быт', color: '#B8527A' }
   ];
@@ -755,6 +755,9 @@
 
   const flyToPlace = (p) => {
     const z = p.zoom || 15;
+    // Холодный старт: карта ещё 0 px — без пересчёта размера точка считается как NaN
+    if (map.getSize().x === 0) map.invalidateSize();
+    if (map.getSize().x === 0) { map.setView(p.pos, z, { animate: false }); return; }
     const [dx, dy] = focusOffset();
     const pt = map.project(p.pos, z).add([dx, dy]);
     const target = map.unproject(pt, z);
@@ -980,4 +983,14 @@
   applyFilter();
   updateFavUi();
   openFromHash();
+
+  // Подсказка: чипы листаются вбок. Один раз за сеанс слегка сдвигаем строку и возвращаем
+  try {
+    const row = $('#filters');
+    if (!reduceMotion && !sessionStorage.getItem('svoy-chips-hint') && row.scrollWidth > row.clientWidth + 40) {
+      sessionStorage.setItem('svoy-chips-hint', '1');
+      setTimeout(() => row.scrollTo({ left: 64, behavior: 'smooth' }), 900);
+      setTimeout(() => row.scrollTo({ left: 0, behavior: 'smooth' }), 1700);
+    }
+  } catch (err) { /* без sessionStorage подсказку пропускаем */ }
 })();

@@ -1,3 +1,8 @@
 /* Карта как Telegram Mini App: нижней панели сайта нет, поэтому всё, что поднималось над ней, садится к краю экрана */
 :root { --tabbar-h: env(safe-area-inset-bottom, 0px); }
 .tabbar { display: none !important; }
+
+/* Верхний отступ под системную панель Telegram (полноэкранный режим, вырез): переменные задаёт Telegram */
+:root { --tg-top: calc(var(--tg-content-safe-area-inset-top, 0px) + var(--tg-safe-area-inset-top, env(safe-area-inset-top, 0px))); --header-h: calc(72px + var(--tg-top)); }
+.mhead { padding-top: calc(10px + var(--tg-top)); }
+@media (min-width: 640px) { :root { --header-h: calc(80px + var(--tg-top)); } .mhead { padding-top: calc(14px + var(--tg-top)); } }
