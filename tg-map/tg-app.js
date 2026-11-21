@@ -28,7 +28,7 @@
 
   /* ---------- Открыть нужное место по ссылке t.me/бот/приложение?startapp=place-xxx ---------- */
   const start = (tg.initDataUnsafe && tg.initDataUnsafe.start_param) || '';
-  const m = start.match(/^(place|district)-([a-z0-9-]+)$/i);
+  const m = start.match(/^(place|district|route)-([a-z0-9-]+)$/i);
   if (m) history.replaceState(null, '', `${location.pathname}${location.search}#${m[1]}=${m[2]}`);
 
   /* ---------- Ссылки: Telegram открываем внутри, остальные — во встроенном браузере ---------- */
@@ -61,17 +61,18 @@
     return Promise.resolve();
   };
 
-  /* ---------- Кнопка «Назад» Telegram закрывает карточку места ---------- */
+  /* ---------- Кнопка «Назад» Telegram закрывает карточку места, а затем маршрут ---------- */
   const drawer = document.getElementById('drawer');
   if (drawer && tg.BackButton) {
     const sync = () => {
-      if (drawer.classList.contains('is-open')) tg.BackButton.show(); else tg.BackButton.hide();
+      if (drawer.classList.contains('is-open') || document.body.classList.contains('route-open')) tg.BackButton.show(); else tg.BackButton.hide();
     };
     tg.BackButton.onClick(() => {
-      const close = document.getElementById('drawer-close');
-      if (close) close.click();
+      const target = drawer.classList.contains('is-open') ? document.getElementById('drawer-close') : document.getElementById('route-exit');
+      if (target) target.click();
     });
     new MutationObserver(sync).observe(drawer, { attributes: true, attributeFilter: ['class'] });
+    new MutationObserver(sync).observe(document.body, { attributes: true, attributeFilter: ['class'] });
     sync();
   }
 })();

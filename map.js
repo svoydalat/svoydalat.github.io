@@ -300,6 +300,35 @@
     })
   }).addTo(map);
 
+  /* ---------- Режим «Сейчас»: что лучше посетить в этот час (время Далата) ---------- */
+  const PERIODS = [
+    { id: 'dawn', from: 5, label: 'рассвет' }, { id: 'morning', from: 8, label: 'утро' },
+    { id: 'day', from: 11, label: 'день' }, { id: 'evening', from: 16, label: 'вечер' },
+    { id: 'night', from: 21, label: 'ночь' }
+  ];
+  const dalatHour = () => {
+    const h = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Ho_Chi_Minh', hour: 'numeric', hourCycle: 'h23' }).format(new Date());
+    return Number(h) % 24;
+  };
+  const currentPeriod = () => {
+    const h = dalatHour();
+    if (h >= 21 || h < 5) return PERIODS[4];
+    return [...PERIODS].reverse().find((x) => h >= x.from && x.id !== 'night');
+  };
+  let nowMode = false;
+  let period = currentPeriod();
+  // Места без поля when не подсвечиваем и не притушиваем
+  const nowState = (p) => (!nowMode || !p.when ? '' : p.when.includes(period.id) ? 'now' : 'dim');
+  const isNow = (p) => nowState(p) === 'now';
+  const syncPinNow = (id) => {
+    const el = markers.get(id) && markers.get(id).getElement();
+    const pin = el && el.querySelector('.pin');
+    if (!pin) return;
+    const s = nowState(PLACE_BY_ID[id]);
+    pin.classList.toggle('pin--now', s === 'now');
+    pin.classList.toggle('pin--dim', s === 'dim');
+  };
+
   const makeIcon = (p) => L.divIcon({
     className: 'pin-anchor',
     html: `<span class="pin${p.approx ? ' pin--approx' : ''}" style="--c:${CAT[p.cat].color}">${svg(iconFor(p))}</span>`,
@@ -308,7 +337,7 @@
 
   PLACES.forEach((p, i) => {
     const m = L.marker(p.pos, { icon: makeIcon(p), title: p.name, alt: p.name, riseOnHover: true, zIndexOffset: i });
-    m.on('add', () => { m.getElement().setAttribute('aria-label', p.name); syncPinFav(p.id); });
+    m.on('add', () => { m.getElement().setAttribute('aria-label', p.name); syncPinFav(p.id); syncPinNow(p.id); });
     m.on('click', (e) => { L.DomEvent.stopPropagation(e); openPlace(p.id); });
     markers.set(p.id, m);
   });
@@ -349,13 +378,33 @@
       `<button type="button" class="chip" data-filter="${c.id}" aria-pressed="${c.id === activeFilter}">` +
       `${c.color ? `<span class="chip__dot" style="--c:${c.color}"></span>` : ''}${esc(c.label)}</button>`
     ).join('') +
+      `<button type="button" class="chip chip--routes" id="routes-toggle" aria-pressed="${!!(routeId || routeListOpen)}"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8 17c6 0 2-10 8-10"/></svg>Маршруты</button>` +
+      `<button type="button" class="chip chip--now" id="now-toggle" aria-pressed="${nowMode}"><span id="now-label"></span></button>` +
       `<button type="button" class="chip chip--fav" data-filter="fav" aria-pressed="${activeFilter === 'fav'}">` +
       `${svg(ICONS.star, 'fill="currentColor"')}<span id="fav-chip-label"></span></button>` +
       `<button type="button" class="chip chip--zones chip--sep" id="zones-toggle" aria-pressed="${map.hasLayer(zonesGroup)}">` +
       `<span class="chip__dot" style="--c:var(--sunflower)"></span><span id="zones-label"></span></button>`;
     updateZonesLabel();
     updateFavUi();
+    updateNowUi();
   };
+
+  const updateNowUi = () => {
+    const label = $('#now-label');
+    if (label) label.textContent = `Сейчас · ${period.label}`;
+    const btn = $('#now-toggle');
+    if (btn) btn.setAttribute('aria-pressed', String(nowMode));
+    markers.forEach((m, id) => syncPinNow(id));
+  };
+  // Период меняется сам: раз в минуту сверяем время Далата
+  setInterval(() => {
+    const next = currentPeriod();
+    if (next.id === period.id) return;
+    period = next;
+    updateNowUi();
+    if (nowMode) renderList();
+    if (currentId) renderDrawer(PLACE_BY_ID[currentId]);
+  }, 60000);
 
   const updateZonesLabel = () => {
     const on = map.hasLayer(zonesGroup);
@@ -389,6 +438,18 @@
       updateZonesLabel();
       return;
     }
+    if (chip.id === 'routes-toggle') {
+      if (routeId || routeListOpen) exitRoute(); else openRouteList();
+      return;
+    }
+    if (chip.id === 'now-toggle') {
+      nowMode = !nowMode;
+      period = currentPeriod();
+      updateNowUi();
+      renderList();
+      if (currentId) renderDrawer(PLACE_BY_ID[currentId]);
+      return;
+    }
     activeFilter = chip.dataset.filter;
     applyFilter();
     // Выбранное место пропало из фильтра — карточку закрываем
@@ -406,6 +467,8 @@
   const renderList = () => {
     const items = visiblePlaces();
     if (userPos && sortNear) items.sort((a, b) => distFromUser(a) - distFromUser(b));
+    // «Сейчас»: подходящие по времени места наверх, порядок внутри групп сохраняется
+    if (nowMode) items.sort((a, b) => isNow(b) - isNow(a));
     const zoneItems = activeFilter === 'fav' && !query ? ZONES.filter((z) => favs.has(zoneKey(z))) : [];
     const total = items.length + zoneItems.length;
     $('#list-count').textContent = activeFilter === 'fav'
@@ -416,7 +479,7 @@
       `<span class="card__ico">${svg(iconFor(p))}</span>` +
       `<span class="card__txt"><span class="card__name">${esc(nb(p.name))}</span>` +
       `<span class="card__vi">${esc(p.vi)}</span>` +
-      `<span class="card__meta">${userPos ? `<b class="card__dist">${distLabel(distFromUser(p))}</b> · ` : ''}${esc(CAT[p.cat].short)} · ${esc(p.tags[p.tags.length - 1])}</span></span></button>${starBtn(p.id)}</div>`
+      `<span class="card__meta">${isNow(p) ? '<b class="card__now">Сейчас лучше</b> · ' : ''}${userPos ? `<b class="card__dist">${distLabel(distFromUser(p))}</b> · ` : ''}${esc(CAT[p.cat].short)} · ${esc(p.tags[p.tags.length - 1])}</span></span></button>${starBtn(p.id)}</div>`
     ).concat(zoneItems.map((z) =>
       `<div class="card-row"><button type="button" class="card" data-zone="${z.id}" style="--c:${z.color}">` +
       `<span class="card__ico">${svg('M12 3 3 8v8l9 5 9-5V8z')}</span>` +
@@ -618,6 +681,7 @@
       `<p class="place__vi">${esc(p.vi)}</p>` +
       `<h2 class="place__name">${esc(nb(p.name))}</h2>` +
       `<ul class="place__tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` +
+      (p.when && nowMode ? `<p class="place__now${isNow(p) ? ' is-now' : ''}">${isNow(p) ? `Сейчас (${period.label}) — хорошее время.` : `Сейчас лучше: ${p.when.map((w) => PERIODS.find((x) => x.id === w).label).join(', ')}.`}</p>` : '') +
       (p.slope ? `<p class="place__slope place__slope--${p.slope.kind}"><span class="place__slope-dot" aria-hidden="true"></span><b>Рельеф: ${SLOPE_LABEL[p.slope.kind]}.</b> ${esc(nb(p.slope.note))}</p>` : '') +
       `<p class="place__desc">${esc(nb(p.desc))}</p>` +
       `<div class="place__tip"><p class="place__tip-h">Совет от своего</p><p>${esc(nb(p.tip))}</p></div>` +
@@ -644,12 +708,13 @@
     if (place) renderDrawer(place);
   });
 
-  const copyLink = async (p) => {
-    const link = placeLink(p);
+  const copyLink = (p) => shareUrl(placeLink(p), `${p.name} — Далат`, `${p.name} (${p.vi}) на карте Далата`);
+
+  const shareUrl = async (link, title, text) => {
     // На телефоне открываем системное окно «Поделиться» (Telegram, WhatsApp и т. д.)
     if (navigator.share) {
       try {
-        await navigator.share({ title: `${p.name} — Далат`, text: `${p.name} (${p.vi}) на карте Далата`, url: link });
+        await navigator.share({ title, text, url: link });
         return;
       } catch (err) {
         if (err && err.name === 'AbortError') return; // человек закрыл окно — это не ошибка
@@ -708,6 +773,7 @@
     listSheet.set('closed');
     syncDesktop();
     setActiveMarker(id);
+    syncRouteUi();
     if (updateHash) history.replaceState(null, '', `#place=${id}`);
     if (fly) flyToPlace(p);
   }
@@ -715,7 +781,8 @@
   function afterDrawerClosed() {
     currentId = null;
     setActiveMarker(null);
-    if (location.hash.startsWith('#place=')) history.replaceState(null, '', location.pathname + location.search);
+    if (location.hash.startsWith('#place=')) history.replaceState(null, '', location.pathname + location.search + routeHash());
+    syncRouteUi();
   }
 
   function closePlace() {
@@ -728,6 +795,7 @@
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape' || document.querySelector('dialog[open]')) return;
     if (currentId) closePlace();
+    else if (routeId || routeListOpen) exitRoute();
     else if (listSheet.state !== 'closed') listSheet.set('closed');
   });
 
@@ -739,18 +807,160 @@
   // Маркер пересоздаётся при фильтре — подсветку возвращаем
   markerGroup.on('layeradd', () => { if (currentId) setActiveMarker(currentId); });
 
+  /* ---------- Маршруты на день ---------- */
+  // Панель поверх карты: список маршрутов → выбранный маршрут (линия по порядку точек + шаги со временем)
+  let routeId = null;      // открытый маршрут
+  let routeListOpen = false; // показан список маршрутов
+  let routeLayer = null;
+  const routePanel = document.createElement('section');
+  routePanel.id = 'route-panel';
+  routePanel.className = 'route-panel';
+  routePanel.hidden = true;
+  routePanel.setAttribute('aria-label', 'Маршруты на день');
+  $('.stage').appendChild(routePanel);
+
+  const routeById = (id) => ROUTES.find((r) => r.id === id);
+  const routeLink = (r) => (window.SvoyShareLink ? window.SvoyShareLink(r.id, 'route') : `${location.origin}${location.pathname}#route=${r.id}`);
+  const stepsWord = (n) => `${n} ${n === 1 ? 'место' : n > 1 && n < 5 ? 'места' : 'мест'}`;
+  const routeHash = () => (routeId ? `#route=${routeId}` : '');
+  const setRouteHash = () => history.replaceState(null, '', location.pathname + location.search + routeHash());
+  const routeTelegramUrl = (r) => `${TELEGRAM_CHAT}?text=${encodeURIComponent(`Здравствуйте! Я с карты Далата. Хочу этот маршрут: «${r.title}». Помогите с поездкой и деталями: `)}`;
+
+  const renderRoutePanel = () => {
+    const r = routeId && routeById(routeId);
+    const closeBtn = (id, label) => `<button type="button" class="route-panel__x" id="${id}" aria-label="${label}" title="${label}"><svg aria-hidden="true"><use href="#i-close"/></svg></button>`;
+    if (r) {
+      routePanel.innerHTML =
+        `<div class="route-panel__head"><button type="button" class="route-panel__back" id="route-all">‹ Все маршруты</button>${closeBtn('route-exit', 'Выйти из маршрута')}</div>` +
+        `<h2 class="route-panel__title">${esc(nb(r.title))}</h2>` +
+        `<p class="route-panel__meta">${esc([r.duration, r.transport, stepsWord(r.steps.length)].filter(Boolean).join(' · '))}</p>` +
+        `<ol class="route-steps">${r.steps.map((s, i) => {
+          const p = PLACE_BY_ID[s.place];
+          return `<li><button type="button" class="route-step" data-step="${p.id}" style="--c:${CAT[p.cat].color}">` +
+            `<span class="route-step__num">${i + 1}</span><span class="route-step__txt">` +
+            `<span class="route-step__name">${s.time ? `<b>${esc(s.time)}</b> ` : ''}${esc(nb(p.name))}</span>` +
+            `${s.note ? `<span class="route-step__note">${esc(nb(s.note))}</span>` : ''}</span></button></li>`;
+        }).join('')}</ol>` +
+        `<p class="route-panel__hint">Линия идёт по порядку точек, а не по дорогам.</p>` +
+        `<div class="route-panel__actions">` +
+        `<a class="btn btn--tg" id="route-tg" href="${routeTelegramUrl(r)}" target="_blank" rel="noopener noreferrer">${tgIcon}Хочу этот маршрут</a>` +
+        `<button type="button" class="btn btn--ghost" id="route-share"><svg aria-hidden="true"><use href="#i-link"/></svg>${navigator.share ? 'Поделиться маршрутом' : 'Скопировать ссылку'}</button></div>`;
+      const tg = $('#route-tg');
+      tg.href = telegramHref(routeTelegramUrl(r));
+      if (isMobile) tg.removeAttribute('target');
+    } else {
+      routePanel.innerHTML =
+        `<div class="route-panel__head"><h2 class="route-panel__title">Маршруты на день</h2>${closeBtn('route-exit', 'Закрыть маршруты')}</div>` +
+        `<div class="route-cards">${ROUTES.map((x) =>
+          `<button type="button" class="route-card" data-route="${x.id}"><span class="route-card__ico">${svg(PLACE_ICONS[x.icon] || ICONS.nature)}</span>` +
+          `<span class="route-card__txt"><span class="route-card__name">${esc(nb(x.title))}</span>` +
+          `${x.sub ? `<span class="route-card__sub">${esc(nb(x.sub))}</span>` : ''}` +
+          `<span class="route-card__meta">${esc([x.duration, x.transport, stepsWord(x.steps.length)].filter(Boolean).join(' · '))}</span></span></button>`
+        ).join('')}</div>`;
+    }
+  };
+
+  const syncRouteUi = () => {
+    const show = !!(routeId || routeListOpen);
+    routePanel.hidden = !show || !!currentId; // карточка места открыта — панель уступает ей место
+    document.body.classList.toggle('route-open', show);
+    const chip = $('#routes-toggle');
+    if (chip) chip.setAttribute('aria-pressed', String(show));
+  };
+
+  const clearRouteLayer = () => {
+    if (routeLayer) { map.removeLayer(routeLayer); routeLayer = null; }
+    if (!map.hasLayer(markerGroup)) markerGroup.addTo(map);
+  };
+
+  const drawRoute = (r) => {
+    clearRouteLayer();
+    map.removeLayer(markerGroup);
+    const pts = r.steps.map((s) => PLACE_BY_ID[s.place].pos);
+    routeLayer = L.featureGroup();
+    L.polyline(pts, { color: '#fff', weight: 8, opacity: 0.85, lineCap: 'round', interactive: false }).addTo(routeLayer);
+    L.polyline(pts, { color: '#2B4F3F', weight: 4, dashArray: '2 9', lineCap: 'round', interactive: false }).addTo(routeLayer);
+    r.steps.forEach((s, i) => {
+      const p = PLACE_BY_ID[s.place];
+      const m = L.marker(p.pos, {
+        icon: L.divIcon({ className: 'pin-anchor', html: `<span class="route-num" style="--c:${CAT[p.cat].color}">${i + 1}</span>`, iconSize: [0, 0] }),
+        title: `${i + 1}. ${p.name}`, alt: p.name, zIndexOffset: 1000 + i
+      });
+      m.on('click', (e) => { L.DomEvent.stopPropagation(e); openPlace(p.id); });
+      m.addTo(routeLayer);
+    });
+    routeLayer.addTo(map);
+    map.invalidateSize();
+    const desk = desktopMq.matches;
+    map.flyToBounds(L.latLngBounds(pts), {
+      paddingTopLeft: desk ? [400, 110] : [30, 140], paddingBottomRight: desk ? [40, 300] : [75, 430],
+      maxZoom: 15, duration: reduceMotion ? 0 : 0.9
+    });
+  };
+
+  function openRouteList() {
+    if (!ROUTES.length) return;
+    if (currentId) closePlace();
+    exitRoute({ keepList: true });
+    routeListOpen = true;
+    listSheet.set('closed');
+    renderRoutePanel();
+    syncRouteUi();
+  }
+
+  function openRoute(id, { fly = true, updateHash = true } = {}) {
+    const r = routeById(id);
+    if (!r) return;
+    if (currentId) closePlace();
+    routeId = id;
+    routeListOpen = false;
+    listSheet.set('closed');
+    renderRoutePanel();
+    syncRouteUi();
+    if (fly) drawRoute(r);
+    if (updateHash) setRouteHash();
+  }
+
+  function exitRoute({ keepList = false } = {}) {
+    const had = routeId;
+    routeId = null;
+    if (!keepList) routeListOpen = false;
+    if (had) clearRouteLayer();
+    if (had || !keepList) {
+      if (location.hash.startsWith('#route=')) history.replaceState(null, '', location.pathname + location.search);
+    }
+    if (!keepList) { renderRoutePanel(); syncRouteUi(); }
+  }
+
+  routePanel.addEventListener('click', (e) => {
+    const t = e.target;
+    const card = t.closest('[data-route]');
+    if (card) return openRoute(card.dataset.route);
+    const step = t.closest('[data-step]');
+    if (step) return openPlace(step.dataset.step);
+    if (t.closest('#route-all')) return openRouteList();
+    if (t.closest('#route-exit')) return exitRoute();
+    if (t.closest('#route-share')) {
+      const r = routeById(routeId);
+      if (r) shareUrl(routeLink(r), `${r.title} — маршрут по Далату`, `Маршрут «${r.title}» по Далату`);
+    }
+  });
+
   /* ---------- Deep-ссылки ---------- */
-  // #place=<id> — карточка места, #district=<id> — район для жизни (center, trieu-viet-vuong, tuyen-lam, north)
+  // #place=<id> — карточка места, #district=<id> — район для жизни (center, trieu-viet-vuong, tuyen-lam, north),
+  // #route=<id> — маршрут на день (routes.js)
   const readHash = () => {
-    const m = location.hash.match(/^#(place|district)=([a-z0-9-]+)/i);
+    const m = location.hash.match(/^#(place|district|route)=([a-z0-9-]+)/i);
     return m ? { kind: m[1].toLowerCase(), id: m[2].toLowerCase() } : null;
   };
   const openFromHash = () => {
     const h = readHash();
-    if (h && h.kind === 'place' && PLACES.some((p) => p.id === h.id)) openPlace(h.id, { updateHash: false });
+    if (h && h.kind === 'route' && routeById(h.id)) { if (routeId !== h.id || currentId) openRoute(h.id, { updateHash: false }); }
+    else if (h && h.kind === 'place' && PLACES.some((p) => p.id === h.id)) openPlace(h.id, { updateHash: false });
     else if (h && h.kind === 'district' && (h.id === 'all' || ZONES.some((z) => z.id === h.id))) {
       if (h.id === 'all') showAllZones(); else focusZone(h.id);
     } else if (!h && currentId) closePlace();
+    else if (!h && (routeId || routeListOpen)) exitRoute();
   };
   window.addEventListener('hashchange', openFromHash);
 
