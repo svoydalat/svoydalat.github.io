@@ -105,7 +105,6 @@ svg { display: block; }
   font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;
   transition: background 0.2s;
 }
-.tg-btn { min-width: 44px; }
 .tg-btn:hover { background: var(--pine-700); }
 .tg-btn__ico { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--tg); color: #fff; }
 .tg-btn__ico svg { width: 16px; height: 16px; }
@@ -114,7 +113,7 @@ svg { display: block; }
 .app {
   position: fixed;
   inset: 0;
-  height: 100dvh; /* не прыгает, когда на телефоне прячется панель браузера */
+  /* без height:100dvh: fixed + inset сами совпадают с видимой областью, как нижняя панель и Telegram */
   display: block;
 }
 .stage { position: absolute; inset: 0; }
@@ -344,12 +343,12 @@ svg { display: block; }
 .leaflet-top.leaflet-right { margin-top: calc(var(--header-h) + 56px); }
 .brand__text { display: none; }
 .tg-btn span.tg-btn__txt { display: none; }
-.tg-btn { padding: 0 4px; }
+.tg-btn { width: 44px; padding: 0; justify-content: center; }
 .leaflet-control-attribution { max-width: 60vw; }
 
 @media (min-width: 480px) {
   .brand__text { display: block; }
-  .tg-btn { padding: 0 18px 0 4px; }
+  .tg-btn { width: auto; padding: 0 18px 0 6px; justify-content: flex-start; }
   .tg-btn span.tg-btn__txt { display: inline; }
 }
 @media (min-width: 640px) {
@@ -453,6 +452,9 @@ svg { display: block; }
 }
 .fav-bar__send:hover { background: #1B8AC0; }
 .fav-bar__send svg { width: 18px; height: 18px; flex: none; }
+.fav-bar__day { flex: none; min-height: 44px; padding: 0 14px; border: 0; border-radius: 9999px; background: var(--pine-900); color: var(--paper); font-size: 14px; font-weight: 600; }
+.fav-bar__day:hover { background: var(--pine-700); }
+@media (max-width: 479px) { .fav-bar__count { display: none; } }
 .fav-bar__clear { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--paper-deep); }
 .fav-bar__clear svg { width: 16px; height: 16px; }
 @media (min-width: 900px) {
@@ -517,7 +519,7 @@ body.route-open .mobile-bar, body.route-open .fav-bar { display: none; }
   box-shadow: 0 -4px 30px -8px rgb(19 42 34 / 0.5), inset 0 0 0 1px rgb(22 37 31 / 0.08);
 }
 .route-panel[hidden] { display: none; }
-@media (min-width: 900px) { .route-panel { left: 372px; right: auto; bottom: 16px; width: 440px; max-height: 52dvh; } }
+@media (min-width: 900px) { .route-panel { left: 16px; right: auto; bottom: 16px; width: 440px; max-height: 52dvh; } }
 .route-panel__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .route-panel__title { margin: 0; font: 700 20px/1.2 var(--font-serif, inherit); color: var(--ink); }
 .route-panel__head .route-panel__title { flex: 1; }

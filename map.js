@@ -822,12 +822,15 @@
   routePanel.setAttribute('aria-label', 'Маршруты на день');
   $('.stage').appendChild(routePanel);
 
-  const routeById = (id) => ROUTES.find((r) => r.id === id);
+  let myRoute = null; // «Мой день»: собирается из избранного на лету, в routes.js его нет
+  const routeById = (id) => (id === 'my-day' ? myRoute : ROUTES.find((r) => r.id === id));
   const routeLink = (r) => (window.SvoyShareLink ? window.SvoyShareLink(r.id, 'route') : `${location.origin}${location.pathname}#route=${r.id}`);
   const stepsWord = (n) => `${n} ${n === 1 ? 'место' : n > 1 && n < 5 ? 'места' : 'мест'}`;
   const routeHash = () => (routeId ? `#route=${routeId}` : '');
   const setRouteHash = () => history.replaceState(null, '', location.pathname + location.search + routeHash());
-  const routeTelegramUrl = (r) => `${TELEGRAM_CHAT}?text=${encodeURIComponent(`Здравствуйте! Я с карты Далата. Хочу этот маршрут: «${r.title}». Помогите с поездкой и деталями: `)}`;
+  const routeTelegramUrl = (r) => `${TELEGRAM_CHAT}?text=${encodeURIComponent(r.custom
+    ? `Здравствуйте! Я собрал маршрут на день по карте Далата: ${r.steps.map((s, i) => `${i + 1}) ${PLACE_BY_ID[s.place].name}`).join('; ')}. Помогите с поездкой и деталями: `
+    : `Здравствуйте! Я с карты Далата. Хочу этот маршрут: «${r.title}». Помогите с поездкой и деталями: `)}`;
 
   const renderRoutePanel = () => {
     const r = routeId && routeById(routeId);
@@ -844,10 +847,10 @@
             `<span class="route-step__name">${s.time ? `<b>${esc(s.time)}</b> ` : ''}${esc(nb(p.name))}</span>` +
             `${s.note ? `<span class="route-step__note">${esc(nb(s.note))}</span>` : ''}</span></button></li>`;
         }).join('')}</ol>` +
-        `<p class="route-panel__hint">Линия идёт по порядку точек, а не по дорогам.</p>` +
+        `<p class="route-panel__hint">${r.custom ? 'Порядок: каждый раз к ближайшему месту. Расстояния по прямой, не по дорогам.' : 'Линия идёт по порядку точек, а не по дорогам.'}</p>` +
         `<div class="route-panel__actions">` +
-        `<a class="btn btn--tg" id="route-tg" href="${routeTelegramUrl(r)}" target="_blank" rel="noopener noreferrer">${tgIcon}Хочу этот маршрут</a>` +
-        `<button type="button" class="btn btn--ghost" id="route-share"><svg aria-hidden="true"><use href="#i-link"/></svg>${navigator.share ? 'Поделиться маршрутом' : 'Скопировать ссылку'}</button></div>`;
+        `<a class="btn btn--tg" id="route-tg" href="${routeTelegramUrl(r)}" target="_blank" rel="noopener noreferrer">${tgIcon}${r.custom ? 'Отправить маршрут в Telegram' : 'Хочу этот маршрут'}</a>` +
+        (r.custom ? '' : `<button type="button" class="btn btn--ghost" id="route-share"><svg aria-hidden="true"><use href="#i-link"/></svg>${navigator.share ? 'Поделиться маршрутом' : 'Скопировать ссылку'}</button>`) + `</div>`;
       const tg = $('#route-tg');
       tg.href = telegramHref(routeTelegramUrl(r));
       if (isMobile) tg.removeAttribute('target');
@@ -896,7 +899,7 @@
     map.invalidateSize();
     const desk = desktopMq.matches;
     map.flyToBounds(L.latLngBounds(pts), {
-      paddingTopLeft: desk ? [400, 110] : [30, 140], paddingBottomRight: desk ? [40, 300] : [75, 430],
+      paddingTopLeft: desk ? [40, 110] : [30, 140], paddingBottomRight: desk ? [40, 300] : [75, 430],
       maxZoom: 15, duration: reduceMotion ? 0 : 0.9
     });
   };
@@ -947,6 +950,36 @@
       const r = routeById(routeId);
       if (r) shareUrl(routeLink(r), `${r.title} — маршрут по Далату`, `Маршрут «${r.title}» по Далату`);
     }
+  });
+
+  // «Мой день»: места из «Моего списка» по цепочке «ближайшее к предыдущему», старт — от человека или от центра
+  const buildMyDay = () => {
+    const left = PLACES.filter((p) => favs.has(p.id));
+    if (left.length < 2) return null;
+    let cur = userPos || L.latLng(CENTER);
+    const steps = [];
+    let total = 0;
+    while (left.length) {
+      let bi = 0, bd = Infinity;
+      left.forEach((p, i) => { const d = cur.distanceTo(L.latLng(p.pos)); if (d < bd) { bd = d; bi = i; } });
+      const [p] = left.splice(bi, 1);
+      steps.push({ place: p.id, note: `${distLabel(bd)} ${steps.length ? 'от предыдущей точки' : userPos ? 'от вас' : 'от центра'}` });
+      if (steps.length > 1) total += bd;
+      cur = L.latLng(p.pos);
+    }
+    return { id: 'my-day', custom: true, title: 'Мой день', duration: `между точками ≈ ${distLabel(total)}`, transport: '', steps };
+  };
+  const favDay = document.createElement('button');
+  favDay.type = 'button';
+  favDay.id = 'fav-day';
+  favDay.className = 'fav-bar__day';
+  favDay.textContent = 'Мой день';
+  favBar.insertBefore(favDay, $('#fav-send'));
+  favDay.addEventListener('click', () => {
+    const r = buildMyDay();
+    if (!r) { toast('Добавьте в список хотя бы два места'); return; }
+    myRoute = r;
+    openRoute('my-day', { updateHash: false });
   });
 
   /* ---------- Deep-ссылки ---------- */
