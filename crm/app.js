@@ -1594,7 +1594,7 @@
   const LANG_LABEL = { vi: 'Вьетнамский', en: 'Английский', ru: 'Русский' };
   const partners = { items: [], loadedAt: 0, loading: false, error: '', selected: new Set() };
   const templates = { list: [] };
-  const pf = { segment: 'hotel', status: '', zaloOnly: false, rating: 0, search: '' };
+  const pf = { segment: 'hotel', status: '', zalo: '', sort: 'zalo', starOnly: false, rating: 0, search: '' };
   const queue = { codes: [], i: 0, templateId: '', dates: '', guests: '', sent: 0, skipped: 0 };
 
   // Примеры на вьетнамском: проверьте и поправьте под себя
@@ -1654,7 +1654,15 @@
     partnersStore();
   };
 
-  const partnerHasZalo = (p) => p.zalo === 'да' && String(p.phone || '').replace(/\D/g, '').length === 10;
+  // Мобильный номер Вьетнама, который можно проверить в Zalo; «нет» — вы уже проверили, что аккаунта нет
+  const partnerHasZalo = (p) => p.zalo === 'да' && String(p.phone || '').replace(/\D/g, '').length === 10 && p.zaloCheck !== 'нет';
+  const zaloState = (p) => {
+    if (p.zaloCheck === 'нет') return 'no';
+    if (!(p.zalo === 'да' && String(p.phone || '').replace(/\D/g, '').length === 10)) return 'none';
+    return p.zaloCheck === 'есть' ? 'yes' : 'todo';
+  };
+  const ZALO_RANK = { yes: 0, todo: 1, none: 2, no: 3 };
+  const ZALO_LABEL = { todo: 'можно проверить в Zalo', yes: 'Zalo подтверждён ✓', no: 'в Zalo аккаунта нет', none: 'не мобильный номер, Zalo не подойдёт' };
   const sentAgo = (p) => (p.lastSent ? daysBetween(p.lastSent, isoToday()) : null);
 
   const partnersSorted = () => {
@@ -1662,12 +1670,20 @@
     return partners.items.filter((p) => {
       if (p.segment !== pf.segment) return false;
       if (pf.status && p.status !== pf.status) return false;
-      if (pf.zaloOnly && !partnerHasZalo(p)) return false;
+      if (pf.zalo && zaloState(p) !== pf.zalo) return false;
+      if (pf.starOnly && p.starred !== 'да') return false;
       if (pf.rating && !((p.rating || 0) >= pf.rating)) return false;
       if (q && ![p.name, ...(p.names || []), p.address, p.phone].join(' ').toLowerCase().includes(q)) return false;
       return true;
-    }).sort((a, b) => (partnerHasZalo(b) - partnerHasZalo(a)) || (b.rating || 0) - (a.rating || 0)
-      || (b.reviews || 0) - (a.reviews || 0) || String(a.name).localeCompare(String(b.name)));
+    }).sort((a, b) => {
+      const byName = String(a.name).localeCompare(String(b.name));
+      const byRating = (b.rating || 0) - (a.rating || 0) || (b.reviews || 0) - (a.reviews || 0);
+      const byZalo = ZALO_RANK[zaloState(a)] - ZALO_RANK[zaloState(b)];
+      if (pf.sort === 'fresh') return String(b.lastSeen || '').localeCompare(String(a.lastSeen || '')) || byZalo || byRating || byName;
+      if (pf.sort === 'rating') return byRating || byName;
+      if (pf.sort === 'name') return byName;
+      return byZalo || byRating || byName;
+    });
   };
 
   const partnerCard = (p) => {
@@ -1683,17 +1699,22 @@
       <article class="rounded-[1.5rem] bg-white p-3.5 ring-1 ${partners.selected.has(p.code) ? 'ring-2 ring-lagoon-500' : 'ring-ink/[0.06]'}">
         <div class="flex items-start justify-between gap-2">
           <div class="min-w-0">
-            <p class="text-[12px] font-semibold text-ink-soft">P${NBSP}${esc(p.code)}${rating ? ` · ${rating}` : ''}${p.manual === 'да' ? ' · вручную' : ''}</p>
+            <p class="text-[12px] font-semibold text-ink-soft">${p.starred === 'да' ? '★ проверенный · ' : ''}P${NBSP}${esc(p.code)}${rating ? ` · ${rating}` : ''}${p.manual === 'да' ? ' · вручную' : ''}</p>
             <h3 class="mt-0.5 text-[16px] font-semibold leading-snug">${esc(p.name)}</h3>
           </div>
+          <button type="button" data-action="partner-star" data-code="${esc(p.code)}" aria-label="${p.starred === 'да' ? 'Убрать из проверенных' : 'Отметить проверенным'}" aria-pressed="${p.starred === 'да'}" class="press ml-auto grid h-11 w-11 shrink-0 place-items-center text-[24px] leading-none ${p.starred === 'да' ? 'text-sunset' : 'text-ink/25'}">${p.starred === 'да' ? '★' : '☆'}</button>
           <label class="inline-flex min-h-[44px] min-w-[44px] shrink-0 cursor-pointer items-center justify-end gap-1.5 text-[13px] font-semibold">
             <input type="checkbox" data-ppick="${esc(p.code)}" class="h-5 w-5 accent-[#1F8A7E]"${partners.selected.has(p.code) ? ' checked' : ''}>Выбрать
           </label>
         </div>
         ${p.address ? `<p class="mt-1 text-[13px] text-ink-soft">${esc(p.address)}</p>` : ''}
-        <p class="mt-0.5 text-[13px] text-ink-soft">${p.phone ? `${esc(phoneText(p.phone))} · ${hasZalo ? 'Zalo не проверен' : 'городской или неполный номер'}` : 'номера нет'}${p.commission !== null && p.commission !== undefined && p.commission !== '' ? ` · комиссия ${esc(p.commission)}${NBSP}%` : ''}</p>
+        <p class="mt-0.5 text-[13px] text-ink-soft">${p.phone ? `${esc(phoneText(p.phone))} · ${ZALO_LABEL[zaloState(p)]}` : 'номера нет'}${p.commission !== null && p.commission !== undefined && p.commission !== '' ? ` · комиссия ${esc(p.commission)}${NBSP}%` : ''}</p>
         ${ago !== null ? `<p class="mt-0.5 text-[12px] ${ago < REPEAT_DAYS ? 'text-sunset' : 'text-ink-soft'}">Писали ${ago === 0 ? 'сегодня' : `${ago}${NBSP}дн. назад`}${p.lastTemplate ? ` · ${esc((templates.list.find((t) => t.id === p.lastTemplate) || {}).title || '')}` : ''}</p>` : ''}
         ${p.note ? `<p class="mt-1 text-[13px]">${esc(p.note)}</p>` : ''}
+        ${zaloState(p) === 'todo' ? `<div class="mt-2 flex flex-wrap items-center gap-2"><span class="text-[13px] text-ink-soft">Открыли в Zalo?</span>
+          <button type="button" data-action="partner-zalo" data-code="${esc(p.code)}" data-check="есть" class="${btn} bg-lagoon-500/15 text-lagoon-700">Аккаунт есть</button>
+          <button type="button" data-action="partner-zalo" data-code="${esc(p.code)}" data-check="нет" class="${btn} bg-sunset/15 text-sunset">Аккаунта нет</button></div>` : ''}
+        ${zaloState(p) === 'yes' || zaloState(p) === 'no' ? `<p class="mt-1"><button type="button" data-action="partner-zalo" data-code="${esc(p.code)}" data-check="" class="min-h-[44px] text-[13px] text-ink-soft underline">Сбросить отметку Zalo</button></p>` : ''}
         <div class="mt-2.5 flex flex-wrap items-center gap-2">
           <select data-pstatus="${esc(p.code)}" aria-label="Статус" class="min-h-[44px] rounded-full px-3 text-[14px] font-semibold outline-none ${STATUS_STYLE[p.status] || STATUS_STYLE['новый']}">${statusOptions}</select>
           ${hasZalo ? `<a href="https://zalo.me/${digits}" target="_blank" rel="noopener" class="${btn} bg-[#0068FF] text-white">Написать в Zalo</a>` : ''}
@@ -1758,9 +1779,11 @@
           <div class="mt-2 grid grid-cols-2 gap-2">
             <select data-pf="status" aria-label="Статус" class="${sel}">${opt('', 'Любой статус', pf.status)}${PARTNER_STATUS.map((s) => opt(s, s, pf.status)).join('')}</select>
             <select data-pf="rating" aria-label="Рейтинг" class="${sel}">${opt(0, 'Любой рейтинг', pf.rating)}${opt(4, 'от 4,0', pf.rating)}${opt(4.5, 'от 4,5', pf.rating)}</select>
+            <select data-pf="zalo" aria-label="Zalo" class="${sel}">${opt('', 'Любой Zalo', pf.zalo)}${opt('todo', 'Можно проверить', pf.zalo)}${opt('yes', 'Аккаунт есть', pf.zalo)}${opt('no', 'Аккаунта нет', pf.zalo)}${opt('none', 'Не мобильный / без номера', pf.zalo)}</select>
             <label class="col-span-2 flex min-h-[44px] items-center gap-2.5 px-1 text-[15px] font-medium">
-              <input type="checkbox" data-pf="zaloOnly" class="h-5 w-5 accent-[#1F8A7E]"${pf.zaloOnly ? ' checked' : ''}> Только с номером для Zalo
+              <input type="checkbox" data-pf="starOnly" class="h-5 w-5 accent-[#1F8A7E]"${pf.starOnly ? ' checked' : ''}> Только проверенные ★
             </label>
+            <select data-pf="sort" aria-label="Сортировка" class="${sel}">${opt('zalo', 'Сначала с Zalo', pf.sort)}${opt('fresh', 'Сначала свежие', pf.sort)}${opt('rating', 'По рейтингу', pf.sort)}${opt('name', 'По названию', pf.sort)}</select>
           </div>
           <div class="mt-1 flex flex-wrap gap-2">
             <button type="button" data-action="partner-select-all" class="press min-h-[44px] rounded-full bg-white px-4 text-[14px] font-semibold ring-1 ring-ink/10">Выбрать всех (${list.length})</button>
@@ -1922,6 +1945,28 @@
     } catch {
       toast('Не удалось сохранить отметку. Повторите');
     }
+  };
+
+  const partnerZaloCheck = async (code, zaloCheck) => {
+    try {
+      const data = await sync.call({ action: 'partners_update', code: Number(code), fields: { zaloCheck } });
+      partnerApply(data.item);
+    } catch {
+      toast('Не удалось сохранить отметку');
+    }
+    render();
+  };
+
+  const partnerStar = async (code) => {
+    const p = partners.items.find((x) => x.code === Number(code));
+    if (!p) return;
+    try {
+      const data = await sync.call({ action: 'partners_update', code: p.code, fields: { starred: p.starred === 'да' ? '' : 'да' } });
+      partnerApply(data.item);
+    } catch {
+      toast('Не удалось сохранить отметку');
+    }
+    render();
   };
 
   const partnerStatusChange = async (code, status) => {
@@ -2238,6 +2283,12 @@
         break;
       case 'partner-edit':
         openPartnerForm(el.dataset.code);
+        break;
+      case 'partner-star':
+        partnerStar(el.dataset.code);
+        break;
+      case 'partner-zalo':
+        partnerZaloCheck(el.dataset.code, el.dataset.check);
         break;
       case 'partner-delete':
         deletePartner(document.getElementById('partner-form'));
