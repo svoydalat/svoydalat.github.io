@@ -35,7 +35,13 @@
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href]');
     if (!a) return;
-    const href = a.href;
+    let href = a.href;
+    // Запасной путь: если ссылка всё же стала tg:// или intent://, возвращаем её к https://t.me/...
+    const deep = href.match(/^(?:tg|intent):\/\/resolve\?([^#]*)/i);
+    if (deep) {
+      const q = new URLSearchParams(deep[1]);
+      if (q.get('domain')) href = `https://t.me/${q.get('domain')}${q.get('text') ? `?text=${encodeURIComponent(q.get('text'))}` : ''}`;
+    }
     if (/^https:\/\/t\.me\//i.test(href)) {
       e.preventDefault();
       safe(() => tg.openTelegramLink(href));
