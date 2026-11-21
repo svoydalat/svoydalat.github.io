@@ -78,6 +78,27 @@
     });
   })();
 
+  // Маршруты — в routes.js. Шаг с неизвестным местом пропускаем, маршрут короче двух шагов — тоже
+  const PLACE_BY_ID = Object.fromEntries(PLACES.map((p) => [p.id, p]));
+  const ROUTES = (() => {
+    const seen = new Set();
+    return (window.SVOY_ROUTES || []).filter((r) => {
+      const bad = !r || !/^[a-z0-9-]+$/.test(r.id || '') ? 'нет id или в нём не латиница'
+        : seen.has(r.id) ? 'такой id уже есть'
+        : !r.title || !Array.isArray(r.steps) ? 'нет title или steps'
+        : '';
+      if (bad) { console.warn(`routes.js: маршрут «${(r && (r.title || r.id)) || '?'}» пропущен — ${bad}`); return false; }
+      r.steps = r.steps.filter((s) => {
+        if (s && PLACE_BY_ID[s.place]) return true;
+        console.warn(`routes.js: в маршруте «${r.title}» шаг «${s && s.place}» пропущен — такого места нет в places.js`);
+        return false;
+      });
+      if (r.steps.length < 2) { console.warn(`routes.js: маршрут «${r.title}» пропущен — меньше двух шагов`); return false; }
+      seen.add(r.id);
+      return true;
+    });
+  })();
+
   // Рельеф для тех, кто едет на байке или идёт пешком: ровно / холмы / крутой участок
   const SLOPE_LABEL = { flat: 'ровно', hills: 'холмы', steep: 'крутой участок' };
 
