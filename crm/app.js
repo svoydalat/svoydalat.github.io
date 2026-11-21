@@ -1222,6 +1222,363 @@
     }
   });
 
+  /* ---------- Экран «Жильё»: рабочий список вариантов (из листа «Жильё (CRM)») ---------- */
+  const HOUSING_KEY = 'svoy-crm:housing';
+  const KIND_LABEL = { apartment: 'Квартира', house: 'Дом', room: 'Комната' };
+  const housing = { items: [], loadedAt: 0, loading: false, error: '' };
+  const hfilter = { price: 0, rooms: 0, district: '', kind: '', phoneOnly: false };
+  const NBSP = ' ';
+
+  const housingCacheLoad = () => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(HOUSING_KEY));
+      if (saved && Array.isArray(saved.items)) Object.assign(housing, { items: saved.items, loadedAt: saved.loadedAt || 0 });
+    } catch {
+      // кэш повреждён — список просто загрузится заново
+    }
+  };
+
+  const housingLoad = async ({ silent = true } = {}) => {
+    if (!sync.connected || housing.loading) return;
+    housing.loading = true;
+    housing.error = '';
+    if (!silent) render();
+    try {
+      const data = await sync.call({ action: 'housing_data' });
+      housing.items = Array.isArray(data.items) ? data.items : [];
+      housing.loadedAt = Date.now();
+      try {
+        localStorage.setItem(HOUSING_KEY, JSON.stringify({ items: housing.items, loadedAt: housing.loadedAt }));
+      } catch {
+        // без кэша список не откроется офлайн — не страшно
+      }
+    } catch {
+      housing.error = 'Не удалось обновить список. Показаны прошлые данные.';
+    } finally {
+      housing.loading = false;
+      if (parseRoute().name === 'housing') renderIfIdle();
+    }
+  };
+
+  const moneyVnd = (n) => `${new Intl.NumberFormat('ru-RU').format(Number(n) || 0)}${NBSP}VND`;
+  const phoneText = (p) => String(p || '').replace(/^(\d{4})(\d{3})(\d{3})$/, '$1 $2 $3');
+  const safeUrl = (u) => (/^https?:\/\//i.test(String(u || '')) ? String(u) : '');
+  const isNewHousing = (h) => h.firstSeen && daysBetween(h.firstSeen, isoToday()) <= 2;
+
+  const housingBadges = (h) => {
+    const out = [];
+    if (h.status === 'removed') out.push(['Снято', 'bg-ink/10 text-ink-soft']);
+    else {
+      if (isNewHousing(h)) out.push(['Новое', 'bg-lagoon-500/15 text-lagoon-700']);
+      if (h.pricePrev && h.price && h.price < h.pricePrev) out.push(['Цена ↓', 'bg-lagoon-500/15 text-lagoon-700']);
+      if (h.pricePrev && h.price && h.price > h.pricePrev) out.push(['Цена ↑', 'bg-sunset/15 text-sunset']);
+    }
+    return out.map(([text, cls]) => `<span class="rounded-full px-2 py-0.5 text-[11px] font-semibold ${cls}">${text}</span>`).join('');
+  };
+
+  // Сверху варианты с валидным номером (Zalo), затем новые, затем дешевле; снятые в конце
+  const housingSorted = () => {
+    const rank = (h) => (h.status === 'removed' ? 3 : h.zalo === 'да' ? 0 : 1);
+    return housing.items.filter((h) => {
+      if (hfilter.price && !((h.price || h.ownerPrice) <= hfilter.price)) return false;
+      if (hfilter.kind && h.kind !== hfilter.kind) return false;
+      if (hfilter.district && h.district !== hfilter.district) return false;
+      if (hfilter.phoneOnly && !h.phone) return false;
+      if (hfilter.rooms) {
+        const rooms = h.rooms || 1;
+        if (hfilter.rooms >= 4 ? rooms < 4 : rooms !== hfilter.rooms) return false;
+      }
+      return true;
+    }).sort((a, b) => rank(a) - rank(b)
+      || String(b.firstSeen).localeCompare(String(a.firstSeen))
+      || (a.price || a.ownerPrice || 0) - (b.price || b.ownerPrice || 0));
+  };
+
+  const housingCard = (h) => {
+    const photo = safeUrl((h.photos || [])[0]);
+    const url = safeUrl((h.urls || [])[0]);
+    const digits = String(h.phone || '').replace(/\D/g, '');
+    const hasZalo = h.zalo === 'да' && digits;
+    const spec = [KIND_LABEL[h.kind] || '', h.rooms ? `${h.rooms}${NBSP}спальн.` : '', h.area ? `${h.area}${NBSP}м²` : ''].filter(Boolean).join(' · ');
+    const btn = 'press inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-full px-4 text-[14px] font-semibold';
+    const zalo = hasZalo
+      ? `<a href="https://zalo.me/${digits}" target="_blank" rel="noopener" class="${btn} bg-[#0068FF] text-white">Написать в Zalo</a>`
+      : `<span class="${btn} bg-ink/[0.06] text-ink-soft">Нет номера</span>`;
+    const call = digits ? `<a href="tel:+${digits.replace(/^0/, '84')}" class="${btn} bg-ink text-paper">${icon('phone', 'h-4 w-4')}Позвонить</a>` : '';
+    const open = url ? `<a href="${esc(url)}" target="_blank" rel="noopener" class="${btn} bg-white text-ink ring-1 ring-ink/10">Объявление</a>` : '';
+    const map = h.lat && h.lng ? `<a href="https://www.google.com/maps?q=${h.lat},${h.lng}" target="_blank" rel="noopener" class="${btn} bg-white text-ink ring-1 ring-ink/10">Адрес</a>` : '';
+    return `
+      <article class="rounded-[1.5rem] bg-white p-3.5 ring-1 ${housing.selected.has(h.code) ? 'ring-2 ring-lagoon-500' : 'ring-ink/[0.06]'} ${h.status === 'removed' ? 'opacity-60' : ''}">
+        <div class="flex gap-3.5">
+          ${photo
+    ? `<img src="${esc(photo)}" alt="" loading="lazy" class="h-24 w-24 shrink-0 rounded-2xl bg-ink/[0.06] object-cover">`
+    : '<span class="h-24 w-24 shrink-0 rounded-2xl bg-ink/[0.06]"></span>'}
+          <div class="min-w-0 flex-1">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="text-[12px] font-semibold text-ink-soft">№${NBSP}${esc(h.code)}</span>${housingBadges(h)}
+              <label class="ml-auto inline-flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-end gap-1.5 text-[13px] font-semibold">
+                <input type="checkbox" data-pick="${esc(h.code)}" class="h-5 w-5 accent-[#1F8A7E]"${housing.selected.has(h.code) ? ' checked' : ''}>Выбрать
+              </label>
+            </div>
+            <h3 class="mt-1 line-clamp-2 text-[15px] font-semibold leading-snug">${esc(h.title)}</h3>
+            <p class="mt-1 text-[17px] font-semibold tracking-tight">${moneyVnd(h.price || h.ownerPrice)}<span class="text-[12px] font-medium text-ink-soft">${NBSP}/${NBSP}мес</span>${h.pricePrev && h.pricePrev !== h.price ? `<span class="ml-1.5 text-[12px] font-medium text-ink-soft line-through">${moneyVnd(h.pricePrev)}</span>` : ''}</p>
+          </div>
+        </div>
+        <p class="mt-2 text-[13px] text-ink-soft">${esc([spec, h.district].filter(Boolean).join(' · '))}</p>
+        ${h.phone ? `<p class="mt-0.5 text-[13px] text-ink-soft">${esc(phoneText(h.phone))} · ${hasZalo ? 'номер есть, Zalo не проверен' : 'городской или неполный номер'}</p>` : ''}
+        ${h.note ? `<p class="mt-1 text-[13px]">${esc(h.note)}</p>` : ''}
+        <div class="mt-3 flex flex-wrap gap-2">${zalo}${call}${open}${map}
+          <button type="button" data-action="housing-edit" data-code="${esc(h.code)}" class="${btn} text-ink-soft">${h.manual === 'да' ? 'Править' : 'Номер, заметка'}</button>
+        </div>
+      </article>`;
+  };
+
+  const viewHousing = () => {
+    const list = housingSorted();
+    const districts = [...new Set(housing.items.map((h) => h.district).filter(Boolean))].sort();
+    const sel = 'min-h-[44px] w-full rounded-full bg-white px-3 text-[16px] ring-1 ring-ink/[0.08] outline-none focus:ring-2 focus:ring-lagoon-500';
+    const opt = (value, label, current) => `<option value="${esc(value)}"${String(current) === String(value) ? ' selected' : ''}>${label}</option>`;
+    const filters = `
+      <div id="housing-filters" class="mt-3 grid grid-cols-2 gap-2">
+        <select data-hf="price" aria-label="Цена" class="${sel}">
+          ${opt(0, 'Любая цена', hfilter.price)}${[10, 20, 30, 50].map((m) => opt(m * 1e6, `до ${m} млн`, hfilter.price)).join('')}
+        </select>
+        <select data-hf="rooms" aria-label="Спальни" class="${sel}">
+          ${opt(0, 'Любые спальни', hfilter.rooms)}${opt(1, '1 спальня', hfilter.rooms)}${opt(2, '2 спальни', hfilter.rooms)}${opt(3, '3 спальни', hfilter.rooms)}${opt(4, '4 и больше', hfilter.rooms)}
+        </select>
+        <select data-hf="kind" aria-label="Тип" class="${sel}">
+          ${opt('', 'Любой тип', hfilter.kind)}${Object.entries(KIND_LABEL).map(([k, v]) => opt(k, v, hfilter.kind)).join('')}
+        </select>
+        <select data-hf="district" aria-label="Район" class="${sel}">
+          ${opt('', 'Любой район', hfilter.district)}${districts.map((d) => opt(d, esc(d), hfilter.district)).join('')}
+        </select>
+        <label class="col-span-2 flex min-h-[44px] items-center gap-2.5 px-1 text-[15px] font-medium">
+          <input type="checkbox" data-hf="phoneOnly" class="h-5 w-5 accent-[#1F8A7E]"${hfilter.phoneOnly ? ' checked' : ''}> Только с номером
+        </label>
+      </div>`;
+
+    let body;
+    if (!sync.connected && !housing.items.length) {
+      body = `<div class="mt-10 text-center"><p class="font-semibold">Список жилья недоступен</p>
+        <p class="mx-auto mt-1 max-w-xs text-[15px] text-ink-soft">Подключите сервер заявок в разделе «Ещё» (код из бота: /connect).</p></div>`;
+    } else if (!housing.items.length) {
+      body = `<div class="mt-10 text-center"><p class="font-semibold">${housing.loading ? 'Загружаю…' : 'Вариантов пока нет'}</p>
+        <p class="mx-auto mt-1 max-w-xs text-[15px] text-ink-soft">${housing.loading ? '' : 'Список наполняется после утреннего обновления (06:00) или запуска задания вручную.'}</p></div>`;
+    } else if (!list.length) {
+      body = '<div class="mt-10 text-center"><p class="font-semibold">Ничего не найдено</p><p class="mt-1 text-[15px] text-ink-soft">Ослабьте фильтры.</p></div>';
+    } else {
+      body = `<div class="mt-4 space-y-3">${list.map(housingCard).join('')}</div>`;
+    }
+
+    const stamp = housing.loadedAt ? `обновлено ${new Date(housing.loadedAt).toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}` : '';
+    return `
+      <div>
+        <header class="sticky top-0 z-20 bg-paper/85 px-5 pb-3 pt-[calc(env(safe-area-inset-top)+18px)] backdrop-blur-xl">
+          <div class="flex items-end justify-between">
+            <h1 class="text-[2.1rem] font-semibold leading-none tracking-tightest">Жильё</h1>
+            <div class="flex gap-2"><button type="button" data-action="housing-add" class="press inline-flex min-h-[44px] items-center gap-1.5 rounded-full bg-ink px-4 text-[14px] font-semibold text-paper">${icon('plus', 'h-4 w-4')}Добавить</button>
+            <button type="button" data-action="housing-refresh" aria-label="Обновить список"
+                    class="press grid h-11 w-11 place-items-center rounded-full bg-white ring-1 ring-ink/[0.08]">
+              ${icon('refresh', `h-5 w-5${housing.loading ? ' animate-spin' : ''}`)}
+            </button></div>
+          </div>
+          <p class="mt-2 text-[13px] text-ink-soft">${list.length} из ${housing.items.length}${stamp ? ` · ${stamp}` : ''}</p>
+          ${filters}
+        </header>
+        <div class="px-5">
+          ${housing.error ? `<p class="mt-3 rounded-2xl bg-sunset/10 px-4 py-3 text-[14px] text-sunset">${esc(housing.error)}</p>` : ''}
+          ${body}
+        </div>
+        ${housing.selected.size ? `
+        <div class="fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+92px)] z-30 px-3">
+          <div class="mx-auto flex max-w-md items-center gap-2 rounded-full bg-ink px-3 py-1.5 text-paper shadow-lg">
+            <span class="pl-2 text-[14px] font-semibold">Выбрано: ${housing.selected.size}</span>
+            <button type="button" data-action="pick-open-sheet" class="press ml-auto min-h-[44px] rounded-full bg-paper px-4 text-[14px] font-semibold text-ink">Отправить подборку</button>
+            <button type="button" data-action="pick-clear" aria-label="Сбросить выбор" class="min-h-[44px] min-w-[44px] text-[18px]">×</button>
+          </div>
+        </div>` : ''}
+      </div>`;
+  };
+
+  /* ---------- Жильё: выбор для клиента, подборка, ручные варианты ---------- */
+  const CLIENT_MARKUP = 0.2;                       // цена клиента = цена хозяина + 20 %
+  const clientPriceOf = (h) => Math.round(((h.price || h.ownerPrice || 0) * (1 + CLIENT_MARKUP)) / 100000) * 100000;
+  housing.selected = new Set();
+
+  const housingStore = () => {
+    try {
+      localStorage.setItem(HOUSING_KEY, JSON.stringify({ items: housing.items, loadedAt: housing.loadedAt }));
+    } catch {
+      // без кэша список не откроется офлайн — не страшно
+    }
+  };
+
+  const housingApply = (item) => {
+    const i = housing.items.findIndex((h) => h.code === item.code);
+    if (i >= 0) housing.items[i] = item;
+    else housing.items.push(item);
+    housing.items.sort((a, b) => a.code - b.code);
+    housingStore();
+  };
+
+  const copyText = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const pickLine = (h) => {
+    const head = [KIND_LABEL[h.kind] || 'Жильё', h.rooms ? `${h.rooms} спальн.` : '', h.area ? `${h.area} м²` : '', h.district].filter(Boolean).join(', ');
+    const photos = (h.photos || []).map(safeUrl).filter(Boolean).slice(0, 2);
+    return [`№ ${h.code} · ${head}`, `Цена: ${moneyVnd(clientPriceOf(h))}${NBSP}/${NBSP}мес`, ...photos].join('\n');
+  };
+
+  const pickText = (client) => {
+    const chosen = housing.items.filter((h) => housing.selected.has(h.code)).sort((a, b) => a.code - b.code);
+    const hello = client && client.name.trim() ? `Здравствуйте, ${client.name.trim().split(/\s+/)[0]}!` : 'Здравствуйте!';
+    return [`${hello} Подобрал варианты жилья в Далате:`, ...chosen.map(pickLine), 'Напишите, какой понравился: договорюсь о просмотре.'].join('\n\n');
+  };
+
+  const clientChoices = () => store.clients.filter((c) => c.stage !== 'lost')
+    .sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)));
+
+  const openPickSheet = () => {
+    if (!housing.selected.size) return;
+    const options = clientChoices().map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');
+    sheet.open(`
+      <div id="pick-sheet" class="flex min-h-0 flex-1 flex-col">
+        <div class="flex items-center justify-between px-5 pb-2 pt-2">
+          <button type="button" data-action="close-sheet" class="min-h-[44px] text-[15px] font-medium text-ink-soft">Закрыть</button>
+          <h2 class="text-[15px] font-semibold">Подборка: ${housing.selected.size}</h2>
+          <span class="w-14"></span>
+        </div>
+        <div class="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-5 pb-[calc(env(safe-area-inset-bottom)+28px)] pt-2">
+          <label class="block">
+            <span class="field-legend">Кому</span>
+            <select id="pick-client" class="min-h-[44px] w-full rounded-full bg-white px-3 text-[16px] ring-1 ring-ink/[0.08] outline-none">
+              <option value="">Без имени</option>${options}
+            </select>
+          </label>
+          <textarea id="pick-text" rows="12" class="block w-full rounded-[1.25rem] bg-white px-4 py-3.5 text-[16px] outline-none ring-1 ring-ink/[0.06] focus:ring-2 focus:ring-lagoon-500">${esc(pickText(null))}</textarea>
+          <p class="text-[13px] text-ink-soft">В тексте цена клиента (цена хозяина +${NBSP}20${NBSP}%). Телефон хозяина и ссылки на объявления не попадают.</p>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" data-action="pick-open" class="press min-h-[44px] rounded-full bg-ink px-5 text-[15px] font-semibold text-paper">Открыть чат клиента</button>
+            <button type="button" data-action="pick-copy" class="press min-h-[44px] rounded-full bg-white px-5 text-[15px] font-semibold ring-1 ring-ink/10">Скопировать</button>
+            ${navigator.share ? '<button type="button" data-action="pick-share" class="press min-h-[44px] rounded-full bg-white px-5 text-[15px] font-semibold ring-1 ring-ink/10">Поделиться</button>' : ''}
+          </div>
+        </div>
+      </div>`);
+  };
+
+  const pickOpenChat = async () => {
+    const text = document.getElementById('pick-text').value;
+    const client = store.get(document.getElementById('pick-client').value);
+    const copied = await copyText(text);
+    const link = client && contactLinks(client).find((l) => l.label === 'Telegram' || l.label === 'WhatsApp');
+    if (link) window.open(link.href, link.local ? '_self' : '_blank', 'noopener');
+    toast(link ? (copied ? 'Текст скопирован: вставьте в чат' : 'Скопируйте текст вручную и вставьте в чат') : 'У клиента нет Telegram или номера: текст скопирован');
+  };
+
+  const manualFields = (h) => {
+    const item = h || { kind: 'apartment', urls: [], photos: [] };
+    const text = (name, value, attrs = '') => row(name.label, `<input class="row-input" name="${name.key}" value="${esc(value ?? '')}" ${attrs}>`);
+    return `
+      <div class="group-list">
+        ${text({ key: 'title', label: 'Название' }, item.title, 'maxlength="300" autocomplete="off" required')}
+        <label class="row"><span class="row-label">Тип</span>
+          <select class="row-input" name="kind">${Object.entries(KIND_LABEL).map(([k, v]) => `<option value="${k}"${item.kind === k ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
+        ${text({ key: 'ownerPrice', label: 'Цена, VND' }, item.ownerPrice, 'type="number" inputmode="numeric" min="0" placeholder="6000000"')}
+        ${text({ key: 'district', label: 'Район' }, item.district, 'maxlength="100" autocomplete="off"')}
+        ${text({ key: 'addressText', label: 'Адрес' }, item.addressText, 'maxlength="300" autocomplete="off"')}
+        ${text({ key: 'rooms', label: 'Спальни' }, item.rooms, 'type="number" inputmode="numeric" min="0" max="20"')}
+        ${text({ key: 'area', label: 'Площадь, м²' }, item.area, 'type="number" inputmode="decimal" min="0"')}
+        ${text({ key: 'phone', label: 'Телефон' }, item.phone, 'type="tel" placeholder="0912345678" maxlength="20" autocomplete="off"')}
+        ${text({ key: 'urls', label: 'Ссылка на пост' }, (item.urls || []).join(' '), 'type="url" placeholder="https://facebook.com/…" autocomplete="off"')}
+      </div>
+      <div>
+        <p class="field-legend">Ссылки на фото (по одной в строке)</p>
+        <textarea name="photos" rows="3" class="block w-full rounded-[1.25rem] bg-white px-4 py-3.5 text-[16px] outline-none ring-1 ring-ink/[0.06] focus:ring-2 focus:ring-lagoon-500">${esc((item.photos || []).join('\n'))}</textarea>
+      </div>`;
+  };
+
+  const noteField = (value) => `
+    <div>
+      <p class="field-legend">Заметка</p>
+      <textarea name="note" rows="3" maxlength="2000" class="block w-full rounded-[1.25rem] bg-white px-4 py-3.5 text-[16px] outline-none ring-1 ring-ink/[0.06] focus:ring-2 focus:ring-lagoon-500">${esc(value || '')}</textarea>
+    </div>`;
+
+  // code пустой — новый ручной вариант; ручной вариант правится целиком, у автоматического можно вписать только номер и заметку
+  const openHousingForm = (code) => {
+    const h = code ? housing.items.find((x) => x.code === Number(code)) : null;
+    const manual = !h || h.manual === 'да';
+    const body = manual
+      ? manualFields(h)
+      : `<p class="text-[15px] font-semibold">№${NBSP}${esc(h.code)} · ${esc(h.title)}</p>
+         <p class="text-[13px] text-ink-soft">Вариант собран автоматически: можно вписать номер, найденный в объявлении, и заметку. Остальное обновится само.</p>
+         <div class="group-list"><label class="row"><span class="row-label">Телефон</span><input class="row-input" name="phone" value="${esc(h.phone || '')}" type="tel" placeholder="0912345678" maxlength="20" autocomplete="off"></label></div>`;
+    sheet.open(`
+      <form id="housing-form" class="flex min-h-0 flex-1 flex-col" data-code="${h ? h.code : ''}" data-manual="${manual ? '1' : ''}" novalidate>
+        <div class="flex items-center justify-between px-5 pb-2 pt-2">
+          <button type="button" data-action="close-sheet" class="min-h-[44px] text-[15px] font-medium text-ink-soft">Отмена</button>
+          <h2 class="text-[15px] font-semibold">${h ? 'Вариант' : 'Новый вариант'}</h2>
+          <button type="submit" class="min-h-[44px] text-[15px] font-semibold text-lagoon-700">Готово</button>
+        </div>
+        <div class="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain px-5 pb-[calc(env(safe-area-inset-bottom)+28px)] pt-2">
+          ${body}${noteField(h && h.note)}
+          ${h && manual ? '<button type="button" data-action="housing-delete" class="min-h-[44px] w-full rounded-full text-[15px] font-semibold text-sunset">Удалить вариант</button>' : ''}
+        </div>
+      </form>`);
+  };
+
+  const saveHousingForm = async (form) => {
+    if (!sync.connected) { toast('Подключите сервер заявок в разделе «Ещё»'); return; }
+    const f = form.elements;
+    const code = Number(form.dataset.code) || 0;
+    let payload;
+    if (form.dataset.manual) {
+      if (!f.title.value.trim()) { toast('Укажите название'); f.title.focus(); return; }
+      payload = { action: 'housing_manual_upsert', item: {
+        ...(code ? { code } : {}),
+        title: f.title.value.trim(), kind: f.kind.value, ownerPrice: f.ownerPrice.value, district: f.district.value.trim(),
+        addressText: f.addressText.value.trim(), rooms: f.rooms.value, area: f.area.value, phone: f.phone.value.trim(),
+        urls: f.urls.value.trim(), photos: f.photos.value.split(/\s+/).filter(Boolean), note: f.note.value.trim()
+      } };
+    } else {
+      payload = { action: 'housing_edit', code, phone: f.phone.value.trim(), note: f.note.value.trim() };
+    }
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = true;
+    try {
+      const data = await sync.call(payload);
+      housingApply(data.item);
+      sheet.close();
+      toast('Сохранено');
+      render();
+    } catch {
+      button.disabled = false;
+      toast('Не удалось сохранить. Проверьте связь и повторите');
+    }
+  };
+
+  const deleteHousing = async (form) => {
+    const code = Number(form.dataset.code);
+    if (!code || !confirm(`Удалить вариант № ${code}? Это нельзя отменить.`)) return;
+    try {
+      await sync.call({ action: 'housing_manual_delete', code });
+      housing.items = housing.items.filter((h) => h.code !== code);
+      housing.selected.delete(code);
+      housingStore();
+      sheet.close();
+      toast('Удалено');
+      render();
+    } catch {
+      toast('Не удалось удалить');
+    }
+  };
+
   /* ---------- Уведомление ---------- */
   function toast(message) {
     const el = document.getElementById('toast');
@@ -1240,10 +1597,11 @@
 
   function render() {
     const { name, param, query } = parseRoute();
-    const views = { today: viewToday, clients: viewClients, arrivals: viewArrivals, more: viewMore };
+    const views = { today: viewToday, clients: viewClients, housing: viewHousing, arrivals: viewArrivals, more: viewMore };
 
     if (name === 'clients' && query.has('stage')) ui.stage = query.get('stage');
     if (name !== 'client') ui.listRoute = location.hash || '#/today';
+    if (name === 'housing' && Date.now() - housing.loadedAt > 5 * 60 * 1000) housingLoad();
 
     document.getElementById('view').innerHTML = name === 'client' ? viewClient(param) : (views[name] || viewToday)();
 
@@ -1350,6 +1708,34 @@
         ui.arrivals = el.dataset.tab;
         render();
         break;
+      case 'housing-refresh':
+        housingLoad({ silent: false });
+        break;
+      case 'housing-add':
+        openHousingForm('');
+        break;
+      case 'housing-edit':
+        openHousingForm(el.dataset.code);
+        break;
+      case 'housing-delete':
+        deleteHousing(document.getElementById('housing-form'));
+        break;
+      case 'pick-open-sheet':
+        openPickSheet();
+        break;
+      case 'pick-clear':
+        housing.selected.clear();
+        render();
+        break;
+      case 'pick-copy':
+        copyText(document.getElementById('pick-text').value).then((ok) => toast(ok ? 'Скопировано' : 'Не удалось скопировать'));
+        break;
+      case 'pick-open':
+        pickOpenChat();
+        break;
+      case 'pick-share':
+        navigator.share({ text: document.getElementById('pick-text').value }).catch(() => {});
+        break;
       case 'sync':
         sync.pull({ silent: false });
         break;
@@ -1399,6 +1785,10 @@
     if (form.id === 'editor') {
       e.preventDefault();
       saveEditor(form);
+    }
+    if (form.id === 'housing-form') {
+      e.preventDefault();
+      saveHousingForm(form);
     }
     if (form.id === 'note-form') {
       e.preventDefault();
@@ -1498,11 +1888,30 @@
   /* ---------- Запуск ---------- */
   store.load();
   sync.load();
+  housingCacheLoad();
 
   // «Поделиться» из других приложений (Android): текст приходит в адресе страницы
   const params = new URLSearchParams(location.search);
   const shared = ['share_title', 'share_text', 'share_url'].map((key) => params.get(key)).filter(Boolean).join('\n');
   if (shared) history.replaceState(null, '', `${location.pathname}#/today`);
+
+  document.addEventListener('change', (e) => {
+    if (e.target.id === 'pick-client') {
+      document.getElementById('pick-text').value = pickText(store.get(e.target.value));
+      return;
+    }
+    if (e.target.dataset && e.target.dataset.pick) {
+      const code = Number(e.target.dataset.pick);
+      if (e.target.checked) housing.selected.add(code);
+      else housing.selected.delete(code);
+      render();
+      return;
+    }
+    const field = e.target.dataset && e.target.dataset.hf;
+    if (!field) return;
+    hfilter[field] = e.target.type === 'checkbox' ? e.target.checked : (['price', 'rooms'].includes(field) ? Number(e.target.value) : e.target.value);
+    render();
+  });
 
   render();
   animateView();
