@@ -1269,6 +1269,7 @@
     const out = [];
     if (h.status === 'removed') out.push(['Снято', 'bg-ink/10 text-ink-soft']);
     else {
+      if (h.manual === 'да' && /^Черновик/.test(h.note || '')) out.push(['Черновик', 'bg-sunset/15 text-sunset']);
       if (isNewHousing(h)) out.push(['Новое', 'bg-lagoon-500/15 text-lagoon-700']);
       if (h.pricePrev && h.price && h.price < h.pricePrev) out.push(['Цена ↓', 'bg-lagoon-500/15 text-lagoon-700']);
       if (h.pricePrev && h.price && h.price > h.pricePrev) out.push(['Цена ↑', 'bg-sunset/15 text-sunset']);
