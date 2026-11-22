@@ -1528,3 +1528,20 @@ button.faq__link { padding: 0; border: 0; background: none; font: inherit; font-
 /* Минимальный размер текста: 12 px для бейджей, 13 px для подписей и подвала (аудит п. 3) */
 body .text-\[10px\], body .text-\[11px\] { font-size: 12px; }
 body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
+
+/* ---------- Навигация (аудит Г5, Г6) ---------- */
+#site-header .header-bar > a:first-child .font-serif.block { white-space: nowrap; }
+#site-header .header-bar > a:first-child { white-space: nowrap; flex-shrink: 0; }
+/* Подпись логотипа только на широких экранах, меню и кнопка — с 1024 px */
+@media (max-width: 1279.98px) {
+  #site-header .header-bar > a:first-child .sm\:block { display: none; }
+}
+@media (min-width: 1024px) {
+  #site-header .header-bar > nav { display: flex; }
+  #menu-toggle, #mobile-menu { display: none !important; }
+}
+/* Шапка прячется при прокрутке вниз на телефоне */
+#site-header { transition: transform 0.25s ease; }
+@media (max-width: 639.98px) {
+  #site-header.is-hidden { transform: translateY(-110%); }
+}

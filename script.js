@@ -110,7 +110,7 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') setMenu(false);
   });
-  window.matchMedia('(min-width: 1280px)').addEventListener('change', (e) => {
+  window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
     if (e.matches) setMenu(false);
   });
 
@@ -150,9 +150,19 @@
   });
 
   /* ---------- Шапка и плавающая кнопка при прокрутке ---------- */
+  let lastY = window.scrollY;
   const onScroll = () => {
     const y = window.scrollY;
     header.classList.toggle('is-scrolled', y > 10);
+
+    // Телефон: шапка прячется при прокрутке вниз и возвращается при прокрутке вверх
+    const dy = y - lastY;
+    if (Math.abs(dy) > 8) {
+      const menuOpen = !menu.classList.contains('hidden');
+      const hide = dy > 0 && y > 80 && window.innerWidth < 640 && !menuOpen;
+      header.classList.toggle('is-hidden', hide);
+      lastY = y;
+    }
 
     // Кнопка видна после hero и прячется в футере, где уже есть своя кнопка Telegram
     const pastHero = y > hero.offsetHeight * 0.7;
