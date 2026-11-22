@@ -418,7 +418,7 @@
             <p class="how-steps__text">Подскажу дорогу и&nbsp;план первого дня. Дальше&nbsp;— сосны, озёра, кофе и&nbsp;отдых.</p>
           </li>
         </ol>
-        <p class="pay-note">Отказаться можно в&nbsp;любой момент: до&nbsp;начала работы верну 100&nbsp;%, после&nbsp;— за&nbsp;вычетом уже сделанного. Деньги верну в&nbsp;течение 10&nbsp;дней. Если ни&nbsp;один вариант жилья не&nbsp;подошёл&nbsp;— второй круг подбора бесплатно.</p>
+        <p class="pay-note">Отказаться можно в&nbsp;любой момент: до&nbsp;начала работы верну 100&nbsp;%, после&nbsp;— за&nbsp;вычетом фактически понесённых расходов. Деньги верну в&nbsp;течение 10&nbsp;дней. Если ни&nbsp;один вариант жилья не&nbsp;подошёл&nbsp;— второй круг подбора бесплатно.</p>
       </div>
     </section>
 
@@ -666,7 +666,7 @@
             </h3>
             <p class="mt-4 max-w-md leading-relaxed text-ink-soft">
               Пара слов о&nbsp;поездке очень помогает другим путешественникам. Отзыв придёт мне в&nbsp;Telegram или WhatsApp&nbsp;—
-              после проверки я опубликую его на&nbsp;сайте. Отправляя отзыв, вы разрешаете опубликовать его на&nbsp;сайте с&nbsp;именем и&nbsp;городом. Если не&nbsp;хотите&nbsp;— напишите об&nbsp;этом в&nbsp;отзыве.
+              после проверки я опубликую его на&nbsp;сайте. Без галочки опубликую отзыв без имени и&nbsp;города.
             </p>
           </div>
 
@@ -696,6 +696,11 @@
             <label class="block">
               <span class="mb-2 block text-sm font-medium">Как прошла поездка?</span>
               <textarea class="field resize-none" name="message" required rows="4" maxlength="1000" placeholder="Что понравилось, чем я помог…"></textarea>
+            </label>
+
+            <label class="flex items-start gap-3 text-sm leading-snug text-ink-soft">
+              <input type="checkbox" name="publish" class="mt-0.5 h-5 w-5 shrink-0 accent-[#1e3b30]">
+              <span>Разрешаю опубликовать отзыв на&nbsp;сайте с&nbsp;моим именем и&nbsp;городом.</span>
             </label>
 
             <div class="flex flex-col gap-3 pt-1 sm:flex-row">
@@ -829,7 +834,7 @@
 
           <label class="flex items-start gap-3 text-sm leading-snug text-ink-soft">
             <input type="checkbox" name="consent" required class="mt-0.5 h-5 w-5 shrink-0 accent-[#1e3b30]">
-            <span>Согласен на&nbsp;обработку данных для&nbsp;ответа на&nbsp;заявку, как описано в&nbsp;<button type="button" class="faq__link" data-privacy-open aria-haspopup="dialog">«Конфиденциальности»</button>.</span>
+            <span>Согласен на&nbsp;обработку персональных данных по&nbsp;<a class="faq__link" href="soglasie.html" target="_blank" rel="noopener">Согласию</a> и&nbsp;<a class="faq__link" href="privacy.html" target="_blank" rel="noopener">Политике</a>.</span>
           </label>
 
           <button type="submit" class="mt-1 inline-flex items-center justify-center rounded-full bg-pine-900 px-7 py-4 font-semibold text-paper transition duration-300 hover:-translate-y-0.5 hover:bg-pine-700 disabled:pointer-events-none disabled:opacity-60">
@@ -906,7 +911,7 @@
         <p>© <span id="year" data-year>2026</span> Свой в&nbsp;Далате. Тексты авторские.</p>
         <p>Разумов Дмитрий Олегович, плательщик налога на&nbsp;профессиональный доход, ИНН&nbsp;662608329943.</p>
         <p>Мои услуги&nbsp;— дистанционные. Трансфер, прокат и&nbsp;экскурсии оказывают партнёры по&nbsp;своим договорам.</p>
-        <button type="button" class="legal__link" data-privacy-open aria-haspopup="dialog">Конфиденциальность</button>
+        <p><a href="oferta.html" class="legal__link">Оферта</a> · <a href="privacy.html" class="legal__link">Политика</a> · <a href="soglasie.html" class="legal__link">Согласие</a> · <button type="button" class="legal__link" data-privacy-open aria-haspopup="dialog">Конфиденциальность</button></p>
       </div>
         <p class="sm:text-right">Русскоязычная подготовка переезда в&nbsp;Далат · иллюстрации созданы в&nbsp;Canva</p>
       </div>
@@ -937,11 +942,12 @@
         <button type="button" class="privacy-dialog__close" data-privacy-close aria-label="Закрыть окно">&times;</button>
       </div>
       <ul>
-        <li>Заявка из&nbsp;формы не&nbsp;сохраняется на&nbsp;сайте и&nbsp;не&nbsp;уходит на&nbsp;сервер: по&nbsp;нажатию кнопки открывается Telegram с&nbsp;готовым текстом (имя, контакт, даты, пожелания), и&nbsp;она уходит мне, только когда вы сами нажмёте «Отправить». Данные нужны, чтобы ответить вам; я не&nbsp;продаю их и&nbsp;не&nbsp;передаю другим людям. Согласие на&nbsp;обработку вы подтверждаете галочкой в&nbsp;форме.</li>
-        <li>Отзыв из&nbsp;формы уходит только после нажатия кнопки, через Telegram или WhatsApp; на&nbsp;сайте он не&nbsp;сохраняется. Если вы пишете мне напрямую, переписка идёт по&nbsp;правилам этих мессенджеров.</li>
+        <li>Заявка, анкета и&nbsp;отзыв не&nbsp;сохраняются на&nbsp;сайте и&nbsp;не&nbsp;уходят на&nbsp;сервер: по&nbsp;кнопке открывается Telegram или WhatsApp с&nbsp;готовым текстом, и&nbsp;он уходит мне, только когда вы сами нажмёте «Отправить». Дальше переписка идёт по&nbsp;правилам мессенджера.</li>
+        <li>Оператор данных&nbsp;— Разумов Дмитрий Олегович (ИНН&nbsp;662608329943). Данные нужны, чтобы ответить вам и&nbsp;оказать услугу; я не&nbsp;продаю их и&nbsp;не&nbsp;передаю другим людям.</li>
         <li>Сайт берёт погоду и&nbsp;курсы валют у&nbsp;внешних сервисов; фото и&nbsp;карта подгружаются с&nbsp;их&nbsp;серверов, поэтому эти сервисы видят ваш IP-адрес.</li>
         <li>В&nbsp;браузере (localStorage) сохраняются: избранные места, выбранная валюта и&nbsp;последние курсы. Данные остаются на&nbsp;вашем устройстве, их можно очистить в&nbsp;настройках браузера.</li>
       </ul>
+      <p class="privacy-dialog__docs"><a class="faq__link" href="privacy.html">Политика обработки данных</a> · <a class="faq__link" href="soglasie.html">Согласие</a></p>
     </div>
   </dialog>
 

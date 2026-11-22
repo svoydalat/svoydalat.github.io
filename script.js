@@ -296,7 +296,9 @@
         '★'.repeat(rating) + '☆'.repeat(5 - rating),
         city ? `${name}, ${city}` : name,
         '',
-        message
+        message,
+        '',
+        `Публикация с именем и городом: ${data.get('publish') ? 'да' : 'нет'}`
       ].join('\n');
 
       const viaWhatsApp = e.submitter && e.submitter.value === 'wa';

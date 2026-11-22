@@ -1654,3 +1654,6 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
   .doc section + section { margin-top: 1.5rem; }
   .doc__toc { padding: 0.85rem 1rem; }
 }
+
+/* Окно «Конфиденциальность»: ссылки на документы */
+.privacy-dialog__docs { margin: 14px 0 0; font-size: 14px; }
