@@ -110,7 +110,7 @@
   <header id="site-header" class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
     <div class="header-bar mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full px-2 sm:h-16">
       <a href="#top" class="flex items-center gap-2.5 rounded-full pr-3" aria-label="Свой в Далате — на главную">
-        <span class="grid h-10 w-10 place-items-center rounded-full bg-pine-800 text-sunflower-soft sm:h-11 sm:w-11">
+        <span class="vt-logo grid h-10 w-10 place-items-center rounded-full bg-pine-800 text-sunflower-soft sm:h-11 sm:w-11">
           <svg class="h-5 w-5" aria-hidden="true"><use href="#i-pine"/></svg>
         </span>
         <span class="leading-none">
@@ -216,9 +216,24 @@
 
         <!-- Окно-арка с видом на озеро Суан Хыонг + штамп, сообщение и «билет» встречи -->
         <div class="rise relative mx-auto mb-6 w-full max-w-[26rem] lg:col-span-5 lg:max-w-none" style="--delay: 200ms">
+          <!-- «Живое окно»: вид меняется по времени в Далате (утро — туман, вечер — закат, ночь — огни в окнах). Фаза — data-daypart на <html> -->
           <figure class="arch-window relative">
-            <img src="img/hero-xuan-huong.webp" srcset="img/hero-xuan-huong-640.webp 640w, img/hero-xuan-huong.webp 1136w" sizes="(min-width: 1024px) 440px, 416px" width="1136" height="1408" fetchpriority="high"
-                 alt="Иллюстрация: рассвет над озером Суан Хыонг, сосны, французские виллы и дикие подсолнухи Далата">
+            <div class="arch-scene">
+              <img src="img/hero-xuan-huong.webp" srcset="img/hero-xuan-huong-640.webp 640w, img/hero-xuan-huong.webp 1136w" sizes="(min-width: 1024px) 440px, 416px" width="1136" height="1408" fetchpriority="high"
+                   alt="Иллюстрация: рассвет над озером Суан Хыонг, сосны, французские виллы и дикие подсолнухи Далата">
+              <div class="arch-tint" aria-hidden="true"></div>
+              <div class="arch-stars" aria-hidden="true"></div>
+              <div class="arch-fog" aria-hidden="true"><span></span><span></span></div>
+              <!-- Огни в окнах вилл: координаты в % от иллюстрации 1136×1408 -->
+              <div class="arch-lights" aria-hidden="true">
+                <i style="--x:2.2%;--y:45.1%"></i><i style="--x:5.3%;--y:45.1%"></i><i style="--x:1.8%;--y:51.1%"></i><i style="--x:5.3%;--y:51.1%"></i>
+                <i style="--x:21.6%;--y:45.5%"></i><i style="--x:24.8%;--y:45.5%"></i><i style="--x:26.8%;--y:47%"></i>
+                <i style="--x:13.2%;--y:54.3%"></i><i style="--x:18.8%;--y:54.3%"></i><i style="--x:21.1%;--y:54.3%"></i><i style="--x:23.8%;--y:54.5%"></i><i style="--x:18.7%;--y:56.8%"></i><i style="--x:21.6%;--y:56.8%"></i>
+                <i style="--x:19.5%;--y:62.5%"></i><i style="--x:22.2%;--y:62.6%"></i><i style="--x:25.4%;--y:63.1%"></i><i style="--x:29.7%;--y:63.1%"></i><i style="--x:34.9%;--y:62.5%"></i><i style="--x:38.1%;--y:61.9%"></i><i style="--x:29.7%;--y:67.1%"></i><i style="--x:36.3%;--y:66.4%"></i><i style="--x:39.6%;--y:66.4%"></i>
+                <i style="--x:44.5%;--y:55%"></i><i style="--x:46.4%;--y:55%"></i>
+                <i style="--x:61%;--y:42.3%"></i><i style="--x:84.5%;--y:42.5%"></i><i style="--x:87.2%;--y:42.5%"></i>
+              </div>
+            </div>
           </figure>
 
           <!-- Круглый штамп -->
@@ -241,10 +256,10 @@
               <span class="grid h-8 w-8 place-items-center rounded-full bg-pine-800 text-[10px] font-bold text-paper">СД</span>
               <span class="leading-tight">
                 <b class="block text-[13px] font-semibold">Свой в&nbsp;Далате</b>
-                <span class="text-[11px] text-pine-500">в&nbsp;сети</span>
+                <span class="text-[11px] text-pine-500" data-daypart-status>в&nbsp;сети</span>
               </span>
             </div>
-            <p class="mt-2.5 text-[14px] leading-snug text-ink">Возьмите кофту&nbsp;— вечером в&nbsp;горах свежо 🙂</p>
+            <p class="mt-2.5 text-[14px] leading-snug text-ink" data-daypart-msg>Возьмите кофту&nbsp;— вечером в&nbsp;горах свежо 🙂</p>
           </div>
 
           <!-- Карточка предложения -->

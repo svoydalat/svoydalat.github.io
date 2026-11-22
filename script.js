@@ -207,8 +207,32 @@
     timeEls.forEach((el) => { el.textContent = now; });
   };
 
+  /* ---------- «Живое окно»: утро, день, вечер или ночь в Далате ---------- */
+  // Для проверки: ?daypart=night (morning, day, evening)
+  const DAYPART_TEXT = {
+    morning: { msg: 'Доброе утро! Над озером туман — к обеду рассеется ☁️', status: 'в сети' },
+    day: { msg: 'Возьмите кофту — вечером в горах свежо 🙂', status: 'в сети' },
+    evening: { msg: 'Закат над Суан Хыонг — лучшее время для прогулки 🌅', status: 'в сети' },
+    night: { msg: 'В Далате ночь. Пишите — отвечу утром 🌙', status: 'ответит утром' }
+  };
+  const forcedDaypart = new URLSearchParams(location.search).get('daypart');
+  const dalatHour = new Intl.DateTimeFormat('en-GB', { hour: 'numeric', hourCycle: 'h23', timeZone: 'Asia/Ho_Chi_Minh' });
+  const daypartMsg = document.querySelector('[data-daypart-msg]');
+  const daypartStatus = document.querySelector('[data-daypart-status]');
+
+  const updateDaypart = () => {
+    const hour = Number(dalatHour.format(new Date()));
+    let part = hour >= 5 && hour < 9 ? 'morning' : hour < 17 && hour >= 9 ? 'day' : hour >= 17 && hour < 19 ? 'evening' : 'night';
+    if (DAYPART_TEXT[forcedDaypart]) part = forcedDaypart;
+    if (document.documentElement.dataset.daypart === part) return;
+    document.documentElement.dataset.daypart = part;
+    if (daypartMsg) daypartMsg.textContent = DAYPART_TEXT[part].msg;
+    if (daypartStatus) daypartStatus.textContent = DAYPART_TEXT[part].status;
+  };
+
   updateTime();
-  setInterval(updateTime, 15000);
+  updateDaypart();
+  setInterval(() => { updateTime(); updateDaypart(); }, 15000);
 
   /* ---------- Погода в Далате (Open-Meteo, без ключа) ---------- */
   // Нет сети или сервис не ответил — молча показываем только время

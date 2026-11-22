@@ -552,6 +552,7 @@ body.route-open .mobile-bar, body.route-open .fav-bar { display: none; }
 
 /* Переходы между страницами без белой вспышки */
 @view-transition { navigation: auto; }
+.brand__logo { view-transition-name: brand-logo; }
 @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
 
 /* ---------- Поиск, «ближайшие», расстояния, маршрут по списку ---------- */
