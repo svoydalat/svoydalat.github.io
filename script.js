@@ -280,6 +280,190 @@
     setInterval(loadWeather, WEATHER_TTL_MS);
   }
 
+  /* ---------- «Сейчас у вас и в Далате»: погода и климат по месяцам ---------- */
+  // Средние температуры месяцев (°C, многолетние, округлены) — ориентир. Город по умолчанию — по часовому поясу браузера
+  const climateBox = document.querySelector('[data-climate]');
+  if (climateBox) {
+    const DALAT = { name: 'Далат', lat: 11.9404, lon: 108.4583, t: [16.6, 17.4, 18.5, 19.6, 20, 19.8, 19.3, 19.2, 19.2, 18.7, 18, 17] };
+    const CITIES = {
+      msk: { name: 'Москва', lat: 55.7558, lon: 37.6173, t: [-6.2, -5.9, -0.9, 6.5, 13.2, 17, 19.2, 17, 11.3, 5.6, -0.2, -4.5] },
+      spb: { name: 'Санкт-Петербург', lat: 59.9386, lon: 30.3141, t: [-5.5, -5.8, -1.3, 5.1, 11.3, 15.7, 18.8, 16.9, 11.6, 5.6, 0.2, -3] },
+      kzn: { name: 'Казань', lat: 55.7887, lon: 49.1221, t: [-10.4, -9.4, -3.3, 5.7, 13.1, 17.9, 20, 17.5, 11.3, 4.5, -2.7, -8.3] },
+      sam: { name: 'Самара', lat: 53.1959, lon: 50.1002, t: [-9.9, -9.6, -3.3, 7, 15, 19.3, 21, 19, 12.9, 5.3, -2, -7.6] },
+      krd: { name: 'Краснодар', lat: 45.0355, lon: 38.9753, t: [0.6, 1.6, 6.4, 12.6, 17.4, 21.6, 24.3, 23.6, 18, 12.2, 6.4, 1.9] },
+      ekb: { name: 'Екатеринбург', lat: 56.8389, lon: 60.6057, t: [-12.6, -10.8, -3.7, 4.8, 11.7, 16, 18.5, 15.8, 9.9, 2.6, -5, -10.7] },
+      oms: { name: 'Омск', lat: 54.9885, lon: 73.3242, t: [-16.3, -15.1, -7.6, 4.3, 11.9, 17.6, 19.4, 16.6, 10.6, 2.5, -7.1, -13.5] },
+      nsk: { name: 'Новосибирск', lat: 55.0084, lon: 82.9357, t: [-16.5, -14.5, -6.6, 3.3, 11, 17, 19.4, 16.3, 10.4, 2.5, -7.7, -14] },
+      krs: { name: 'Красноярск', lat: 56.0153, lon: 92.8932, t: [-15, -12.6, -4.6, 3, 10.5, 16.5, 18.8, 15.9, 9.5, 1.6, -7.3, -13.4] },
+      irk: { name: 'Иркутск', lat: 52.287, lon: 104.305, t: [-17.4, -14.3, -5.5, 2.5, 9.6, 15.3, 18, 15.5, 8.9, 1, -8.6, -15.6] },
+      vvo: { name: 'Владивосток', lat: 43.1155, lon: 131.8855, t: [-12.3, -8.6, -1.4, 5.2, 10.7, 14, 18.5, 20.4, 15.9, 8.3, -1.4, -9.2] },
+      msq: { name: 'Минск', lat: 53.9006, lon: 27.559, t: [-4.5, -4.4, -0.2, 7, 13, 16.3, 18.4, 17.4, 12.1, 6.6, 0.7, -3.2] },
+      ala: { name: 'Алматы', lat: 43.2389, lon: 76.8897, t: [-4.7, -3, 3.8, 11.6, 16.6, 21.8, 24.4, 23.7, 18.1, 10.3, 2.5, -2.9] }
+    };
+    const TZ_CITY = {
+      'Europe/Moscow': 'msk', 'Europe/Samara': 'sam', 'Europe/Ulyanovsk': 'sam', 'Europe/Saratov': 'sam', 'Europe/Astrakhan': 'sam',
+      'Asia/Yekaterinburg': 'ekb', 'Asia/Omsk': 'oms', 'Asia/Novosibirsk': 'nsk', 'Asia/Barnaul': 'nsk', 'Asia/Tomsk': 'nsk',
+      'Asia/Novokuznetsk': 'nsk', 'Asia/Krasnoyarsk': 'krs', 'Asia/Irkutsk': 'irk', 'Asia/Vladivostok': 'vvo',
+      'Europe/Minsk': 'msq', 'Asia/Almaty': 'ala'
+    };
+    const MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+    const STORE_KEY = 'svoy:climate-city';
+    const fmt = (t, digits = 0) => {
+      const n = Number(t.toFixed(digits));
+      return `${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(n).toLocaleString('ru-RU')}°`;
+    };
+
+    const select = climateBox.querySelector('[data-climate-city]');
+    const plot = climateBox.querySelector('[data-climate-plot]');
+    Object.entries(CITIES).forEach(([key, c]) => select.add(new Option(c.name, key)));
+
+    let cityKey = TZ_CITY[Intl.DateTimeFormat().resolvedOptions().timeZone] || 'msk';
+    try { const saved = localStorage.getItem(STORE_KEY); if (CITIES[saved]) cityKey = saved; } catch (err) { /* без памяти — по поясу */ }
+    select.value = cityKey;
+    const nowMonth = Number(new Intl.DateTimeFormat('en-GB', { month: 'numeric', timeZone: 'Asia/Ho_Chi_Minh' }).format(new Date())) - 1;
+
+    // Сейчас: обе температуры одним запросом, кэш на вкладку 15 минут
+    const showNow = (home, dalat) => {
+      const c = CITIES[cityKey];
+      climateBox.querySelector('[data-climate-home]').textContent = Number.isFinite(home) ? fmt(home) : '—';
+      climateBox.querySelector('[data-climate-dalat]').textContent = Number.isFinite(dalat) ? fmt(dalat) : '—';
+      const verdict = climateBox.querySelector('[data-climate-verdict]');
+      if (!Number.isFinite(home) || !Number.isFinite(dalat)) {
+        verdict.textContent = `${MONTHS[nowMonth]}: в среднем ${fmt(c.t[nowMonth])} у вас и ${fmt(DALAT.t[nowMonth])} в Далате`;
+        return;
+      }
+      const diff = Math.round(dalat - home);
+      verdict.textContent = diff >= 2 ? `В Далате теплее на ${diff}°`
+        : diff <= -2 ? `В Далате прохладнее на ${-diff}° — зато без жары`
+        : 'Сейчас почти одинаково';
+    };
+    const loadNow = async () => {
+      const c = CITIES[cityKey];
+      const cacheKey = `climate-now:${cityKey}`;
+      try {
+        const cached = JSON.parse(sessionStorage.getItem(cacheKey) || 'null');
+        if (cached && Date.now() - cached.at < WEATHER_TTL_MS) { showNow(cached.home, cached.dalat); return; }
+      } catch (err) { /* идём в сеть */ }
+      showNow(NaN, NaN);
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 8000);
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${c.lat},${DALAT.lat}&longitude=${c.lon},${DALAT.lon}&current=temperature_2m`;
+        const res = await fetch(url, { signal: controller.signal });
+        if (!res.ok) return;
+        const [home, dalat] = (await res.json()).map((r) => Number(r.current?.temperature_2m));
+        if (select.value !== cityKey) return; // пока грузилось, выбрали другой город
+        showNow(home, dalat);
+        try { sessionStorage.setItem(cacheKey, JSON.stringify({ home, dalat, at: Date.now() })); } catch (err) { /* не критично */ }
+      } catch (err) {
+        /* без сети остаются средние за месяц */
+      } finally {
+        clearTimeout(timer);
+      }
+    };
+
+    // График: две линии по месяцам, текущий месяц подсвечен, подсказка при наведении или касании
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const el = (tag, attrs, parent) => {
+      const node = document.createElementNS(SVG_NS, tag);
+      Object.entries(attrs).forEach(([k, v]) => node.setAttribute(k, v));
+      if (parent) parent.appendChild(node);
+      return node;
+    };
+    const drawChart = () => {
+      const c = CITIES[cityKey];
+      const W = Math.max(280, plot.clientWidth);
+      const H = W < 520 ? 220 : 260;
+      const pad = { l: 34, r: W < 520 ? 70 : 104, t: 14, b: 26 };
+      const lo = Math.min(-5, Math.floor(Math.min(...c.t) / 5) * 5);
+      const hi = Math.max(25, Math.ceil(Math.max(...c.t) / 5) * 5);
+      const x = (i) => pad.l + (i * (W - pad.l - pad.r)) / 11;
+      const y = (t) => pad.t + ((hi - t) * (H - pad.t - pad.b)) / (hi - lo);
+      plot.textContent = '';
+      const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': `Средняя температура по месяцам: Далат и ${c.name}` }, plot);
+
+      const step = hi - lo > 30 ? 10 : 5;
+      for (let t = Math.ceil(lo / step) * step; t <= hi; t += step) {
+        el('line', { x1: pad.l, x2: W - pad.r + 8, y1: y(t), y2: y(t), class: t === 0 ? 'climate__zero' : 'climate__grid' }, svg);
+        el('text', { x: pad.l - 8, y: y(t) + 4, 'text-anchor': 'end', class: 'climate__axis' }, svg).textContent = fmt(t);
+      }
+      const bandW = (W - pad.l - pad.r) / 11;
+      el('rect', { x: x(nowMonth) - bandW / 2, y: pad.t, width: bandW, height: H - pad.t - pad.b, rx: 6, class: 'climate__band' }, svg);
+      MONTHS.forEach((m, i) => {
+        el('text', { x: x(i), y: H - 6, 'text-anchor': 'middle', class: i === nowMonth ? 'climate__axis climate__axis--now' : 'climate__axis' }, svg)
+          .textContent = W < 520 ? m[0] : m.slice(0, 3).toLowerCase();
+      });
+
+      const series = [[DALAT, 'dalat'], [c, 'home']];
+      series.forEach(([s, kind]) => {
+        el('path', { d: s.t.map((t, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(t).toFixed(1)}`).join(' '), class: `climate__line climate__line--${kind}` }, svg);
+      });
+      // Подписи у концов линий; если близко — разводим
+      let yd = y(DALAT.t[11]) + 4, yh = y(c.t[11]) + 4;
+      if (Math.abs(yd - yh) < 14) {
+        const mid = (yd + yh) / 2;
+        const dalatAbove = yd <= yh;
+        yd = mid + (dalatAbove ? -7 : 7);
+        yh = mid + (dalatAbove ? 7 : -7);
+      }
+      el('text', { x: x(11) + 8, y: yd, class: 'climate__end' }, svg).textContent = 'Далат';
+      el('text', { x: x(11) + 8, y: yh, class: 'climate__end' }, svg).textContent = W < 520 && c.name.length > 9 ? `${c.name.slice(0, 8)}.` : c.name;
+
+      // Слой наведения: вертикаль, точки и подсказка
+      const hover = el('g', { class: 'climate__hover', visibility: 'hidden' }, svg);
+      const vline = el('line', { y1: pad.t, y2: H - pad.b, class: 'climate__cross' }, hover);
+      const dots = series.map(([, kind]) => el('circle', { r: 5, class: `climate__dot climate__dot--${kind}` }, hover));
+      let tip = plot.querySelector('.climate__tip');
+      if (!tip) { tip = document.createElement('div'); tip.className = 'climate__tip'; tip.hidden = true; plot.appendChild(tip); }
+
+      const show = (i) => {
+        hover.setAttribute('visibility', 'visible');
+        vline.setAttribute('x1', x(i)); vline.setAttribute('x2', x(i));
+        series.forEach(([s], k) => { dots[k].setAttribute('cx', x(i)); dots[k].setAttribute('cy', y(s.t[i])); });
+        tip.innerHTML = `<b>${MONTHS[i]}</b><span><i class="climate__swatch climate__swatch--dalat"></i>Далат ${fmt(DALAT.t[i], 1)}</span><span><i class="climate__swatch climate__swatch--home"></i>${c.name} ${fmt(c.t[i], 1)}</span>`;
+        tip.hidden = false;
+        const left = Math.min(Math.max(x(i) - tip.offsetWidth / 2, 0), W - tip.offsetWidth);
+        tip.style.left = `${left}px`;
+        tip.style.top = `${Math.max(0, Math.min(y(DALAT.t[i]), y(c.t[i])) - tip.offsetHeight - 14)}px`;
+      };
+      const hit = el('rect', { x: pad.l - bandW / 2, y: 0, width: W - pad.l - pad.r + bandW, height: H, fill: 'transparent' }, svg);
+      const pick = (evt) => {
+        const box = svg.getBoundingClientRect();
+        const px = ((evt.clientX - box.left) * W) / box.width;
+        show(Math.max(0, Math.min(11, Math.round(((px - pad.l) * 11) / (W - pad.l - pad.r)))));
+      };
+      hit.addEventListener('pointermove', pick);
+      hit.addEventListener('pointerdown', pick);
+      hit.addEventListener('pointerleave', () => { hover.setAttribute('visibility', 'hidden'); tip.hidden = true; });
+
+      // Таблица для экранных дикторов
+      const table = climateBox.querySelector('[data-climate-table]');
+      table.querySelectorAll('tr').forEach((tr) => tr.remove());
+      table.insertAdjacentHTML('beforeend', `<tr><th>Месяц</th><th>Далат</th><th>${c.name}</th></tr>`
+        + MONTHS.map((m, i) => `<tr><td>${m}</td><td>${fmt(DALAT.t[i], 1)}</td><td>${fmt(c.t[i], 1)}</td></tr>`).join(''));
+    };
+
+    const render = () => {
+      const name = CITIES[cityKey].name;
+      climateBox.querySelector('[data-climate-home-name]').textContent = name;
+      climateBox.querySelector('[data-climate-legend-home]').textContent = name;
+      drawChart();
+      loadNow();
+    };
+    select.addEventListener('change', () => {
+      cityKey = select.value;
+      try { localStorage.setItem(STORE_KEY, cityKey); } catch (err) { /* не критично */ }
+      render();
+    });
+    let lastW = 0;
+    new ResizeObserver(() => {
+      if (Math.abs(plot.clientWidth - lastW) < 8) return;
+      lastW = plot.clientWidth;
+      drawChart();
+    }).observe(plot);
+    render();
+  }
+
   /* ---------- Подсветка карточек за курсором ---------- */
   document.querySelectorAll('.spotlight').forEach((card) => {
     card.addEventListener('pointermove', (e) => {

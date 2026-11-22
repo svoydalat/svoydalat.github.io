@@ -345,7 +345,7 @@
         </div>
 
         <div class="reveal mt-20">
-          <h3 class="section-title">На&nbsp;месте&nbsp;— через <em>местных партнёров</em></h3>
+          <h3 class="section-title">На&nbsp;месте&nbsp;— через местных партнёров</h3>
           <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">Трансфер, байк и&nbsp;экскурсии оказывают местные компании по&nbsp;своим договорам. Их&nbsp;контакты я&nbsp;даю в&nbsp;пакете «Переезд под&nbsp;ключ». Договор, цены и&nbsp;оплата&nbsp;— напрямую с&nbsp;ними; я&nbsp;не&nbsp;получаю от&nbsp;партнёров вознаграждения и&nbsp;не&nbsp;отвечаю за&nbsp;их услуги.</p>
         </div>
 
@@ -410,7 +410,7 @@
         <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p class="eyebrow"><span class="eyebrow__num">02</span>Как это работает</p>
-            <h2 class="section-title mt-5">Четыре шага <em>до&nbsp;приезда</em></h2>
+            <h2 class="section-title mt-5" aria-label="Четыре шага до приезда"><span class="title-num" aria-hidden="true">4</span><span aria-hidden="true">&nbsp;шага до&nbsp;приезда</span></h2>
           </div>
           <p class="max-w-sm font-serif text-[1.7rem] font-medium italic leading-tight text-sunflower-deep">Как на&nbsp;открытке из&nbsp;Далата&nbsp;— только вживую</p>
         </div>
@@ -443,7 +443,7 @@
         <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p class="eyebrow"><span class="eyebrow__num">03</span>Дорога</p>
-            <h2 class="section-title mt-5">Как добраться <em>до&nbsp;Далата</em></h2>
+            <h2 class="section-title mt-5">Как добраться до&nbsp;Далата</h2>
           </div>
           <p class="max-w-md text-lg leading-relaxed text-ink-soft">Прямых рейсов из&nbsp;России в&nbsp;Далат нет. Сначала летите в&nbsp;Хошимин, Ханой или Камрань, оттуда&nbsp;— внутренним рейсом, автобусом или машиной.</p>
         </div>
@@ -556,6 +556,42 @@
           </div>
         </dl>
 
+        <!-- Сравнение погоды: город посетителя (по часовому поясу или из списка) против Далата. Строит script.js -->
+        <div class="climate reveal mt-10" data-climate>
+          <div class="climate__head">
+            <div>
+              <p class="climate__kicker">сравните</p>
+              <h3 class="climate__title">Сейчас у&nbsp;вас и&nbsp;в&nbsp;Далате</h3>
+            </div>
+            <label class="climate__pick">
+              <span>Ваш город</span>
+              <select data-climate-city aria-label="Ваш город для сравнения"></select>
+            </label>
+          </div>
+
+          <div class="climate__now">
+            <div class="climate__place">
+              <span class="climate__label" data-climate-home-name>Москва</span>
+              <b class="climate__temp climate__temp--home" data-climate-home>—</b>
+            </div>
+            <div class="climate__place">
+              <span class="climate__label">Далат</span>
+              <b class="climate__temp climate__temp--dalat" data-climate-dalat>—</b>
+            </div>
+            <p class="climate__verdict" data-climate-verdict aria-live="polite"></p>
+          </div>
+
+          <div class="climate__chart">
+            <div class="climate__legend" aria-hidden="true">
+              <span><i class="climate__swatch climate__swatch--dalat"></i>Далат</span>
+              <span><i class="climate__swatch climate__swatch--home"></i><span data-climate-legend-home>Москва</span></span>
+            </div>
+            <div class="climate__plot" data-climate-plot></div>
+            <table class="sr-only" data-climate-table><caption>Средняя температура по месяцам, °C</caption></table>
+          </div>
+          <p class="climate__note">Средняя температура месяца по многолетним данным, ориентир. Погода сейчас&nbsp;— сервис Open-Meteo.</p>
+        </div>
+
         <a href="map.html" class="reveal group mt-10 flex flex-col gap-4 rounded-[1.75rem] bg-pine-900 p-6 text-paper transition hover:bg-pine-800 sm:flex-row sm:items-center sm:justify-between sm:p-8">
           <span>
             <span class="block font-hand text-[1.6rem] font-semibold leading-none text-sunflower-soft">карта-гид</span>
@@ -611,7 +647,7 @@
       <div class="mx-auto max-w-4xl px-4 sm:px-6">
         <div class="reveal">
           <p class="eyebrow"><span class="eyebrow__num">?</span>Частые вопросы</p>
-          <h2 class="section-title mt-5">О&nbsp;жизни и&nbsp;отдыхе <em>в&nbsp;Далате</em></h2>
+          <h2 class="section-title mt-5">О&nbsp;жизни и&nbsp;отдыхе <span class="title-mark">в&nbsp;Далате</span></h2>
         </div>
 
         <div class="faq reveal mt-10 grid gap-3" style="--delay: 80ms">

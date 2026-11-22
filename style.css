@@ -1790,3 +1790,99 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
 
 /* Логотип «перетекает» между страницами (главная, подбор, документы, карта) */
 .vt-logo { view-transition-name: brand-logo; }
+
+/* ---------- Разные акценты в заголовках (курсив — только в главных) ---------- */
+/* «4 шага»: крупная золотая цифра */
+.title-num {
+  display: inline-block;
+  margin-right: 0.04em;
+  font-size: 1.45em;
+  font-weight: 600;
+  line-height: 0.7;
+  color: var(--sunflower-deep);
+  vertical-align: -0.04em;
+}
+/* FAQ: «в Далате» с рукописным подчёркиванием */
+.title-mark {
+  padding-bottom: 0.12em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C 40 2, 80 11, 120 6 S 180 3, 198 7' fill='none' stroke='%23E3A21A' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E") left bottom / 100% 0.28em no-repeat;
+  -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+}
+
+/* ---------- «Сейчас у вас и в Далате»: погода и климат ---------- */
+/* Цвета линий проверены на различимость при дальтонизме и контраст с фоном карточки */
+.climate {
+  --c-dalat: #178A4C;
+  --c-home: #5E58B0;
+  border-radius: 1.75rem;
+  background: var(--card);
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.1);
+  padding: 1.5rem;
+}
+@media (min-width: 640px) { .climate { padding: 2rem; } }
+.climate__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+.climate__kicker { margin: 0; font: 600 1.6rem/1 'Caveat', cursive; color: var(--sunflower-deep); }
+.climate__title { margin: 0.35rem 0 0; font: 600 clamp(1.9rem, 4vw, 2.6rem)/1.05 'Cormorant Garamond', Georgia, serif; color: var(--ink); }
+.climate__pick { display: grid; gap: 0.3rem; font-size: 0.8125rem; font-weight: 500; color: var(--ink-soft); }
+.climate__pick select {
+  min-width: 13rem;
+  padding: 0.65rem 2.4rem 0.65rem 1rem;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%2316251F' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") right 1rem center / 0.7rem no-repeat;
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.15);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+  appearance: none;
+  cursor: pointer;
+}
+.climate__pick select:focus-visible { outline: 2px solid var(--pine-700); outline-offset: 2px; }
+.climate__now { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.75rem 2.5rem; margin-top: 1.5rem; }
+.climate__place { display: grid; gap: 0.2rem; }
+.climate__label { font-size: 0.875rem; font-weight: 500; color: var(--ink-soft); }
+.climate__temp { font: 600 clamp(2.8rem, 7vw, 4rem)/0.9 'Cormorant Garamond', Georgia, serif; font-variant-numeric: lining-nums proportional-nums; color: var(--ink); }
+.climate__temp--home::before,
+.climate__temp--dalat::before { content: ""; display: inline-block; width: 0.18em; height: 0.18em; margin: 0 0.15em 0.18em 0; border-radius: 50%; vertical-align: middle; }
+.climate__temp--home::before { background: var(--c-home); }
+.climate__temp--dalat::before { background: var(--c-dalat); }
+.climate__verdict { margin: 0 0 0.35rem; font: 500 1.35rem/1.2 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--pine-700); }
+.climate__chart { margin-top: 1.75rem; }
+.climate__legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font-size: 0.8125rem; font-weight: 500; color: var(--ink-soft); }
+.climate__legend > span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.climate__swatch { display: inline-block; flex: none; width: 0.65rem; height: 0.65rem; border-radius: 50%; }
+.climate__swatch--dalat { background: var(--c-dalat); }
+.climate__swatch--home { background: var(--c-home); }
+.climate__plot { position: relative; margin-top: 0.5rem; touch-action: pan-y; }
+.climate__plot svg { display: block; overflow: visible; }
+.climate__grid { stroke: rgb(22 37 31 / 0.08); stroke-width: 1; }
+.climate__zero { stroke: rgb(22 37 31 / 0.28); stroke-width: 1; }
+.climate__axis { font-size: 11px; fill: var(--ink-soft); }
+.climate__axis--now { font-weight: 700; fill: var(--ink); }
+.climate__band { fill: rgb(227 162 26 / 0.12); }
+.climate__line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.climate__line--dalat { stroke: var(--c-dalat); }
+.climate__line--home { stroke: var(--c-home); }
+.climate__end { font-size: 12px; font-weight: 600; fill: var(--ink); }
+.climate__cross { stroke: rgb(22 37 31 / 0.3); stroke-width: 1; stroke-dasharray: 3 3; }
+.climate__dot { stroke: var(--card); stroke-width: 2; }
+.climate__dot--dalat { fill: var(--c-dalat); }
+.climate__dot--home { fill: var(--c-home); }
+.climate__tip {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  background: var(--card);
+  box-shadow: 0 12px 28px -12px rgb(19 42 34 / 0.45), inset 0 0 0 1px rgb(22 37 31 / 0.1);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.climate__tip span { display: inline-flex; align-items: center; gap: 0.4rem; font-variant-numeric: tabular-nums; }
+.climate__note { margin: 1rem 0 0; font-size: 0.8125rem; color: var(--ink-soft); }
