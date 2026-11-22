@@ -280,6 +280,27 @@
     setInterval(loadWeather, WEATHER_TTL_MS);
   }
 
+  /* ---------- «Рентген объявления»: точка на рисунке ↔ пункт списка ---------- */
+  const xray = document.querySelector('[data-xray]');
+  if (xray) {
+    const pins = xray.querySelectorAll('[data-xray-pin]');
+    const items = xray.querySelectorAll('[data-xray-item]');
+    const setActive = (i, fromPin) => {
+      pins.forEach((pin, k) => pin.setAttribute('aria-pressed', String(k === i)));
+      items.forEach((item, k) => item.classList.toggle('is-active', k === i));
+      // На телефоне список под картинкой: показываем выбранный пункт, если он ниже экрана
+      if (fromPin && window.matchMedia('(max-width: 1023px)').matches) {
+        const box = items[i].getBoundingClientRect();
+        if (box.bottom > window.innerHeight - 80) items[i].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+      }
+    };
+    pins.forEach((pin, i) => pin.addEventListener('click', () => setActive(i, true)));
+    items.forEach((item, i) => {
+      item.addEventListener('click', () => setActive(i, false));
+      item.addEventListener('mouseenter', () => setActive(i, false));
+    });
+  }
+
   /* ---------- «Сейчас у вас и в Далате»: погода и климат по месяцам ---------- */
   // Средние температуры месяцев (°C, многолетние, округлены) — ориентир. Город по умолчанию — по часовому поясу браузера
   const climateBox = document.querySelector('[data-climate]');

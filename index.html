@@ -344,6 +344,37 @@
           </article>
         </div>
 
+        <!-- «Рентген объявления»: точки на рисунке дома, по нажатию подсвечивается пункт списка. Без JS список просто виден целиком -->
+        <div class="xray reveal mt-20" data-xray>
+          <div class="xray__head">
+            <p class="xray__kicker">рентген объявления</p>
+            <h3 class="section-title">Что не&nbsp;видно на&nbsp;фото</h3>
+            <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">Нажмите на&nbsp;точки. Это шесть подвохов, которые чаще всего всплывают уже после заселения. При подборе я&nbsp;смотрю на&nbsp;них в&nbsp;каждом варианте.</p>
+          </div>
+          <div class="xray__body">
+            <figure class="xray__fig">
+              <img src="img/xray-house.webp" srcset="img/xray-house-720.webp 720w, img/xray-house.webp 1200w" sizes="(min-width: 1024px) 640px, 92vw" width="1200" height="896" loading="lazy" decoding="async"
+                   alt="Иллюстрация: узкий трёхэтажный дом на крутой улице Далата, рядом стройка, провода и петух у забора">
+              <button type="button" class="xray__pin" style="--x:60%;--y:55%" data-xray-pin="0" aria-pressed="true" aria-label="1. Стена без солнца"><span aria-hidden="true">1</span></button>
+              <button type="button" class="xray__pin" style="--x:44%;--y:21%" data-xray-pin="1" aria-pressed="false" aria-label="2. Большие окна, нет отопления"><span aria-hidden="true">2</span></button>
+              <button type="button" class="xray__pin" style="--x:14%;--y:16%" data-xray-pin="2" aria-pressed="false" aria-label="3. Электричество отдельно"><span aria-hidden="true">3</span></button>
+              <button type="button" class="xray__pin" style="--x:86%;--y:50%" data-xray-pin="3" aria-pressed="false" aria-label="4. Стройка по соседству"><span aria-hidden="true">4</span></button>
+              <button type="button" class="xray__pin" style="--x:63%;--y:80%" data-xray-pin="4" aria-pressed="false" aria-label="5. Петух за забором"><span aria-hidden="true">5</span></button>
+              <button type="button" class="xray__pin" style="--x:18%;--y:82%" data-xray-pin="5" aria-pressed="false" aria-label="6. Крутая улица"><span aria-hidden="true">6</span></button>
+              <figcaption class="xray__caption">Иллюстрация, а&nbsp;не&nbsp;реальный дом</figcaption>
+            </figure>
+            <ol class="xray__list">
+              <li class="is-active" data-xray-item="0"><b>Стена без солнца</b><span>Тёмная стена и&nbsp;пятна у&nbsp;фундамента&nbsp;— признак сырости. В&nbsp;сезон дождей в&nbsp;таких домах появляется плесень. Смотрю, куда выходят окна и&nbsp;как выглядят углы на&nbsp;видео.</span></li>
+              <li data-xray-item="1"><b>Большие окна, нет отопления</b><span>Ночью в&nbsp;Далате +12…+16°, отопления в&nbsp;домах обычно нет. Уточняю, есть&nbsp;ли обогреватель, тёплое одеяло и&nbsp;горячая вода в&nbsp;душе.</span></li>
+              <li data-xray-item="2"><b>Электричество отдельно</b><span>Свет часто оплачивают по&nbsp;счётчику и&nbsp;по&nbsp;тарифу хозяина. Цену за&nbsp;кВт·ч и&nbsp;воду лучше узнать до&nbsp;договора, а&nbsp;не&nbsp;при выезде.</span></li>
+              <li data-xray-item="3"><b>Стройка по&nbsp;соседству</b><span>Шум с&nbsp;утра до&nbsp;вечера и&nbsp;пыль. По&nbsp;свежим снимкам на&nbsp;карте и&nbsp;видео улицы видно, что строят рядом.</span></li>
+              <li data-xray-item="4"><b>Петух за&nbsp;забором</b><span>В&nbsp;частном секторе петухи поют с&nbsp;рассвета. Если спите чутко&nbsp;— ищем дом подальше от&nbsp;дворов с&nbsp;хозяйством.</span></li>
+              <li data-xray-item="5"><b>Крутая улица</b><span>Далат стоит на&nbsp;холмах. Подъём, которого не&nbsp;видно на&nbsp;фото,&nbsp;— тяжело с&nbsp;сумками и&nbsp;скользко на&nbsp;байке в&nbsp;дождь. Смотрю рельеф по&nbsp;карте.</span></li>
+            </ol>
+          </div>
+          <a href="podbor.html" class="xray__cta">Подобрать жильё&nbsp;— 4&nbsp;500&nbsp;₽ <svg class="h-5 w-5" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+
         <div class="reveal mt-20">
           <h3 class="section-title">На&nbsp;месте&nbsp;— через местных партнёров</h3>
           <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">Трансфер, байк и&nbsp;экскурсии оказывают местные компании по&nbsp;своим договорам. Их&nbsp;контакты я&nbsp;даю в&nbsp;пакете «Переезд под&nbsp;ключ». Договор, цены и&nbsp;оплата&nbsp;— напрямую с&nbsp;ними; я&nbsp;не&nbsp;получаю от&nbsp;партнёров вознаграждения и&nbsp;не&nbsp;отвечаю за&nbsp;их услуги.</p>

@@ -1886,3 +1886,100 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
 }
 .climate__tip span { display: inline-flex; align-items: center; gap: 0.4rem; font-variant-numeric: tabular-nums; }
 .climate__note { margin: 1rem 0 0; font-size: 0.8125rem; color: var(--ink-soft); }
+
+/* ---------- «Рентген объявления»: точки на рисунке дома ---------- */
+.xray__kicker { margin: 0 0 0.5rem; font: 600 1.6rem/1 'Caveat', cursive; color: var(--sunflower-deep); }
+.xray__body { display: grid; gap: 1.5rem; margin-top: 2rem; }
+@media (min-width: 1024px) { .xray__body { grid-template-columns: 1.35fr 1fr; align-items: start; gap: 2.5rem; } }
+.xray__fig { position: relative; margin: 0; }
+.xray__fig img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1.75rem;
+  box-shadow: 0 0 0 6px var(--card), 0 0 0 7px rgb(22 37 31 / 0.12), 0 40px 70px -40px rgb(19 42 34 / 0.55);
+}
+.xray__caption { margin-top: 0.9rem; font-size: 0.8125rem; color: var(--ink-soft); }
+.xray__pin {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--sunflower);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  box-shadow: 0 0 0 3px var(--card), 0 8px 18px -6px rgb(19 42 34 / 0.6);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.xray__pin::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid var(--sunflower);
+  animation: xray-pulse 2.2s ease-out infinite;
+}
+.xray__pin:hover { transform: translate(-50%, -50%) scale(1.1); }
+.xray__pin[aria-pressed="true"] { background: var(--pine-800); color: var(--paper); transform: translate(-50%, -50%) scale(1.15); }
+.xray__pin[aria-pressed="true"]::before { border-color: var(--pine-600); }
+.xray__pin:focus-visible { outline: 2px solid var(--pine-900); outline-offset: 4px; }
+@keyframes xray-pulse {
+  0%   { transform: scale(1);   opacity: 0.9; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+.xray__list { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; counter-reset: xray; }
+.xray__list li {
+  position: relative;
+  padding: 0.85rem 1rem 0.85rem 3.1rem;
+  border-radius: 1.1rem;
+  counter-increment: xray;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.xray__list li::before {
+  content: counter(xray);
+  position: absolute;
+  left: 0.9rem;
+  top: 0.85rem;
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: rgb(227 162 26 / 0.18);
+  color: var(--sunflower-deep);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+.xray__list b { display: block; font: 600 1.3rem/1.15 'Cormorant Garamond', Georgia, serif; color: var(--ink); }
+.xray__list span { display: block; margin-top: 0.25rem; font-size: 0.9375rem; line-height: 1.5; color: var(--ink-soft); }
+.xray__list li:hover { background: rgb(22 37 31 / 0.04); }
+.xray__list li.is-active { background: var(--card); box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.1), 0 18px 36px -24px rgb(19 42 34 / 0.45); }
+.xray__list li.is-active::before { background: var(--pine-800); color: var(--paper); }
+.xray__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: 9999px;
+  background: var(--pine-900);
+  color: var(--paper);
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+.xray__cta:hover { background: var(--pine-700); transform: translateY(-2px); }
+@media (max-width: 639px) {
+  .xray__pin { width: 1.9rem; height: 1.9rem; font-size: 0.8125rem; }
+  .xray__list b { font-size: 1.2rem; }
+}
+@media (prefers-reduced-motion: reduce) { .xray__pin::before { animation: none; } .xray__pin, .xray__cta { transition: none; } }
