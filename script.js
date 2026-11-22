@@ -41,10 +41,11 @@
   };
 
   /* ---------- Smart CTA: сообщение в Telegram зависит от места кнопки ---------- */
-  // Метка data-tg у ссылки: «general», «service:Название услуги», «road:откуда или как едет» или «housing[:что ищем]»
+  // Метка data-tg у ссылки: «general», «service:Название услуги», «partner:Название», «road:откуда или как едет» или «housing[:что ищем]»
   const TELEGRAM_CHAT = 'https://t.me/razumovdimka';
   const telegramMessage = (kind, detail) => {
     if (kind === 'service') return `Здравствуйте! Интересует услуга «${detail}» в Далате. Подскажите детали: `;
+    if (kind === 'partner') return `Здравствуйте! Дайте, пожалуйста, контакт партнёра: ${detail}.`;
     if (kind === 'road') return `Здравствуйте! Еду в Далат (${detail}). Подскажите, как лучше добраться и что учесть в дороге: `;
     if (kind === 'housing') return `Здравствуйте! Ищу жильё в Далате${detail ? ` (${detail})` : ''}. Мои даты и бюджет: `;
     return 'Здравствуйте! Я с сайта «Свой в Далате». Хочу спросить про поездку в Далат: ';
