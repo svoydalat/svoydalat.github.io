@@ -7,7 +7,7 @@
 
    В файле нет никаких данных: закрытые сведения приходят из вашей Google-таблицы только по ключу,
    живут в памяти открытой вкладки и нигде не сохраняются. Посетители без ключа ничего не получают и ничего не видят.
-   Показывает: цену хозяина и разницу, настоящий адрес и точку, ссылку на объявление, ваши ссылки к местам карты,
+   Показывает: цену хозяина, настоящий адрес и точку, ссылку на объявление, ваши ссылки к местам карты,
    кнопку «Обновить жильё».
    ========================================================= */
 (() => {
@@ -77,15 +77,12 @@
     if (!row) {
       return `<div class="adm-box adm-box--${mode}"><p class="adm-title">Для админа</p><p class="adm-muted">Закрытых данных по объекту нет: нажмите «Обновить жильё» вверху страницы.</p></div>`;
     }
-    const diff = row.clientPrice - row.ownerPrice;
-    const pct = row.ownerPrice ? Math.round((diff / row.ownerPrice) * 100) : 0;
     const url = safeUrl(row.url);
     const hasPoint = Number.isFinite(row.lat) && Number.isFinite(row.lng);
     return `
       <div class="adm-box adm-box--${mode}">
         <p class="adm-title">Для админа</p>
-        <p class="adm-price">Хозяину <b>${esc(money(row.ownerPrice))}</b> · клиенту ${esc(money(row.clientPrice))}</p>
-        <p class="adm-diff">Разница <b>${diff >= 0 ? '+' : '−'}${esc(money(Math.abs(diff)))}</b> (${diff >= 0 ? '+' : '−'}${Math.abs(pct)} %)</p>
+        <p class="adm-price">Цена хозяина <b>${esc(money(row.ownerPrice))}</b></p>
         <p class="adm-addr">📍 ${esc(row.addressRu)}${row.addressVi ? `<span>${esc(row.addressVi)}</span>` : ''}</p>
         <p class="adm-muted">Продавец: ${esc(row.seller)} · ${esc(row.sellerType)}${row.geo ? ` · точка: ${esc(row.geo)}` : ''}</p>
         ${row.titleChecked ? '' : '<p class="adm-warn">Заголовок не проверен: поправьте в листе «Заголовки» таблицы.</p>'}

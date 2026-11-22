@@ -1607,7 +1607,6 @@
 
   // Примеры на вьетнамском: проверьте и поправьте под себя
   const STARTER_TEMPLATES = [
-    { title: 'Знакомство и комиссия', lang: 'vi', text: 'Chào anh/chị, em là {my_name}. Em đưa khách nước ngoài đến Đà Lạt ở dài hạn (từ 1 tháng). Em muốn hợp tác với {name}: em giới thiệu khách và nhận hoa hồng {commission}% cho mỗi lượt đặt. Anh/chị có quan tâm không ạ? Em cảm ơn!' },
     { title: 'Есть гость на долгий срок', lang: 'vi', text: 'Chào anh/chị, em có khách {guests} người, ở {dates} tại Đà Lạt. {name} còn phòng không ạ? Giá thuê theo tháng là bao nhiêu ạ? Em cảm ơn!' },
     { title: 'Напоминание', lang: 'vi', text: 'Chào anh/chị, em là {my_name}. Em nhắn lại về đề xuất hợp tác đưa khách ở dài hạn cho {name}. Anh/chị cho em xin ý kiến nhé. Em cảm ơn ạ!' }
   ];
@@ -1715,7 +1714,7 @@
           </label>
         </div>
         ${p.address ? `<p class="mt-1 text-[13px] text-ink-soft">${esc(p.address)}</p>` : ''}
-        <p class="mt-0.5 text-[13px] text-ink-soft">${p.phone ? `${esc(phoneText(p.phone))} · ${ZALO_LABEL[zaloState(p)]}` : 'номера нет'}${p.commission !== null && p.commission !== undefined && p.commission !== '' ? ` · комиссия ${esc(p.commission)}${NBSP}%` : ''}</p>
+        <p class="mt-0.5 text-[13px] text-ink-soft">${p.phone ? `${esc(phoneText(p.phone))} · ${ZALO_LABEL[zaloState(p)]}` : 'номера нет'}</p>
         ${ago !== null ? `<p class="mt-0.5 text-[12px] ${ago < REPEAT_DAYS ? 'text-sunset' : 'text-ink-soft'}">Писали ${ago === 0 ? 'сегодня' : `${ago}${NBSP}дн. назад`}${p.lastTemplate ? ` · ${esc((templates.list.find((t) => t.id === p.lastTemplate) || {}).title || '')}` : ''}</p>` : ''}
         ${p.note ? `<p class="mt-1 text-[13px]">${esc(p.note)}</p>` : ''}
         <div class="mt-2.5 flex flex-wrap items-center gap-2">
@@ -1821,7 +1820,6 @@
   const fillTemplate = (text, p) => String(text || '')
     .replace(/\{name\}/g, p.name || '')
     .replace(/\{contact\}/g, p.contact || '')
-    .replace(/\{commission\}/g, p.commission === null || p.commission === undefined || p.commission === '' ? '' : String(p.commission))
     .replace(/\{dates\}/g, queue.dates)
     .replace(/\{guests\}/g, queue.guests)
     .replace(/\{my_name\}/g, myName());
@@ -1857,7 +1855,7 @@
             ${row('Даты', `<input class="row-input" id="queue-dates" value="${esc(queue.dates)}" placeholder="с 1 по 31 декабря" autocomplete="off" maxlength="80">`)}
             ${row('Гостей', `<input class="row-input" id="queue-guests" value="${esc(queue.guests)}" placeholder="2" inputmode="numeric" autocomplete="off" maxlength="20">`)}
           </div>
-          <p class="text-[13px] text-ink-soft">Подставятся: {name}, {contact}, {commission}, {dates}, {guests}, {my_name}.</p>
+          <p class="text-[13px] text-ink-soft">Подставятся: {name}, {contact}, {dates}, {guests}, {my_name}.</p>
           ${bigBtn('queue-start', 'Начать', 'bg-ink text-paper', ready.length ? '' : 'disabled')}`
     : `<p class="text-[15px]">Шаблонов пока нет.</p>${bigBtn('templates-open', 'Открыть шаблоны', 'bg-ink text-paper')}`}
         `)}
@@ -1995,7 +1993,6 @@
           <div class="group-list">
             ${input('Телефон', 'phone', p && p.phone, 'type="tel" placeholder="0912345678" maxlength="20" autocomplete="off"')}
             <label class="row"><span class="row-label">Статус</span><select class="row-input" name="status">${PARTNER_STATUS.map((s) => `<option value="${s}"${(p ? p.status : 'новый') === s ? ' selected' : ''}>${s}</option>`).join('')}</select></label>
-            ${input('Комиссия, %', 'commission', p && p.commission, 'type="number" inputmode="decimal" min="0" max="100" step="0.5"')}
             ${input('Контакт', 'contact', p && p.contact, 'maxlength="120" autocomplete="off" placeholder="Имя менеджера"')}
           </div>
           <div><p class="field-legend">Заметка</p>
@@ -2021,7 +2018,7 @@
         code = saved.item.code;
         partnerApply(saved.item);
       }
-      const fields = { status: f.status.value, commission: f.commission.value, contact: f.contact.value.trim(), note: f.note.value.trim() };
+      const fields = { status: f.status.value, contact: f.contact.value.trim(), note: f.note.value.trim() };
       if (!form.dataset.manual) fields.phone = f.phone.value.trim();
       const data = await sync.call({ action: 'partners_update', code, fields });
       partnerApply(data.item);
@@ -2083,7 +2080,7 @@
             <label class="row"><span class="row-label">Язык</span><select class="row-input" name="lang">${Object.entries(LANG_LABEL).map(([k, v]) => `<option value="${k}"${(t ? t.lang : 'vi') === k ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
           </div>
           <textarea name="text" rows="9" maxlength="3000" required class="block w-full rounded-[1.25rem] bg-white px-4 py-3.5 text-[16px] outline-none ring-1 ring-ink/[0.06] focus:ring-2 focus:ring-lagoon-500">${esc(t && t.text)}</textarea>
-          <p class="text-[13px] text-ink-soft">Подстановки: {name} — название, {contact} — контакт, {commission} — комиссия %, {dates} и {guests} — спросим перед рассылкой, {my_name} — ваше имя.</p>
+          <p class="text-[13px] text-ink-soft">Подстановки: {name} — название, {contact} — контакт, {dates} и {guests} — спросим перед рассылкой, {my_name} — ваше имя.</p>
           ${t ? '<button type="button" data-action="template-delete" class="min-h-[44px] w-full rounded-full text-[15px] font-semibold text-sunset">Удалить шаблон</button>' : ''}
         `)}
       </form>`);
