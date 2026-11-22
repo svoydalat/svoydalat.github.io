@@ -58,8 +58,18 @@
   form.addEventListener('change', refresh);
   refresh();
 
+  const consent = document.getElementById('podbor-consent');
+  const CONSENT_HINT = 'Отметьте согласие на обработку данных — без него анкета не уходит.';
+  const hasConsent = () => {
+    if (consent.checked) return true;
+    status.textContent = CONSENT_HINT;
+    consent.focus();
+    return false;
+  };
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    if (!hasConsent()) return;
     const httpsUrl = `https://t.me/${TELEGRAM_USER}?text=${encodeURIComponent(buildMessage())}`;
     if (isMobile) window.location.href = telegramHref(httpsUrl);
     else window.open(httpsUrl, '_blank', 'noopener,noreferrer');
@@ -67,6 +77,7 @@
   });
 
   document.getElementById('podbor-copy').addEventListener('click', async () => {
+    if (!hasConsent()) return;
     try {
       await navigator.clipboard.writeText(buildMessage());
       status.textContent = 'Текст скопирован. Вставьте его в Telegram или WhatsApp.';

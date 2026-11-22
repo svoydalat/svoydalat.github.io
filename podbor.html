@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Подбор жилья в Далате — Свой в Далате</title>
-  <meta name="description" content="Подберу жильё в Далате под ваш бюджет и даты: заполните короткую анкету, я пришлю проверенные варианты в Telegram.">
+  <meta name="description" content="Подберу жильё в Далате под ваш бюджет и даты: заполните короткую анкету, я пришлю отобранные варианты в Telegram.">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
   <meta name="theme-color" content="#F4EFE5">
   <link rel="manifest" href="manifest.webmanifest">
@@ -33,7 +33,7 @@
   <meta property="og:locale" content="ru_RU">
   <meta property="og:url" content="https://svoydalat.github.io/podbor.html">
   <meta property="og:title" content="Подбор жилья в Далате — Свой в Далате">
-  <meta property="og:description" content="Короткая анкета, и я пришлю проверенные варианты жилья в Далате под ваш бюджет и даты.">
+  <meta property="og:description" content="Короткая анкета, и я пришлю отобранные варианты жилья в Далате под ваш бюджет и даты.">
   <meta property="og:image" content="https://svoydalat.github.io/img/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -167,16 +167,17 @@
         <a href="index.html" class="tap mb-8 inline-flex items-center gap-2 text-sm font-semibold text-pine-700 hover:text-pine-900"><svg class="h-4 w-4 rotate-180" aria-hidden="true"><use href="#i-arrow"/></svg>На&nbsp;главную</a>
         <p class="eyebrow"><span class="eyebrow__num">⌂</span>Подбор жилья</p>
         <h1 class="section-title mt-5">Подберу жильё в&nbsp;Далате <em>под&nbsp;вас</em></h1>
-        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-soft">Расскажите, что вам нужно: бюджет, даты, район. Я просматриваю варианты и&nbsp;присылаю несколько подходящих с&nbsp;фото и&nbsp;ценой в&nbsp;VND за&nbsp;месяц. Подбор&nbsp;— 4&nbsp;500&nbsp;₽, анкета бесплатно.</p>
+        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-soft">Расскажите, что вам нужно: бюджет, даты, район. Я просматриваю варианты и&nbsp;присылаю несколько подходящих с&nbsp;фото и&nbsp;ценой в&nbsp;VND за&nbsp;месяц. Подбор&nbsp;— 4&nbsp;500&nbsp;₽, анкета бесплатно. Варианты&nbsp;— за&nbsp;3–5 дней после оплаты.</p>
       </div>
     </section>
 
     <section class="pb-10">
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <ol class="podbor-steps">
-          <li><b>Анкета</b><span>Минута на&nbsp;заполнение, без регистрации.</span></li>
-          <li><b>Варианты</b><span>Пришлю в&nbsp;Telegram 3–5 проверенных вариантов с&nbsp;фото и&nbsp;ценой.</span></li>
-          <li><b>Выбор и&nbsp;договор</b><span>Вы выбираете вариант и&nbsp;заключаете договор напрямую с&nbsp;хозяином&nbsp;— дам шаблон на&nbsp;русском и&nbsp;вьетнамском.</span></li>
+          <li><b>Анкета</b><span>Минута на&nbsp;заполнение, без регистрации. Бесплатно.</span></li>
+          <li><b>Оплата</b><span>Пришлю ссылку СБП на&nbsp;4&nbsp;500&nbsp;₽ и&nbsp;чек из&nbsp;«Мой налог».</span></li>
+          <li><b>Варианты</b><span>За&nbsp;3–5 дней пришлю в&nbsp;Telegram 3–5 вариантов с&nbsp;видео, фото и&nbsp;ценой хозяина.</span></li>
+          <li><b>Выбор и&nbsp;договор</b><span>Договор и&nbsp;оплату аренды вы&nbsp;делаете напрямую с&nbsp;хозяином; дам образец договора на&nbsp;русском и&nbsp;вьетнамском (не&nbsp;юридическая консультация).</span></li>
         </ol>
       </div>
     </section>
@@ -235,6 +236,11 @@
             <summary>Что уйдёт в&nbsp;Telegram</summary>
             <pre id="podbor-preview"></pre>
           </details>
+
+          <label class="podbor-wide flex items-start gap-3 text-sm leading-snug text-ink-soft">
+            <input type="checkbox" name="consent" id="podbor-consent" required class="mt-0.5 h-5 w-5 shrink-0 accent-[#1e3b30]">
+            <span>Согласен на&nbsp;обработку персональных данных по&nbsp;<a class="faq__link" href="soglasie.html" target="_blank" rel="noopener">Согласию</a> и&nbsp;<a class="faq__link" href="privacy.html" target="_blank" rel="noopener">Политике</a>.</span>
+          </label>
 
           <div class="podbor-actions podbor-wide">
             <button type="submit" class="podbor-send"><svg aria-hidden="true"><use href="#i-tg"/></svg>Отправить в&nbsp;Telegram</button>
