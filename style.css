@@ -1545,3 +1545,16 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
 @media (max-width: 639.98px) {
   #site-header.is-hidden { transform: translateY(-110%); }
 }
+
+/* Как это работает: 4 шага. Телефон — вертикальная линия с номерами, ПК — 4 колонки */
+.how-steps { counter-reset: how; position: relative; margin: 2.5rem 0 0; padding: 0; list-style: none; display: grid; gap: 1.5rem; }
+.how-steps li { counter-increment: how; position: relative; padding-left: 3.5rem; }
+.how-steps li::before { content: counter(how); position: absolute; left: 0; top: 0; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--sunflower-soft); font-weight: 700; color: var(--ink); }
+.how-steps li:not(:last-child)::after { content: ""; position: absolute; left: 19px; top: 44px; bottom: -1.25rem; width: 2px; background: var(--clay); opacity: 0.35; }
+.how-steps__title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; line-height: 1.2; }
+.how-steps__text { margin-top: 0.35rem; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+@media (min-width: 768px) {
+  .how-steps { grid-template-columns: repeat(4, 1fr); gap: 1.75rem; margin-top: 3.5rem; }
+  .how-steps li { padding-left: 0; padding-top: 3.5rem; }
+  .how-steps li:not(:last-child)::after { left: 52px; right: -1.5rem; top: 19px; bottom: auto; width: auto; height: 2px; }
+}
