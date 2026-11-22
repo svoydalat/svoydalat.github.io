@@ -301,6 +301,44 @@
     });
   }
 
+  /* ---------- «Что спросить у хозяина»: копирование вопросов на вьетнамском ---------- */
+  const ask = document.querySelector('[data-ask]');
+  if (ask) {
+    const status = ask.querySelector('[data-ask-status]');
+    const copyText = async (text) => {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (err) {
+        // Запасной путь для старых браузеров и страниц без доступа к буферу
+        const area = document.createElement('textarea');
+        area.value = text;
+        area.setAttribute('readonly', '');
+        area.style.cssText = 'position:fixed;opacity:0;';
+        document.body.appendChild(area);
+        area.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { /* не вышло */ }
+        area.remove();
+        return ok;
+      }
+    };
+    const report = (ok, what) => {
+      status.textContent = ok ? `Скопировано: ${what}. Вставьте в Zalo.` : 'Не удалось скопировать — выделите текст вручную.';
+    };
+    ask.querySelectorAll('.ask__copy').forEach((btn, i) => btn.addEventListener('click', async () => {
+      const ok = await copyText(btn.parentElement.querySelector('[data-ask-vi]').textContent);
+      report(ok, `вопрос ${i + 1}`);
+      if (!ok) return;
+      btn.classList.add('is-done');
+      setTimeout(() => btn.classList.remove('is-done'), 1800);
+    }));
+    ask.querySelector('[data-ask-all]').addEventListener('click', async () => {
+      const lines = [...ask.querySelectorAll('[data-ask-vi]')].map((el, i) => `${i + 1}. ${el.textContent}`);
+      report(await copyText([ask.querySelector('[data-ask-intro]').textContent, ...lines].join('\n')), 'все 10 вопросов');
+    });
+  }
+
   /* ---------- Планировщик поездки: месяц → сезон, чемодан, открытка в Telegram ---------- */
   // Температуры — средние дневные максимумы и ночные минимумы Далата (многолетние, округлены)
   const plan = document.querySelector('[data-plan]');
@@ -328,7 +366,7 @@
       'Ещё дождливо. 2 сентября — национальный праздник, в выходные людно.',
       'Дожди идут на спад; в конце месяца зацветают дикие подсолнухи.',
       'Цветут дикие подсолнухи (dã quỳ) — время для прогулок по холмам.',
-      'Подсолнухи ещё цветут, в конце месяца — сакура. На новогодние праздники бронируйте заранее.'
+      'Конец года — много туристов, на праздники жильё бронируйте заранее. К концу месяца зацветает сакура.'
     ];
     const PACK = {
       dry: [['🧥', 'Свитер или худи', 'вечером +12…+14°'], ['🧦', 'Тёплые носки', 'в домах нет отопления'], ['🧴', 'Крем SPF 50', 'на высоте 1500 м солнце жёсткое'], ['🧣', 'Ветровка', 'на байке продувает']],

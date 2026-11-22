@@ -375,6 +375,32 @@
           <a href="podbor.html" class="xray__cta">Подобрать жильё&nbsp;— 4&nbsp;500&nbsp;₽ <svg class="h-5 w-5" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
 
+        <!-- «Что спросить у хозяина»: вопросы на русском и вьетнамском, копируются для Zalo. Договаривается клиент сам -->
+        <div class="ask reveal mt-20" data-ask>
+          <p class="xray__kicker">бесплатно</p>
+          <h3 class="section-title">Что спросить у&nbsp;хозяина</h3>
+          <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">Хозяева жилья во&nbsp;Вьетнаме чаще всего на&nbsp;связи в&nbsp;Zalo. Скопируйте вопросы на&nbsp;вьетнамском и&nbsp;отправьте сами&nbsp;— договариваетесь вы&nbsp;напрямую.</p>
+          <button type="button" class="ask__all" data-ask-all>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
+            Скопировать все вопросы на&nbsp;вьетнамском
+          </button>
+          <p class="ask__status" data-ask-status aria-live="polite"></p>
+          <!-- Первая строка копируется перед списком при «Скопировать все» -->
+          <p class="ask__intro" lang="vi" data-ask-intro hidden>Xin chào anh/chị ạ! Tôi muốn hỏi thêm vài thông tin về nhà cho thuê:</p>
+          <ol class="ask__list">
+            <li><div><b>Сколько депозит и&nbsp;через сколько его вернут после выезда?</b><span lang="vi" data-ask-vi>Tiền cọc bao nhiêu ạ? Khi trả nhà thì bao lâu được hoàn cọc?</span></div><button type="button" class="ask__copy" aria-label="Скопировать вопрос 1 на вьетнамском"></button></li>
+            <li><div><b>Что входит в&nbsp;цену аренды?</b><span lang="vi" data-ask-vi>Giá thuê đã bao gồm những gì ạ?</span></div><button type="button" class="ask__copy" aria-label="Скопировать вопрос 2 на вьетнамском"></button></li>
+            <li><div><b>Сколько стоит 1&nbsp;кВт·ч электричества?</b><span lang="vi" data-ask-vi>Tiền điện tính bao nhiêu một số ạ?</span></div><button type="button" class="ask__copy" aria-label="Скопировать вопрос 3 на вьетнамском"></button></li>
+            <li><div><b>Как считают воду и&nbsp;Wi-Fi?</b><span lang="vi" data-ask-vi>Tiền nước và wifi tính thế nào ạ?</span></div><button type="button" class="ask__copy" aria-label="Скопировать вопрос 4 на вьетнамском"></button></li>
+            <li><div><b>Есть&nbsp;ли горячая вода в&nbsp;душе?</b><span lang="vi" data-ask-vi>Phòng tắm có nước nóng không ạ?</span></div><button type="button" class="ask__copy" aria-label="Скопировать вопрос 5 на вьетнамском"></button></li>
+            <li><div><b>Холодно&nbsp;ли ночью? Есть&nbsp;ли тёплое одеяло или обогреватель?</b><span lang="vi" data-ask-vi>Ban đêm có lạnh không ạ? Nhà có sẵn chăn ấm hoặc máy sưởi không?</span></div><button type="button" class="ask__copy" aria-label="Скопировать вопрос 6 на вьетнамском"></button></li>
+            <li><div><b>Бывает&nbsp;ли сырость и&nbsp;плесень в&nbsp;сезон дождей?</b><span lang="vi" data-ask-vi>Vào mùa mưa nhà có bị ẩm mốc không ạ?</span></div><button type="button" class="ask__copy" aria-label="Скопировать вопрос 7 на вьетнамском"></button></li>
+            <li><div><b>Есть&nbsp;ли рядом стройка?</b><span lang="vi" data-ask-vi>Gần nhà có công trình đang xây dựng không ạ?</span></div><button type="button" class="ask__copy" aria-label="Скопировать вопрос 8 на вьетнамском"></button></li>
+            <li><div><b>Зарегистрируете&nbsp;ли вы меня как иностранца по&nbsp;месту пребывания?</b><span lang="vi" data-ask-vi>Anh/chị có hỗ trợ khai báo tạm trú cho người nước ngoài không ạ?</span><small>По&nbsp;закону о&nbsp;пребывании иностранцев (ст.&nbsp;33) хозяин обязан зарегистрировать жильца-иностранца в&nbsp;полиции в&nbsp;течение 12&nbsp;часов после заселения. Частники об&nbsp;этом иногда забывают&nbsp;— спросите заранее.</small></div><button type="button" class="ask__copy" aria-label="Скопировать вопрос 9 на вьетнамском"></button></li>
+            <li><div><b>Есть&nbsp;ли договор аренды и&nbsp;можно&nbsp;ли посмотреть его заранее?</b><span lang="vi" data-ask-vi>Có hợp đồng thuê không ạ? Tôi có thể xem trước được không?</span></div><button type="button" class="ask__copy" aria-label="Скопировать вопрос 10 на вьетнамском"></button></li>
+          </ol>
+        </div>
+
         <div class="reveal mt-20">
           <h3 class="section-title">На&nbsp;месте&nbsp;— через местных партнёров</h3>
           <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">Трансфер, байк и&nbsp;экскурсии оказывают местные компании по&nbsp;своим договорам. Их&nbsp;контакты я&nbsp;даю в&nbsp;пакете «Переезд под&nbsp;ключ». Договор, цены и&nbsp;оплата&nbsp;— напрямую с&nbsp;ними; я&nbsp;не&nbsp;получаю от&nbsp;партнёров вознаграждения и&nbsp;не&nbsp;отвечаю за&nbsp;их услуги.</p>
@@ -586,6 +612,20 @@
             <dd class="mt-1 font-serif text-5xl font-semibold leading-none text-pine-700">свитер</dd>
           </div>
         </dl>
+
+        <!-- «Что сейчас в Далате»: сводка по новостям со ссылками. Обновлять вручную: дата в <time>, 3–4 пункта, источники -->
+        <aside class="field-note reveal mt-10" aria-labelledby="field-note-title">
+          <span class="field-note__pin" aria-hidden="true"></span>
+          <p class="field-note__kicker">заметка на&nbsp;полях</p>
+          <h3 id="field-note-title" class="field-note__title">Что сейчас в&nbsp;Далате · <time datetime="2026-11-23">23&nbsp;ноября 2026</time></h3>
+          <ul class="field-note__list">
+            <li>Начался сухой сезон: днём солнечно, утром и&nbsp;вечером свежо.</li>
+            <li>На&nbsp;сосновых склонах, особенно у&nbsp;горы Лангбианг, цветёт розовая трава (cỏ&nbsp;hồng).</li>
+            <li>В&nbsp;выходные 21–22 ноября центр у&nbsp;озера Суан Хыонг стоял в&nbsp;пробках, во&nbsp;многих прокатах закончились байки, а&nbsp;крупный перевозчик распродал все билеты Хошимин&nbsp;— Далат. На&nbsp;выходные бронируйте байк и&nbsp;автобус заранее.</li>
+            <li>Фестиваль цветов&nbsp;— с&nbsp;12&nbsp;декабря 2026 по&nbsp;3&nbsp;января 2027. Открытие 12&nbsp;декабря в&nbsp;20:00 на&nbsp;площади Лам Вьен, вход свободный. В&nbsp;эти даты в&nbsp;городе людно&nbsp;— жильё лучше искать заранее.</li>
+          </ul>
+          <p class="field-note__src">Источники: <a href="https://dantri.com.vn/thoi-su/du-khach-do-ve-da-lat-cuoi-tuan-pho-xa-dong-duc-20261122192803428.htm" target="_blank" rel="noopener noreferrer">Dân trí, 22.11.2026</a> · <a href="https://festivaldalat.lamdongtructuyen.vn/" target="_blank" rel="noopener noreferrer">сайт Фестиваля цветов</a></p>
+        </aside>
 
         <!-- Сравнение погоды: город посетителя (по часовому поясу или из списка) против Далата. Строит script.js -->
         <div class="climate reveal mt-10" data-climate>
