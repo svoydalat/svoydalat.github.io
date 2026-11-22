@@ -1558,3 +1558,35 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
   .how-steps li { padding-left: 0; padding-top: 3.5rem; }
   .how-steps li:not(:last-child)::after { left: 52px; right: -1.5rem; top: 19px; bottom: auto; width: auto; height: 2px; }
 }
+
+/* ---------- Шаг 6: блок услуг компактнее на телефоне ---------- */
+.price-card__more { margin-top: 0.5rem; }
+.price-card__more > summary { display: flex; align-items: center; justify-content: space-between; min-height: 44px; cursor: pointer; list-style: none; font-weight: 600; font-size: 15px; }
+.price-card__more > summary::-webkit-details-marker { display: none; }
+.price-card__more > summary::after { content: "+"; font-size: 1.4rem; line-height: 1; opacity: 0.7; }
+.price-card__more[open] > summary::after { content: "\2212"; }
+.price-card__more > .price-card__list { margin-top: 0.25rem; }
+@media (min-width: 640px) {
+  .price-card__more > summary { display: none; }
+  .price-card__more > .price-card__list { margin-top: 0.6rem; }
+}
+@media (max-width: 639px) {
+  .price-grid { gap: 0.75rem; margin-top: 1.5rem; }
+  .price-card { padding: 1.25rem; border-radius: 1.4rem; }
+  .price-card__title { font-size: 1.6rem; }
+  .price-card__text { margin-top: 0.5rem; line-height: 1.45; }
+  .price-card__price { padding-top: 0.5rem; }
+  .price-card__price b { font-size: 2rem; }
+  .price-card__btn { margin-top: 0.75rem; }
+  #services .mt-20 { margin-top: 2rem; }
+  .partner { gap: 0.75rem; padding: 0.75rem 0.9rem; border-radius: 1.1rem; align-items: center; }
+  .partner__ico { width: 36px; height: 36px; border-radius: 10px; font-size: 18px; }
+  .partner__title { font-size: 1rem; }
+  .partner__text { margin-top: 0.15rem; font-size: 13px; line-height: 1.4; }
+  .partner__link { min-height: 44px; margin-top: -0.2rem; font-size: 14px; }
+  #services { padding-block: 2.5rem; }
+  #services .section-title { font-size: 2.1rem; }
+  #services > div > .reveal { gap: 0.75rem; }
+  #services > div > .reveal .mt-5 { margin-top: 0.75rem; }
+  #services .mt-4 { margin-top: 0.5rem; }
+}
