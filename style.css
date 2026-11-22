@@ -1369,7 +1369,7 @@ section.py-24 { padding-block: 3.5rem; }
 /* ---------- Мобильная версия: hero, «Услуги», «Как это работает» (до 640 px) ---------- */
 @media (max-width: 639.98px) {
   .hero h1 { font-size: clamp(2.25rem, 10vw, 2.75rem); }
-  .hero .ticket { display: none; }
+  .hero .ticket, .hero .hero-offer { display: none; }
   .hero p.max-w-xl { font-size: 1.0625rem; line-height: 1.55; }
 
   /* Услуги: без картинок и значков, чипы — одной прокручиваемой строкой */
@@ -1590,3 +1590,23 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
   #services > div > .reveal .mt-5 { margin-top: 0.75rem; }
   #services .mt-4 { margin-top: 0.5rem; }
 }
+
+/* ---------- Первый экран: карточка предложения вместо «билета» ---------- */
+.hero-offer {
+  padding: 0.9rem 1.1rem 1rem;
+  border-radius: 1.15rem;
+  background: var(--paper);
+  filter: drop-shadow(0 22px 26px rgb(19 42 34 / 0.28));
+}
+.hero-offer__title { margin: 0; font: 600 1.7rem/1.05 'Cormorant Garamond', Georgia, serif; color: var(--ink); }
+.hero-offer__text { margin: 0.35rem 0 0; font-size: 0.8125rem; line-height: 1.35; color: var(--ink-soft); }
+.hero-offer__row {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  margin-top: 0.7rem; padding-top: 0.6rem; border-top: 1px dashed rgb(19 42 34 / 0.2);
+}
+.hero-offer__price { font: 600 1.45rem/1 'Cormorant Garamond', Georgia, serif; color: var(--pine-700); }
+.hero-offer__link {
+  display: inline-flex; align-items: center; min-height: 44px; padding-inline: 0.25rem;
+  font-size: 0.875rem; font-weight: 600; color: var(--pine-700); text-decoration: underline; text-underline-offset: 3px;
+}
+.author__note { font: italic 500 1.5rem/1.1 'Cormorant Garamond', Georgia, serif; }
