@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!-- ЧЕРНОВИК: проверить юристом -->
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Политика обработки персональных данных — Свой в Далате</title>
+  <meta name="description" content="Какие персональные данные обрабатывает «Свой в Далате», зачем, где и как долго, и как отозвать согласие.">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="theme-color" content="#F4EFE5">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Свой в Далате">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="canonical" href="https://svoydalat.github.io/privacy.html">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231E3B30'/%3E%3Cpath d='M32 8 22 24h6L18 38h7L15 52h34L39 38h7L36 24h6z' fill='%23F6DD9A'/%3E%3Crect x='29' y='51' width='6' height='6' rx='1' fill='%23E3A21A'/%3E%3C/svg%3E">
+
+  <!-- Включаем анимации появления, только если работает JS -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Шрифты: Cormorant Garamond (заголовки, вьетнамские названия), Onest (текст), Caveat (рукописные пометки) -->
+  <link rel="preload" href="fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/cormorant-garamond-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="fonts.css">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="guard.css">
+  <!-- Tailwind собран заранее (tools/tailwind.config.js) и идёт последним, как раньше шёл CDN -->
+  <link rel="stylesheet" href="tw.css">
+</head>
+
+<body class="bg-paper font-sans text-ink antialiased selection:bg-sunflower/30">
+
+  <!-- Общие иконки и силуэты гор — используются через <use> -->
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-tg" viewBox="4.3 5.15 14 14"><path fill="currentColor" d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+    <symbol id="i-pine" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M12 2.5 7.6 9h2.5l-3.6 5.4h3.1L6 20h12l-3.6-5.6h3.1L13.9 9h2.5z"/><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M12 20v2"/></symbol>
+  </svg>
+
+  <!-- ================= ШАПКА ================= -->
+  <header id="site-header" class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
+    <div class="header-bar mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full px-2 sm:h-16">
+      <a href="index.html" class="flex items-center gap-2.5 rounded-full pr-3" aria-label="Свой в Далате — на главную">
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-pine-800 text-sunflower-soft sm:h-11 sm:w-11">
+          <svg class="h-5 w-5" aria-hidden="true"><use href="#i-pine"/></svg>
+        </span>
+        <span class="leading-none">
+          <span class="block font-serif text-[1.3rem] font-semibold tracking-tight">Свой в&nbsp;Далате</span>
+          <span class="mt-0.5 hidden font-serif text-[13px] italic text-ink-soft sm:block">Đà Lạt · город вечной весны</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-1 whitespace-nowrap text-[15px] font-medium text-ink-soft xl:flex" aria-label="Основное меню">
+        <a href="index.html#services" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Услуги</a>
+        <a href="podbor.html" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Подбор жилья</a>
+        <a href="map.html" class="inline-flex items-center gap-1.5 rounded-full bg-sunflower-soft/70 px-3.5 py-2 font-semibold text-ink transition hover:bg-sunflower-soft"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></svg>Карта</a>
+        <a href="index.html#faq" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Вопросы</a>
+        <a href="index.html#contacts" class="rounded-full px-3.5 py-2 transition hover:bg-ink/5 hover:text-ink">Контакты</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5">
+        <a href="https://t.me/razumovdimka" data-tg="general" target="_blank" rel="noopener noreferrer"
+           class="group hidden items-center gap-2.5 rounded-full bg-pine-900 py-1.5 pl-1.5 pr-5 text-sm font-semibold text-paper transition hover:bg-pine-700 sm:inline-flex">
+          <span class="grid h-8 w-8 place-items-center rounded-full bg-tg text-white"><svg class="h-4 w-4" aria-hidden="true"><use href="#i-tg"/></svg></span>
+          Написать
+        </a>
+        <button id="menu-toggle" type="button"
+                class="grid h-11 w-11 place-items-center rounded-full transition hover:bg-ink/5 xl:hidden"
+                aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню">
+          <svg class="icon-open h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h16"/></svg>
+          <svg class="icon-close hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Мобильное меню -->
+    <div id="mobile-menu" class="mx-auto mt-2 hidden max-w-6xl rounded-[1.75rem] bg-paper/95 p-2 shadow-2xl shadow-ink/10 ring-1 ring-ink/5 backdrop-blur-xl xl:hidden">
+      <nav class="flex flex-col text-lg font-medium" aria-label="Мобильное меню">
+        <a href="index.html#dalat" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Далат</a>
+        <a href="map.html" class="flex items-center gap-3 rounded-2xl bg-sunflower-soft/70 px-4 py-3.5 font-semibold transition hover:bg-sunflower-soft"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></svg>Интерактивная карта Далата</a>
+        <a href="index.html#road" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Дорога</a>
+        <a href="index.html#services" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Услуги</a>
+        <a href="podbor.html" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Подбор жилья</a>
+        <a href="index.html#how" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Как это работает</a>
+        <a href="index.html#leave-review" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Оставить отзыв</a>
+        <a href="index.html#contacts" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Контакты</a>
+        <a href="https://t.me/razumovdimka" data-tg="general" target="_blank" rel="noopener noreferrer"
+           class="mt-1 inline-flex items-center justify-center gap-3 rounded-2xl bg-pine-900 px-5 py-4 text-base font-semibold text-paper">
+          <span class="grid h-8 w-8 place-items-center rounded-full bg-tg text-white"><svg class="h-4 w-4" aria-hidden="true"><use href="#i-tg"/></svg></span>
+          Написать в&nbsp;Telegram
+        </a>
+        <button type="button" data-install hidden class="mt-1 inline-flex items-center justify-center gap-3 rounded-2xl px-5 py-4 text-base font-semibold text-ink ring-1 ring-ink/15 transition hover:bg-ink/5">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>
+          Установить на&nbsp;телефон
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- id="top" нужен скриптам сайта (шапка и плавающая кнопка) -->
+    <section id="top" class="pt-28 pb-10 sm:pt-36 sm:pb-12">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <a href="index.html" class="tap mb-8 inline-flex items-center gap-2 text-sm font-semibold text-pine-700 hover:text-pine-900"><svg class="h-4 w-4 rotate-180" aria-hidden="true"><use href="#i-arrow"/></svg>На&nbsp;главную</a>
+        <p class="eyebrow"><span class="eyebrow__num">§</span>Документы</p>
+        <h1 class="section-title mt-5">Политика <em>обработки персональных данных</em></h1>
+        <article class="doc">
+          <p class="doc__meta">Редакция от&nbsp;22.11.2026</p>
+
+          <nav class="doc__toc" aria-label="Разделы документа">
+            <ol>
+              <li><a href="#p1">Кто обрабатывает данные</a></li>
+              <li><a href="#p2">Какие данные</a></li>
+              <li><a href="#p3">Зачем</a></li>
+              <li><a href="#p4">Правовые основания</a></li>
+              <li><a href="#p5">Как данные попадают ко&nbsp;мне</a></li>
+              <li><a href="#p6">Что я&nbsp;делаю с&nbsp;данными и&nbsp;где они находятся</a></li>
+              <li><a href="#p7">Передача третьим лицам</a></li>
+              <li><a href="#p8">Сколько храню</a></li>
+              <li><a href="#p9">Ваши права и&nbsp;отзыв согласия</a></li>
+              <li><a href="#p10">Как защищаю данные</a></li>
+              <li><a href="#p11">Внешние сервисы на&nbsp;сайте</a></li>
+              <li><a href="#p12">Что хранится в&nbsp;вашем браузере</a></li>
+              <li><a href="#p13">Изменения политики</a></li>
+            </ol>
+          </nav>
+
+          <section id="p1">
+            <h2>1. Кто обрабатывает данные</h2>
+            <p>1.1. Оператор персональных данных&nbsp;— Разумов Дмитрий Олегович, плательщик налога на&nbsp;профессиональный доход, ИНН 662608329943 (далее&nbsp;— «я», оператор).</p>
+            <p>1.2. Связаться со&nbsp;мной: email <a href="mailto:razumovdimka@gmail.com">razumovdimka@gmail.com</a>, Telegram <a href="https://t.me/razumovdimka" target="_blank" rel="noopener noreferrer">@razumovdimka</a>.</p>
+            <p>1.3. Политика написана по&nbsp;статье 18.1 Федерального закона от&nbsp;27.07.2006 №&nbsp;152-ФЗ «О&nbsp;персональных данных». Она действует для данных, которые я&nbsp;получаю через сайт svoydalat.github.io, его формы, а&nbsp;также в&nbsp;переписке по&nbsp;моим услугам.</p>
+          </section>
+
+          <section id="p2">
+            <h2>2. Какие данные</h2>
+            <p>2.1. Только то, что вы&nbsp;сообщаете сами:</p>
+            <ul>
+              <li>имя;</li>
+              <li>контакт: ник в&nbsp;Telegram, номер телефона (WhatsApp), email&nbsp;— тот, которым вы пишете;</li>
+              <li>сведения о&nbsp;поездке: даты, сколько человек, есть ли дети или животные, бюджет, пожелания к&nbsp;жилью и&nbsp;району;</li>
+              <li>текст отзыва, имя и&nbsp;город, если вы оставляете отзыв;</li>
+              <li>сведения об&nbsp;оплате: сумма, дата и&nbsp;имя плательщика из&nbsp;уведомления банка.</li>
+            </ul>
+            <p>2.2. Я&nbsp;не&nbsp;прошу паспортных данных, данных банковских карт и&nbsp;сведений о&nbsp;здоровье. Пожалуйста, не&nbsp;присылайте их.</p>
+            <p>2.3. Если вы сообщаете данные попутчиков или детей, вы подтверждаете, что вправе это делать.</p>
+          </section>
+
+          <section id="p3">
+            <h2>3. Зачем</h2>
+            <ul>
+              <li>ответить на&nbsp;заявку, анкету или вопрос;</li>
+              <li>заключить и&nbsp;исполнить договор по&nbsp;<a href="oferta.html">оферте</a>: консультация, подбор жилья, «Переезд под&nbsp;ключ»;</li>
+              <li>принять оплату, выдать чек из&nbsp;«Мой налог», вернуть деньги, ответить на&nbsp;претензию;</li>
+              <li>опубликовать отзыв на&nbsp;сайте&nbsp;— только если вы на&nbsp;это согласились.</li>
+            </ul>
+            <p>Рекламных рассылок я&nbsp;не&nbsp;делаю.</p>
+          </section>
+
+          <section id="p4">
+            <h2>4. Правовые основания</h2>
+            <ul>
+              <li>ваше согласие (пункт 1 части 1 статьи 6 152-ФЗ)&nbsp;— <a href="soglasie.html">текст согласия</a>;</li>
+              <li>заключение и&nbsp;исполнение договора, стороной которого вы являетесь (пункт 5 части 1 статьи 6 152-ФЗ);</li>
+              <li>обязанности по&nbsp;закону: учёт доходов и&nbsp;чеки по&nbsp;Федеральному закону №&nbsp;422-ФЗ, ответы на&nbsp;претензии по&nbsp;Закону «О&nbsp;защите прав потребителей»;</li>
+              <li>для публикации отзыва с&nbsp;именем и&nbsp;городом&nbsp;— отдельное согласие на&nbsp;распространение (статья 10.1 152-ФЗ).</li>
+            </ul>
+          </section>
+
+          <section id="p5">
+            <h2>5. Как данные попадают ко&nbsp;мне</h2>
+            <p>5.1. Форма заявки на&nbsp;главной, анкета «Подбор жилья» и&nbsp;форма отзыва ничего не&nbsp;отправляют на&nbsp;сервер. По&nbsp;кнопке сайт собирает готовый текст и&nbsp;открывает Telegram или WhatsApp. Сообщение уходит ко&nbsp;мне, только когда вы сами нажмёте «Отправить» в&nbsp;мессенджере.</p>
+            <p>5.2. На&nbsp;сайте и&nbsp;на&nbsp;его сервере данные из&nbsp;форм не&nbsp;сохраняются.</p>
+            <p>5.3. Вы&nbsp;также можете написать мне напрямую&nbsp;— в&nbsp;Telegram, WhatsApp или на&nbsp;email.</p>
+          </section>
+
+          <section id="p6">
+            <h2>6. Что я&nbsp;делаю с&nbsp;данными и&nbsp;где они находятся</h2>
+            <p>6.1. Действия: сбор, запись, систематизация, накопление, хранение, уточнение, извлечение, использование, блокирование, удаление, уничтожение. Публикация (распространение)&nbsp;— только отзыва и&nbsp;только с&nbsp;вашего отдельного согласия.</p>
+            <p>6.2. Обработка смешанная: в&nbsp;мессенджерах, почте и&nbsp;на&nbsp;моих устройствах, а&nbsp;также без средств автоматизации. Решений, которые порождают для вас юридические последствия, только на&nbsp;основе автоматической обработки я&nbsp;не&nbsp;принимаю.</p>
+            <p>6.3. Переписка хранится в&nbsp;Telegram, WhatsApp или почте Gmail&nbsp;— в&nbsp;зависимости от&nbsp;того, где вы пишете. Это иностранные сервисы, их серверы могут находиться за&nbsp;пределами России, и&nbsp;переписка с&nbsp;ними идёт по&nbsp;их правилам.</p>
+            <p>6.4. Чеки формируются в&nbsp;приложении ФНС России «Мой налог».</p>
+          </section>
+
+          <section id="p7">
+            <h2>7. Передача третьим лицам</h2>
+            <p>7.1. Я&nbsp;не&nbsp;продаю и&nbsp;не&nbsp;передаю ваши данные третьим лицам, в&nbsp;том числе хозяевам жилья и&nbsp;партнёрам. Им вы пишете сами по&nbsp;контакту, который я&nbsp;дал.</p>
+            <p>7.2. Исключение&nbsp;— запросы государственных органов в&nbsp;случаях, прямо предусмотренных законом.</p>
+          </section>
+
+          <section id="p8">
+            <h2>8. Сколько храню</h2>
+            <p>8.1. До&nbsp;достижения целей из&nbsp;раздела&nbsp;3, но&nbsp;не&nbsp;дольше 1&nbsp;года после вашего последнего сообщения, или до&nbsp;отзыва согласия&nbsp;— что наступит раньше.</p>
+            <p>8.2. Если договор ещё исполняется или есть неразрешённая претензия, данные храню до&nbsp;их завершения. Сведения о&nbsp;доходах и&nbsp;чеках хранятся в&nbsp;«Мой налог» по&nbsp;правилам налогового законодательства.</p>
+            <p>8.3. Когда срок истёк, удаляю переписку и&nbsp;данные в&nbsp;течение 30&nbsp;дней.</p>
+          </section>
+
+          <section id="p9">
+            <h2>9. Ваши права и&nbsp;отзыв согласия</h2>
+            <p>9.1. Вы вправе (статьи 14–17 152-ФЗ):</p>
+            <ul>
+              <li>узнать, какие ваши данные я&nbsp;обрабатываю, зачем и&nbsp;как;</li>
+              <li>потребовать уточнить, заблокировать или удалить данные, если они неполные, устарели или не&nbsp;нужны для целей обработки;</li>
+              <li>отозвать согласие;</li>
+              <li>пожаловаться в&nbsp;Роскомнадзор или в&nbsp;суд.</li>
+            </ul>
+            <p>9.2. Как это сделать: напишите на&nbsp;email <a href="mailto:razumovdimka@gmail.com">razumovdimka@gmail.com</a> или в&nbsp;Telegram <a href="https://t.me/razumovdimka" target="_blank" rel="noopener noreferrer">@razumovdimka</a>. Отвечу в&nbsp;течение 10&nbsp;рабочих дней.</p>
+            <p>9.3. После отзыва согласия прекращаю обработку и&nbsp;удаляю данные в&nbsp;течение 30&nbsp;дней. Исключение&nbsp;— данные, которые нужны, чтобы исполнить уже оплаченный договор или обязанность по&nbsp;закону (часть 2 статьи 9 152-ФЗ).</p>
+          </section>
+
+          <section id="p10">
+            <h2>10. Как защищаю данные</h2>
+            <ul>
+              <li>доступ к&nbsp;переписке и&nbsp;данным есть только у&nbsp;меня;</li>
+              <li>аккаунты в&nbsp;мессенджерах и&nbsp;почте и&nbsp;мои устройства защищены паролями;</li>
+              <li>данные из&nbsp;форм не&nbsp;сохраняются на&nbsp;сайте, поэтому их нельзя похитить с&nbsp;сайта.</li>
+            </ul>
+          </section>
+
+          <section id="p11">
+            <h2>11. Внешние сервисы на&nbsp;сайте</h2>
+            <p>11.1. Сайт размещён на&nbsp;GitHub Pages (GitHub, США). Хостинг может записывать IP-адрес и&nbsp;данные браузера в&nbsp;свои технические журналы.</p>
+            <p>11.2. Погода загружается с&nbsp;сервиса Open-Meteo, фрагменты карты&nbsp;— с&nbsp;серверов OpenStreetMap. Эти сервисы видят ваш IP-адрес. Я&nbsp;эти данные не&nbsp;получаю.</p>
+            <p>11.3. Сайт не&nbsp;использует счётчики аналитики и&nbsp;рекламные cookie.</p>
+          </section>
+
+          <section id="p12">
+            <h2>12. Что хранится в&nbsp;вашем браузере</h2>
+            <p>12.1. В&nbsp;localStorage&nbsp;— избранные места на&nbsp;карте. В&nbsp;sessionStorage до&nbsp;закрытия вкладки&nbsp;— погода и&nbsp;отметка, что заставка уже показана.</p>
+            <p>12.2. Эти данные остаются на&nbsp;вашем устройстве, ко&nbsp;мне не&nbsp;попадают. Их можно удалить в&nbsp;настройках браузера.</p>
+          </section>
+
+          <section id="p13">
+            <h2>13. Изменения политики</h2>
+            <p>13.1. Действующая редакция всегда опубликована на&nbsp;этой странице, дата редакции указана вверху. О&nbsp;существенных изменениях напишу тем, с&nbsp;кем идёт работа по&nbsp;договору.</p>
+          </section>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ================= ПОДВАЛ ================= -->
+  <footer id="contacts" class="footer relative overflow-hidden bg-pine-900 text-paper">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p class="font-serif text-3xl font-semibold">Свой в&nbsp;Далате</p>
+          <p class="mt-2 max-w-sm text-paper/70">Помогу подобрать жильё и&nbsp;подготовить переезд дистанционно. Отвечаю в&nbsp;Telegram и&nbsp;WhatsApp.</p>
+        </div>
+        <ul class="space-y-3 text-paper/85">
+          <li><a href="https://t.me/razumovdimka" data-tg="general" target="_blank" rel="noopener noreferrer" class="transition hover:text-white">Telegram @razumovdimka</a></li>
+          <li><a href="index.html" class="transition hover:text-white">← На главную</a></li>
+          <li><a href="map.html" class="transition hover:text-white">Интерактивная карта Далата</a></li>
+        </ul>
+      </div>
+      <div class="mt-10 border-t border-white/10 pt-7 text-sm text-paper/70">
+        <div class="legal legal--dark">
+          <p>© <span id="year" data-year>2026</span> Свой в&nbsp;Далате. Тексты авторские.</p>
+          <p>Разумов Дмитрий Олегович, плательщик налога на&nbsp;профессиональный доход, ИНН&nbsp;662608329943.</p>
+          <p>Мои услуги&nbsp;— дистанционные. Трансфер, прокат и&nbsp;экскурсии оказывают партнёры по&nbsp;своим договорам.</p>
+          <p><a href="oferta.html" class="legal__link">Оферта</a> · <a href="privacy.html" class="legal__link" aria-current="page">Политика</a> · <a href="soglasie.html" class="legal__link">Согласие</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Плавающая кнопка Telegram: появляется после первого экрана, прячется у футера; на телефоне — с подписью -->
+  <a id="fab-telegram" href="https://t.me/razumovdimka" data-tg="general" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram"
+     class="fab fixed z-40 rounded-full bg-tg text-white shadow-xl shadow-tg/40">
+    <svg class="h-6 w-6 shrink-0" aria-hidden="true"><use href="#i-tg"/></svg>
+    <span class="fab__label">Написать в&nbsp;Telegram</span>
+  </a>
+
+  <!-- Нижняя панель на телефоне: главные разделы под большим пальцем -->
+  <nav class="tabbar" aria-label="Быстрая навигация">
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3l9 8M5 9.5V21h5v-6h4v6h5V9.5"/></svg><span>Главная</span></a>
+    <a href="map.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18 3 20V6l6-2 6 2 6-2v14l-6 2zM9 4v14M15 6v14"/></svg><span>Карта</span></a>
+    <a href="podbor.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5l8-2 8 2v16M9 9h2M13 9h2M9 13h2M13 13h2M10 21v-4h4v4"/></svg><span>Подбор</span></a>
+    <a href="https://t.me/razumovdimka" data-tg="general" target="_blank" rel="noopener noreferrer" class="tabbar__tg"><svg aria-hidden="true"><use href="#i-tg"/></svg><span>Написать</span></a>
+  </nav>
+
+  <script src="script.js" defer></script>
+  <script src="pwa.js" defer></script>
+  <script src="guard.js" defer></script>
+</body>
+</html>
