@@ -1983,3 +1983,154 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
   .xray__list b { font-size: 1.2rem; }
 }
 @media (prefers-reduced-motion: reduce) { .xray__pin::before { animation: none; } .xray__pin, .xray__cta { transition: none; } }
+
+/* ---------- Планировщик поездки и открытка ---------- */
+.plan-section { display: none; }
+.js .plan-section { display: block; }
+.plan__kicker { margin: 0 0 0.5rem; font: 600 1.6rem/1 'Caveat', cursive; color: var(--sunflower-deep); }
+.plan {
+  position: relative;
+  border-radius: 1.75rem;
+  background: var(--card);
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.1), 0 40px 80px -50px rgb(19 42 34 / 0.45);
+  padding: 1.25rem;
+}
+@media (min-width: 640px) { .plan { padding: 2rem; } }
+
+/* Лента месяцев: на телефоне листается пальцем */
+.plan__months {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0 -1.25rem;
+  padding: 0.25rem 1.25rem 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+.plan__months::-webkit-scrollbar { display: none; }
+@media (min-width: 640px) { .plan__months { margin: 0; padding: 0 0 0.75rem; flex-wrap: wrap; } }
+.plan__month {
+  position: relative;
+  flex: none;
+  min-width: 3.4rem;
+  padding: 0.6rem 0.8rem 0.85rem;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.1);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  scroll-snap-align: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+/* Точка сезона: золото — сухо, синий — дожди, пополам — межсезонье */
+.plan__month::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.3rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+.plan__month--dry::after { background: var(--sunflower); }
+.plan__month--rain::after { background: #4A7FB0; }
+.plan__month--mid::after { background: linear-gradient(90deg, var(--sunflower) 50%, #4A7FB0 50%); }
+.plan__month:hover { background: var(--paper-deep); }
+.plan__month[aria-pressed="true"] { background: var(--pine-900); color: var(--paper); box-shadow: none; }
+.plan__month:focus-visible, .postcard__chip:focus-visible { outline: 2px solid var(--pine-700); outline-offset: 2px; }
+
+.plan__grid { display: grid; gap: 1.5rem; margin-top: 1rem; }
+@media (min-width: 900px) { .plan__grid { grid-template-columns: 1fr 1.2fr; gap: 2.5rem; align-items: start; } }
+.plan__count { margin: 0; font: 600 clamp(2.3rem, 6vw, 3.4rem)/1 'Cormorant Garamond', Georgia, serif; color: var(--ink); }
+.plan__season { margin: 0.6rem 0 0; font-weight: 600; color: var(--pine-700); }
+.plan__temps { margin: 0.2rem 0 0; color: var(--ink-soft); }
+.plan__note { margin: 0.9rem 0 0; padding-left: 0.9rem; border-left: 2px solid var(--sunflower); font-size: 0.9375rem; line-height: 1.5; color: var(--ink-soft); }
+.plan__label { margin: 0 0 0.6rem; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.02em; color: var(--ink-soft); }
+.plan__items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.plan__items li { padding: 0.8rem 0.9rem; border-radius: 1rem; background: var(--paper); }
+.plan__ico { display: block; font-size: 1.5rem; line-height: 1; }
+.plan__items b { display: block; margin-top: 0.45rem; font-size: 0.9375rem; line-height: 1.25; color: var(--ink); }
+.plan__items span:last-child { display: block; margin-top: 0.15rem; font-size: 0.8125rem; line-height: 1.35; color: var(--ink-soft); }
+
+/* Линия отрыва с полукруглыми вырезами по краям */
+.plan__tear { position: relative; height: 0; margin: 1.75rem -1.25rem; border-top: 2px dashed rgb(22 37 31 / 0.18); }
+@media (min-width: 640px) { .plan__tear { margin: 2.25rem -2rem; } }
+.plan__tear::before, .plan__tear::after {
+  content: "";
+  position: absolute;
+  top: -0.9rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.1);
+}
+.plan__tear::before { left: -0.85rem; }
+.plan__tear::after { right: -0.85rem; }
+
+/* Открытка */
+.postcard {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 31px, rgb(22 37 31 / 0.035) 31px 32px),
+    #FBF5E8;
+  box-shadow: inset 0 0 0 1px rgb(168 111 10 / 0.18);
+}
+@media (min-width: 900px) {
+  .postcard { grid-template-columns: 1.5fr 1fr; padding: 1.75rem 2rem; }
+  .postcard__side { order: 2; padding-left: 1.75rem; border-left: 1px solid rgb(22 37 31 / 0.15); }
+}
+.postcard__side { position: relative; display: flex; flex-direction: column; align-items: flex-end; }
+.postcard__stamp { width: 9rem; height: auto; transform: rotate(4deg); mix-blend-mode: multiply; }
+@media (min-width: 900px) { .postcard__stamp { width: 11rem; } }
+.postcard__postmark { position: absolute; top: 3.2rem; right: 6.5rem; width: 6rem; color: rgb(78 72 144 / 0.55); transform: rotate(-14deg); pointer-events: none; }
+@media (min-width: 900px) { .postcard__postmark { right: 8rem; top: 4rem; } }
+.postcard__lines { display: none; }
+@media (min-width: 900px) {
+  .postcard__lines { display: grid; gap: 1.6rem; width: 100%; margin-top: 2.25rem; }
+  .postcard__lines span { height: 1px; background: rgb(22 37 31 / 0.25); }
+}
+.postcard__msg {
+  min-height: 4.5em;
+  margin: 0 0 1.25rem;
+  font: 600 clamp(1.45rem, 3.4vw, 1.85rem)/1.25 'Caveat', cursive;
+  color: var(--hydrangea-deep);
+}
+.postcard__chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1rem; }
+.postcard__chip {
+  padding: 0.5rem 0.95rem;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--card);
+  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.15);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.postcard__chip:hover { background: var(--paper-deep); }
+.postcard__chip[aria-pressed="true"] { background: var(--hydrangea-deep); color: #fff; box-shadow: none; }
+.postcard__send {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  padding: 0.45rem 1.6rem 0.45rem 0.45rem;
+  border-radius: 9999px;
+  background: var(--pine-900);
+  color: var(--paper);
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+.postcard__send:hover { background: var(--pine-700); transform: translateY(-2px); }
+.postcard__send-ico { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: #2AABEE; color: #fff; }
+.postcard__hint { margin: 0.8rem 0 0; font-size: 0.8125rem; color: var(--ink-soft); }
+@media (prefers-reduced-motion: reduce) { .plan__month, .postcard__chip, .postcard__send { transition: none; } }

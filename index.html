@@ -722,6 +722,63 @@
       </div>
     </section>
 
+    <!-- ================= ПЛАНИРОВЩИК ПОЕЗДКИ ================= -->
+    <!-- Месяц → погода, сезон, что взять → открытка с готовым сообщением в Telegram. Заполняет script.js; без JS блок скрыт -->
+    <section id="plan" class="plan-section py-24 sm:py-32" aria-labelledby="plan-title">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="reveal">
+          <p class="plan__kicker">планировщик поездки</p>
+          <h2 id="plan-title" class="section-title">Когда летите?</h2>
+          <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">Выберите месяц&nbsp;— покажу погоду, сезон и&nbsp;что положить в&nbsp;чемодан. Внизу соберётся сообщение мне в&nbsp;Telegram.</p>
+        </div>
+
+        <div class="plan reveal mt-10" data-plan>
+          <div class="plan__months" role="group" aria-label="Месяц поездки" data-plan-months></div>
+
+          <div class="plan__grid">
+            <div class="plan__summary">
+              <p class="plan__count" data-plan-count></p>
+              <p class="plan__season" data-plan-season></p>
+              <p class="plan__temps" data-plan-temps></p>
+              <p class="plan__note" data-plan-note></p>
+            </div>
+            <div>
+              <p class="plan__label">Что положить в&nbsp;чемодан</p>
+              <ul class="plan__items" data-plan-items></ul>
+            </div>
+          </div>
+
+          <div class="plan__tear" aria-hidden="true"></div>
+
+          <div class="postcard">
+            <div class="postcard__side" aria-hidden="true">
+              <img class="postcard__stamp" src="img/stamp-station.webp" width="400" height="340" alt="" loading="lazy" decoding="async">
+              <svg class="postcard__postmark" viewBox="0 0 120 120">
+                <defs><path id="postmark-ring" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs>
+                <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <text font-size="11" font-weight="700" letter-spacing="1.5" fill="currentColor"><textPath href="#postmark-ring" textLength="270" lengthAdjust="spacing">ĐÀ LẠT · СВОЙ В ДАЛАТЕ ·</textPath></text>
+                <text x="60" y="66" text-anchor="middle" font-size="17" font-weight="700" fill="currentColor" data-plan-postmark></text>
+              </svg>
+              <div class="postcard__lines"><span></span><span></span><span></span></div>
+            </div>
+            <div class="postcard__body">
+              <p class="postcard__msg" data-plan-msg aria-live="polite"></p>
+              <p class="plan__label">Сколько вас</p>
+              <div class="postcard__chips" role="group" aria-label="Сколько вас" data-plan-who></div>
+              <p class="plan__label">Что нужно</p>
+              <div class="postcard__chips" role="group" aria-label="Что нужно" data-plan-what></div>
+              <a class="postcard__send" data-plan-send href="https://t.me/razumovdimka" target="_blank" rel="noopener noreferrer">
+                <span class="postcard__send-ico"><svg class="h-5 w-5" aria-hidden="true"><use href="#i-tg"/></svg></span>
+                Отправить в&nbsp;Telegram
+              </a>
+              <p class="postcard__hint">Откроется Telegram с&nbsp;готовым текстом&nbsp;— отправите сами. На&nbsp;сайте ничего не&nbsp;сохраняется.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= ОТЗЫВЫ ================= -->
     <!-- Отзывы-заглушки убраны. Настоящие отзывы добавляйте перед формой: сетка из карточек <figure> (оценка, цитата, имя и город). -->
     <section id="reviews" class="py-24 sm:py-32">

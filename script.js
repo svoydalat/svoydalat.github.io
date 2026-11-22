@@ -301,6 +301,109 @@
     });
   }
 
+  /* ---------- Планировщик поездки: месяц → сезон, чемодан, открытка в Telegram ---------- */
+  // Температуры — средние дневные максимумы и ночные минимумы Далата (многолетние, округлены)
+  const plan = document.querySelector('[data-plan]');
+  if (plan) {
+    const M_SHORT = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+    const M_FULL = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+    const M_IN = ['январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре'];
+    const HI = [22, 23, 24, 25, 24, 23, 23, 22, 23, 22, 22, 21];
+    const LO = [12, 12, 14, 15, 16, 16, 16, 16, 16, 15, 14, 13];
+    const SEASON = ['dry', 'dry', 'dry', 'mid', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'mid', 'dry'];
+    const SEASON_TEXT = {
+      dry: 'Сухой сезон: солнечно, ночи прохладные',
+      mid: 'Межсезонье: солнце и первые или последние ливни',
+      rain: 'Сезон дождей: ливни обычно после обеда, утро ясное'
+    };
+    const NOTE = [
+      'Цветёт далатская сакура (mai anh đào). Ближе к Тету жильё дорожает — бронируйте заранее.',
+      'Тет, вьетнамский Новый год, — в январе или феврале: цены выше, многое закрыто на несколько дней.',
+      'В марте–апреле цветут фиолетовые жакаранды.',
+      'Жакаранды ещё цветут; к концу месяца возможны первые ливни.',
+      'Начало дождей: туристов обычно меньше, с жильём проще.',
+      'Зелено и свежо. Берите обувь, которая быстро сохнет.',
+      'На побережье в это время жара, а в Далате свежо; ливни обычно короткие.',
+      'Пик дождей: дела и прогулки лучше планировать на утро.',
+      'Ещё дождливо. 2 сентября — национальный праздник, в выходные людно.',
+      'Дожди идут на спад; в конце месяца зацветают дикие подсолнухи.',
+      'Цветут дикие подсолнухи (dã quỳ) — время для прогулок по холмам.',
+      'Подсолнухи ещё цветут, в конце месяца — сакура. На новогодние праздники бронируйте заранее.'
+    ];
+    const PACK = {
+      dry: [['🧥', 'Свитер или худи', 'вечером +12…+14°'], ['🧦', 'Тёплые носки', 'в домах нет отопления'], ['🧴', 'Крем SPF 50', 'на высоте 1500 м солнце жёсткое'], ['🧣', 'Ветровка', 'на байке продувает']],
+      mid: [['🧥', 'Свитер', 'вечером свежо'], ['☔', 'Лёгкий дождевик', 'бывают ливни'], ['🧴', 'Крем SPF 50', 'днём солнце жёсткое'], ['🧦', 'Тёплые носки', 'в домах нет отопления']],
+      rain: [['☔', 'Дождевик-пончо', 'ливни после обеда'], ['👟', 'Обувь, что быстро сохнет', 'кроссовки за ночь не высохнут'], ['🧥', 'Свитер', 'вечером около +16°'], ['🎒', 'Гермомешок', 'для телефона и документов']]
+    };
+    const WHO = [['one', 'Один человек', 'нас будет один человек'], ['two', 'Двое', 'нас будет двое'], ['kids', 'С детьми', 'едем семьёй с детьми']];
+    const WHAT = [
+      ['consult', 'Консультация', 'Интересует консультация'],
+      ['housing', 'Подбор жилья', 'Интересует подбор жилья'],
+      ['turnkey', 'Под ключ', 'Интересует пакет «Переезд под ключ»'],
+      ['unsure', 'Пока не знаю', 'Пока не знаю, что выбрать, — подскажите']
+    ];
+    const plural = (n, one, few, many) => {
+      const m10 = n % 10, m100 = n % 100;
+      if (m10 === 1 && m100 !== 11) return one;
+      return m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? few : many;
+    };
+
+    // Сегодня — по часам Далата
+    const [dY, dM, dD] = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' }).format(new Date()).split('-').map(Number);
+    const todayUtc = Date.UTC(dY, dM - 1, dD);
+    const state = { month: dM % 12, who: '', what: '' };
+
+    const monthsBox = plan.querySelector('[data-plan-months]');
+    M_SHORT.forEach((name, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `plan__month plan__month--${SEASON[i]}`;
+      btn.textContent = name;
+      btn.setAttribute('aria-label', M_FULL[i]);
+      btn.addEventListener('click', () => { state.month = i; render(); });
+      monthsBox.appendChild(btn);
+    });
+    const chips = (box, list, key) => list.forEach(([value, label]) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'postcard__chip';
+      btn.dataset.value = value;
+      btn.textContent = label;
+      btn.addEventListener('click', () => { state[key] = state[key] === value ? '' : value; render(); });
+      box.appendChild(btn);
+    });
+    chips(plan.querySelector('[data-plan-who]'), WHO, 'who');
+    chips(plan.querySelector('[data-plan-what]'), WHAT, 'what');
+
+    const sendLink = plan.querySelector('[data-plan-send]');
+    const render = () => {
+      const m = state.month;
+      monthsBox.querySelectorAll('.plan__month').forEach((btn, i) => btn.setAttribute('aria-pressed', String(i === m)));
+      // Выбранный месяц — в центр ленты (на телефоне она листается)
+      const active = monthsBox.children[m];
+      monthsBox.scrollLeft = active.offsetLeft - monthsBox.offsetLeft - (monthsBox.clientWidth - active.offsetWidth) / 2;
+      plan.querySelectorAll('.postcard__chip').forEach((btn) => btn.setAttribute('aria-pressed', String(btn.dataset.value === state.who || btn.dataset.value === state.what)));
+
+      const year = m + 1 >= dM ? dY : dY + 1;
+      const days = Math.round((Date.UTC(year, m, 1) - todayUtc) / 86400000);
+      plan.querySelector('[data-plan-count]').textContent = m + 1 === dM ? 'Уже в этом месяце' : `Через ${days} ${plural(days, 'день', 'дня', 'дней')}`;
+      plan.querySelector('[data-plan-season]').textContent = SEASON_TEXT[SEASON[m]];
+      plan.querySelector('[data-plan-temps]').textContent = `Днём около +${HI[m]}°, ночью около +${LO[m]}°`;
+      plan.querySelector('[data-plan-note]').textContent = NOTE[m];
+      plan.querySelector('[data-plan-items]').innerHTML = PACK[SEASON[m]]
+        .map(([ico, name, why]) => `<li><span class="plan__ico" aria-hidden="true">${ico}</span><b>${name}</b><span>${why}</span></li>`).join('');
+      plan.querySelector('[data-plan-postmark]').textContent = `${String(m + 1).padStart(2, '0')}·${String(year).slice(2)}`;
+
+      const who = WHO.find(([v]) => v === state.who);
+      const what = WHAT.find(([v]) => v === state.what);
+      const text = `Xin chào! Планирую в Далат в ${M_IN[m]} ${year}${who ? `, ${who[2]}` : ''}. ${what ? `${what[2]}.` : 'Подскажите, с чего начать.'} `;
+      plan.querySelector('[data-plan-msg]').textContent = text.trim();
+      sendLink.href = telegramHref(`${TELEGRAM_CHAT}?text=${encodeURIComponent(text)}`);
+      if (isMobile) sendLink.removeAttribute('target');
+    };
+    render();
+  }
+
   /* ---------- «Сейчас у вас и в Далате»: погода и климат по месяцам ---------- */
   // Средние температуры месяцев (°C, многолетние, округлены) — ориентир. Город по умолчанию — по часовому поясу браузера
   const climateBox = document.querySelector('[data-climate]');
