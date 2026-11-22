@@ -48,7 +48,6 @@
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
   <link rel="stylesheet" href="map.css">
   <link rel="stylesheet" href="guard.css">
-  <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 
@@ -172,7 +171,21 @@
   <script src="routes.js"></script>
   <script src="map.js"></script>
   <script src="pwa.js" defer></script>
-  <script src="admin.js" defer></script>
+  <script>
+    /* Админ-код грузим только владельцу: ключ «Свой CRM» на устройстве или #admin в адресе */
+    (function () {
+      var on = false;
+      try { on = !!localStorage.getItem('svoy-crm:sync'); } catch (e) {}
+      if (!on && location.hash === '#admin') on = true;
+      if (!on) return;
+      var l = document.createElement('link');
+      l.rel = 'stylesheet'; l.href = 'admin.css';
+      document.head.appendChild(l);
+      var s = document.createElement('script');
+      s.src = 'admin.js'; s.defer = true;
+      document.body.appendChild(s);
+    })();
+  </script>
   <script src="guard.js"></script>
 </body>
 </html>
