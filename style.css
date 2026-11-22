@@ -1051,7 +1051,7 @@ body.map-is-full { overflow: hidden; }
 
 /* ---------- Появление блоков при скролле (только если работает JS) ---------- */
 @keyframes reveal-up {
-  from { opacity: 0; transform: translateY(28px); filter: blur(8px); }
+  from { opacity: 0; transform: translateY(12px); }
 }
 
 .js .reveal:not(.is-visible) {
@@ -1060,7 +1060,7 @@ body.map-is-full { overflow: hidden; }
 
 /* fill-mode: backwards — после анимации не мешает hover-эффектам карточек */
 .js .reveal.is-visible {
-  animation: reveal-up 0.9s var(--ease-out) var(--delay, 0ms) backwards;
+  animation: reveal-up 0.4s var(--ease-out) var(--delay, 0ms) backwards;
 }
 
 /* Первый экран появляется чистым CSS, не дожидаясь скриптов; на телефоне без blur — он тормозит слабые Android */
@@ -1305,7 +1305,7 @@ body.map-is-full { overflow: hidden; }
   .tabbar a {
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem;
     min-height: 3.2rem; border-radius: 1rem;
-    font-size: 11.5px; font-weight: 600; color: var(--ink-soft);
+    font-size: 12px; font-weight: 600; color: var(--ink-soft);
     transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out);
   }
   .tabbar svg { width: 1.4rem; height: 1.4rem; }
@@ -1522,3 +1522,9 @@ button.faq__link { padding: 0; border: 0; background: none; font: inherit; font-
 .pay-steps b { display: block; }
 .pay-steps span { display: block; margin-top: 0.4rem; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
 .pay-note { margin: 1.75rem 0 0; max-width: 48rem; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+
+/* ---------- Эргономика (аудит 22.11): тап-зона логотипа ---------- */
+#site-header .header-bar > a:first-child { min-height: 44px; }
+/* Минимальный размер текста: 12 px для бейджей, 13 px для подписей и подвала (аудит п. 3) */
+body .text-\[10px\], body .text-\[11px\] { font-size: 12px; }
+body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }

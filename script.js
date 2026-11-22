@@ -136,6 +136,14 @@
     if (target === reviewBox) reviewBox.hidden = false;
     setMenu(false); // закрываем меню до расчёта, чтобы высота шапки была верной
 
+    // Цель и всё выше неё показываем сразу, чтобы после перехода не было пустых экранов
+    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+    document.querySelectorAll('.reveal').forEach((el) => {
+      if (el === target || target.contains(el) || el.getBoundingClientRect().top + window.scrollY <= targetTop) {
+        el.classList.add('is-visible');
+      }
+    });
+
     const top = target.getBoundingClientRect().top + window.scrollY - header.offsetHeight;
     window.scrollTo({ top: Math.max(top, 0), behavior: reduceMotion ? 'auto' : 'smooth' });
     history.replaceState(null, '', `#${id}`);
@@ -165,9 +173,13 @@
         entry.target.classList.add('is-visible');
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
 
-    revealEls.forEach((el) => observer.observe(el));
+    revealEls.forEach((el) => {
+      // Большие блоки не прячем — иначе на экране остаётся пустота
+      if (el.offsetHeight > 600) el.classList.add('is-visible');
+      else observer.observe(el);
+    });
   } else {
     revealEls.forEach((el) => el.classList.add('is-visible'));
   }
