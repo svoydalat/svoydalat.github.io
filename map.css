@@ -635,3 +635,8 @@ body.route-open .mobile-bar, body.route-open .fav-bar { display: none; }
   .drawer__scroll { padding-bottom: calc(var(--tabbar-h) + 20px); }
 }
 @media (prefers-reduced-motion: reduce) { .tabbar a:active { transform: none; } }
+
+/* Ссылка на Telegram-канал в шапке списка (видна, когда канал задан в analytics.js) */
+.list__channel { display: inline-flex; align-items: center; gap: 8px; margin: 6px 0 2px; font-size: 14px; font-weight: 600; color: var(--pine-700); text-decoration: underline; text-decoration-color: rgb(22 37 31 / 0.25); text-underline-offset: 3px; }
+.list__channel svg { width: 16px; height: 16px; flex: none; color: #2AABEE; }
+.list__channel[hidden] { display: none; }

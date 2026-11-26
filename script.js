@@ -722,6 +722,7 @@
 
       openTelegram(leadTelegramUrl(lead));
       showLeadStatus('Открываю Telegram с готовой заявкой — осталось нажать «Отправить».', true);
+      if (window.svoyGoal) window.svoyGoal('tg_lead');
     });
   }
 

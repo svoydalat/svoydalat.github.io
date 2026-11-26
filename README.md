@@ -4,6 +4,7 @@
 
 - `index.html`, `style.css`, `script.js` — сайт; заявки уходят в бот «Свой CRM» (Google Apps Script).
 - `realty.js` + `dalat_realty.json` — карта Leaflet / OpenStreetMap и каталог жилья.
+- `analytics.js` — Яндекс Метрика и ссылка на Telegram-канал: номер счётчика и имя канала вписываются в начало файла, список целей там же.
 - `crm/` — приложение «Свой CRM» для телефона.
 - `tools/collect_dalat_realty.py` — сбор свежих объявлений об аренде в `dalat_realty.json`: цены,
   точки на карте примерные, адресов нет. Запуск: `python tools/collect_dalat_realty.py`.
