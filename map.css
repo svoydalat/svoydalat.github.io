@@ -504,6 +504,9 @@ svg { display: block; }
 .card__now { color: var(--pine-700); font-weight: 700; }
 .place__now { margin: 10px 0 0; font-size: 14px; font-weight: 600; color: var(--ink-soft); }
 .place__now.is-now { color: var(--pine-700); }
+.place__season { margin: 10px 0 0; padding: 8px 12px; border-radius: 10px; font-size: 14px; line-height: 1.45; color: var(--ink-soft); background: rgb(22 37 31 / 0.05); }
+.place__season b { color: var(--ink); }
+.place__season.is-on { background: #FBF1D5; box-shadow: inset 0 0 0 1px rgb(168 111 10 / 0.3); }
 @media (prefers-reduced-motion: no-preference) { .pin--dim { transition: opacity 0.3s; } }
 
 /* ---------- Маршруты на день ---------- */

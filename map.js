@@ -320,6 +320,22 @@
   // Места без поля when не подсвечиваем и не притушиваем
   const nowState = (p) => (!nowMode || !p.when ? '' : p.when.includes(period.id) ? 'now' : 'dim');
   const isNow = (p) => nowState(p) === 'now';
+
+  // Сезонность: поле season = { months: [12, 1, 2], note: '...' } в places.js (месяцы по Далату)
+  const MONTHS = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
+  const dalatMonth = () => Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Ho_Chi_Minh', month: 'numeric' }).format(new Date()));
+  let month = dalatMonth();
+  const inSeason = (p) => !!(p.season && p.season.months.includes(month));
+  // [12, 1, 2] → «декабрь–февраль»: ищем месяц, перед которым в списке нет предыдущего
+  const monthsLabel = (ms) => {
+    if (ms.length === 1) return MONTHS[ms[0] - 1];
+    const start = ms.find((m) => !ms.includes(m === 1 ? 12 : m - 1)) || ms[0];
+    const end = ms.find((m) => !ms.includes(m === 12 ? 1 : m + 1)) || ms[ms.length - 1];
+    return `${MONTHS[start - 1]}–${MONTHS[end - 1]}`;
+  };
+  const seasonHtml = (p) => !p.season ? '' : inSeason(p)
+    ? `<p class="place__season is-on"><b>Сейчас сезон.</b> ${esc(nb(p.season.note))}</p>`
+    : `<p class="place__season"><b>Сезон: ${monthsLabel(p.season.months)}.</b> ${esc(nb(p.season.note))}</p>`;
   const syncPinNow = (id) => {
     const el = markers.get(id) && markers.get(id).getElement();
     const pin = el && el.querySelector('.pin');
@@ -391,7 +407,7 @@
 
   const updateNowUi = () => {
     const label = $('#now-label');
-    if (label) label.textContent = `Сейчас · ${period.label}`;
+    if (label) label.textContent = `Сейчас · ${MONTHS[month - 1]}, ${period.label}`;
     const btn = $('#now-toggle');
     if (btn) btn.setAttribute('aria-pressed', String(nowMode));
     markers.forEach((m, id) => syncPinNow(id));
@@ -399,8 +415,10 @@
   // Период меняется сам: раз в минуту сверяем время Далата
   setInterval(() => {
     const next = currentPeriod();
-    if (next.id === period.id) return;
+    const nextMonth = dalatMonth();
+    if (next.id === period.id && nextMonth === month) return;
     period = next;
+    month = nextMonth;
     updateNowUi();
     if (nowMode) renderList();
     if (currentId) renderDrawer(PLACE_BY_ID[currentId]);
@@ -445,6 +463,7 @@
     if (chip.id === 'now-toggle') {
       nowMode = !nowMode;
       period = currentPeriod();
+      month = dalatMonth();
       updateNowUi();
       renderList();
       if (currentId) renderDrawer(PLACE_BY_ID[currentId]);
@@ -468,7 +487,7 @@
     const items = visiblePlaces();
     if (userPos && sortNear) items.sort((a, b) => distFromUser(a) - distFromUser(b));
     // «Сейчас»: подходящие по времени места наверх, порядок внутри групп сохраняется
-    if (nowMode) items.sort((a, b) => isNow(b) - isNow(a));
+    if (nowMode) items.sort((a, b) => (isNow(b) + inSeason(b)) - (isNow(a) + inSeason(a)));
     const zoneItems = activeFilter === 'fav' && !query ? ZONES.filter((z) => favs.has(zoneKey(z))) : [];
     const total = items.length + zoneItems.length;
     $('#list-count').textContent = activeFilter === 'fav'
@@ -479,7 +498,7 @@
       `<span class="card__ico">${svg(iconFor(p))}</span>` +
       `<span class="card__txt"><span class="card__name">${esc(nb(p.name))}</span>` +
       `<span class="card__vi">${esc(p.vi)}</span>` +
-      `<span class="card__meta">${isNow(p) ? '<b class="card__now">Сейчас лучше</b> · ' : ''}${userPos ? `<b class="card__dist">${distLabel(distFromUser(p))}</b> · ` : ''}${esc(CAT[p.cat].short)} · ${esc(p.tags[p.tags.length - 1])}</span></span></button>${starBtn(p.id)}</div>`
+      `<span class="card__meta">${nowMode && inSeason(p) ? '<b class="card__now">Сезон</b> · ' : ''}${isNow(p) ? '<b class="card__now">Сейчас лучше</b> · ' : ''}${userPos ? `<b class="card__dist">${distLabel(distFromUser(p))}</b> · ` : ''}${esc(CAT[p.cat].short)} · ${esc(p.tags[p.tags.length - 1])}</span></span></button>${starBtn(p.id)}</div>`
     ).concat(zoneItems.map((z) =>
       `<div class="card-row"><button type="button" class="card" data-zone="${z.id}" style="--c:${z.color}">` +
       `<span class="card__ico">${svg('M12 3 3 8v8l9 5 9-5V8z')}</span>` +
@@ -672,6 +691,14 @@
 
   const tgIcon = iconUse('i-tg');
 
+  // Google Maps: точная точка — по координатам; примерная — поиском по вьетнамскому названию
+  const gmapsUrl = (p) => {
+    const base = 'https://www.google.com/maps/search/?api=1&query=';
+    if (p.placeId) return `${base}${encodeURIComponent(`${p.vi.split(' · ')[0]} Đà Lạt`)}&query_place_id=${encodeURIComponent(p.placeId)}`;
+    if (p.approx) return `${base}${encodeURIComponent(`${p.vi.split(' · ')[0]} Đà Lạt`)}`;
+    return `${base}${p.pos[0]},${p.pos[1]}`;
+  };
+
   const renderDrawer = (p) => {
     const c = CAT[p.cat];
     const tgLabel = p.tg === 'airport' ? 'Спросить про дорогу в Telegram' : p.cat === 'life' || p.cat === 'food' ? 'Спросить в Telegram' : 'Спросить про поездку в Telegram';
@@ -683,6 +710,7 @@
       `<ul class="place__tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` +
       (p.when && nowMode ? `<p class="place__now${isNow(p) ? ' is-now' : ''}">${isNow(p) ? `Сейчас (${period.label}) — хорошее время.` : `Сейчас лучше: ${p.when.map((w) => PERIODS.find((x) => x.id === w).label).join(', ')}.`}</p>` : '') +
       (p.slope ? `<p class="place__slope place__slope--${p.slope.kind}"><span class="place__slope-dot" aria-hidden="true"></span><b>Рельеф: ${SLOPE_LABEL[p.slope.kind]}.</b> ${esc(nb(p.slope.note))}</p>` : '') +
+      seasonHtml(p) +
       `<p class="place__desc">${esc(nb(p.desc))}</p>` +
       `<div class="place__tip"><p class="place__tip-h">Совет от своего</p><p>${esc(nb(p.tip))}</p></div>` +
       (window.SvoyAdmin ? window.SvoyAdmin.placeHtml(p.id, { name: p.name, vi: p.vi, pos: p.pos, placeId: p.placeId }) : '') +
@@ -690,6 +718,7 @@
       (userPos ? `<p class="place__dist">От вас по прямой: <b>${distLabel(distFromUser(p))}</b>. По дорогам будет дальше.</p>` : '') +
       `<div class="place__actions">` +
       `<a class="btn btn--tg" id="place-tg" href="${placeTelegramUrl(p)}" target="_blank" rel="noopener noreferrer">${tgIcon}${tgLabel}</a>` +
+      `<a class="btn btn--ghost" id="place-gmaps" href="${esc(gmapsUrl(p))}" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-route"/></svg>${p.approx ? 'Найти в Google Maps' : 'Открыть в Google Maps'}</a>` +
       `<button type="button" class="btn btn--fav fav-btn${favs.has(p.id) ? ' is-on' : ''}" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}">${favInner(favs.has(p.id))}</button>` +
       `<button type="button" class="btn btn--ghost" id="place-copy"><svg aria-hidden="true"><use href="#i-link"/></svg>${navigator.share ? 'Поделиться местом' : 'Скопировать ссылку на место'}</button>` +
       `</div></div>`;
