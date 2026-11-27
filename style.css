@@ -435,6 +435,11 @@ body::after {
 }
 
 /* ---------- Услуги ---------- */
+/* Туман между секциями: фон перетекает в соседний без резкой границы, только градиенты, без анимаций */
+.fog-band { background: linear-gradient(180deg, var(--paper) 0, rgb(233 229 217 / 0.8) 5rem, rgb(233 229 217 / 0.8) calc(100% - 5rem), var(--paper) 100%); }
+.fog-mist { background: linear-gradient(180deg, var(--paper) 0, #E3EBE8 7rem, #E9EFEC 45%, var(--paper) 100%); }
+.fog-bloom { background: radial-gradient(60rem 22rem at 85% 0%, rgb(111 106 174 / 0.08), transparent 70%), radial-gradient(50rem 20rem at 0% 100%, rgb(217 128 154 / 0.07), transparent 70%), var(--paper); }
+
 .services {
   background: linear-gradient(180deg, var(--paper) 0%, #E8EEEC 16%, #E8EEEC 84%, var(--paper) 100%);
 }
