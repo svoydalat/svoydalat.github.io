@@ -1124,13 +1124,24 @@ body.map-is-full { overflow: hidden; }
   z-index: -1;
   border-radius: inherit;
   background: inherit;
-  animation: pulse 2.4s ease-out infinite;
+  opacity: 0;
 }
+/* Свечение — два мягких импульса, когда кнопка появляется, без вечной пульсации */
+.fab.is-visible::before { animation: pulse 1.8s ease-out 2; }
 
 @keyframes pulse {
   0%   { transform: scale(1);   opacity: 0.55; }
   100% { transform: scale(1.6); opacity: 0; }
 }
+
+/* Главная кнопка в герое: один раз мягко «вспыхивает» светом подсолнуха после загрузки */
+.cta-glow { animation: cta-glow 2.2s ease-out 1.1s 1 both; }
+@keyframes cta-glow {
+  0%   { box-shadow: 0 0 0 0 rgb(240 182 42 / 0.55), 0 18px 40px -18px rgb(137 91 8 / 0.65); }
+  60%  { box-shadow: 0 0 0 14px rgb(240 182 42 / 0), 0 18px 40px -18px rgb(137 91 8 / 0.65); }
+  100% { box-shadow: 0 0 0 0 rgb(240 182 42 / 0), 0 18px 40px -18px rgb(137 91 8 / 0.65); }
+}
+@media (prefers-reduced-motion: reduce) { .cta-glow { animation: none; } }
 
 /* ---------- Уважаем настройку «уменьшить движение» ---------- */
 @media (prefers-reduced-motion: reduce) {
