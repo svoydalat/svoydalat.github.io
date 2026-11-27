@@ -5,21 +5,21 @@
    ========================================================= */
 
 :root {
-  --paper: #F4EFE5;
-  --paper-deep: #EAE2D2;
-  --card: #FFFDF8;
+  --paper: #F5F2EB;
+  --paper-deep: #E9E5D9;
+  --card: #FFFEFC;
   --ink: #16251F;
-  --ink-soft: #4F5D55;
+  --ink-soft: #46564D;
   --pine-50: #EFF4EF;
   --pine-500: #4E7A61;
   --pine-600: #3B6550;
   --pine-700: #2B4F3F;
   --pine-800: #1E3B30;
   --pine-900: #132A22;
-  --mist: #DCE3E4;
-  --sunflower: #E3A21A;
-  --sunflower-soft: #F6DD9A;
-  --sunflower-deep: #A86F0A;
+  --mist: #DDE8E4;
+  --sunflower: #F0B62A;
+  --sunflower-soft: #FAE7B8;
+  --sunflower-deep: #895B08;
   --hydrangea: #6F6AAE;
   --hydrangea-deep: #4E4890;
   --clay: #B5583A;
@@ -65,7 +65,7 @@ body::after {
 
 /* ---------- Шапка: «стеклянная» капсула ---------- */
 .header-bar {
-  background-color: rgb(244 239 229 / 0.72);
+  background-color: rgb(245 242 235 / 0.72);
   -webkit-backdrop-filter: saturate(160%) blur(16px);
   backdrop-filter: saturate(160%) blur(16px);
   box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.07);
@@ -73,7 +73,7 @@ body::after {
 }
 
 #site-header.is-scrolled .header-bar {
-  background-color: rgb(244 239 229 / 0.9);
+  background-color: rgb(245 242 235 / 0.9);
   box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.08), 0 14px 34px -16px rgb(19 42 34 / 0.3);
 }
 
@@ -102,7 +102,7 @@ body::after {
   color: var(--ink);
 }
 
-.eyebrow--dark { color: rgb(244 239 229 / 0.6); }
+.eyebrow--dark { color: rgb(245 242 235 / 0.6); }
 .eyebrow--dark .eyebrow__num { color: var(--paper); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); }
 
 .section-title {
@@ -603,7 +603,7 @@ body::after {
   padding: 0.85rem 1rem;
   font-size: 16px; /* меньше 16px — iPhone приближает страницу при фокусе */
   color: var(--ink);
-  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.1);
+  box-shadow: inset 0 0 0 1px #7D8D83;
   transition: box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
@@ -650,7 +650,7 @@ select.field {
   background: #fff;
   font-size: 14px;
   font-weight: 500;
-  box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.1);
+  box-shadow: inset 0 0 0 1px #7D8D83;
   transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -1194,7 +1194,7 @@ body.map-is-full { overflow: hidden; }
   margin: 0;
   padding: 2rem 1.5rem;
   border-radius: 2rem;
-  background: var(--card, #FFFDF8);
+  background: var(--card, #FFFEFC);
   box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.08), 0 30px 60px -40px rgb(19 42 34 / 0.45);
 }
 .author__who { display: flex; flex-direction: column; align-items: center; gap: 0.9rem; text-align: center; }
@@ -1307,7 +1307,7 @@ body.map-is-full { overflow: hidden; }
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
     display: grid; grid-template-columns: repeat(4, 1fr);
     padding: 0.35rem 0.5rem calc(0.35rem + env(safe-area-inset-bottom));
-    background: rgb(244 239 229 / 0.82);
+    background: rgb(245 242 235 / 0.82);
     -webkit-backdrop-filter: saturate(160%) blur(18px);
     backdrop-filter: saturate(160%) blur(18px);
     box-shadow: 0 -1px 0 rgb(22 37 31 / 0.08), 0 -12px 30px -18px rgb(19 42 34 / 0.35);
@@ -1503,7 +1503,7 @@ button.faq__link { padding: 0; border: 0; background: none; font: inherit; font-
 @media (min-width: 768px) { .price-grid--3 { grid-template-columns: repeat(3, 1fr); } .price-grid--2 { grid-template-columns: repeat(2, 1fr); } }
 .price-card { position: relative; display: flex; flex-direction: column; padding: 1.75rem; border-radius: 1.75rem; background: var(--card); box-shadow: 0 0 0 1px rgb(22 37 31 / 0.06); }
 .price-card--hit { background: var(--pine-800); color: var(--paper); box-shadow: none; }
-.price-card--hit .price-card__text, .price-card--hit .price-card__list li { color: rgb(244 239 229 / 0.75); }
+.price-card--hit .price-card__text, .price-card--hit .price-card__list li { color: rgb(245 242 235 / 0.75); }
 .price-card__badge { position: absolute; top: 1.25rem; right: 1.25rem; padding: 0.25rem 0.65rem; border-radius: 9999px; background: var(--sunflower); color: var(--ink); font-size: 12px; font-weight: 600; }
 .price-card__title { margin: 0; padding-right: 4.5rem; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.9rem; font-weight: 600; line-height: 1.05; }
 .price-card__text { margin: 0.75rem 0 0; line-height: 1.55; color: var(--ink-soft); }
