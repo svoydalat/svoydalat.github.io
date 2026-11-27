@@ -18,7 +18,7 @@
 (() => {
   const CONFIG = {
     metrikaId: '114716215',
-    tgChannel: ''
+    tgChannel: 'svoidalat'
   };
 
   const id = /^\d+$/.test(CONFIG.metrikaId) ? Number(CONFIG.metrikaId) : 0;
