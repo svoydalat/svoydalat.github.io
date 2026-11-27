@@ -155,6 +155,9 @@ svg { display: block; }
 .chip__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c, var(--pine-600)); }
 .chip:hover { background: #fff; }
 .chip[aria-pressed="true"] { background: var(--pine-900); color: var(--paper); box-shadow: 0 8px 18px -8px rgb(19 42 34 / 0.7); }
+/* Выбранная категория — цветом самой категории (белый текст на каждом цвете ≥4,5:1) */
+.chip[data-filter][style][aria-pressed="true"] { background: var(--c); color: #fff; box-shadow: 0 8px 18px -8px var(--c); }
+.chip[data-filter][style][aria-pressed="true"] .chip__dot { background: #fff; }
 .chip--zones { --c: var(--sunflower); }
 .chip--zones[aria-pressed="true"] { background: var(--sunflower); color: var(--ink); }
 .chip--sep { margin-left: 4px; }
@@ -298,6 +301,14 @@ svg { display: block; }
 @media (hover: hover) { .pin-anchor:hover .pin { transform: rotate(-45deg) scale(1.12); } }
 .pin-anchor.is-active { z-index: 900 !important; }
 .pin-anchor.is-active .pin { transform: rotate(-45deg) scale(1.22); box-shadow: 0 0 0 3px var(--card), 0 0 0 6px var(--c), 0 12px 22px -6px rgb(19 42 34 / 0.7); }
+/* Ореол активного маркера: два мягких расходящихся кольца цвета категории */
+.pin::before { content: ""; position: absolute; inset: -3px; border-radius: inherit; box-shadow: 0 0 0 0 var(--c); opacity: 0; pointer-events: none; }
+.pin-anchor.is-active .pin::before { animation: pin-halo 1.6s ease-out 2; }
+@keyframes pin-halo {
+  0%   { opacity: 0.7; box-shadow: 0 0 0 0 var(--c); }
+  100% { opacity: 0; box-shadow: 0 0 0 16px var(--c); }
+}
+@media (prefers-reduced-motion: reduce) { .pin-anchor.is-active .pin::before { animation: none; } }
 .pin--approx { opacity: 0.88; }
 
 /* ---------- Leaflet под стиль сайта ---------- */

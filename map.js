@@ -52,9 +52,9 @@
     { id: 'culture', label: 'Культура и архитектура', short: 'Культура', color: '#6F6AAE' },
     { id: 'food', label: 'Где поесть', short: 'Еда', color: '#9A5B1E' },
     { id: 'coffee', label: 'Кофе и рынки', short: 'Кофе и рынки', color: '#B5583A' },
-    { id: 'activity', label: 'Активности и рыбалка', short: 'Активности', color: '#A8700A' },
+    { id: 'activity', label: 'Активности и рыбалка', short: 'Активности', color: '#895B08' },
     { id: 'transport', label: 'Транспорт', short: 'Транспорт', color: '#4F7186' },
-    { id: 'life', label: 'Быт и инфраструктура', short: 'Быт', color: '#B8527A' }
+    { id: 'life', label: 'Быт и инфраструктура', short: 'Быт', color: '#A84A6E' }
   ];
   const CAT = Object.fromEntries(CATEGORIES.map((c) => [c.id, c]));
   const iconFor = (p) => PLACE_ICONS[p.icon] || ICONS[p.cat];
@@ -391,7 +391,7 @@
   const renderFilters = () => {
     const chips = [{ id: 'all', label: 'Все' }, ...CATEGORIES.map((c) => ({ id: c.id, label: c.label, color: c.color }))];
     filtersEl.innerHTML = chips.map((c) =>
-      `<button type="button" class="chip" data-filter="${c.id}" aria-pressed="${c.id === activeFilter}">` +
+      `<button type="button" class="chip" data-filter="${c.id}" aria-pressed="${c.id === activeFilter}"${c.color ? ` style="--c:${c.color}"` : ''}>` +
       `${c.color ? `<span class="chip__dot" style="--c:${c.color}"></span>` : ''}${esc(c.label)}</button>`
     ).join('') +
       `<button type="button" class="chip chip--routes" id="routes-toggle" aria-pressed="${!!(routeId || routeListOpen)}"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8 17c6 0 2-10 8-10"/></svg>Маршруты</button>` +
