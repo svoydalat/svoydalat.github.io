@@ -1519,6 +1519,21 @@ button.faq__link { padding: 0; border: 0; background: none; font: inherit; font-
 .price-card--hit .price-card__btn { background: var(--sunflower); color: var(--ink); }
 .price-card--hit .price-card__btn:hover { background: var(--sunflower-soft); }
 
+/* Свой цвет у каждой услуги: полоска сверху, лёгкий тон, галочки и контурная кнопка.
+   --svc — сам цвет (декор), --svc-ink — его тёмный вариант для текста (≥4,5:1 на карточке) */
+.price-card--pine { --svc: var(--pine-600); --svc-ink: var(--pine-700); --svc-soft: rgb(59 101 80 / 0.08); }
+.price-card--hydrangea { --svc: var(--hydrangea); --svc-ink: var(--hydrangea-deep); --svc-soft: rgb(111 106 174 / 0.1); }
+.price-card--sunflower { --svc: var(--sunflower); }
+.price-card--pine, .price-card--hydrangea, .price-card--sunflower { overflow: hidden; }
+.price-card--pine::before, .price-card--hydrangea::before, .price-card--sunflower::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 5px; background: var(--svc);
+}
+.price-card--pine, .price-card--hydrangea { background: linear-gradient(180deg, var(--svc-soft), transparent 9rem), var(--card); }
+.price-card--pine .price-card__title, .price-card--hydrangea .price-card__title { color: var(--svc-ink); }
+.price-card--pine .price-card__list li::before, .price-card--hydrangea .price-card__list li::before { color: var(--svc-ink); }
+.price-card--pine .price-card__btn--ghost, .price-card--hydrangea .price-card__btn--ghost { color: var(--svc-ink); box-shadow: inset 0 0 0 1.5px var(--svc); }
+.price-card--pine .price-card__btn--ghost:hover, .price-card--hydrangea .price-card__btn--ghost:hover { background: var(--svc-soft); }
+
 .partner { display: flex; gap: 1rem; align-items: flex-start; padding: 1.4rem; border-radius: 1.4rem; background: var(--card); box-shadow: 0 0 0 1px rgb(22 37 31 / 0.06); }
 .partner__ico { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: var(--mist); font-size: 22px; }
 .partner__title { margin: 0; font-size: 1.1rem; font-weight: 600; }
