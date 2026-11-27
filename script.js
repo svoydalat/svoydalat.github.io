@@ -207,6 +207,33 @@
     timeEls.forEach((el) => { el.textContent = now; });
   };
 
+  /* ---------- Сезонный акцент: что сейчас цветёт в Далате ---------- */
+  // Только устойчивые сезонные факты, без дат событий. Для проверки: ?month=1..12
+  const SEASONS = [
+    ['sakura', 'Цветёт сакура (mai anh đào)'],
+    ['sakura', 'Цветёт сакура, к Тету город в цветах'],
+    ['jacaranda', 'Цветут фиолетовые жакаранды'],
+    ['jacaranda', 'Ещё цветут жакаранды'],
+    ['green', 'Начало дождей: всё зелёное'],
+    ['green', 'Сезон дождей: зелено и свежо'],
+    ['green', 'Сезон дождей: зелено и свежо'],
+    ['green', 'Сезон дождей: зелено и свежо'],
+    ['green', 'Дожди идут на спад'],
+    ['sunflower', 'Скоро зацветут дикие подсолнухи'],
+    ['sunflower', 'Цветут дикие подсолнухи (dã quỳ)'],
+    ['sunflower', 'Сухой сезон, к концу месяца — сакура']
+  ];
+  const seasonChip = document.querySelector('[data-season-chip]');
+  const forcedMonth = Number(new URLSearchParams(location.search).get('month'));
+  const dalatMonth = forcedMonth >= 1 && forcedMonth <= 12 ? forcedMonth
+    : Number(new Intl.DateTimeFormat('en-GB', { month: 'numeric', timeZone: 'Asia/Ho_Chi_Minh' }).format(new Date()));
+  const [seasonKey, seasonText] = SEASONS[dalatMonth - 1];
+  document.documentElement.dataset.season = seasonKey;
+  if (seasonChip) {
+    seasonChip.querySelector('[data-season-text]').textContent = seasonText;
+    seasonChip.hidden = false;
+  }
+
   /* ---------- «Живое окно»: утро, день, вечер или ночь в Далате ---------- */
   // Для проверки: ?daypart=night (morning, day, evening)
   const DAYPART_TEXT = {

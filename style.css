@@ -166,6 +166,21 @@ body::after {
 /* Ночь — сумерки в соснах и тёплый свет окон; фон остаётся светлым, чтобы текст читался */
 [data-daypart="night"] .hero { --sun: rgb(240 182 42 / 0.3); --sky2: rgb(111 106 174 / 0.3); --sky: #D3DAE3; }
 
+/* Сезонный акцент месяца: <html data-season>, цвет --season */
+:root { --season: var(--sunflower); --season-ink: #664404; } /* тёмные варианты — для мелкого текста плашки, ≥4,5:1 */
+[data-season="sakura"] { --season: #D9809A; --season-ink: #7E2F48; }
+[data-season="jacaranda"] { --season: var(--hydrangea); --season-ink: #433D80; }
+[data-season="green"] { --season: var(--pine-500); --season-ink: var(--pine-700); }
+.season-chip {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.3rem 0.75rem 0.3rem 0.55rem; border-radius: 9999px;
+  background: color-mix(in srgb, var(--season) 16%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--season) 45%, transparent);
+  color: var(--season-ink); font-size: 0.75rem; font-weight: 600;
+}
+.season-chip[hidden] { display: none; }
+.season-chip__dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--season); box-shadow: 0 0 0 3px color-mix(in srgb, var(--season) 25%, transparent); }
+
 /* Пульсирующая точка «в сети» */
 .live-dot {
   position: relative;
