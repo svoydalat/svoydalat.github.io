@@ -20,6 +20,8 @@
   --hydrangea: #6F6AAE;
   --clay: #B5583A;
   --tg: #229ED9;
+  --on-dark: #F5F2EB; /* постоянные цвета текста на тёмной сосне и подсолнухе */
+  --on-light: #16251F;
   --slate: #4F7186;
   --fog: #DCE6E0; /* сосновый туман: фон под тайлами, пока они грузятся */
   --header-h: 72px;
@@ -78,7 +80,7 @@ svg { display: block; }
   padding: 0 16px 0 12px;
   border-radius: 9999px;
   background: var(--pine-900);
-  color: var(--paper);
+  color: var(--on-dark);
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
@@ -101,7 +103,7 @@ svg { display: block; }
   display: inline-flex; align-items: center; gap: 10px;
   height: 40px; padding: 0 18px 0 4px;
   border-radius: 9999px;
-  background: var(--pine-900); color: var(--paper);
+  background: var(--pine-900); color: var(--on-dark);
   font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;
   transition: background 0.2s;
 }
@@ -154,12 +156,12 @@ svg { display: block; }
 }
 .chip__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c, var(--pine-600)); }
 .chip:hover { background: #fff; }
-.chip[aria-pressed="true"] { background: var(--pine-900); color: var(--paper); box-shadow: 0 8px 18px -8px rgb(19 42 34 / 0.7); }
+.chip[aria-pressed="true"] { background: var(--pine-900); color: var(--on-dark); box-shadow: 0 8px 18px -8px rgb(19 42 34 / 0.7); }
 /* Выбранная категория — цветом самой категории (белый текст на каждом цвете ≥4,5:1) */
 .chip[data-filter][style][aria-pressed="true"] { background: var(--c); color: #fff; box-shadow: 0 8px 18px -8px var(--c); }
 .chip[data-filter][style][aria-pressed="true"] .chip__dot { background: #fff; }
 .chip--zones { --c: var(--sunflower); }
-.chip--zones[aria-pressed="true"] { background: var(--sunflower); color: var(--ink); }
+.chip--zones[aria-pressed="true"] { background: var(--sunflower); color: var(--on-light); }
 .chip--sep { margin-left: 4px; }
 
 /* ---------- Список мест ---------- */
@@ -265,9 +267,9 @@ svg { display: block; }
   transition: background 0.2s, box-shadow 0.2s;
 }
 .btn svg { width: 20px; height: 20px; flex: none; }
-.btn--primary { background: var(--pine-900); color: var(--paper); }
+.btn--primary { background: var(--pine-900); color: var(--on-dark); }
 .btn--primary:hover { background: var(--pine-700); }
-.btn--tg { background: var(--pine-900); color: var(--paper); } /* как Telegram-кнопки на главной: белый на голубом не проходит по контрасту */
+.btn--tg { background: var(--pine-900); color: var(--on-dark); } /* как Telegram-кнопки на главной: белый на голубом не проходит по контрасту */
 .btn--tg:hover { background: var(--pine-700); }
 .btn--ghost { min-height: 44px; background: transparent; box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.2); }
 .btn--ghost:hover { box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.4); }
@@ -276,7 +278,7 @@ svg { display: block; }
 .zone-pop h3 { margin: 0; font: 600 1.45rem/1.05 var(--font-serif); }
 .zone-pop .vi { margin: 2px 0 8px; font: italic 600 1rem/1.1 var(--font-serif); color: var(--sunflower-deep); }
 .zone-pop p { margin: 0 0 6px; font-size: 14px; line-height: 1.5; }
-.zone-pop .plus { color: var(--pine-700); }
+.zone-pop .plus { color: var(--pt-700, var(--pine-700)); }
 .zone-pop .minus { color: var(--clay); }
 .zone-label { background: none; border: 0; box-shadow: none; padding: 0; font: 600 14px/1.15 var(--font-serif); color: var(--ink); text-align: center; text-shadow: 0 0 4px var(--paper), 0 0 4px var(--paper), 0 0 6px var(--paper); }
 .zone-label::before { display: none; }
@@ -323,7 +325,7 @@ svg { display: block; }
 .leaflet-popup-tip { background: var(--card); }
 .leaflet-popup-content { margin: 14px 16px; }
 .leaflet-control-attribution { font-size: 10.5px; background: rgb(245 242 235 / 0.85) !important; }
-.leaflet-control-attribution a { color: var(--pine-700); }
+.leaflet-control-attribution a { color: var(--pt-700, var(--pine-700)); }
 
 /* ---------- Мобильная раскладка (по умолчанию) ---------- */
 .mobile-bar {
@@ -332,7 +334,7 @@ svg { display: block; }
   display: flex; justify-content: center;
   pointer-events: none;
 }
-.mobile-bar .btn { pointer-events: auto; min-height: 48px; background: var(--pine-900); color: var(--paper); box-shadow: 0 16px 30px -12px rgb(19 42 34 / 0.8); }
+.mobile-bar .btn { pointer-events: auto; min-height: 48px; background: var(--pine-900); color: var(--on-dark); box-shadow: 0 16px 30px -12px rgb(19 42 34 / 0.8); }
 .list, .drawer {
   left: 0; right: 0; bottom: 0;
   max-height: none;
@@ -408,7 +410,7 @@ svg { display: block; }
   position: fixed; z-index: 2000; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom));
   transform: translate(-50%, 20px);
   padding: 11px 18px; border-radius: 9999px;
-  background: var(--pine-900); color: var(--paper);
+  background: var(--pine-900); color: var(--on-dark);
   font-size: 14px; font-weight: 600;
   box-shadow: 0 16px 30px -12px rgb(19 42 34 / 0.7);
   opacity: 0; pointer-events: none;
@@ -431,11 +433,11 @@ svg { display: block; }
 .star:hover { background: rgb(227 162 26 / 0.18); color: var(--sunflower-deep); }
 .star.is-on { color: var(--sunflower); }
 .chip--fav svg { width: 15px; height: 15px; color: var(--sunflower); }
-.chip--fav[aria-pressed="true"] { background: var(--pine-900); color: var(--paper); }
-.btn--fav { min-height: 46px; background: #FBF1D5; color: var(--ink); box-shadow: inset 0 0 0 1px rgb(168 111 10 / 0.3); }
+.chip--fav[aria-pressed="true"] { background: var(--pine-900); color: var(--on-dark); }
+.btn--fav { min-height: 46px; background: #FBF1D5; color: var(--on-light); box-shadow: inset 0 0 0 1px rgb(168 111 10 / 0.3); }
 .btn--fav:hover { background: #F6E5B4; }
 .btn--fav.is-on { background: var(--sunflower); }
-.btn--fav.is-on svg { color: var(--ink); }
+.btn--fav.is-on svg { color: var(--on-light); }
 .zone-pop .fav-btn {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 4px;
   min-height: 40px; padding: 0 16px; border: 0; border-radius: 9999px;
@@ -459,11 +461,11 @@ svg { display: block; }
 .fav-bar__send {
   flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 44px; padding: 0 14px; border-radius: 9999px;
-  background: var(--pine-900); color: var(--paper); font-size: 14px; font-weight: 600; text-decoration: none; text-align: center; line-height: 1.15;
+  background: var(--pine-900); color: var(--on-dark); font-size: 14px; font-weight: 600; text-decoration: none; text-align: center; line-height: 1.15;
 }
 .fav-bar__send:hover { background: var(--pine-700); }
 .fav-bar__send svg { width: 18px; height: 18px; flex: none; }
-.fav-bar__day { flex: none; min-height: 44px; padding: 0 14px; border: 0; border-radius: 9999px; background: var(--pine-900); color: var(--paper); font-size: 14px; font-weight: 600; }
+.fav-bar__day { flex: none; min-height: 44px; padding: 0 14px; border: 0; border-radius: 9999px; background: var(--pine-900); color: var(--on-dark); font-size: 14px; font-weight: 600; }
 .fav-bar__day:hover { background: var(--pine-700); }
 @media (max-width: 479px) { .fav-bar__count { display: none; } }
 .fav-bar__clear { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--paper-deep); }
@@ -509,12 +511,12 @@ svg { display: block; }
 
 /* ---------- Режим «Сейчас» ---------- */
 .chip--now { --c: var(--pine-600); }
-.chip--now[aria-pressed="true"] { background: var(--sunflower); color: var(--ink); }
+.chip--now[aria-pressed="true"] { background: var(--sunflower); color: var(--on-light); }
 .pin--now { box-shadow: 0 0 0 3px var(--card), 0 0 0 6px var(--sunflower), 0 10px 18px -6px rgb(19 42 34 / 0.65); }
 .pin--dim { opacity: 0.45; filter: saturate(0.5); }
-.card__now { color: var(--pine-700); font-weight: 700; }
+.card__now { color: var(--pt-700, var(--pine-700)); font-weight: 700; }
 .place__now { margin: 10px 0 0; font-size: 14px; font-weight: 600; color: var(--ink-soft); }
-.place__now.is-now { color: var(--pine-700); }
+.place__now.is-now { color: var(--pt-700, var(--pine-700)); }
 .place__season { margin: 10px 0 0; padding: 8px 12px; border-radius: 10px; font-size: 14px; line-height: 1.45; color: var(--ink-soft); background: rgb(22 37 31 / 0.05); }
 .place__season b { color: var(--ink); }
 .place__season.is-on { background: #FBF1D5; box-shadow: inset 0 0 0 1px rgb(168 111 10 / 0.3); }
@@ -522,7 +524,7 @@ svg { display: block; }
 
 /* ---------- Маршруты на день ---------- */
 .chip--routes svg { width: 18px; height: 18px; }
-.chip--routes[aria-pressed="true"] { background: var(--pine-900); color: var(--paper); }
+.chip--routes[aria-pressed="true"] { background: var(--pine-900); color: var(--on-dark); }
 body.route-open .mobile-bar, body.route-open .fav-bar { display: none; }
 .route-panel {
   position: absolute; z-index: 1120;
@@ -537,7 +539,7 @@ body.route-open .mobile-bar, body.route-open .fav-bar { display: none; }
 .route-panel__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .route-panel__title { margin: 0; font: 700 20px/1.2 var(--font-serif, inherit); color: var(--ink); }
 .route-panel__head .route-panel__title { flex: 1; }
-.route-panel__back { min-height: 44px; padding: 0 4px; border: 0; background: none; font-size: 15px; font-weight: 600; color: var(--pine-700); }
+.route-panel__back { min-height: 44px; padding: 0 4px; border: 0; background: none; font-size: 15px; font-weight: 600; color: var(--pt-700, var(--pine-700)); }
 .route-panel__x { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgb(22 37 31 / 0.07); color: var(--ink); }
 .route-panel__x svg { width: 20px; height: 20px; }
 .route-panel__meta { margin: 2px 0 10px; font-size: 14px; color: var(--ink-soft); }
@@ -583,14 +585,14 @@ body.route-open .mobile-bar, body.route-open .fav-bar { display: none; }
 .search input:focus { outline: none; box-shadow: inset 0 0 0 2px var(--pine-600); }
 .chip--near { height: 34px; font-size: 13px; }
 .chip--near[hidden] { display: none; }
-.card__dist { color: var(--pine-700); font-weight: 700; }
+.card__dist { color: var(--pt-700, var(--pine-700)); font-weight: 700; }
 .place__dist { margin: 12px 0 0; font-size: 13.5px; color: var(--ink-soft); }
 .place__dist b { color: var(--ink); }
 
 .fav-bar__route {
   flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
   min-height: 44px; padding: 0 14px; border-radius: 9999px;
-  background: var(--pine-900); color: var(--paper); font-size: 14px; font-weight: 600; text-decoration: none;
+  background: var(--pine-900); color: var(--on-dark); font-size: 14px; font-weight: 600; text-decoration: none;
 }
 .fav-bar__route[hidden] { display: none; }
 .fav-bar__route svg { width: 18px; height: 18px; flex: none; }
@@ -633,7 +635,7 @@ body.route-open .mobile-bar, body.route-open .fav-bar { display: none; }
     font-size: 12px; font-weight: 600; color: var(--ink-soft); text-decoration: none;
   }
   .tabbar svg { width: 1.4rem; height: 1.4rem; }
-  .tabbar a[aria-current="page"] { color: var(--pine-800); background: rgb(30 59 48 / 0.09); }
+  .tabbar a[aria-current="page"] { color: var(--pt-800, var(--pine-800)); background: rgb(30 59 48 / 0.09); }
   .tabbar a:active { transform: scale(0.94); }
   .tabbar__tg { color: #1B8AC0 !important; }
   /* Всё, что стояло у нижнего края, поднимается над панелью */
@@ -648,6 +650,6 @@ body.route-open .mobile-bar, body.route-open .fav-bar { display: none; }
 @media (prefers-reduced-motion: reduce) { .tabbar a:active { transform: none; } }
 
 /* Ссылка на Telegram-канал в шапке списка (видна, когда канал задан в analytics.js) */
-.list__channel { display: inline-flex; align-items: center; gap: 8px; margin: 6px 0 2px; font-size: 14px; font-weight: 600; color: var(--pine-700); text-decoration: underline; text-decoration-color: rgb(22 37 31 / 0.25); text-underline-offset: 3px; }
+.list__channel { display: inline-flex; align-items: center; gap: 8px; margin: 6px 0 2px; font-size: 14px; font-weight: 600; color: var(--pt-700, var(--pine-700)); text-decoration: underline; text-decoration-color: rgb(22 37 31 / 0.25); text-underline-offset: 3px; }
 .list__channel svg { width: 16px; height: 16px; flex: none; color: #2AABEE; }
 .list__channel[hidden] { display: none; }

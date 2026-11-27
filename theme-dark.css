@@ -1,0 +1,137 @@
+/* =========================================================
+   Тёмная тема «Далат вечером». Включается <html data-theme="dark">
+   (ставит theme.js: выбор посетителя или системная тема).
+   Подключать на всех страницах ПОСЛЕ tw.css / map.css / podbor.css.
+   Tailwind-цвета скомпилированы постоянными, поэтому их перекрываем здесь.
+   ========================================================= */
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #13231D;
+  --paper-deep: #1B2D25;
+  --card: #20342B;
+  --ink: #F3F1E8;
+  --ink-soft: #B8C4BA;
+  --mist: #30473E;
+  --pine-50: #1E3229;
+  --sunflower-soft: #4A3C17;
+  --sunflower-deep: #E9B44C;
+  --hydrangea-deep: #B1A9EC;
+  --fog: #1B2D25;
+  /* сосновый цвет текста (в светлой теме переменных нет — берётся --pine-N) */
+  --pt-500: #90B99C; --pt-600: #90B99C; --pt-700: #90B99C; --pt-800: #A9CBB3; --pt-900: #C4DECB;
+}
+
+/* Поверхности */
+html[data-theme="dark"] body,
+html[data-theme="dark"] .bg-paper { background-color: var(--paper); }
+html[data-theme="dark"] .bg-paper\/60 { background-color: rgb(19 35 29 / 0.6); }
+html[data-theme="dark"] .bg-paper\/95 { background-color: rgb(19 35 29 / 0.95); }
+html[data-theme="dark"] .bg-white,
+html[data-theme="dark"] .hover\:bg-white:hover,
+html[data-theme="dark"] .hover\:bg-paper:hover { background-color: var(--card); }
+html[data-theme="dark"] .bg-pine-50 { background-color: var(--pine-50); }
+html[data-theme="dark"] .bg-sunflower-soft,
+html[data-theme="dark"] .bg-sunflower-soft\/70 { background-color: #3A3018; }
+html[data-theme="dark"] .hover\:bg-sunflower-soft:hover { background-color: #F5C85A; }
+html[data-theme="dark"] .bg-blossom-soft { background-color: #3A2630; }
+html[data-theme="dark"] .ring-ink\/5,
+html[data-theme="dark"] .ring-ink\/\[0\.06\],
+html[data-theme="dark"] .ring-ink\/15 { --tw-ring-color: rgb(255 255 255 / 0.1); }
+html[data-theme="dark"] .hover\:bg-ink\/5:hover,
+html[data-theme="dark"] .bg-ink\/5 { background-color: rgb(255 255 255 / 0.06); }
+
+/* Текст: тёмные Tailwind-цвета → светлые. Кнопки на подсолнухе сохраняют тёмный текст */
+html[data-theme="dark"] .text-ink:not(.bg-sunflower):not(.bg-sunflower *) { color: var(--ink); }
+html[data-theme="dark"] .text-ink-soft { color: var(--ink-soft); }
+html[data-theme="dark"] .text-pine-700,
+html[data-theme="dark"] .text-pine-600,
+html[data-theme="dark"] .text-pine-500 { color: #90B99C; }
+html[data-theme="dark"] .hover\:text-ink:hover,
+html[data-theme="dark"] .hover\:text-pine-900:hover { color: #FFFFFF; }
+html[data-theme="dark"] .text-hydrangea-deep { color: #B1A9EC; }
+html[data-theme="dark"] .text-sunflower-deep { color: #E9B44C; }
+html[data-theme="dark"] .text-clay { color: #E28B6A; }
+html[data-theme="dark"] .text-blossom-deep { color: #E7A3B6; }
+html[data-theme="dark"] .decoration-pine-700\/30 { text-decoration-color: rgb(144 185 156 / 0.4); }
+html[data-theme="dark"] .bg-sunflower.text-ink,
+html[data-theme="dark"] .bg-sunflower .text-ink { color: var(--on-light); }
+
+/* Шапка и нижнее меню */
+html[data-theme="dark"] .header-bar { background-color: rgb(19 35 29 / 0.72); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08); }
+html[data-theme="dark"] #site-header.is-scrolled .header-bar { background-color: rgb(19 35 29 / 0.92); }
+@media (max-width: 1023px) { html[data-theme="dark"] .tabbar { background: rgb(19 35 29 / 0.9); } }
+
+/* Фоны секций главной */
+html[data-theme="dark"] .hero { --sun: rgb(240 182 42 / 0.16); --sky2: rgb(111 106 174 / 0.22); --sky: #0F1D18; }
+html[data-theme="dark"][data-daypart="morning"] .hero { --sun: rgb(255 224 150 / 0.14); --sky2: rgb(120 160 150 / 0.22); --sky: #12231E; }
+html[data-theme="dark"][data-daypart="evening"] .hero { --sun: rgb(236 150 105 / 0.22); --sky2: rgb(217 128 154 / 0.16); --sky: #1A1F1A; }
+html[data-theme="dark"][data-daypart="night"] .hero { --sun: rgb(240 182 42 / 0.14); --sky2: rgb(111 106 174 / 0.26); --sky: #0D1915; }
+html[data-theme="dark"] .services { background: linear-gradient(180deg, var(--paper) 0%, #182A22 16%, #182A22 84%, var(--paper) 100%); }
+html[data-theme="dark"] .fog-band { background: linear-gradient(180deg, var(--paper) 0, #1A2C24 5rem, #1A2C24 calc(100% - 5rem), var(--paper) 100%); }
+html[data-theme="dark"] .fog-mist { background: linear-gradient(180deg, var(--paper) 0, #172A23 7rem, #182B24 45%, var(--paper) 100%); }
+html[data-theme="dark"] .fog-bloom { background: radial-gradient(60rem 22rem at 85% 0%, rgb(111 106 174 / 0.12), transparent 70%), radial-gradient(50rem 20rem at 0% 100%, rgb(217 128 154 / 0.08), transparent 70%), var(--paper); }
+
+/* Карточки, поля, светлые плашки */
+html[data-theme="dark"] .price-card { box-shadow: 0 0 0 1px rgb(255 255 255 / 0.07); }
+html[data-theme="dark"] .price-card--hit { background: #0E1C17; box-shadow: 0 0 0 1px rgb(240 182 42 / 0.35); }
+html[data-theme="dark"] .price-card--pine { --svc-ink: #90B99C; --svc-soft: rgb(144 185 156 / 0.1); }
+html[data-theme="dark"] .price-card--hydrangea { --svc-ink: #B1A9EC; --svc-soft: rgb(177 169 236 / 0.1); }
+html[data-theme="dark"] .price-card__btn--ghost { color: #F3F1E8; box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.3); }
+html[data-theme="dark"] .price-card__btn--ghost:hover { background: rgb(255 255 255 / 0.06); }
+html[data-theme="dark"] .field,
+html[data-theme="dark"] .field--light,
+html[data-theme="dark"] .field:focus,
+html[data-theme="dark"] .pick,
+html[data-theme="dark"] .podbor-field select,
+html[data-theme="dark"] .podbor-field input,
+html[data-theme="dark"] .podbor-field textarea { background-color: #182A22; color: var(--ink); box-shadow: inset 0 0 0 1px #6F8277; }
+html[data-theme="dark"] .stamp__pic { background: #2B3A2A; }
+html[data-theme="dark"] .author__photo { background: var(--card); }
+html[data-theme="dark"] .season-chip { --season-ink: color-mix(in srgb, var(--season) 55%, #FFFFFF); }
+
+/* Подбор */
+html[data-theme="dark"] .podbor-steps li,
+html[data-theme="dark"] .podbor-form { background: var(--card); }
+
+/* Окна и плашки guard.css */
+html[data-theme="dark"] .privacy-dialog { background: var(--card); color: var(--ink); }
+
+/* Карта: панели тёмные, подложка остаётся светлой (тайлы OSM) */
+html[data-theme="dark"] .mhead__bar,
+html[data-theme="dark"] .drawer__close,
+html[data-theme="dark"] .leaflet-control-attribution { background: rgb(19 35 29 / 0.9) !important; color: var(--ink-soft); }
+html[data-theme="dark"] .leaflet-control-attribution a { color: #90B99C; }
+html[data-theme="dark"] .chip:hover,
+html[data-theme="dark"] .leaflet-bar a:hover,
+html[data-theme="dark"] .locate-btn:hover { background: #2A4237; }
+html[data-theme="dark"] .place__tip,
+html[data-theme="dark"] .place__season.is-on { background: #2E2814; }
+html[data-theme="dark"] .btn--fav { background: #3A3018; color: var(--ink); }
+html[data-theme="dark"] .btn--fav.is-on svg { color: var(--sunflower); }
+html[data-theme="dark"] .btn--fav:hover { background: #4A3C17; }
+html[data-theme="dark"] .btn--ghost { box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); }
+
+/* Переключатель темы: луна в светлой, солнце в тёмной */
+.theme-toggle { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 0; border-radius: 9999px; background: transparent; color: inherit; cursor: pointer; transition: background-color 0.2s ease; }
+.theme-toggle:hover { background: rgb(22 37 31 / 0.05); }
+html[data-theme="dark"] .theme-toggle:hover { background: rgb(255 255 255 / 0.08); }
+.theme-toggle svg { width: 1.25rem; height: 1.25rem; }
+.theme-toggle .theme-toggle__sun,
+html[data-theme="dark"] .theme-toggle .theme-toggle__moon { display: none; }
+html[data-theme="dark"] .theme-toggle .theme-toggle__sun { display: block; }
+.theme-toggle:focus-visible { outline: 2px solid var(--pine-500); outline-offset: 2px; }
+
+/* Открытка планировщика: тёмная бумага в линейку */
+html[data-theme="dark"] .postcard {
+  background: repeating-linear-gradient(0deg, transparent 0 31px, rgb(255 255 255 / 0.04) 31px 32px), #1C2E26;
+  box-shadow: inset 0 0 0 1px rgb(240 182 42 / 0.25);
+}
+html[data-theme="dark"] .postcard__stamp { mix-blend-mode: normal; }
+html[data-theme="dark"] .postcard__postmark { color: rgb(177 169 236 / 0.6); }
+html[data-theme="dark"] .postcard__lines span { background: rgb(255 255 255 / 0.15); }
+@media (min-width: 900px) { html[data-theme="dark"] .postcard__side { border-left-color: rgb(255 255 255 / 0.12); } }
+html[data-theme="dark"] .postcard__chip[aria-pressed="true"] { background: #5E5AA0; }
+/* «Умножение» цвета для картинок на светлой бумаге на тёмном фоне гасит их — отключаем */
+html[data-theme="dark"] .stamp__pic img,
+html[data-theme="dark"] .review-flower { mix-blend-mode: normal; }

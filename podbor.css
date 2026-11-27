@@ -95,7 +95,7 @@
 .podbor-send:focus-visible,
 .podbor-copy:focus-visible { outline: 2px solid var(--pine-600); outline-offset: 2px; }
 .podbor-note { margin: 0; font-size: 0.9rem; color: var(--ink-soft); line-height: 1.55; }
-.podbor-status { min-height: 1.3rem; margin: 0; font-size: 0.9rem; color: var(--pine-700); }
+.podbor-status { min-height: 1.3rem; margin: 0; font-size: 0.9rem; color: var(--pt-700, var(--pine-700)); }
 .podbor-preview summary { cursor: pointer; font-size: 0.9rem; font-weight: 600; min-height: 2.75rem; display: flex; align-items: center; }
 .podbor-preview pre {
   margin: 0.25rem 0 0;

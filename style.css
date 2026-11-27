@@ -24,6 +24,9 @@
   --hydrangea-deep: #4E4890;
   --clay: #B5583A;
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Постоянные цвета текста: на тёмной сосне и на подсолнухе — не меняются в тёмной теме */
+  --on-dark: #F5F2EB;
+  --on-light: #16251F;
 }
 
 html {
@@ -103,7 +106,7 @@ body::after {
 }
 
 .eyebrow--dark { color: rgb(245 242 235 / 0.6); }
-.eyebrow--dark .eyebrow__num { color: var(--paper); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); }
+.eyebrow--dark .eyebrow__num { color: var(--on-dark); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); }
 
 .section-title {
   max-width: 44rem;
@@ -116,7 +119,7 @@ body::after {
 
 .section-title em {
   font-weight: 500;
-  color: var(--pine-600);
+  color: var(--pt-600, var(--pine-600));
 }
 
 /* Вьетнамские названия — курсивом, как подписи на старых открытках */
@@ -500,7 +503,7 @@ body::after {
   padding: 0.4rem 0.8rem;
   border-radius: 9999px;
   background: rgb(19 42 34 / 0.82);
-  color: var(--paper);
+  color: var(--on-dark);
   font-size: 12px;
   font-weight: 600;
   -webkit-backdrop-filter: blur(6px);
@@ -589,7 +592,7 @@ body::after {
   font-style: italic;
   font-weight: 600;
   line-height: 1;
-  color: var(--pine-800);
+  color: var(--pt-800, var(--pine-800));
 }
 
 .stamp__postmark {
@@ -691,7 +694,7 @@ select.field {
 
 input:checked + .pick {
   background: var(--pine-900);
-  color: var(--paper);
+  color: var(--on-dark);
   box-shadow: inset 0 0 0 1px var(--pine-900);
 }
 
@@ -854,7 +857,7 @@ body.map-is-full { overflow: hidden; }
   gap: 3px;
   font: 600 10.5px/1.1 Onest, system-ui, sans-serif;
   white-space: nowrap;
-  color: var(--pine-900);
+  color: var(--pt-900, var(--pine-900));
   transform: translate(-50%, -50%);
   cursor: pointer;
   transition: transform 0.15s ease;
@@ -982,7 +985,7 @@ body.map-is-full { overflow: hidden; }
 }
 .realty-btn--ghost { box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.15); color: var(--ink); }
 .realty-btn--ghost:hover { background: rgb(22 37 31 / 0.05); }
-.realty-btn--primary { background: var(--pine-900); color: var(--paper); }
+.realty-btn--primary { background: var(--pine-900); color: var(--on-dark); }
 .realty-btn--primary:hover { background: var(--pine-700); }
 
 /* Попап на карте */
@@ -1021,7 +1024,7 @@ body.map-is-full { overflow: hidden; }
   padding: 0.7rem;
   border-radius: 9999px;
   background: var(--pine-900);
-  color: var(--paper);
+  color: var(--on-dark);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -1231,7 +1234,7 @@ body.map-is-full { overflow: hidden; }
 .faq__a { padding: 0 1.35rem 1.35rem; color: var(--ink-soft); font-size: 1.0625rem; line-height: 1.65; }
 .faq__a p + p { margin-top: 0.75rem; }
 .faq__a strong { color: var(--ink); }
-.faq__link { font-weight: 600; color: var(--pine-700); text-decoration: underline; text-underline-offset: 3px; }
+.faq__link { font-weight: 600; color: var(--pt-700, var(--pine-700)); text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Блок «От автора» ---------- */
 .author__card {
@@ -1365,7 +1368,7 @@ body.map-is-full { overflow: hidden; }
     transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out);
   }
   .tabbar svg { width: 1.4rem; height: 1.4rem; }
-  .tabbar a[aria-current="page"] { color: var(--pine-800); background: rgb(30 59 48 / 0.09); }
+  .tabbar a[aria-current="page"] { color: var(--pt-800, var(--pine-800)); background: rgb(30 59 48 / 0.09); }
   .tabbar a:active { transform: scale(0.94); transition-duration: 0.08s; }
   .tabbar__tg { color: #1B8AC0; }
   /* Кнопка Telegram уже есть в панели */
@@ -1374,11 +1377,11 @@ body.map-is-full { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .tabbar a:active { transform: none; } }
 
 /* ---------- Каталог: «Поделиться», цена в другой валюте ---------- */
-.share-link { flex: none; padding: 0.1rem 0; border: 0; background: none; font-size: 0.875rem; font-weight: 600; color: var(--pine-700); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgb(43 79 63 / 0.35); }
-@media (hover: hover) { .share-link:hover { color: var(--pine-900); text-decoration-color: currentColor; } }
+.share-link { flex: none; padding: 0.1rem 0; border: 0; background: none; font-size: 0.875rem; font-weight: 600; color: var(--pt-700, var(--pine-700)); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgb(43 79 63 / 0.35); }
+@media (hover: hover) { .share-link:hover { color: var(--pt-900, var(--pine-900)); text-decoration-color: currentColor; } }
 .share-link:active { opacity: 0.6; }
-.realty-popup__alt { margin: 0.1rem 0 0 !important; font-size: 13px; font-weight: 600; color: var(--pine-700); }
-.realty-popup__share { display: block; width: 100%; margin-top: 0.4rem; padding: 0.45rem; border: 0; background: none; font-size: 13px; font-weight: 600; color: var(--pine-700); text-decoration: underline; text-underline-offset: 3px; }
+.realty-popup__alt { margin: 0.1rem 0 0 !important; font-size: 13px; font-weight: 600; color: var(--pt-700, var(--pine-700)); }
+.realty-popup__share { display: block; width: 100%; margin-top: 0.4rem; padding: 0.45rem; border: 0; background: none; font-size: 13px; font-weight: 600; color: var(--pt-700, var(--pine-700)); text-decoration: underline; text-underline-offset: 3px; }
 
 /* Пока открыто окно объекта, кнопка «На весь экран» его не перекрывает */
 .has-popup .map-full-btn { opacity: 0; pointer-events: none; }
@@ -1486,7 +1489,7 @@ section.py-24 { padding-block: 3.5rem; }
     font-size: 14px; font-weight: 600; background: var(--card);
     box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.15);
   }
-  .filters-toggle[aria-expanded="true"] { background: var(--pine-900); color: var(--paper); }
+  .filters-toggle[aria-expanded="true"] { background: var(--pine-900); color: var(--on-dark); }
   #realty .realty-filters { display: none; }
   #realty .realty-filters.is-open { display: grid; }
 }
@@ -1548,9 +1551,9 @@ button.faq__link { padding: 0; border: 0; background: none; font: inherit; font-
 .price-grid { display: grid; gap: 1.25rem; margin-top: 3rem; }
 @media (min-width: 768px) { .price-grid--3 { grid-template-columns: repeat(3, 1fr); } .price-grid--2 { grid-template-columns: repeat(2, 1fr); } }
 .price-card { position: relative; display: flex; flex-direction: column; padding: 1.75rem; border-radius: 1.75rem; background: var(--card); box-shadow: 0 0 0 1px rgb(22 37 31 / 0.06); }
-.price-card--hit { background: var(--pine-800); color: var(--paper); box-shadow: none; }
+.price-card--hit { background: var(--pine-800); color: var(--on-dark); box-shadow: none; }
 .price-card--hit .price-card__text, .price-card--hit .price-card__list li { color: rgb(245 242 235 / 0.75); }
-.price-card__badge { position: absolute; top: 1.25rem; right: 1.25rem; padding: 0.25rem 0.65rem; border-radius: 9999px; background: var(--sunflower); color: var(--ink); font-size: 12px; font-weight: 600; }
+.price-card__badge { position: absolute; top: 1.25rem; right: 1.25rem; padding: 0.25rem 0.65rem; border-radius: 9999px; background: var(--sunflower); color: var(--on-light); font-size: 12px; font-weight: 600; }
 .price-card__title { margin: 0; padding-right: 4.5rem; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.9rem; font-weight: 600; line-height: 1.05; }
 .price-card__text { margin: 0.75rem 0 0; line-height: 1.55; color: var(--ink-soft); }
 .price-card__list { display: grid; gap: 0.5rem; margin: 1.1rem 0 0; padding: 0; list-style: none; font-size: 15px; }
@@ -1558,11 +1561,11 @@ button.faq__link { padding: 0; border: 0; background: none; font: inherit; font-
 .price-card__price { display: flex; align-items: baseline; gap: 0.5rem; margin: auto 0 0; padding-top: 1.5rem; }
 .price-card__price b { font-family: "Cormorant Garamond", Georgia, serif; font-size: 2.4rem; font-weight: 600; line-height: 1; }
 .price-card__price span { font-size: 14px; opacity: 0.7; }
-.price-card__btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; margin-top: 1rem; padding: 0 1.5rem; border-radius: 9999px; background: var(--pine-800); color: var(--paper); font-weight: 600; text-decoration: none; text-align: center; transition: background 0.2s var(--ease-out), transform 0.2s var(--ease-out); }
+.price-card__btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; margin-top: 1rem; padding: 0 1.5rem; border-radius: 9999px; background: var(--pine-800); color: var(--on-dark); font-weight: 600; text-decoration: none; text-align: center; transition: background 0.2s var(--ease-out), transform 0.2s var(--ease-out); }
 .price-card__btn:hover { background: var(--pine-700); transform: translateY(-2px); }
-.price-card__btn--ghost { background: transparent; color: var(--pine-800); box-shadow: inset 0 0 0 1.5px rgb(30 59 48 / 0.3); }
+.price-card__btn--ghost { background: transparent; color: var(--pt-800, var(--pine-800)); box-shadow: inset 0 0 0 1.5px rgb(30 59 48 / 0.3); }
 .price-card__btn--ghost:hover { background: var(--pine-50); }
-.price-card--hit .price-card__btn { background: var(--sunflower); color: var(--ink); }
+.price-card--hit .price-card__btn { background: var(--sunflower); color: var(--on-light); }
 .price-card--hit .price-card__btn:hover { background: var(--sunflower-soft); }
 
 /* Свой цвет у каждой услуги: полоска сверху, лёгкий тон, галочки и контурная кнопка.
@@ -1584,7 +1587,7 @@ button.faq__link { padding: 0; border: 0; background: none; font: inherit; font-
 .partner__ico { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: var(--mist); font-size: 22px; }
 .partner__title { margin: 0; font-size: 1.1rem; font-weight: 600; }
 .partner__text { margin: 0.4rem 0 0; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
-.partner__link { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--pine-700); }
+.partner__link { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--pt-700, var(--pine-700)); }
 
 .pay-steps { counter-reset: pay; display: grid; gap: 1rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
 @media (min-width: 768px) { .pay-steps { grid-template-columns: repeat(4, 1fr); } }
@@ -1675,10 +1678,10 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
   display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
   margin-top: 0.7rem; padding-top: 0.6rem; border-top: 1px dashed rgb(19 42 34 / 0.2);
 }
-.hero-offer__price { font: 600 1.45rem/1 'Cormorant Garamond', Georgia, serif; color: var(--pine-700); }
+.hero-offer__price { font: 600 1.45rem/1 'Cormorant Garamond', Georgia, serif; color: var(--pt-700, var(--pine-700)); }
 .hero-offer__link {
   display: inline-flex; align-items: center; min-height: 44px; padding-inline: 0.25rem;
-  font-size: 0.875rem; font-weight: 600; color: var(--pine-700); text-decoration: underline; text-underline-offset: 3px;
+  font-size: 0.875rem; font-weight: 600; color: var(--pt-700, var(--pine-700)); text-decoration: underline; text-underline-offset: 3px;
 }
 .author__note { font: italic 500 1.5rem/1.1 'Cormorant Garamond', Georgia, serif; }
 
@@ -1701,22 +1704,22 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
 }
 .doc__toc ol { margin: 0; padding-left: 1.4rem; list-style: decimal; }
 .doc__toc li { padding: 0.15rem 0; }
-.doc__toc a { color: var(--pine-700); text-decoration: none; }
+.doc__toc a { color: var(--pt-700, var(--pine-700)); text-decoration: none; }
 .doc__toc a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .doc section { scroll-margin-top: 6rem; }
 .doc section + section { margin-top: 2rem; }
 .doc h2 {
   margin: 0 0 0.75rem;
   font: 600 1.6rem/1.15 "Cormorant Garamond", Georgia, serif;
-  color: var(--pine-800);
+  color: var(--pt-800, var(--pine-800));
 }
 .doc p { margin: 0 0 0.75rem; }
 .doc ul { margin: 0 0 0.75rem; padding-left: 1.25rem; list-style: disc; }
 .doc li { margin: 0.25rem 0; }
-.doc li::marker { color: var(--pine-500); }
+.doc li::marker { color: var(--pt-500, var(--pine-500)); }
 .doc .doc__plain { padding-left: 0; list-style: none; }
-.doc a { color: var(--pine-700); text-decoration: underline; text-underline-offset: 3px; }
-.doc a:hover { color: var(--pine-900); }
+.doc a { color: var(--pt-700, var(--pine-700)); text-decoration: underline; text-underline-offset: 3px; }
+.doc a:hover { color: var(--pt-900, var(--pine-900)); }
 .doc b { font-weight: 600; }
 .legal__link[aria-current="page"] { text-decoration: none; opacity: 0.7; cursor: default; }
 @media (max-width: 639px) {
@@ -1829,26 +1832,6 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
 .arch-lights i:nth-child(4n) { animation-delay: -3.1s; opacity: 0.75; }
 @keyframes arch-flicker { 0%, 70% { filter: brightness(1); } 100% { filter: brightness(0.75); } }
 
-/* Фон первого экрана тоже чуть меняется — текст остаётся тёмным и читаемым */
-[data-daypart="morning"] .hero {
-  background:
-    radial-gradient(42rem 30rem at 84% 16%, rgb(230 238 242 / 0.8), transparent 65%),
-    radial-gradient(36rem 26rem at -4% -4%, rgb(222 230 236 / 0.7), transparent 62%),
-    linear-gradient(180deg, #E6EDEE 0%, var(--paper) 64%);
-}
-[data-daypart="evening"] .hero {
-  background:
-    radial-gradient(42rem 30rem at 84% 16%, rgb(250 180 130 / 0.55), transparent 65%),
-    radial-gradient(36rem 26rem at -4% -4%, rgb(236 200 210 / 0.6), transparent 62%),
-    linear-gradient(180deg, #F0E2DA 0%, var(--paper) 64%);
-}
-[data-daypart="night"] .hero {
-  background:
-    radial-gradient(42rem 30rem at 84% 16%, rgb(170 170 220 / 0.45), transparent 65%),
-    radial-gradient(36rem 26rem at -4% -4%, rgb(190 195 225 / 0.55), transparent 62%),
-    linear-gradient(180deg, #DCDEE8 0%, var(--paper) 66%);
-}
-
 /* Логотип «перетекает» между страницами (главная, подбор, документы, карта) */
 .vt-logo { view-transition-name: brand-logo; }
 
@@ -1910,7 +1893,7 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
 .climate__temp--dalat::before { content: ""; display: inline-block; width: 0.18em; height: 0.18em; margin: 0 0.15em 0.18em 0; border-radius: 50%; vertical-align: middle; }
 .climate__temp--home::before { background: var(--c-home); }
 .climate__temp--dalat::before { background: var(--c-dalat); }
-.climate__verdict { margin: 0 0 0.35rem; font: 500 1.35rem/1.2 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--pine-700); }
+.climate__verdict { margin: 0 0 0.35rem; font: 500 1.35rem/1.2 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--pt-700, var(--pine-700)); }
 .climate__chart { margin-top: 1.75rem; }
 .climate__legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font-size: 0.8125rem; font-weight: 500; color: var(--ink-soft); }
 .climate__legend > span { display: inline-flex; align-items: center; gap: 0.4rem; }
@@ -1990,7 +1973,7 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
   animation: xray-pulse 2.2s ease-out infinite;
 }
 .xray__pin:hover { transform: translate(-50%, -50%) scale(1.1); }
-.xray__pin[aria-pressed="true"] { background: var(--pine-800); color: var(--paper); transform: translate(-50%, -50%) scale(1.15); }
+.xray__pin[aria-pressed="true"] { background: var(--pine-800); color: var(--on-dark); transform: translate(-50%, -50%) scale(1.15); }
 .xray__pin[aria-pressed="true"]::before { border-color: var(--pine-600); }
 .xray__pin:focus-visible { outline: 2px solid var(--pine-900); outline-offset: 4px; }
 @keyframes xray-pulse {
@@ -2025,7 +2008,7 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
 .xray__list span { display: block; margin-top: 0.25rem; font-size: 0.9375rem; line-height: 1.5; color: var(--ink-soft); }
 .xray__list li:hover { background: rgb(22 37 31 / 0.04); }
 .xray__list li.is-active { background: var(--card); box-shadow: inset 0 0 0 1px rgb(22 37 31 / 0.1), 0 18px 36px -24px rgb(19 42 34 / 0.45); }
-.xray__list li.is-active::before { background: var(--pine-800); color: var(--paper); }
+.xray__list li.is-active::before { background: var(--pine-800); color: var(--on-dark); }
 .xray__cta {
   display: inline-flex;
   align-items: center;
@@ -2034,7 +2017,7 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
   padding: 0.9rem 1.6rem;
   border-radius: 9999px;
   background: var(--pine-900);
-  color: var(--paper);
+  color: var(--on-dark);
   font-weight: 600;
   transition: background 0.2s, transform 0.2s;
 }
@@ -2101,13 +2084,13 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
 .plan__month--rain::after { background: #4A7FB0; }
 .plan__month--mid::after { background: linear-gradient(90deg, var(--sunflower) 50%, #4A7FB0 50%); }
 .plan__month:hover { background: var(--paper-deep); }
-.plan__month[aria-pressed="true"] { background: var(--pine-900); color: var(--paper); box-shadow: none; }
+.plan__month[aria-pressed="true"] { background: var(--pine-900); color: var(--on-dark); box-shadow: none; }
 .plan__month:focus-visible, .postcard__chip:focus-visible { outline: 2px solid var(--pine-700); outline-offset: 2px; }
 
 .plan__grid { display: grid; gap: 1.5rem; margin-top: 1rem; }
 @media (min-width: 900px) { .plan__grid { grid-template-columns: 1fr 1.2fr; gap: 2.5rem; align-items: start; } }
 .plan__count { margin: 0; font: 600 clamp(2.3rem, 6vw, 3.4rem)/1 'Cormorant Garamond', Georgia, serif; color: var(--ink); }
-.plan__season { margin: 0.6rem 0 0; font-weight: 600; color: var(--pine-700); }
+.plan__season { margin: 0.6rem 0 0; font-weight: 600; color: var(--pt-700, var(--pine-700)); }
 .plan__temps { margin: 0.2rem 0 0; color: var(--ink-soft); }
 .plan__note { margin: 0.9rem 0 0; padding-left: 0.9rem; border-left: 2px solid var(--sunflower); font-size: 0.9375rem; line-height: 1.5; color: var(--ink-soft); }
 .plan__label { margin: 0 0 0.6rem; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.02em; color: var(--ink-soft); }
@@ -2187,7 +2170,7 @@ body .text-xs, body .legal__link, .price-card__badge { font-size: 13px; }
   padding: 0.45rem 1.6rem 0.45rem 0.45rem;
   border-radius: 9999px;
   background: var(--pine-900);
-  color: var(--paper);
+  color: var(--on-dark);
   font-weight: 600;
   transition: background 0.2s, transform 0.2s;
 }
